@@ -26,142 +26,98 @@
 			<div class="page-content">
 				<div class="row">
 					<div class="col-xs-12">
-					
 					<form action="staffemployee/${msg }.do" name="Form" id="Form" method="post">
 						<input type="hidden" name="STAFFEMPLOYEE_ID" id="STAFFEMPLOYEE_ID" value="${pd.STAFFEMPLOYEE_ID}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">员工ID:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">员工ID:</td>
 								<td><input type="number" name="STAFF_ID" id="STAFF_ID" value="${pd.STAFF_ID}" maxlength="32" placeholder="这里输入员工ID" title="员工ID" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">员工姓名:</td>
+								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入员工姓名" title="员工姓名" style="width:98%;"/></td>
+								<td rowspan="4" colspan="2">
+									<div style="float:right"><img src="<%=basePath%>uploadFiles/uploadImgs/${pd.PIC}" width="200" height="240"></div>
+								</td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">性别:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">电话:</td>
+								<td><input type="text" name="PHONE" id="PHONE" value="${pd.PHONE}" maxlength="20" placeholder="这里输入电话" title="电话" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">性别:</td>
 								<td><input type="number" name="SEX" id="SEX" value="${pd.SEX}" maxlength="32" placeholder="这里输入性别" title="性别" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">地址:</td>
-								<td><input type="text" name="ADDRESS" id="ADDRESS" value="${pd.ADDRESS}" maxlength="50" placeholder="这里输入地址" title="地址" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">电话:</td>
-								<td><input type="text" name="PHONE" id="PHONE" value="${pd.PHONE}" maxlength="20" placeholder="这里输入电话" title="电话" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">照片地址:</td>
-								<td><input type="text" name="PIC" id="PIC" value="${pd.PIC}" maxlength="255" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号码:</td>
-								<td><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">E-mail:</td>
-								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" maxlength="30" placeholder="这里输入E-mail" title="E-mail" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">QQ:</td>
-								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}" maxlength="15" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">微信:</td>
-								<td><input type="text" name="WECHAT" id="WECHAT" value="${pd.WECHAT}" maxlength="30" placeholder="这里输入微信" title="微信" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">邮编号码:</td>
-								<td><input type="text" name="POST_CODE" id="POST_CODE" value="${pd.POST_CODE}" maxlength="255" placeholder="这里输入邮编号码" title="邮编号码" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">政治面貌:</td>
-								<td><input type="text" name="GOVEMMET" id="GOVEMMET" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">民族:</td>
-								<td><input type="text" name="NATION" id="NATION" value="${pd.NATION}" maxlength="30" placeholder="这里输入民族" title="民族" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">学历:</td>
-								<td><input type="text" name="LEARING" id="LEARING" value="${pd.LEARING}" maxlength="10" placeholder="这里输入学历" title="学历" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">爱好:</td>
-								<td><input type="text" name="HOBBY" id="HOBBY" value="${pd.HOBBY}" maxlength="50" placeholder="这里输入爱好" title="爱好" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">特长:</td>
-								<td><input type="text" name="SUIT" id="SUIT" value="${pd.SUIT}" maxlength="50" placeholder="这里输入特长" title="特长" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">国籍:</td>
-								<td><input type="text" name="NATIONALITY" id="NATIONALITY" value="${pd.NATIONALITY}" maxlength="50" placeholder="这里输入国籍" title="国籍" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">出生年月:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">出生年月:</td>
 								<td><input type="text" name="BIRTH" id="BIRTH" value="${pd.BIRTH}" maxlength="20" placeholder="这里输入出生年月" title="出生年月" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">宗教信仰:</td>
-								<td><input type="text" name="FAITH" id="FAITH" value="${pd.FAITH}" maxlength="30" placeholder="这里输入宗教信仰" title="宗教信仰" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">专业:</td>
-								<td><input type="text" name="SPEIALITY" id="SPEIALITY" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">个人简历:</td>
-								<td><input type="text" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">个人描述:</td>
-								<td><input type="text" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">目前状况:</td>
-								<td><input type="text" name="ISROMVE" id="ISROMVE" value="${pd.ISROMVE}" maxlength="30" placeholder="这里输入目前状况" title="目前状况" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">工作编号:</td>
-								<td><input type="number" name="JOB_ID" id="JOB_ID" value="${pd.JOB_ID}" maxlength="32" placeholder="这里输入工作编号" title="工作编号" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">用户编号:</td>
-								<td><input type="number" name="USER_ID" id="USER_ID" value="${pd.USER_ID}" maxlength="32" placeholder="这里输入用户编号" title="用户编号" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">年龄:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">年龄:</td>
 								<td><input type="number" name="AGE" id="AGE" value="${pd.AGE}" maxlength="32" placeholder="这里输入年龄" title="年龄" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">登记时间:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">QQ:</td>
+								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}" maxlength="15" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">微信:</td>
+								<td><input type="text" name="WECHAT" id="WECHAT" value="${pd.WECHAT}" maxlength="30" placeholder="这里输入微信" title="微信" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">国籍:</td>
+								<td><input type="text" name="NATIONALITY" id="NATIONALITY" value="${pd.NATIONALITY}" maxlength="50" placeholder="这里输入国籍" title="国籍" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">民族:</td>
+								<td><input type="text" name="NATION" id="NATION" value="${pd.NATION}" maxlength="30" placeholder="这里输入民族" title="民族" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">照片地址:</td>
+								<td><input type="text" name="PIC" id="PIC" value="${pd.PIC}" maxlength="255" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">学历:</td>
+								<td><input type="text" name="LEARING" id="LEARING" value="${pd.LEARING}" maxlength="10" placeholder="这里输入学历" title="学历" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">邮编号码:</td>
+								<td><input type="text" name="POST_CODE" id="POST_CODE" value="${pd.POST_CODE}" maxlength="255" placeholder="这里输入邮编号码" title="邮编号码" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">政治面貌:</td>
+								<td><input type="text" name="GOVEMMET" id="GOVEMMET" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">身份证号码:</td>
+								<td><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">E-mail:</td>
+								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" maxlength="30" placeholder="这里输入E-mail" title="E-mail" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">薪资ID:</td>
+								<td><input type="number" name="STIPEND_ID" id="STIPEND_ID" value="${pd.STIPEND_ID}" maxlength="32" placeholder="这里输入薪资ID" title="薪资ID" style="width:98%;"/></td>
+
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">专业:</td>
+								<td><input type="text" name="SPEIALITY" id="SPEIALITY" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">爱好:</td>
+								<td><input type="text" name="HOBBY" id="HOBBY" value="${pd.HOBBY}" maxlength="50" placeholder="这里输入爱好" title="爱好" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">特长:</td>
+								<td><input type="text" name="SUIT" id="SUIT" value="${pd.SUIT}" maxlength="50" placeholder="这里输入特长" title="特长" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">宗教信仰:</td>
+								<td><input type="text" name="FAITH" id="FAITH" value="${pd.FAITH}" maxlength="30" placeholder="这里输入宗教信仰" title="宗教信仰" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">目前状况:</td>
+								<td><input type="text" name="ISROMVE" id="ISROMVE" value="${pd.ISROMVE}" maxlength="30" placeholder="这里输入目前状况" title="目前状况" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">备注:</td>
+								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:79px;text-align: right;padding-top: 13px;">工作编号:</td>
+								<td><input type="number" name="JOB_ID" id="JOB_ID" value="${pd.JOB_ID}" maxlength="32" placeholder="这里输入工作编号" title="工作编号" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">用户编号:</td>
+								<td><input type="number" name="USER_ID" id="USER_ID" value="${pd.USER_ID}" maxlength="32" placeholder="这里输入用户编号" title="用户编号" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">登记时间:</td>
 								<td><input class="span10 date-picker" name="ADD_TIME" id="ADD_TIME" value="${pd.ADD_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="登记时间" title="登记时间" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">薪资ID:</td>
-								<td><input type="number" name="STIPEND_ID" id="STIPEND_ID" value="${pd.STIPEND_ID}" maxlength="32" placeholder="这里输入薪资ID" title="薪资ID" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;" >地址:</td>
+								<td colspan="6" ><input type="text" name="ADDRESS" id="ADDRESS" value="${pd.ADDRESS}" maxlength="50" placeholder="这里输入地址" title="地址" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">创建时间:</td>
-								<td><input class="span10 date-picker" name="CREATE_TIME" id="CREATE_TIME" value="${pd.CREATE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="创建时间" title="创建时间" style="width:98%;"/></td>
+							<tr height="50px">
+								<td style="width:79px;text-align: right;padding-top: 13px;">个人简历:</td>
+								<td colspan="6" ><input type="text" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/></td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">修改时间:</td>
-								<td><input class="span10 date-picker" name="UPDATE_TIME" id="UPDATE_TIME" value="${pd.UPDATE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="修改时间" title="修改时间" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">创建人:</td>
-								<td><input type="text" name="CREATE_USER" id="CREATE_USER" value="${pd.CREATE_USER}" maxlength="255" placeholder="这里输入创建人" title="创建人" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">修改人:</td>
-								<td><input type="text" name="UPDATE_USER" id="UPDATE_USER" value="${pd.UPDATE_USER}" maxlength="255" placeholder="这里输入修改人" title="修改人" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">员工姓名:</td>
-								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入员工姓名" title="员工姓名" style="width:98%;"/></td>
+
+							<tr height="50px">
+								<td style="width:79px;text-align: right;padding-top: 13px;">个人描述:</td>
+								<td colspan="6"><input type="text" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -211,7 +167,7 @@
 			if($("#SEX").val()==""){
 				$("#SEX").tips({
 					side:3,
-		            msg:'请输入性别',
+		            msg:'请选择性别',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -408,16 +364,6 @@
 				$("#DESCRIBE").focus();
 			return false;
 			}
-			if($("#REMARK").val()==""){
-				$("#REMARK").tips({
-					side:3,
-		            msg:'请输入备注',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#REMARK").focus();
-			return false;
-			}
 			if($("#ISROMVE").val()==""){
 				$("#ISROMVE").tips({
 					side:3,
@@ -476,46 +422,6 @@
 		            time:2
 		        });
 				$("#STIPEND_ID").focus();
-			return false;
-			}
-			if($("#CREATE_TIME").val()==""){
-				$("#CREATE_TIME").tips({
-					side:3,
-		            msg:'请输入创建时间',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#CREATE_TIME").focus();
-			return false;
-			}
-			if($("#UPDATE_TIME").val()==""){
-				$("#UPDATE_TIME").tips({
-					side:3,
-		            msg:'请输入修改时间',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#UPDATE_TIME").focus();
-			return false;
-			}
-			if($("#CREATE_USER").val()==""){
-				$("#CREATE_USER").tips({
-					side:3,
-		            msg:'请输入创建人',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#CREATE_USER").focus();
-			return false;
-			}
-			if($("#UPDATE_USER").val()==""){
-				$("#UPDATE_USER").tips({
-					side:3,
-		            msg:'请输入修改人',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#UPDATE_USER").focus();
 			return false;
 			}
 			if($("#STAFF_NAME").val()==""){
