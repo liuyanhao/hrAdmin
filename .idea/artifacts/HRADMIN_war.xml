@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="war" name="HRADMIN:war">
-    <output-path>$PROJECT_DIR$/target</output-path>
-    <root id="archive" name="HRADMIN.war">
-      <element id="artifact" artifact-name="HRADMIN:war exploded" />
-    </root>
-  </artifact>
-</component>
