@@ -14,6 +14,11 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
+	<!-- 上传图片插件 -->
+	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="plugins/uploadify/swfobject.js"></script>
+	<script type="text/javascript" src="plugins/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
+	<!-- 上传图片插件 -->
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -33,10 +38,10 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">员工ID:</td>
 								<td><input type="number" name="STAFF_ID" id="STAFF_ID" value="${pd.STAFF_ID}" maxlength="32" placeholder="这里输入员工ID" title="员工ID" style="width:98%;"/></td>
-								<td style="width:79px;text-align: right;padding-top: 13px;">员工姓名:</td>
-								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入员工姓名" title="员工姓名" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">姓名:</td>
+								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 								<td rowspan="4" colspan="2">
-									<div style="float:right"><img src="<%=basePath%>uploadFiles/uploadImgs/${pd.PIC}" width="200" height="240"></div>
+									<div ><img src="<%=basePath%>uploadFiles/uploadImgs/${pd.PIC}" onerror="this.src='<%=basePath%>uploadFiles/uploadImgs/defaultImage.jpg';this.onerror=null" width="200" height="240"></div>
 								</td>
 							</tr>
 							<tr>
@@ -63,7 +68,7 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;">民族:</td>
 								<td><input type="text" name="NATION" id="NATION" value="${pd.NATION}" maxlength="30" placeholder="这里输入民族" title="民族" style="width:98%;"/></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">照片地址:</td>
-								<td><input type="text" name="PIC" id="PIC" value="${pd.PIC}" maxlength="255" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
+								<td><input type="file" name="PIC"  id="uploadify1"  keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">学历:</td>
@@ -112,12 +117,18 @@
 							</tr>
 							<tr height="50px">
 								<td style="width:79px;text-align: right;padding-top: 13px;">个人简历:</td>
-								<td colspan="6" ><input type="text" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/></td>
+								<td colspan="6" >
+									<textarea rows="10" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/></textarea>
+									<%--<input type="textarea" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>--%>
+								</td>
 							</tr>
 
 							<tr height="50px">
 								<td style="width:79px;text-align: right;padding-top: 13px;">个人描述:</td>
-								<td colspan="6"><input type="text" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/></td>
+								<td colspan="6">
+									<textarea rows="10" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"></textarea>
+								<%--	<input type="text" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/>--%>
+								</td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -194,14 +205,14 @@
 				$("#PHONE").focus();
 			return false;
 			}
-			if($("#PIC").val()==""){
-				$("#PIC").tips({
+			if($("#uploadify1").val()==""){
+				$("#uploadify1").tips({
 					side:3,
 		            msg:'请输入照片地址',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#PIC").focus();
+				$("#uploadify1").focus();
 			return false;
 			}
 			if($("#CARD_ID").val()==""){
@@ -427,7 +438,7 @@
 			if($("#STAFF_NAME").val()==""){
 				$("#STAFF_NAME").tips({
 					side:3,
-		            msg:'请输入员工姓名',
+		            msg:'请输入姓名',
 		            bg:'#AE81FF',
 		            time:2
 		        });

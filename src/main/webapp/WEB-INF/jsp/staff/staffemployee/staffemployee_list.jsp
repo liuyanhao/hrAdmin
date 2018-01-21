@@ -266,7 +266,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
+			 diag.Title ="档案登记";
 			 diag.URL = '<%=basePath%>staffemployee/goAdd.do';
 			 diag.Width = 840;
 			 diag.Height = 655;
@@ -302,7 +302,7 @@
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="编辑";
+			 diag.Title ="更新档案信息";
 			 diag.URL = '<%=basePath%>staffemployee/goEdit.do?STAFFEMPLOYEE_ID='+Id;
 			 diag.Width = 840;
 			 diag.Height = 655;
