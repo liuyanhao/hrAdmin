@@ -14,11 +14,21 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
+	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
 	<!-- 上传图片插件 -->
 	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="plugins/uploadify/swfobject.js"></script>
 	<script type="text/javascript" src="plugins/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
 	<!-- 上传图片插件 -->
+	<script type="text/javascript">
+		var jsessionid = "<%=session.getId()%>";  //勿删，uploadify兼容火狐用到
+	</script>
+	<!-- 民族信息 -->
+	<script type="text/javascript" src="static/js/nationUtils.js"/>
+	<script  type="text/javascript">
+
+	</script>
+	<!-- 民族信息 -->
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
@@ -48,7 +58,12 @@
 								<td style="width:79px;text-align: right;padding-top: 13px;">电话:</td>
 								<td><input type="text" name="PHONE" id="PHONE" value="${pd.PHONE}" maxlength="20" placeholder="这里输入电话" title="电话" style="width:98%;"/></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">性别:</td>
-								<td><input type="number" name="SEX" id="SEX" value="${pd.SEX}" maxlength="32" placeholder="这里输入性别" title="性别" style="width:98%;"/></td>
+								<td>
+									<select name="SEX" title="性别" style="width:98%;">
+										<option value="1" <c:if test="${pd.SEX == '1' }">selected</c:if> >男</option>
+										<option value="2" <c:if test="${pd.SEX == '2' }">selected</c:if> >女</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">出生年月:</td>
@@ -58,28 +73,45 @@
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">QQ:</td>
-								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}" maxlength="15" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
+								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}" maxlength="10" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">微信:</td>
 								<td><input type="text" name="WECHAT" id="WECHAT" value="${pd.WECHAT}" maxlength="30" placeholder="这里输入微信" title="微信" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">国籍:</td>
-								<td><input type="text" name="NATIONALITY" id="NATIONALITY" value="${pd.NATIONALITY}" maxlength="50" placeholder="这里输入国籍" title="国籍" style="width:98%;"/></td>
+								<td>
+									<select  name="NATIONALITY" id="NATIONALITY"  title="国籍"></select>
+									<%--<input type="text" name="NATIONALITY" id="NATIONALITY" value="${pd.NATIONALITY}" maxlength="50" placeholder="这里输入国籍" title="国籍" style="width:98%;"/>--%>
+								</td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">民族:</td>
-								<td><input type="text" name="NATION" id="NATION" value="${pd.NATION}" maxlength="30" placeholder="这里输入民族" title="民族" style="width:98%;"/></td>
+								<td><select id="NATION"  class="chosen-select form-control"  name ="NATION" title="民族" style="width:98%;"></select>
+								</td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">照片地址:</td>
 								<td><input type="file" name="PIC"  id="uploadify1"  keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">学历:</td>
-								<td><input type="text" name="LEARING" id="LEARING" value="${pd.LEARING}" maxlength="10" placeholder="这里输入学历" title="学历" style="width:98%;"/></td>
+								<td><select name="LEARING" id="LEARING" maxlength="10" placeholder="这里输入学历" title="学历" style="width:98%;">
+									<option value="大学" <c:if test="${pd.LEARING == '大学' }">selected</c:if> >大学</option>
+									<option value="本科" <c:if test="${pd.LEARING == '本科' }">selected</c:if> >本科</option>
+									<option value="研究生" <c:if test="${pd.LEARING == '研究生' }">selected</c:if> >研究生</option>
+									<option value="硕士" <c:if test="${pd.LEARING == '硕士' }">selected</c:if> >硕士</option>
+									<option value="博士" <c:if test="${pd.LEARING == '博士' }">selected</c:if> >博士</option>
+									<option value="大专" <c:if test="${pd.LEARING == '大专' }">selected</c:if> >大专</option>
+									<option value="中专" <c:if test="${pd.LEARING == '中专' }">selected</c:if> >中专</option>
+									<option value="高中" <c:if test="${pd.LEARING == '高中' }">selected</c:if> >高中</option>
+									<option value="初中" <c:if test="${pd.LEARING == '初中' }">selected</c:if> >初中</option>
+									<option value="小学" <c:if test="${pd.LEARING == '小学' }">selected</c:if> >小学</option>
+									<option value="其他" <c:if test="${pd.LEARING == '其他' }">selected</c:if> >其他</option>
+								</select>
+								</td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">邮编号码:</td>
 								<td><input type="text" name="POST_CODE" id="POST_CODE" value="${pd.POST_CODE}" maxlength="255" placeholder="这里输入邮编号码" title="邮编号码" style="width:98%;"/></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">政治面貌:</td>
 								<td><input type="text" name="GOVEMMET" id="GOVEMMET" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:79px;text-align: right;padding-top: 13px;">身份证号码:</td>
+								<td style="width:79px;text-align: right;padding-top: 13px;">身份证号:</td>
 								<td><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">E-mail:</td>
 								<td><input type="text" name="EMAIL" id="EMAIL" value="${pd.EMAIL}" maxlength="30" placeholder="这里输入E-mail" title="E-mail" style="width:98%;"/></td>
@@ -118,16 +150,14 @@
 							<tr height="50px">
 								<td style="width:79px;text-align: right;padding-top: 13px;">个人简历:</td>
 								<td colspan="6" >
-									<textarea rows="10" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/></textarea>
-									<%--<input type="textarea" name="RESUME" id="RESUME" value="${pd.RESUME}" maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>--%>
+									<textarea rows="10" name="RESUME" id="RESUME"  maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>${pd.RESUME}</textarea>
 								</td>
 							</tr>
 
 							<tr height="50px">
 								<td style="width:79px;text-align: right;padding-top: 13px;">个人描述:</td>
 								<td colspan="6">
-									<textarea rows="10" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"></textarea>
-								<%--	<input type="text" name="DESCRIBE" id="DESCRIBE" value="${pd.DESCRIBE}" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/>--%>
+									<textarea rows="10" name="DESCRIBES" id="DESCRIBES" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/>${pd.DESCRIBES}</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -152,7 +182,6 @@
 </div>
 <!-- /.main-container -->
 
-
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
 	<!-- 下拉框 -->
@@ -161,8 +190,32 @@
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
-		<script type="text/javascript">
-		$(top.hangge());
+	<script type="text/javascript">
+        //编辑 民族 赋值
+        var nationValue = ${pd.NATION == null ? 0 : pd.NATION};
+        window.onload = function (){
+            var nat = document.getElementById ("NATION");
+            for ( var i = 0; i < national.length; i++){
+                var option = document.createElement ('option');
+                option.value = i;
+                if(nationValue == i) option.selected = true;
+                var txt = document.createTextNode (national[i]);
+                option.appendChild (txt);
+                nat.appendChild (option);
+            }
+        //国籍
+		var nationality_id = document.getElementById ("NATIONALITY");
+		var  nationalityValue = '${pd.NATIONALITY}' == '' ? 'CN' : '${pd.NATIONALITY}';
+            for ( var i = 0; i < country.length; i++){
+                var option = document.createElement ('option');
+                option.value = country[i][0];
+                if(nationalityValue == country[i][0]) option.selected = true;
+                var txt = document.createTextNode (country[i][1]);
+                option.appendChild (txt);
+                nationality_id.appendChild (option);
+            }
+        }
+        $(top.hangge());
 		//保存
 		function save(){
 			if($("#STAFF_ID").val()==""){
@@ -205,7 +258,7 @@
 				$("#PHONE").focus();
 			return false;
 			}
-			if($("#uploadify1").val()==""){
+			/*if($("#uploadify1").val()==""){
 				$("#uploadify1").tips({
 					side:3,
 		            msg:'请输入照片地址',
@@ -214,7 +267,7 @@
 		        });
 				$("#uploadify1").focus();
 			return false;
-			}
+			}*/
 			if($("#CARD_ID").val()==""){
 				$("#CARD_ID").tips({
 					side:3,
