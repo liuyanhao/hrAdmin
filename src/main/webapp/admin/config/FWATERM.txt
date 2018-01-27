@@ -1,1 +1,1 @@
-yes,lxc,LXC HR Admin,lxc,20,lxc,1,lxc,1
+yes,lxc,HR Admin,lxc,20,lxc,1,lxc,1

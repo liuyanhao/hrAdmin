@@ -418,14 +418,14 @@
 				$("#RESUME").focus();
 			return false;
 			}
-			if($("#DESCRIBE").val()==""){
-				$("#DESCRIBE").tips({
+			if($("#DESCRIBES").val()==""){
+				$("#DESCRIBES").tips({
 					side:3,
 		            msg:'请输入个人描述',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#DESCRIBE").focus();
+				$("#DESCRIBES").focus();
 			return false;
 			}
 			if($("#ISROMVE").val()==""){
