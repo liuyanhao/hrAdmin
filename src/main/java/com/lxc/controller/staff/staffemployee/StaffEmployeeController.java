@@ -1,14 +1,12 @@
 package com.lxc.controller.staff.staffemployee;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
+import com.lxc.util.AppUtil;
+import com.lxc.util.Jurisdiction;
+import com.lxc.util.ObjectExcelView;
+import com.lxc.util.PageData;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.Tools;
-import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
+
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 说明：员工档案信息表
@@ -95,7 +91,7 @@ public class StaffEmployeeController extends BaseController {
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表StaffEmployee");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -210,11 +206,7 @@ public class StaffEmployeeController extends BaseController {
 		titles.add("用户编号");	//26
 		titles.add("年龄");	//27
 		titles.add("登记时间");	//28
-		titles.add("薪资ID");	//29
-		titles.add("创建时间");	//30
-		titles.add("修改时间");	//31
-		titles.add("创建人");	//32
-		titles.add("修改人");	//33
+		titles.add("薪资");	//29
 		dataMap.put("titles", titles);
 		List<PageData> varOList = staffemployeeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
@@ -249,10 +241,6 @@ public class StaffEmployeeController extends BaseController {
 			vpd.put("var27", varOList.get(i).get("AGE").toString());	//27
 			vpd.put("var28", varOList.get(i).getString("ADD_TIME"));	    //28
 			vpd.put("var29", varOList.get(i).get("STIPEND_ID").toString());	//29
-			vpd.put("var30", varOList.get(i).getString("CREATE_TIME"));	    //30
-			vpd.put("var31", varOList.get(i).getString("UPDATE_TIME"));	    //31
-			vpd.put("var32", varOList.get(i).getString("CREATE_USER"));	    //32
-			vpd.put("var33", varOList.get(i).getString("UPDATE_USER"));	    //33
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

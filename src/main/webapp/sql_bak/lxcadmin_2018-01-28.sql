@@ -13,12 +13,10 @@
 
 
 -- 导出 lxcadmin 的数据库结构
-DROP DATABASE IF EXISTS `lxcadmin`;
 CREATE DATABASE IF NOT EXISTS `lxcadmin` /*!40100 DEFAULT CHARACTER SET utf8mb4 */;
 USE `lxcadmin`;
 
 -- 导出  表 lxcadmin.db_lxcdb 结构
-DROP TABLE IF EXISTS `db_lxcdb`;
 CREATE TABLE IF NOT EXISTS `db_lxcdb` (
   `LXCDB_ID` varchar(100) NOT NULL DEFAULT '',
   `USERNAME` varchar(50) DEFAULT NULL COMMENT '操作用户',
@@ -37,7 +35,6 @@ DELETE FROM `db_lxcdb`;
 /*!40000 ALTER TABLE `db_lxcdb` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.db_timingbackup 结构
-DROP TABLE IF EXISTS `db_timingbackup`;
 CREATE TABLE IF NOT EXISTS `db_timingbackup` (
   `TIMINGBACKUP_ID` varchar(100) NOT NULL,
   `JOBNAME` varchar(50) DEFAULT NULL COMMENT '任务名称',
@@ -59,7 +56,6 @@ INSERT INTO `db_timingbackup` (`TIMINGBACKUP_ID`, `JOBNAME`, `CREATE_TIME`, `TAB
 /*!40000 ALTER TABLE `db_timingbackup` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.oa_department 结构
-DROP TABLE IF EXISTS `oa_department`;
 CREATE TABLE IF NOT EXISTS `oa_department` (
   `DEPARTMENT_ID` varchar(100) NOT NULL,
   `NAME` varchar(30) DEFAULT NULL COMMENT '名称',
@@ -95,7 +91,6 @@ INSERT INTO `oa_department` (`DEPARTMENT_ID`, `NAME`, `NAME_EN`, `BIANMA`, `PARE
 /*!40000 ALTER TABLE `oa_department` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_app_user 结构
-DROP TABLE IF EXISTS `sys_app_user`;
 CREATE TABLE IF NOT EXISTS `sys_app_user` (
   `USER_ID` varchar(100) NOT NULL,
   `USERNAME` varchar(255) DEFAULT NULL,
@@ -125,7 +120,6 @@ INSERT INTO `sys_app_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`,
 /*!40000 ALTER TABLE `sys_app_user` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_createcode 结构
-DROP TABLE IF EXISTS `sys_createcode`;
 CREATE TABLE IF NOT EXISTS `sys_createcode` (
   `CREATECODE_ID` varchar(100) NOT NULL,
   `PACKAGENAME` varchar(50) DEFAULT NULL COMMENT '包名',
@@ -152,7 +146,6 @@ INSERT INTO `sys_createcode` (`CREATECODE_ID`, `PACKAGENAME`, `OBJECTNAME`, `TAB
 /*!40000 ALTER TABLE `sys_createcode` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_dictionaries 结构
-DROP TABLE IF EXISTS `sys_dictionaries`;
 CREATE TABLE IF NOT EXISTS `sys_dictionaries` (
   `DICTIONARIES_ID` varchar(100) NOT NULL,
   `NAME` varchar(30) DEFAULT NULL COMMENT '名称',
@@ -182,7 +175,6 @@ INSERT INTO `sys_dictionaries` (`DICTIONARIES_ID`, `NAME`, `NAME_EN`, `BIANMA`, 
 /*!40000 ALTER TABLE `sys_dictionaries` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_lxcbutton 结构
-DROP TABLE IF EXISTS `sys_lxcbutton`;
 CREATE TABLE IF NOT EXISTS `sys_lxcbutton` (
   `LXCBUTTON_ID` varchar(100) NOT NULL DEFAULT '',
   `NAME` varchar(30) DEFAULT NULL COMMENT '名称',
@@ -203,7 +195,6 @@ INSERT INTO `sys_lxcbutton` (`LXCBUTTON_ID`, `NAME`, `QX_NAME`, `BZ`) VALUES
 /*!40000 ALTER TABLE `sys_lxcbutton` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_lxcsms 结构
-DROP TABLE IF EXISTS `sys_lxcsms`;
 CREATE TABLE IF NOT EXISTS `sys_lxcsms` (
   `LXCSMS_ID` varchar(100) NOT NULL DEFAULT '',
   `CONTENT` varchar(1000) DEFAULT NULL COMMENT '内容',
@@ -233,7 +224,6 @@ INSERT INTO `sys_lxcsms` (`LXCSMS_ID`, `CONTENT`, `TYPE`, `TO_USERNAME`, `FROM_U
 /*!40000 ALTER TABLE `sys_lxcsms` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_menu 结构
-DROP TABLE IF EXISTS `sys_menu`;
 CREATE TABLE IF NOT EXISTS `sys_menu` (
   `MENU_ID` int(11) NOT NULL,
   `MENU_NAME` varchar(255) DEFAULT NULL,
@@ -328,7 +318,6 @@ INSERT INTO `sys_menu` (`MENU_ID`, `MENU_NAME`, `MENU_URL`, `PARENT_ID`, `MENU_O
 /*!40000 ALTER TABLE `sys_menu` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_role 结构
-DROP TABLE IF EXISTS `sys_role`;
 CREATE TABLE IF NOT EXISTS `sys_role` (
   `ROLE_ID` varchar(100) NOT NULL,
   `ROLE_NAME` varchar(100) DEFAULT NULL,
@@ -366,7 +355,6 @@ INSERT INTO `sys_role` (`ROLE_ID`, `ROLE_NAME`, `RIGHTS`, `PARENT_ID`, `ADD_QX`,
 /*!40000 ALTER TABLE `sys_role` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_role_lxcbutton 结构
-DROP TABLE IF EXISTS `sys_role_lxcbutton`;
 CREATE TABLE IF NOT EXISTS `sys_role_lxcbutton` (
   `RB_ID` varchar(100) NOT NULL,
   `ROLE_ID` varchar(100) DEFAULT NULL,
@@ -378,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `sys_role_lxcbutton` (
   CONSTRAINT `frole` FOREIGN KEY (`ROLE_ID`) REFERENCES `sys_role` (`ROLE_ID`) ON DELETE CASCADE ON UPDATE CASCADE
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  lxcadmin.sys_role_lxcbutton 的数据：~41 rows (大约)
+-- 正在导出表  lxcadmin.sys_role_lxcbutton 的数据：~61 rows (大约)
 DELETE FROM `sys_role_lxcbutton`;
 /*!40000 ALTER TABLE `sys_role_lxcbutton` DISABLE KEYS */;
 INSERT INTO `sys_role_lxcbutton` (`RB_ID`, `ROLE_ID`, `BUTTON_ID`) VALUES
@@ -446,7 +434,6 @@ INSERT INTO `sys_role_lxcbutton` (`RB_ID`, `ROLE_ID`, `BUTTON_ID`) VALUES
 /*!40000 ALTER TABLE `sys_role_lxcbutton` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_user 结构
-DROP TABLE IF EXISTS `sys_user`;
 CREATE TABLE IF NOT EXISTS `sys_user` (
   `USER_ID` varchar(100) NOT NULL,
   `USERNAME` varchar(255) DEFAULT NULL,
@@ -469,7 +456,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`) VALUES
-	('1', 'admin', '302a0527527647a6dea9ae5dc8ed732ef8d7054a', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-01-28 00:22:46', '127.0.0.1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
+	('1', 'admin', '302a0527527647a6dea9ae5dc8ed732ef8d7054a', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-01-28 22:50:51', '127.0.0.1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
 	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556'),
 	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'lisi', '434588cee83dca5aaa683852319c54c22f1b41ab', '李四', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', '313596790@qq.com', '1102', '13566233663'),
 	('b920e29ae2264f40a6a9530036c732fd', 'hr', '861d10246b852f459de5d6e853db324ec270f270', 'HR', '', 'c2ae457987fd4704bef5f630583aa6ad', '2018-01-28 00:23:28', '127.0.0.1', '0', '人力资源管理员', 'default', '1281290121@qq.com', '1001', '18911780490'),
@@ -477,7 +464,6 @@ INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `RO
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_attached 结构
-DROP TABLE IF EXISTS `tb_attached`;
 CREATE TABLE IF NOT EXISTS `tb_attached` (
   `ATTACHED_ID` varchar(100) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL COMMENT '名称',
@@ -495,7 +481,6 @@ INSERT INTO `tb_attached` (`ATTACHED_ID`, `NAME`, `FDESCRIBE`, `PRICE`, `CTIME`)
 /*!40000 ALTER TABLE `tb_attached` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_attachedmx 结构
-DROP TABLE IF EXISTS `tb_attachedmx`;
 CREATE TABLE IF NOT EXISTS `tb_attachedmx` (
   `ATTACHEDMX_ID` varchar(100) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL COMMENT '名称',
@@ -515,7 +500,6 @@ INSERT INTO `tb_attachedmx` (`ATTACHEDMX_ID`, `NAME`, `TITLE`, `CTIME`, `PRICE`,
 /*!40000 ALTER TABLE `tb_attachedmx` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_interviewinfo 结构
-DROP TABLE IF EXISTS `tb_interviewinfo`;
 CREATE TABLE IF NOT EXISTS `tb_interviewinfo` (
   `INTERVIEW_INFO_ID` varchar(100) NOT NULL,
   `RESUME_ID` int(11) NOT NULL COMMENT '简历id',
@@ -532,7 +516,6 @@ DELETE FROM `tb_interviewinfo`;
 /*!40000 ALTER TABLE `tb_interviewinfo` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_mobilize 结构
-DROP TABLE IF EXISTS `tb_mobilize`;
 CREATE TABLE IF NOT EXISTS `tb_mobilize` (
   `MOBILIZE_ID` varchar(100) NOT NULL,
   `EMP_ID` varchar(32) DEFAULT NULL COMMENT '审核人编号',
@@ -549,7 +532,6 @@ DELETE FROM `tb_mobilize`;
 /*!40000 ALTER TABLE `tb_mobilize` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_papertypemanage 结构
-DROP TABLE IF EXISTS `tb_papertypemanage`;
 CREATE TABLE IF NOT EXISTS `tb_papertypemanage` (
   `PAPERTYPEMANAGE_ID` varchar(100) NOT NULL,
   `PAPER_TYPE_ID` int(11) NOT NULL COMMENT '试卷分类id',
@@ -563,7 +545,6 @@ DELETE FROM `tb_papertypemanage`;
 /*!40000 ALTER TABLE `tb_papertypemanage` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_pictures 结构
-DROP TABLE IF EXISTS `tb_pictures`;
 CREATE TABLE IF NOT EXISTS `tb_pictures` (
   `PICTURES_ID` varchar(100) NOT NULL,
   `TITLE` varchar(255) DEFAULT NULL COMMENT '标题',
@@ -595,7 +576,6 @@ INSERT INTO `tb_pictures` (`PICTURES_ID`, `TITLE`, `NAME`, `PATH`, `CREATETIME`,
 /*!40000 ALTER TABLE `tb_pictures` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_resume 结构
-DROP TABLE IF EXISTS `tb_resume`;
 CREATE TABLE IF NOT EXISTS `tb_resume` (
   `RESUME_ID` varchar(100) NOT NULL,
   `SEX` int(2) NOT NULL COMMENT '性别',
@@ -641,10 +621,11 @@ CREATE TABLE IF NOT EXISTS `tb_resume` (
 -- 正在导出表  lxcadmin.tb_resume 的数据：~0 rows (大约)
 DELETE FROM `tb_resume`;
 /*!40000 ALTER TABLE `tb_resume` DISABLE KEYS */;
+INSERT INTO `tb_resume` (`RESUME_ID`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `USER_ID`, `AGE`, `TIME`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STAFF_NAME`, `STATUS`, `USER_NAME`, `REASON`, `RESULT`, `SCORE`, `JOBMESSAGE_ID`, `DEGREE`) VALUES
+	('b0a739b2700042e483bd686bb6205363', 1, '北京市海淀区', '18102910911', '9e3df8dcd100baa16641635d4f10b912c9fc2ee2.jpg', '3607321919029101', '212111291@qq.com', '212111291', 'huanxiao', '10091', '群众', '0', '大学', '表演', '唱歌', 'CN', '1989-10-12', '佛教', '演员', '11111111', '111111111111', '111', '良好', '', 12, '2018-01-28', NULL, NULL, NULL, NULL, '黄晓', 1, '11', '111111111111', 96, '1111111111', 11, '1级');
 /*!40000 ALTER TABLE `tb_resume` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_staffemployee 结构
-DROP TABLE IF EXISTS `tb_staffemployee`;
 CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   `STAFFEMPLOYEE_ID` varchar(100) NOT NULL,
   `STAFF_ID` int(11) NOT NULL COMMENT '员工ID',
@@ -695,7 +676,6 @@ INSERT INTO `tb_staffemployee` (`STAFFEMPLOYEE_ID`, `STAFF_ID`, `SEX`, `ADDRESS`
 /*!40000 ALTER TABLE `tb_staffemployee` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_stipenmanager 结构
-DROP TABLE IF EXISTS `tb_stipenmanager`;
 CREATE TABLE IF NOT EXISTS `tb_stipenmanager` (
   `STIPENMANAGER_ID` varchar(100) NOT NULL,
   `STIPEND_NAME` varchar(20) DEFAULT NULL COMMENT '薪酬名称',
@@ -716,7 +696,6 @@ DELETE FROM `tb_stipenmanager`;
 /*!40000 ALTER TABLE `tb_stipenmanager` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_subjectmanage 结构
-DROP TABLE IF EXISTS `tb_subjectmanage`;
 CREATE TABLE IF NOT EXISTS `tb_subjectmanage` (
   `SUBJECTMANAGE_ID` varchar(100) NOT NULL,
   `SUBJECT_NAME` varchar(255) DEFAULT NULL COMMENT '题目',
@@ -741,7 +720,6 @@ INSERT INTO `tb_subjectmanage` (`SUBJECTMANAGE_ID`, `SUBJECT_NAME`, `SUBJECT_TYP
 /*!40000 ALTER TABLE `tb_subjectmanage` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.weixin_command 结构
-DROP TABLE IF EXISTS `weixin_command`;
 CREATE TABLE IF NOT EXISTS `weixin_command` (
   `COMMAND_ID` varchar(100) NOT NULL,
   `KEYWORD` varchar(255) DEFAULT NULL COMMENT '关键词',
@@ -764,7 +742,6 @@ INSERT INTO `weixin_command` (`COMMAND_ID`, `KEYWORD`, `COMMANDCODE`, `CREATETIM
 /*!40000 ALTER TABLE `weixin_command` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.weixin_imgmsg 结构
-DROP TABLE IF EXISTS `weixin_imgmsg`;
 CREATE TABLE IF NOT EXISTS `weixin_imgmsg` (
   `IMGMSG_ID` varchar(100) NOT NULL,
   `KEYWORD` varchar(255) DEFAULT NULL COMMENT '关键词',
@@ -814,7 +791,6 @@ INSERT INTO `weixin_imgmsg` (`IMGMSG_ID`, `KEYWORD`, `CREATETIME`, `STATUS`, `BZ
 /*!40000 ALTER TABLE `weixin_imgmsg` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.weixin_textmsg 结构
-DROP TABLE IF EXISTS `weixin_textmsg`;
 CREATE TABLE IF NOT EXISTS `weixin_textmsg` (
   `TEXTMSG_ID` varchar(100) NOT NULL,
   `KEYWORD` varchar(255) DEFAULT NULL COMMENT '关键词',

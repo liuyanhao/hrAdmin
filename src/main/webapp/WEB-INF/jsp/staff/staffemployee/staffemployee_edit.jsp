@@ -84,8 +84,7 @@
 									<%--<input type="text" name="NATIONALITY" id="NATIONALITY" value="${pd.NATIONALITY}" maxlength="50" placeholder="这里输入国籍" title="国籍" style="width:98%;"/>--%>
 								</td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">民族:</td>
-								<td><select id="NATION"  class="chosen-select form-control"  name ="NATION" title="民族" style="width:98%;"></select>
-								</td>
+								<td><select id="NATION"  class="chosen-select form-control"  name ="NATION" title="民族" style="width:98%;"></select></td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">照片地址:</td>
 								<td><input type="file" name="PIC"  id="uploadify1"  keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
 							</tr>

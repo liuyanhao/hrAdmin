@@ -67,43 +67,19 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
+									<th class="center">姓名</th>
 									<th class="center">性别</th>
-									<th class="center">地址</th>
-									<th class="center">电话</th>
-									<th class="center">照片地址</th>
 									<th class="center">身份证号码</th>
 									<th class="center">E-mail</th>
-									<th class="center">QQ</th>
-									<th class="center">微信</th>
-									<th class="center">邮编号码</th>
-									<th class="center">政治面貌</th>
 									<th class="center">民族</th>
 									<th class="center">学历</th>
-									<th class="center">爱好</th>
-									<th class="center">特长</th>
 									<th class="center">国籍</th>
-									<th class="center">出生年月</th>
-									<th class="center">宗教信仰</th>
-									<th class="center">专业</th>
-									<th class="center">个人简历</th>
-									<th class="center">个人描述</th>
-									<th class="center">备注</th>
 									<th class="center">目前状况</th>
-									<th class="center">审核人编码</th>
-									<th class="center">年龄</th>
+									<th class="center">面试成绩</th>
 									<th class="center">时间</th>
 									<th class="center">创建时间</th>
-									<th class="center">修改时间</th>
-									<th class="center">创建人</th>
-									<th class="center">修改人</th>
-									<th class="center">员工姓名</th>
 									<th class="center">审核状态</th>
-									<th class="center">审核人姓名</th>
-									<th class="center">推荐理由</th>
-									<th class="center">面试成绩</th>
-									<th class="center">面试评价</th>
-									<th class="center">工作职位id</th>
-									<th class="center">等级</th>
+									<th class="center">审核人</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -119,43 +95,26 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.RESUME_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.SEX}</td>
-											<td class='center'>${var.ADDRESS}</td>
-											<td class='center'>${var.PHONE}</td>
-											<td class='center'>${var.PIC}</td>
+											<td class='center'>${var.STAFF_NAME}</td>
+											<td class='center'>
+												<c:if test="${var.SEX == 1 }">
+													男
+												</c:if>
+												<c:if test="${var.SEX == 2 }">
+													女
+												</c:if>
+											</td>
 											<td class='center'>${var.CARD_ID}</td>
 											<td class='center'>${var.EMAIL}</td>
-											<td class='center'>${var.QQ}</td>
-											<td class='center'>${var.WECHAT}</td>
-											<td class='center'>${var.POST_CODE}</td>
-											<td class='center'>${var.GOVEMMET}</td>
 											<td class='center'>${var.NATION}</td>
 											<td class='center'>${var.LEARING}</td>
-											<td class='center'>${var.HOBBY}</td>
-											<td class='center'>${var.SUIT}</td>
-											<td class='center'>${var.NATIONALITY}</td>
-											<td class='center'>${var.BIRTH}</td>
-											<td class='center'>${var.FAITH}</td>
 											<td class='center'>${var.SPEIALITY}</td>
-											<td class='center'>${var.RESUME}</td>
-											<td class='center'>${var.DESCRIBES}</td>
-											<td class='center'>${var.REMARK}</td>
 											<td class='center'>${var.ISROMVE}</td>
-											<td class='center'>${var.USER_ID}</td>
-											<td class='center'>${var.AGE}</td>
+											<td class='center'>${var.RESULT}</td>
 											<td class='center'>${var.TIME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
-											<td class='center'>${var.UPDATE_TIME}</td>
-											<td class='center'>${var.CREATE_USER}</td>
-											<td class='center'>${var.UPDATE_USER}</td>
-											<td class='center'>${var.STAFF_NAME}</td>
 											<td class='center'>${var.STATUS}</td>
 											<td class='center'>${var.USER_NAME}</td>
-											<td class='center'>${var.REASON}</td>
-											<td class='center'>${var.RESULT}</td>
-											<td class='center'>${var.SCORE}</td>
-											<td class='center'>${var.JOBMESSAGE_ID}</td>
-											<td class='center'>${var.DEGREE}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -328,8 +287,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>resume/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 840;
+			 diag.Height = 655;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -364,8 +323,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>resume/goEdit.do?RESUME_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 840;
+			 diag.Height = 655;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
