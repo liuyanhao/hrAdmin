@@ -32,46 +32,39 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">题目:</td>
-								<td><input type="text" name="SUBJECT_NAME" id="SUBJECT_NAME" value="${pd.SUBJECT_NAME}" maxlength="255" placeholder="这里输入题目" title="题目" style="width:98%;"/></td>
+								<td  style="width:75px;text-align: right;padding-top: 13px;">题目:</td>
+								<td colspan="3" >
+                                    <textarea rows="6" name="SUBJECT_NAME" id="SUBJECT_NAME"  maxlength="255" placeholder="这里输入题目" title="题目" style="width:98%;">${pd.SUBJECT_NAME}</textarea>
+                                </td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">资源地址:</td>
-								<td><input type="text" name="SUBJECT_TYPE" id="SUBJECT_TYPE" value="${pd.SUBJECT_TYPE}" maxlength="20" placeholder="这里输入资源地址" title="资源地址" style="width:98%;"/></td>
-							</tr>
+
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">A选项:</td>
 								<td><input type="text" name="SELECT_A" id="SELECT_A" value="${pd.SELECT_A}" maxlength="50" placeholder="这里输入A选项" title="A选项" style="width:98%;"/></td>
-							</tr>
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">B选项:</td>
 								<td><input type="text" name="SELECT_B" id="SELECT_B" value="${pd.SELECT_B}" maxlength="50" placeholder="这里输入B选项" title="B选项" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">C选项:</td>
 								<td><input type="text" name="SELECT_C" id="SELECT_C" value="${pd.SELECT_C}" maxlength="50" placeholder="这里输入C选项" title="C选项" style="width:98%;"/></td>
-							</tr>
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">D选项:</td>
 								<td><input type="text" name="SELECT_D" id="SELECT_D" value="${pd.SELECT_D}" maxlength="50" placeholder="这里输入D选项" title="D选项" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">E选项:</td>
 								<td><input type="text" name="SELECT_E" id="SELECT_E" value="${pd.SELECT_E}" maxlength="50" placeholder="这里输入E选项" title="E选项" style="width:98%;"/></td>
-							</tr>
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">F选项:</td>
 								<td><input type="text" name="SELECT_F" id="SELECT_F" value="${pd.SELECT_F}" maxlength="50" placeholder="这里输入F选项" title="F选项" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">正确选项:</td>
 								<td><input type="text" name="SELECT_TURE" id="SELECT_TURE" value="${pd.SELECT_TURE}" maxlength="5" placeholder="这里输入正确选项" title="正确选项" style="width:98%;"/></td>
-							</tr>
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">分值:</td>
 								<td><input type="number" name="ISSUE_PERSON" id="ISSUE_PERSON" value="${pd.ISSUE_PERSON}" maxlength="32" placeholder="这里输入分值" title="分值" style="width:98%;"/></td>
 							</tr>
-							<tr>
+                            <tr>
+                                <td  style="width:75px;text-align: right;padding-top: 13px;">资源地址:</td>
+                                <td><input type="text" name="SUBJECT_TYPE" id="SUBJECT_TYPE" value="${pd.SUBJECT_TYPE}" maxlength="255" placeholder="这里输入资源地址" title="资源地址" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">出题时间:</td>
 								<td><input class="span10 date-picker" name="ISSUE_TIME" id="ISSUE_TIME" value="${pd.ISSUE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="出题时间" title="出题时间" style="width:98%;"/></td>
 							</tr>
@@ -170,26 +163,26 @@
 				$("#SELECT_D").focus();
 			return false;
 			}
-			if($("#SELECT_E").val()==""){
-				$("#SELECT_E").tips({
-					side:3,
-		            msg:'请输入E选项',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SELECT_E").focus();
-			return false;
-			}
-			if($("#SELECT_F").val()==""){
-				$("#SELECT_F").tips({
-					side:3,
-		            msg:'请输入F选项',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SELECT_F").focus();
-			return false;
-			}
+//			if($("#SELECT_E").val()==""){
+//				$("#SELECT_E").tips({
+//					side:3,
+//		            msg:'请输入E选项',
+//		            bg:'#AE81FF',
+//		            time:2
+//		        });
+//				$("#SELECT_E").focus();
+//			return false;
+//			}
+//			if($("#SELECT_F").val()==""){
+//				$("#SELECT_F").tips({
+//					side:3,
+//		            msg:'请输入F选项',
+//		            bg:'#AE81FF',
+//		            time:2
+//		        });
+//				$("#SELECT_F").focus();
+//			return false;
+//			}
 			if($("#SELECT_TURE").val()==""){
 				$("#SELECT_TURE").tips({
 					side:3,
