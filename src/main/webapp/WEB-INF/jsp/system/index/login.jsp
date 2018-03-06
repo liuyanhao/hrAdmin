@@ -107,7 +107,7 @@
 								style="height:16px; padding-top:4px;" />
 						</div>
 						<div style="float: left;">
-							<i><img style="height:22px;" id="codeImg" alt="点击更换"
+							<i><img style="height:25px;" id="codeImg" alt="点击更换"
 								title="点击更换" src="" /></i>
 						</div>
 						<span class="pull-right" style="padding-right:3%;"><a href="javascript:quxiao();" class="btn btn-success">取消</a></span>
@@ -117,16 +117,18 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © LXCqq1094921525 2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © 2017-2018 刘熙财版权所有| 京ICP备13001xxx号-1   </span></font>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="templatemo_banner_slide" class="container_wapper">
 		<div class="camera_wrap camera_emboss" id="camera_slide">
-			<div data-src="static/login/images/banner_slide_01.jpg"></div>
-			<div data-src="static/login/images/banner_slide_02.jpg"></div>
-			<div data-src="static/login/images/banner_slide_03.jpg"></div>
+			<div data-src="static/login/images/banner_slide_11.jpg"></div>
+			<div data-src="static/login/images/banner_slide_12.jpg"></div>
+			<div data-src="static/login/images/banner_slide_13.jpg"></div>
+			<div data-src="static/login/images/banner_slide_14.jpg"></div>
+			<div data-src="static/login/images/banner_slide_15.jpg"></div>
 		</div>
 		<!-- #camera_wrap_3 -->
 	</div>
