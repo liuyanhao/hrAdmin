@@ -27,7 +27,7 @@
 					<div class="row">
 						<div class="col-xs-12">
                              <!-- 存放生成的html开头  -->
-                            <form class="form-horizontal" role="form" action="">
+                            <form class="form-horizontal" role="form" action="wantexam/toExamList.do">
                             <div class="col-md-6">
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" >
@@ -54,8 +54,8 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" ></label>
                                 <div class="col-sm-9">
-                                    <a class="btn btn-mini btn-primary" onclick="">保存</a>
-                                    <a class="btn btn-mini btn-danger" onclick="">重置</a>
+                                    <button class="btn btn-mini btn-primary" type="submit" onclick="">提交</button>
+                                   <%-- <button class="btn btn-mini btn-danger" type="reset" onclick="">重置</button>--%>
                                 </div>
                             </div>
                             <div class="form-group">

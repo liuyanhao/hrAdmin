@@ -52,11 +52,12 @@ public class WantExamController  extends BaseController {
         PageData pd = new PageData();
         pd = this.getPageData();
         pd = resumeService.findByCardId(pd);
-        if(pd.isEmpty()){
+        if(pd == null || pd.isEmpty()){
             mv.addObject("msg","未找到与您身份证号码匹配的简历");
             mv.setViewName("want/goExam");
+        }else{
+            mv.addObject("msg","success");
         }
-        mv.addObject("msg","success");
         return mv;
     }
 
