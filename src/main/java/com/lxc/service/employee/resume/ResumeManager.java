@@ -1,8 +1,9 @@
 package com.lxc.service.employee.resume;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 简历表接口
@@ -53,6 +54,13 @@ public interface ResumeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 根据身份证号码获取简历
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByCardId(PageData pd)throws Exception;
 }
 

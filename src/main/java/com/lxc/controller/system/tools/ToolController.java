@@ -1,31 +1,28 @@
 package com.lxc.controller.system.tools;
 
 
+import com.lxc.controller.base.BaseController;
+import com.lxc.util.*;
+import com.lxc.util.jcrop.FileUploadUtil;
+import com.lxc.util.jcrop.ImgCut;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.servlet.ModelAndView;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
 import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
-
-import javax.servlet.http.HttpServletResponse;
-
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.servlet.ModelAndView;
-
-import com.lxc.controller.base.BaseController;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Const;
-import com.lxc.util.DelAllFile;
-import com.lxc.util.FileDownload;
-import com.lxc.util.Freemarker;
-import com.lxc.util.MapDistance;
-import com.lxc.util.PageData;
-import com.lxc.util.PathUtil;
-import com.lxc.util.TwoDimensionCode;
 
 /** 
  * 类名称：ToolController 系统工具
@@ -148,7 +145,6 @@ public class ToolController extends BaseController {
 	
 	/**
 	 *	生成二维码
-	 * @param args
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/createTwoDimensionCode")
@@ -176,7 +172,6 @@ public class ToolController extends BaseController {
 	
 	/**
 	 *	解析二维码
-	 * @param args
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/readTwoDimensionCode")
@@ -232,7 +227,6 @@ public class ToolController extends BaseController {
 	
 	/**
 	 *	根据经纬度计算距离
-	 * @param args
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/getDistance")
@@ -305,6 +299,71 @@ public class ToolController extends BaseController {
 		mv.setViewName("system/tools/printPage");
 		mv.addObject("pd", pd);
 		return mv;
+	}
+
+	@RequestMapping(value="/goJcropPortrait")
+	public ModelAndView goJcropPortrait() throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		mv.setViewName("system/tools/jcrop_portrait");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+	/**
+	 * 头像截取
+	 * @param request
+	 * @param x
+	 * @param y
+	 * @param h
+	 * @param w
+	 * @param imageFile
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value = "/uploadHeadImage",method = RequestMethod.POST)
+	@ResponseBody
+	public Object uploadHeadImage(
+			HttpServletRequest request,
+			@RequestParam(value = "x") String x,
+			@RequestParam(value = "y") String y,
+			@RequestParam(value = "h") String h,
+			@RequestParam(value = "w") String w,
+			@RequestParam(value = "imgFile") MultipartFile imageFile
+	) throws Exception{
+		System.out.println("==========Start=============");
+		String realPath = request.getSession().getServletContext().getRealPath("/");
+		Map<String,String> map = new HashMap<String,String>();
+		String resourcePath = "resources/uploadImages/";
+		PageData pd = new PageData();
+		if(imageFile!=null){
+			if(FileUploadUtil.allowUpload(imageFile.getContentType())){
+				String fileName = FileUploadUtil.rename(imageFile.getOriginalFilename());
+				int end = fileName.lastIndexOf(".");
+				String saveName = fileName.substring(0,end);
+				File dir = new File(realPath + resourcePath);
+				if(!dir.exists()){
+					dir.mkdirs();
+				}
+				File file = new File(dir,saveName+"_src.jpg");
+				imageFile.transferTo(file);
+				String srcImagePath = realPath + resourcePath + saveName;
+				int imageX = Integer.parseInt(x);
+				int imageY = Integer.parseInt(y);
+				int imageH = Integer.parseInt(h);
+				int imageW = Integer.parseInt(w);
+				//这里开始截取操作
+				System.out.println("==========imageCutStart=============");
+				ImgCut.imgCut(srcImagePath,imageX,imageY,imageW,imageH);
+				System.out.println("==========imageCutEnd=============");
+				request.getSession().setAttribute("imgSrc",resourcePath + saveName+"_src.jpg");//成功之后显示用
+				request.getSession().setAttribute("imgCut",resourcePath + saveName+"_cut.jpg");//成功之后显示用
+				map.put("imgSrc",resourcePath + saveName+"_src.jpg");
+				map.put("imgCut",resourcePath + saveName+"_cut.jpg");
+			}
+		}
+		map.put("result", "ok");
+		return AppUtil.returnObject(pd, map);
 	}
 }
 // 创建人：lxc Q1094921525

@@ -3,16 +3,15 @@ package com.lxc.controller.staff.staffemployee;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
@@ -33,7 +32,38 @@ public class StaffEmployeeController extends BaseController {
 	String menuUrl = "staffemployee/list.do"; //菜单地址(权限用)
 	@Resource(name="staffemployeeService")
 	private StaffEmployeeManager staffemployeeService;
-	
+
+	/**
+	 * 上传头像照片
+	 * @param file
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/webuploaderSave")
+	@ResponseBody
+	public Object save(
+			@RequestParam(required=false) MultipartFile file
+	) throws Exception{
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		logBefore(logger, Jurisdiction.getUsername()+"新增图片");
+		Map<String,String> map = new HashMap<String,String>();
+		String  ffile = "staffemployee", fileName = "";
+		PageData pd = new PageData();
+		if(Jurisdiction.buttonJurisdiction(menuUrl, "add")){
+			if (null != file && !file.isEmpty()) {
+				String filePath = PathUtil.getClasspath() + Const.FILEPATHIMG + ffile;		//文件上传路径
+				fileName = FileUpload.fileUp(file, filePath, this.get32UUID());				//执行上传
+			}else{
+				System.out.println("上传失败");
+			}
+			Watermark.setWatemark(PathUtil.getClasspath() + Const.FILEPATHIMG + ffile + "/" + fileName);//加水印
+			pd.put("PIC",fileName);
+		}
+		map.put("result", "ok");
+
+		return AppUtil.returnObject(pd, map);
+	}
+
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -42,6 +72,8 @@ public class StaffEmployeeController extends BaseController {
 	public ModelAndView save() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"新增StaffEmployee");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		logBefore(logger, Jurisdiction.getUsername()+"新增图片");
+		Map<String,String> map = new HashMap<String,String>();
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -75,9 +107,9 @@ public class StaffEmployeeController extends BaseController {
 	public ModelAndView edit() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改StaffEmployee");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		String  ffile = "staff", fileName = "";
 		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+		PageData  pd = this.getPageData();
 		staffemployeeService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

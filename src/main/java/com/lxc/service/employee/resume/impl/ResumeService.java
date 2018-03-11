@@ -1,12 +1,13 @@
 package com.lxc.service.employee.resume.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.employee.resume.ResumeManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 简历表
@@ -77,6 +78,10 @@ public class ResumeService implements ResumeManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("ResumeMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	public PageData findByCardId(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("ResumeMapper.findByCardId",pd);
+	}
+
 }
 

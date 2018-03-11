@@ -27,7 +27,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="Lxcbutton/list.do" method="post" name="Form" id="Form">
+						<form action="lxcbutton/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
