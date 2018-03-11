@@ -73,26 +73,6 @@ public class IssueJobController extends BaseController {
 		return AppUtil.returnObject(new PageData(), map);
 	}
 
-	/**
-	 * 考试登记
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/toExamList")
-	public ModelAndView toExamList()throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"考试登记 toExamList");
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-        pd = resumeService.findByCardId(pd);
-		if(pd.isEmpty()){
-		    mv.addObject("msg","未找到与您身份证号码匹配的简历");
-            mv.setViewName("employee/issuejob/goExam");
-        }
-		mv.addObject("msg","success");
-		return mv;
-	}
-
 	/**修改
 	 * @param
 	 * @throws Exception

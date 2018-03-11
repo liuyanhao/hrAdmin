@@ -118,6 +118,15 @@
                  #{item}
 		</foreach>
 	</delete>
-	
+
+	<select id="findCount"  parameterType="pd" resultType="pd">
+		select
+		  count(*) zs
+		from
+		<include refid="tableName"></include>
+		where
+		STIPENMANAGER_ID = #{STIPENMANAGER_ID}
+	</select>
+
 	<!-- lxc 1094921525qq -->
 </mapper>

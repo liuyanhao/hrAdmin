@@ -70,7 +70,9 @@
 									<th class="center">招聘时间</th>
 									<th class="center">应聘考试</th>
 									<th class="center">填写简历</th>
+									<c:if test="${QX.edit == 1 && QX.del == 1 }">
 									<th class="center">操作</th>
+									</c:if>
 								</tr>
 							</thead>
 													
@@ -146,10 +148,12 @@
 													</div>
 												</div>
 											</td>
+											<c:if test="${QX.edit == 1 && QX.del == 1 }">
 											<td class="center">
-												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+											</c:if>
+												<%--<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
-												</c:if>
+												</c:if>--%>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ISSUEJOB_ID}');">
@@ -191,8 +195,9 @@
 													</div>
 												</div>
 											</td>
+										<c:if test="${QX.edit == 1 && QX.del == 1 }">
 										</tr>
-									
+									</c:if>
 									</c:forEach>
 									</c:if>
 									<c:if test="${QX.cha == 0 }">
@@ -295,7 +300,6 @@
 				});
 			}
 			
-			
 			//复选框全选控制
 			var active_class = 'active';
 			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
@@ -358,14 +362,38 @@
 				}
 			});
 		}
+        var fmid = "lxcindex";	//菜单点中状态
+        var mid = "lxcindex";	//菜单点中状态
+
+        function examination(id){
+        var fid="job99",MENU_NAME = "考试登记",MENU_URL='<%=basePath%>wantexam/toExam.do?ISSUEJOB_ID='+id;
+            if(id != mid){
+                $("#"+mid).removeClass();
+                mid = id;
+            }
+            if(fid != fmid){
+                $("#"+fmid).removeClass();
+                fmid = fid;
+            }
+            $("#"+fid).attr("class","active open");
+            $("#"+id).attr("class","active");
+            top.mainFrame.tabAddHandler(id,MENU_NAME,MENU_URL);
+            if(MENU_URL != "druid/index.html"){
+                jzts();
+            }
+        }
+        //显示加载进度
+        function jzts(){
+            $("#jzts").show();
+        }
 
 		//参加考试
-		function examination(Id){
+		/*function examination(Id){
             top.jzts();
             var diag = new top.Dialog();
             diag.Drag=true;
             diag.Title ="考试登记";
-            diag.URL = '<%=basePath%>issuejob/goEdit.do?ISSUEJOB_ID='+Id;
+            diag.URL = '<%=basePath%>wantexam/toExam.do?ISSUEJOB_ID='+Id;
             diag.Width = 800;
             diag.Height = 600;
             diag.CancelEvent = function(){ //关闭事件
@@ -375,7 +403,7 @@
                 diag.close();
             };
             diag.show();
-		}
+		}*/
 
 		//填写简历
 		function fillResume(Id){

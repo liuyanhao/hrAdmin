@@ -1,8 +1,9 @@
 package com.lxc.service.compensation.stipenmanager;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 薪酬等级表接口
@@ -53,6 +54,13 @@ public interface StipenManagerManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 查询明细总数
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findCount(PageData pd)throws Exception;
 }
 

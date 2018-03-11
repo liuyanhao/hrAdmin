@@ -1,12 +1,13 @@
 package com.lxc.service.compensation.stipenmanager.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.compensation.stipenmanager.StipenManagerManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 薪酬等级表
@@ -77,6 +78,16 @@ public class StipenManagerService implements StipenManagerManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("StipenManagerMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	/**
+	 *查询明细总数
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findCount(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("StipenManagerMapper.findCount",pd);
+	}
+
 }
 
