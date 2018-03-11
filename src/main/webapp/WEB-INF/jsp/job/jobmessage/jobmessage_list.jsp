@@ -81,19 +81,19 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.JOB_TYPE_ID}</td>
 											<td class='center'>${var.JOB_NAME}</td>
-											<td class='center'>${var.STIPEND_MANGER_ID}</td>
+											<td class='center'>${var.STIPEND_MANAGER_ID}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.JOBMESSAGE_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.JOB_MESSAGE_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.JOBMESSAGE_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.JOB_MESSAGE_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -107,7 +107,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.JOBMESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.JOB_MESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -116,7 +116,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.JOBMESSAGE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.JOB_MESSAGE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -272,7 +272,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>jobmessage/delete.do?JOBMESSAGE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>jobmessage/delete.do?JOB_MESSAGE_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						if("success" == data.result){
 							nextPage(${page.currentPage});
@@ -301,7 +301,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>jobmessage/goEdit.do?JOBMESSAGE_ID='+Id;
+			 diag.URL = '<%=basePath%>jobmessage/goEdit.do?JOB_MESSAGE_ID='+Id;
 			 diag.Width = 800;
 			 diag.Height = 600;
 			 diag.CancelEvent = function(){ //关闭事件

@@ -1,12 +1,13 @@
 package com.lxc.service.job.jobmessage.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.job.jobmessage.JobMessageManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 职位工作类型表
@@ -77,6 +78,6 @@ public class JobMessageService implements JobMessageManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("JobMessageMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
 }
 

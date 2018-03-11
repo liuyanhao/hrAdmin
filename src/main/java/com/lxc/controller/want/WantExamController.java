@@ -3,6 +3,7 @@ package com.lxc.controller.want;
 import com.lxc.controller.base.BaseController;
 import com.lxc.service.employee.issuejob.IssueJobManager;
 import com.lxc.service.employee.resume.ResumeManager;
+import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.Jurisdiction;
 import com.lxc.util.PageData;
 import org.springframework.stereotype.Controller;
@@ -24,6 +25,9 @@ public class WantExamController  extends BaseController {
     @Resource(name="resumeService")
     private ResumeManager resumeService;
 
+    @Resource(name="jobmessageService")
+    private JobMessageManager jobmessageService;
+
     /**
      *
      * @return
@@ -35,6 +39,10 @@ public class WantExamController  extends BaseController {
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
+        pd = jobmessageService.findById(pd);
+        if(pd != null) {
+            mv.addObject("pd", pd);
+        }
         mv.setViewName("want/goExam");
         mv.addObject("msg","success");
         return mv;

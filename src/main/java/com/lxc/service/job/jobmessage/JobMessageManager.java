@@ -1,8 +1,9 @@
 package com.lxc.service.job.jobmessage;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 职位工作类型表接口
@@ -53,6 +54,6 @@ public interface JobMessageManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
 }
 

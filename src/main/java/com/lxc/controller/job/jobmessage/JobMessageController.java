@@ -48,7 +48,7 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("JOBMESSAGE_ID", this.get32UUID());	//主键
+		pd.put("JOB_MESSAGE_ID", this.get32UUID());	//主键
 		pd.put("JOB_TYPE_ID", "0");	//工作类型id
 		jobmessageService.save(pd);
 		mv.addObject("msg","success");
@@ -173,7 +173,7 @@ public class JobMessageController extends BaseController {
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).get("JOB_TYPE_ID").toString());	//1
 			vpd.put("var2", varOList.get(i).getString("JOB_NAME"));	    //2
-			vpd.put("var3", varOList.get(i).getString("STIPEND_MANGER_ID"));	    //3
+			vpd.put("var3", varOList.get(i).getString("STIPEND_MANAGER_ID"));	    //3
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

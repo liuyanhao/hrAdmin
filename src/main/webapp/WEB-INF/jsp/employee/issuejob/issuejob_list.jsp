@@ -94,7 +94,7 @@
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.examination == 1}">
-														<a class="btn btn-xs btn-success" title="参加考试" onclick="examination('${var.ISSUEJOB_ID}');">
+														<a class="btn btn-xs btn-success" title="参加考试" onclick="examination('${var.JOB_MESSAGE_ID}');">
 															<i class="ace-icon fa fa-check-square-o align-top bigger-125" title="参加考试">参加考试</i>
 														</a>
 													</c:if>
@@ -107,7 +107,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 																<li>
-																	<a style="cursor:pointer;" onclick="examination('${var.ISSUEJOB_ID}');" class="tooltip-success" data-rel="tooltip" title="参加考试">
+																	<a style="cursor:pointer;" onclick="examination('${var.JOB_MESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="参加考试">
 																	<span class="green">
 																		<i class="ace-icon fa fa-check-square-o bigger-120"></i>
 																	</span>
@@ -124,7 +124,7 @@
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.fillResume == 1 }">
-														<a class="btn btn-xs btn-success" title="填写简历" onclick="fillResume('${var.ISSUEJOB_ID}');">
+														<a class="btn btn-xs btn-success" title="填写简历" onclick="fillResume('${var.JOB_MESSAGE_ID}');">
 															<i class="ace-icon fa fa-pencil align-top bigger-125" title="填写简历">填写简历</i>
 														</a>
 													</c:if>
@@ -137,7 +137,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.fillResume == 1 }">
 																<li>
-																	<a style="cursor:pointer;" onclick="fillResume('${var.ISSUEJOB_ID}');" class="tooltip-success" data-rel="tooltip" title="填写简历">
+																	<a style="cursor:pointer;" onclick="fillResume('${var.JOB_MESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="填写简历">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil align-top bigger-125">填写简历</i>
 																	</span>
@@ -365,8 +365,9 @@
         var fmid = "lxcindex";	//菜单点中状态
         var mid = "lxcindex";	//菜单点中状态
 
+        //参加考试
         function examination(id){
-        var fid="job99",MENU_NAME = "考试登记",MENU_URL='<%=basePath%>wantexam/toExam.do?ISSUEJOB_ID='+id;
+        var fid="job99",MENU_NAME = "考试登记",MENU_URL='<%=basePath%>wantexam/toExam.do?JOB_MESSAGE_ID='+id;
             if(id != mid){
                 $("#"+mid).removeClass();
                 mid = id;
@@ -387,23 +388,6 @@
             $("#jzts").show();
         }
 
-		//参加考试
-		/*function examination(Id){
-            top.jzts();
-            var diag = new top.Dialog();
-            diag.Drag=true;
-            diag.Title ="考试登记";
-            diag.URL = '<%=basePath%>wantexam/toExam.do?ISSUEJOB_ID='+Id;
-            diag.Width = 800;
-            diag.Height = 600;
-            diag.CancelEvent = function(){ //关闭事件
-                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-                    nextPage(${page.currentPage});
-                }
-                diag.close();
-            };
-            diag.show();
-		}*/
 
 		//填写简历
 		function fillResume(Id){
@@ -411,7 +395,7 @@
             var diag = new top.Dialog();
             diag.Drag=true;
             diag.Title ="填写简历";
-            diag.URL = '<%=basePath%>resume/goAdd.do?ISSUEJOB_ID='+Id;
+            diag.URL = '<%=basePath%>resume/goAdd.do?JOB_MESSAGE_ID='+Id;
             diag.Width = 840;
             diag.Height = 655;
             diag.CancelEvent = function(){ //关闭事件

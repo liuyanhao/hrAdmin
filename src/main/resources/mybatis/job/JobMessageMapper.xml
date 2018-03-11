@@ -4,23 +4,23 @@
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_JOBMESSAGE
+		TB_JOB_MESSAGE
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
 		JOB_TYPE_ID,	
 		JOB_NAME,	
-		STIPEND_MANGER_ID,	
-		JOBMESSAGE_ID
+		STIPEND_MANAGER_ID,	
+		JOB_MESSAGE_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{JOB_TYPE_ID},	
 		#{JOB_NAME},	
-		#{STIPEND_MANGER_ID},	
-		#{JOBMESSAGE_ID}
+		#{STIPEND_MANAGER_ID},	
+		#{JOB_MESSAGE_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -39,7 +39,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			JOBMESSAGE_ID = #{JOBMESSAGE_ID}
+			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -48,10 +48,10 @@
 		<include refid="tableName"></include>
 		set 
 			JOB_NAME = #{JOB_NAME},
-			STIPEND_MANGER_ID = #{STIPEND_MANGER_ID},
-		JOBMESSAGE_ID = JOBMESSAGE_ID
+			STIPEND_MANAGER_ID = #{STIPEND_MANAGER_ID},
+		JOB_MESSAGE_ID = JOB_MESSAGE_ID
 		where 
-		JOBMESSAGE_ID = #{JOBMESSAGE_ID}
+		JOB_MESSAGE_ID = #{JOB_MESSAGE_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -61,7 +61,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			JOBMESSAGE_ID = #{JOBMESSAGE_ID}
+			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -93,11 +93,11 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			JOBMESSAGE_ID in
+			JOB_MESSAGE_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
 	</delete>
-	
+
 	<!-- lxc 1094921525qq -->
 </mapper>

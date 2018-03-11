@@ -248,7 +248,7 @@ public class ResumeController extends BaseController {
 			vpd.put("var33", varOList.get(i).getString("REASON"));	    //28
 			vpd.put("var34", varOList.get(i).get("RESULT").toString());		//29
 			vpd.put("var35", varOList.get(i).getString("SCORE"));	    //30
-			vpd.put("var36", varOList.get(i).get("JOBMESSAGE_ID").toString());	//31
+			vpd.put("var36", varOList.get(i).get("JOB_MESSAGE_ID").toString());	//31
 			vpd.put("var37", varOList.get(i).getString("DEGREE"));	    //32
 			varList.add(vpd);
 		}

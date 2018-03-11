@@ -28,7 +28,7 @@
 					<div class="col-xs-12">
 					
 					<form action="jobmessage/${msg }.do" name="Form" id="Form" method="post">
-						<input type="hidden" name="JOBMESSAGE_ID" id="JOBMESSAGE_ID" value="${pd.JOBMESSAGE_ID}"/>
+						<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
@@ -37,7 +37,7 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">薪酬标准id:</td>
-								<td><input type="text" name="STIPEND_MANGER_ID" id="STIPEND_MANGER_ID" value="${pd.STIPEND_MANGER_ID}" maxlength="255" placeholder="这里输入薪酬标准id" title="薪酬标准id" style="width:98%;"/></td>
+								<td><input type="text" name="STIPEND_MANAGER_ID" id="STIPEND_MANAGER_ID" value="${pd.STIPEND_MANAGER_ID}" maxlength="255" placeholder="这里输入薪酬标准id" title="薪酬标准id" style="width:98%;"/></td>
 							</tr>
 						</table>
 						</div>
@@ -57,7 +57,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/jobmessagemx/list.do?JOBMESSAGE_ID=${pd.JOBMESSAGE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/jobmessagemx/list.do?JOB_MESSAGE_ID=${pd.JOB_MESSAGE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
 	</div>
 </c:if>
 
@@ -90,14 +90,14 @@
 				$("#JOB_NAME").focus();
 			return false;
 			}
-			if($("#STIPEND_MANGER_ID").val()==""){
-				$("#STIPEND_MANGER_ID").tips({
+			if($("#STIPEND_MANAGER_ID").val()==""){
+				$("#STIPEND_MANAGER_ID").tips({
 					side:3,
 		            msg:'请输入薪酬标准id',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#STIPEND_MANGER_ID").focus();
+				$("#STIPEND_MANAGER_ID").focus();
 			return false;
 			}
 			$("#Form").submit();

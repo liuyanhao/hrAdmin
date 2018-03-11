@@ -38,15 +38,15 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-3">职位类型：</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="jobType">职位类型：</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="form-field-3" placeholder="请输入职位类型" class="col-xs-10 col-sm-5">
+                                        <input type="text" name="jobType" id="jobType" value="${pd.jobType}" placeholder="请输入职位类型" class="col-xs-10 col-sm-5">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="form-field-4">身份证号：</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="cardId">身份证号：</label>
                                     <div class="col-sm-9">
-                                        <input type="text" id="form-field-4" placeholder="身份证号码" class="col-xs-10 col-sm-5">
+                                        <input type="text" name="cardId" id="cardId"  placeholder="身份证号码" class="col-xs-10 col-sm-5">
                                     </div>
                                 </div>
                          </div>
@@ -59,15 +59,16 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="form-field-2">职位名称：</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="jobName">职位名称：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" id="form-field-2" placeholder="请输入职位名称" class="col-xs-10 col-sm-5">
+                                    <input type="text" name="jobName" id="jobName" value="${pd.jobName}" placeholder="请输入职位名称" readonly="readonly" class="col-xs-10 col-sm-5">
+                                    <input type="hidden" name="jobId" value="${pd.id}" />
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="form-field-date">考试时间：</label>
                                 <div class="col-sm-9">
-                                    <input class="col-xs-10 col-sm-5 span10 date-picker" name="name" id="form-field-date" value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="日期" title="日期">
+                                    <input class="col-xs-10 col-sm-5 span10 date-picker" aria-readonly="true" name="name" id="form-field-date" value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="日期" title="日期">
                                 </div>
                             </div>
                         </div>
@@ -105,7 +106,6 @@
 		$(function() {
 			//日期框
 			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
-			
 			//下拉框
 			if(!ace.vars['touch']) {
 				$('.chosen-select').chosen({allow_single_deselect:true}); 

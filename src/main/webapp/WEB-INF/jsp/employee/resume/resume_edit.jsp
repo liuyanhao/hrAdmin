@@ -133,8 +133,11 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
 								<td><input type="number" name="RESULT" id="RESULT" value="${pd.RESULT}" maxlength="32" placeholder="这里输入面试成绩" title="面试成绩" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位id:</td>
-								<td><input type="number" name="JOBMESSAGE_ID" id="JOBMESSAGE_ID" value="${pd.JOBMESSAGE_ID}" maxlength="32" placeholder="这里输入工作职位id" title="工作职位id" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
+								<td>
+									<input type="text" name="JOB_MESSAGE_NAME" id="JOB_MESSAGE_Name" value="${pd.JOB_MESSAGE_ID}"  maxlength="32" placeholder="这里输入工作职位" title="工作职位" style="width:98%;"/>
+									<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}"  maxlength="32" placeholder="这里输入工作职位id" title="工作职位id" />
+								</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
 							</tr>
@@ -528,14 +531,14 @@
 				$("#SCORE").focus();
 			return false;
 			}
-			if($("#JOBMESSAGE_ID").val()==""){
-				$("#JOBMESSAGE_ID").tips({
+			if($("#JOB_MESSAGE_ID").val()==""){
+				$("#JOB_MESSAGE_ID").tips({
 					side:3,
 		            msg:'请输入工作职位id',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#JOBMESSAGE_ID").focus();
+				$("#JOB_MESSAGE_ID").focus();
 			return false;
 			}
 			if($("#DEGREE").val()==""){

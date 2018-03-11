@@ -44,7 +44,7 @@
 		REASON,	
 		RESULT,	
 		SCORE,	
-		JOBMESSAGE_ID,	
+		JOB_MESSAGE_ID,
 		DEGREE,	
 		RESUME_ID
 	</sql>
@@ -86,7 +86,7 @@
 		#{REASON},	
 		#{RESULT},	
 		#{SCORE},	
-		#{JOBMESSAGE_ID},	
+		#{JOB_MESSAGE_ID},
 		#{DEGREE},	
 		#{RESUME_ID}
 	</sql>
@@ -149,7 +149,7 @@
 			REASON = #{REASON},
 			RESULT = #{RESULT},
 			SCORE = #{SCORE},
-			JOBMESSAGE_ID = #{JOBMESSAGE_ID},
+			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID},
 			DEGREE = #{DEGREE},
 		RESUME_ID = RESUME_ID
 		where 
