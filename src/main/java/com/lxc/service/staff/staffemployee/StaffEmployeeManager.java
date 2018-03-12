@@ -54,6 +54,14 @@ public interface StaffEmployeeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 查询 状态
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> getStatePass(Page page)throws Exception;
+
 }
 

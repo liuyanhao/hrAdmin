@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="StipenManagerMapper">
+<mapper namespace="StipendManagerMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_STIPENMANAGER
+		TB_STIPENDMANAGER
 	</sql>
 	
 	<!-- 字段 -->
@@ -18,7 +18,7 @@
 		STIPEND_TYPE,	
 		STIPEND_WEAL,	
 		STATUS,	
-		STIPENMANAGER_ID
+		STIPENDMANAGER_ID
 	</sql>
 	
 	<!-- 字段值 -->
@@ -32,7 +32,7 @@
 		#{STIPEND_TYPE},	
 		#{STIPEND_WEAL},	
 		#{STATUS},	
-		#{STIPENMANAGER_ID}
+		#{STIPENDMANAGER_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -51,7 +51,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			STIPENMANAGER_ID = #{STIPENMANAGER_ID}
+			STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -67,9 +67,9 @@
 			STIPEND_TYPE = #{STIPEND_TYPE},
 			STIPEND_WEAL = #{STIPEND_WEAL},
 			STATUS = #{STATUS},
-		STIPENMANAGER_ID = STIPENMANAGER_ID
+		STIPENDMANAGER_ID = STIPENDMANAGER_ID
 		where 
-		STIPENMANAGER_ID = #{STIPENMANAGER_ID}
+		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -79,7 +79,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			STIPENMANAGER_ID = #{STIPENMANAGER_ID}
+			STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -113,7 +113,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			STIPENMANAGER_ID in
+			STIPENDMANAGER_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
@@ -125,7 +125,7 @@
 		from
 		<include refid="tableName"></include>
 		where
-		STIPENMANAGER_ID = #{STIPENMANAGER_ID}
+		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</select>
 
 	<!-- lxc 1094921525qq -->

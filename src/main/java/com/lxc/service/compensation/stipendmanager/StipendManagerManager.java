@@ -1,4 +1,4 @@
-package com.lxc.service.compensation.stipenmanager;
+package com.lxc.service.compensation.stipendmanager;
 
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
@@ -11,7 +11,7 @@ import java.util.List;
  * 创建时间：2018-01-27
  * @version
  */
-public interface StipenManagerManager{
+public interface StipendManagerManager{
 
 	/**新增
 	 * @param pd

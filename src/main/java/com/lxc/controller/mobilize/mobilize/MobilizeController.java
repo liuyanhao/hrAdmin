@@ -1,14 +1,14 @@
 package com.lxc.controller.mobilize.mobilize;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.enums.EmployeeState;
+import com.lxc.service.mobilize.mobilize.MobilizeManager;
+import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
+import com.lxc.util.AppUtil;
+import com.lxc.util.Jurisdiction;
+import com.lxc.util.ObjectExcelView;
+import com.lxc.util.PageData;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,14 +16,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.Tools;
-import com.lxc.service.mobilize.mobilize.MobilizeManager;
+
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 说明：调动管理
@@ -34,10 +32,14 @@ import com.lxc.service.mobilize.mobilize.MobilizeManager;
 @RequestMapping(value="/mobilize")
 public class MobilizeController extends BaseController {
 	
-	String menuUrl = "mobilize/list.do"; //菜单地址(权限用)
+	String menuUrl = "mobilize/list.do"; //调动表 菜单地址(权限用)
+	String menuUrl2 = "mobilize/doSelectAll.do"; //调动管理 菜单地址(权限用)
 	@Resource(name="mobilizeService")
 	private MobilizeManager mobilizeService;
-	
+
+	@Resource(name="staffemployeeService")
+	private StaffEmployeeManager staffemployeeService;
+
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -45,12 +47,12 @@ public class MobilizeController extends BaseController {
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"新增Mobilize");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("MOBILIZE_ID", this.get32UUID());	//主键
-		pd.put("EMP_ID", "");	//审核人编号
+		pd.put("EMP_NAME", Jurisdiction.getUsername());	//审核人
 		mobilizeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -205,10 +207,67 @@ public class MobilizeController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 		return mv;
 	}
-	
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(format,true));
+	}
+
+	@RequestMapping(value="/doSelectAll")
+	public ModelAndView doSelectAll(Page page)throws  Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"调用管理列表Mobilize");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String LEARING = pd.getString("LEARING");				//学历
+		if(null != LEARING && !"".equals(LEARING)){
+			pd.put("LEARING", LEARING.trim());
+		}else {
+			pd.put("LEARING", null);
+		}
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}else{
+			pd.put("keywords", null);
+		}
+		page.setPd(pd);
+		List<PageData> varList = new ArrayList<PageData>();
+		pd.put("STATES", EmployeeState.PASS.getCode()); //通过
+		varList = staffemployeeService.getStatePass(page);
+		mv.setViewName("mobilize/mobilize/mobilizeAll_list");
+		mv.addObject("varList", varList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
+
+
+
+	@RequestMapping(value="/goManoeuvre" )
+	public ModelAndView goManoeuvre()throws  Exception{
+	ModelAndView mv = this.getModelAndView();
+	PageData pd = new PageData();
+	pd = this.getPageData();
+	pd = staffemployeeService.findById(pd);	//根据ID读取
+		mv.setViewName("mobilize/mobilize/manoeuvre_edit");
+		mv.addObject("msg", "manoeuvre");
+		mv.addObject("pd", pd);
+		return mv;
+   }
+
+	@RequestMapping(value="/manoeuvre")
+	public ModelAndView manoeuvre() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"修改Mobilize");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "edit")){return null;} //校验权限
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		mobilizeService.edit(pd);
+		mv.addObject("msg","success");
+		mv.setViewName("save_result");
+		return mv;
 	}
 }

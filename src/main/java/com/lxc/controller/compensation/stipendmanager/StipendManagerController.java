@@ -1,8 +1,8 @@
-package com.lxc.controller.compensation.stipenmanager;
+package com.lxc.controller.compensation.stipendmanager;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
-import com.lxc.service.compensation.stipenmanager.StipenManagerManager;
+import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
 import com.lxc.util.ObjectExcelView;
@@ -27,12 +27,12 @@ import java.util.*;
  * 创建时间：2018-01-27
  */
 @Controller
-@RequestMapping(value="/stipenmanager")
-public class StipenManagerController extends BaseController {
+@RequestMapping(value="/stipendmanager")
+public class StipendManagerController extends BaseController {
 	
-	String menuUrl = "stipenmanager/list.do"; //菜单地址(权限用)
-	@Resource(name="stipenmanagerService")
-	private StipenManagerManager stipenmanagerService;
+	String menuUrl = "stipendmanager/list.do"; //菜单地址(权限用)
+	@Resource(name="stipendmanagerService")
+	private StipendManagerManager stipendmanagerService;
 	
 	/**保存
 	 * @param
@@ -40,14 +40,14 @@ public class StipenManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增StipenManager");
+		logBefore(logger, Jurisdiction.getUsername()+"新增StipendManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("STIPENMANAGER_ID", this.get32UUID());	//主键
+		pd.put("STIPENDMANAGER_ID", this.get32UUID());	//主键
 		pd.put("BASE_STIPEND_ID", "");	//基本薪资id
-		stipenmanagerService.save(pd);
+		stipendmanagerService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -59,11 +59,11 @@ public class StipenManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"删除StipenManager");
+		logBefore(logger, Jurisdiction.getUsername()+"删除StipendManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		stipenmanagerService.delete(pd);
+		stipendmanagerService.delete(pd);
 		out.write("success");
 		out.close();
 	}
@@ -74,12 +74,12 @@ public class StipenManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改StipenManager");
+		logBefore(logger, Jurisdiction.getUsername()+"修改StipendManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		stipenmanagerService.edit(pd);
+		stipendmanagerService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -91,7 +91,7 @@ public class StipenManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"列表StipenManager");
+		logBefore(logger, Jurisdiction.getUsername()+"列表StipendManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -101,8 +101,8 @@ public class StipenManagerController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = stipenmanagerService.list(page);	//列出StipenManager列表
-		mv.setViewName("compensation/stipenmanager/stipenmanager_list");
+		List<PageData>	varList = stipendmanagerService.list(page);	//列出StipendManager列表
+		mv.setViewName("compensation/stipendmanager/stipendmanager_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -118,7 +118,7 @@ public class StipenManagerController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("compensation/stipenmanager/stipenmanager_edit");
+		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
@@ -133,8 +133,8 @@ public class StipenManagerController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = stipenmanagerService.findById(pd);	//根据ID读取
-		mv.setViewName("compensation/stipenmanager/stipenmanager_edit");
+		pd = stipendmanagerService.findById(pd);	//根据ID读取
+		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
@@ -147,7 +147,7 @@ public class StipenManagerController extends BaseController {
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
 	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除StipenManager");
+		logBefore(logger, Jurisdiction.getUsername()+"批量删除StipendManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -156,7 +156,7 @@ public class StipenManagerController extends BaseController {
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			stipenmanagerService.deleteAll(ArrayDATA_IDS);
+			stipendmanagerService.deleteAll(ArrayDATA_IDS);
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
@@ -172,7 +172,7 @@ public class StipenManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出StipenManager到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出StipendManager到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
@@ -189,7 +189,7 @@ public class StipenManagerController extends BaseController {
 		titles.add("薪酬总额");	//8
 		titles.add("审批状态");	//9
 		dataMap.put("titles", titles);
-		List<PageData> varOList = stipenmanagerService.listAll(pd);
+		List<PageData> varOList = stipendmanagerService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();

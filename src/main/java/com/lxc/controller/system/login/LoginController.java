@@ -155,10 +155,12 @@ public class LoginController extends BaseController {
 					user = userr;
 				}
 				String USERNAME = user.getUSERNAME();
+				String USER_ID = user.getUSER_ID();
 				Role role = user.getRole();											//获取用户角色
 				String roleRights = role!=null ? role.getRIGHTS() : "";				//角色权限(菜单权限)
 				session.setAttribute(USERNAME + Const.SESSION_ROLE_RIGHTS, roleRights); //将角色权限存入session
 				session.setAttribute(Const.SESSION_USERNAME, USERNAME);				//放入用户名到session
+				session.setAttribute(Const.SESSION_USERID, USER_ID);				//放入用户名ID到session
 				List<Menu> allmenuList = new ArrayList<Menu>();
 				if(null == session.getAttribute(USERNAME + Const.SESSION_allmenuList)){	
 					allmenuList = menuService.listAllMenuQx("0");					//获取所有菜单

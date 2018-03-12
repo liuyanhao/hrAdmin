@@ -27,8 +27,8 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="stipenmanager/${msg }.do" name="Form" id="Form" method="post">
-						<input type="hidden" name="STIPENMANAGER_ID" id="STIPENMANAGER_ID" value="${pd.STIPENMANAGER_ID}"/>
+					<form action="stipendmanager/${msg }.do" name="Form" id="Form" method="post">
+						<input type="hidden" name="STIPENDMANAGER_ID" id="STIPEDNMANAGER_ID" value="${pd.STIPENDMANAGER_ID}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>

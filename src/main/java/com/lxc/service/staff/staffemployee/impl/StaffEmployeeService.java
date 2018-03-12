@@ -78,6 +78,17 @@ public class StaffEmployeeService implements StaffEmployeeManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("StaffEmployeeMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+
+	/**
+	 * 查询通过审核的员工
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> getStatePass(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("StaffEmployeeMapper.getStatePass", page);
+	}
+
 }
 

@@ -2,7 +2,7 @@ package com.lxc.controller.job.jobmessage;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
-import com.lxc.service.compensation.stipenmanager.StipenManagerManager;
+import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
 import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
@@ -34,8 +34,8 @@ public class JobMessageController extends BaseController {
 	@Resource(name="jobmessageService")
 	private JobMessageManager jobmessageService;
 
-	@Resource(name="stipenmanagerService")
-	private StipenManagerManager stipenmanagerService;
+	@Resource(name="stipendmanagerService")
+	private StipendManagerManager stipendmanagerService;
 	
 	/**保存
 	 * @param
@@ -69,7 +69,7 @@ public class JobMessageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String errInfo = "success";
-		if(Integer.parseInt(stipenmanagerService.findCount(pd).get("zs").toString()) > 0){
+		if(Integer.parseInt(stipendmanagerService.findCount(pd).get("zs").toString()) > 0){
 			errInfo = "false";
 		}else{
 			jobmessageService.delete(pd);

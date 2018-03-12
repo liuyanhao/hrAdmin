@@ -95,7 +95,32 @@
                                             <td class='center'>${var.PHONE}</td>
                                             <td class='center'>${var.WECHAT}</td>
                                             <td class='center'>${var.QQ}</td>
-											<td class='center'>${var.STATES}</td>
+											<td class='center'>
+												<c:if test="${var.STATES == 0 }">
+													<c:if test="${QX.staffemployeeExamine == 1}">
+														<a href="#">未审核</a>
+													</c:if>
+													<c:if test="${QX.staffemployeeExamine != 1}">
+														未审核
+													</c:if>
+												</c:if>
+												<c:if test="${var.STATES == 1 }">
+													<c:if test="${QX.staffemployeeExamine == 1}">
+														<a href="#">通过</a>
+													</c:if>
+													<c:if test="${QX.staffemployeeExamine != 1}">
+														通过
+													</c:if>
+												</c:if>
+												<c:if test="${var.STATES == 2 }">
+													<c:if test="${QX.staffemployeeExamine == 1}">
+													<a href="#">不通过</a>
+													</c:if>
+													<c:if test="${QX.staffemployeeExamine != 1}">
+														不通过
+													</c:if>
+												</c:if>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>

@@ -1,12 +1,11 @@
 package com.lxc.util;
 
-import java.util.List;
-import java.util.Map;
-
+import com.lxc.entity.system.Menu;
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.session.Session;
 
-import com.lxc.entity.system.Menu;
+import java.util.List;
+import java.util.Map;
 
 /**
  * 权限处理
@@ -127,6 +126,13 @@ public class Jurisdiction {
 	 */
 	public static String getUsername(){
 		return getSession().getAttribute(Const.SESSION_USERNAME).toString();
+	}
+
+	/**获取当前登录的用户名Id
+	 * @return
+	 */
+	public static String getUserId(){
+		return getSession().getAttribute(Const.SESSION_USERID).toString();
 	}
 	
 	/**获取当前按钮权限(增删改查)

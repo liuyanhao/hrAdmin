@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="mobilize/list.do" method="post" name="Form" id="Form">
+						<form action="stipendmanager/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -67,11 +67,15 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">审核人编号</th>
-									<th class="center">审核人名称</th>
-									<th class="center">工作职位编码</th>
-									<th class="center">调动原因</th>
-									<th class="center">审核状态</th>
+									<th class="center">薪酬名称</th>
+									<th class="center">登记人姓名</th>
+									<th class="center">交通补贴</th>
+									<th class="center">午餐补贴</th>
+									<th class="center">登记时间</th>
+									<th class="center">基本薪资id</th>
+									<th class="center">薪资类型</th>
+									<th class="center">薪酬总额</th>
+									<th class="center">审批状态</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -84,13 +88,17 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.MOBILIZE_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.STIPENDMANAGER_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.EMP_ID}</td>
-											<td class='center'>${var.EMP_NAME}</td>
-											<td class='center'>${var.JOB_ID}</td>
-											<td class='center'>${var.CAUSE}</td>
+											<td class='center'>${var.STIPEND_NAME}</td>
+											<td class='center'>${var.STIPEND_USER_NAME}</td>
+											<td class='center'>${var.STIPEN_WEAL_JOURNEY}</td>
+											<td class='center'>${var.STIPEN_WEAL_LUNCH}</td>
+											<td class='center'>${var.GTIPEND_DATE}</td>
+											<td class='center'>${var.BASE_STIPEND_ID}</td>
+											<td class='center'>${var.STIPEND_TYPE}</td>
+											<td class='center'>${var.STIPEND_WEAL}</td>
 											<td class='center'>${var.STATUS}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
@@ -98,12 +106,12 @@
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.MOBILIZE_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.STIPENDMANAGER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.MOBILIZE_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.STIPENDMANAGER_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -117,7 +125,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.MOBILIZE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.STIPENDMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -126,7 +134,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.MOBILIZE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.STIPENDMANAGER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -263,7 +271,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>mobilize/goAdd.do';
+			 diag.URL = '<%=basePath%>stipendmanager/goAdd.do';
 			 diag.Width = 450;
 			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -285,7 +293,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>mobilize/delete.do?MOBILIZE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>stipendmanager/delete.do?STIPENDMANAGER_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -299,7 +307,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>mobilize/goEdit.do?MOBILIZE_ID='+Id;
+			 diag.URL = '<%=basePath%>stipendmanager/goEdit.do?STIPENDMANAGER_ID='+Id;
 			 diag.Width = 450;
 			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -340,7 +348,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>mobilize/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>stipendmanager/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -359,7 +367,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>mobilize/excel.do';
+			window.location.href='<%=basePath%>stipendmanager/excel.do';
 		}
 	</script>
 

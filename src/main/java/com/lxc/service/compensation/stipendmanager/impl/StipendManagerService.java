@@ -1,8 +1,8 @@
-package com.lxc.service.compensation.stipenmanager.impl;
+package com.lxc.service.compensation.stipendmanager.impl;
 
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.service.compensation.stipenmanager.StipenManagerManager;
+import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
 import com.lxc.util.PageData;
 import org.springframework.stereotype.Service;
 
@@ -15,8 +15,8 @@ import java.util.List;
  * 创建时间：2018-01-27
  * @version
  */
-@Service("stipenmanagerService")
-public class StipenManagerService implements StipenManagerManager{
+@Service("stipendmanagerService")
+public class StipendManagerService implements StipendManagerManager{
 
 	@Resource(name = "daoSupport")
 	private DaoSupport dao;
@@ -26,7 +26,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public void save(PageData pd)throws Exception{
-		dao.save("StipenManagerMapper.save", pd);
+		dao.save("StipendManagerMapper.save", pd);
 	}
 	
 	/**删除
@@ -34,7 +34,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception{
-		dao.delete("StipenManagerMapper.delete", pd);
+		dao.delete("StipendManagerMapper.delete", pd);
 	}
 	
 	/**修改
@@ -42,7 +42,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception{
-		dao.update("StipenManagerMapper.edit", pd);
+		dao.update("StipendManagerMapper.edit", pd);
 	}
 	
 	/**列表
@@ -51,7 +51,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> list(Page page)throws Exception{
-		return (List<PageData>)dao.findForList("StipenManagerMapper.datalistPage", page);
+		return (List<PageData>)dao.findForList("StipendManagerMapper.datalistPage", page);
 	}
 	
 	/**列表(全部)
@@ -60,7 +60,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 */
 	@SuppressWarnings("unchecked")
 	public List<PageData> listAll(PageData pd)throws Exception{
-		return (List<PageData>)dao.findForList("StipenManagerMapper.listAll", pd);
+		return (List<PageData>)dao.findForList("StipendManagerMapper.listAll", pd);
 	}
 	
 	/**通过id获取数据
@@ -68,7 +68,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception{
-		return (PageData)dao.findForObject("StipenManagerMapper.findById", pd);
+		return (PageData)dao.findForObject("StipendManagerMapper.findById", pd);
 	}
 	
 	/**批量删除
@@ -76,7 +76,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("StipenManagerMapper.deleteAll", ArrayDATA_IDS);
+		dao.delete("StipendManagerMapper.deleteAll", ArrayDATA_IDS);
 	}
 
 	/**
@@ -86,7 +86,7 @@ public class StipenManagerService implements StipenManagerManager{
 	 * @throws Exception
 	 */
 	public PageData findCount(PageData pd) throws Exception {
-		return (PageData)dao.findForObject("StipenManagerMapper.findCount",pd);
+		return (PageData)dao.findForObject("StipendManagerMapper.findCount",pd);
 	}
 
 }

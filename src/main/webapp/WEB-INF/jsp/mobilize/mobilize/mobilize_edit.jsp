@@ -40,8 +40,8 @@
 								<td><input type="text" name="JOB_ID" id="JOB_ID" value="${pd.JOB_ID}" maxlength="20" placeholder="这里输入工作职位编码" title="工作职位编码" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">调用原因:</td>
-								<td><input type="text" name="CAUSE" id="CAUSE" value="${pd.CAUSE}" maxlength="255" placeholder="这里输入调用原因" title="调用原因" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">调动原因:</td>
+								<td><input type="text" name="CAUSE" id="CAUSE" value="${pd.CAUSE}" maxlength="255" placeholder="这里输入调动原因" title="调动原因" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">审核状态:</td>
@@ -105,7 +105,7 @@
 			if($("#CAUSE").val()==""){
 				$("#CAUSE").tips({
 					side:3,
-		            msg:'请输入调用原因',
+		            msg:'请输入调动原因',
 		            bg:'#AE81FF',
 		            time:2
 		        });

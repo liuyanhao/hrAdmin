@@ -38,15 +38,16 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="jobType">职位类型：</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="JOB_TYPE">职位类型：</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="jobType" id="jobType" value="${pd.jobType}" placeholder="请输入职位类型" class="col-xs-10 col-sm-5">
+                                        <input type="text" name="JOB_TYPE" id="JOB_TYPE" value="${pd.JOB_TYPE}" placeholder="请输入职位类型" class="col-xs-10 col-sm-5">
+                                        <input type="hidden" name="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}">
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="cardId">身份证号：</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="CARD_ID">身份证号：</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="cardId" id="cardId"  placeholder="身份证号码" class="col-xs-10 col-sm-5">
+                                        <input type="text" name="CARD_ID" id="CARD_ID"  placeholder="身份证号码" class="col-xs-10 col-sm-5">
                                     </div>
                                 </div>
                          </div>
@@ -54,15 +55,15 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" ></label>
                                 <div class="col-sm-9">
-                                    <button class="btn btn-mini btn-primary" type="submit" onclick="">提交</button>
-                                   <%-- <button class="btn btn-mini btn-danger" type="reset" onclick="">重置</button>--%>
+                                    <button class="btn  btn-primary" type="submit" onclick="">提交</button>
+                                   <%-- <button class="btn btn-danger" type="reset" onclick="">重置</button>--%>
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="jobName">职位名称：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="jobName" id="jobName" value="${pd.jobName}" placeholder="请输入职位名称" readonly="readonly" class="col-xs-10 col-sm-5">
-                                    <input type="hidden" name="jobId" value="${pd.id}" />
+                                    <input type="text" name="jobName" id="jobName" value="${pd.JOB_NAME}" placeholder="请输入职位名称" readonly="readonly" class="col-xs-10 col-sm-5">
+                                    <input type="hidden" name="JOB_ID" value="${pd.id}" />
                                 </div>
                             </div>
                             <div class="form-group">

@@ -31,13 +31,13 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="stipenmanager/list.do" method="post" name="Form" id="Form">
+						<form action="/mobilize/doSelectAll.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
-											<input type="text" placeholder="这里输入关键词" class="nav-search-input" id="nav-search-input" autocomplete="off" name="keywords" value="${pd.keywords }" placeholder="这里输入关键词"/>
+											<input type="text" placeholder="这里输入关键词" class="nav-search-input" id="nav-search-input" autocomplete="off" name="keywords" value="${pd.keywords}" placeholder="这里输入关键词"/>
 											<i class="ace-icon fa fa-search nav-search-icon"></i>
 										</span>
 									</div>
@@ -45,17 +45,25 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="LEARING" id="LEARING" data-placeholder="请选择学历" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<option value="大学" >大学</option>
+									<option value="本科" >本科</option>
+									<option value="研究生">研究生</option>
+									<option value="硕士" >硕士</option>
+									<option value="博士" >博士</option>
+									<option value="大专" >大专</option>
+									<option value="中专" >中专</option>
+									<option value="高中" >高中</option>
+									<option value="初中" >初中</option>
+									<option value="小学" >小学</option>
+									<option value="其他" >其他</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
-								<c:if test="${QX.toExcel == 1 }"><td style="vertical-align:top;padding-left:2px;"><a class="btn btn-light btn-xs" onclick="toExcel();" title="导出到EXCEL"><i id="nav-search-icon" class="ace-icon fa fa-download bigger-110 nav-search-icon blue"></i></a></td></c:if>
 							</tr>
 						</table>
 						<!-- 检索  -->
@@ -63,19 +71,14 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">薪酬名称</th>
-									<th class="center">登记人姓名</th>
-									<th class="center">交通补贴</th>
-									<th class="center">午餐补贴</th>
-									<th class="center">登记时间</th>
-									<th class="center">基本薪资id</th>
-									<th class="center">薪资类型</th>
-									<th class="center">薪酬总额</th>
-									<th class="center">审批状态</th>
+									<th class="center">职位类型</th>
+									<th class="center">职位名称</th>
+									<th class="center">姓名</th>
+									<th class="center">性别</th>
+									<th class="center">年龄</th>
+									<th class="center">学历</th>
+									<th class="center">专业</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -87,32 +90,22 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.STIPENMANAGER_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.STIPEND_NAME}</td>
-											<td class='center'>${var.STIPEND_USER_NAME}</td>
-											<td class='center'>${var.STIPEN_WEAL_JOURNEY}</td>
-											<td class='center'>${var.STIPEN_WEAL_LUNCH}</td>
-											<td class='center'>${var.GTIPEND_DATE}</td>
-											<td class='center'>${var.BASE_STIPEND_ID}</td>
-											<td class='center'>${var.STIPEND_TYPE}</td>
-											<td class='center'>${var.STIPEND_WEAL}</td>
-											<td class='center'>${var.STATUS}</td>
+											<td class='center'>${var.JOB_TYPE}</td>
+											<td class='center'>${var.JOB_NAME}</td>
+											<td class='center'>${var.STAFF_NAME}</td>
+											<td class='center'>${var.SEX}</td>
+											<td class='center'>${var.AGE}</td>
+											<td class='center'>${var.LEARING}</td>
+											<td class='center'>${var.SPEIALITY}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.STIPENMANAGER_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
-													</a>
-													</c:if>
-													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.STIPENMANAGER_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+													<a class="btn btn-xs btn-success" title="调动" onclick="manoeuvre('${var.STAFFEMPLOYEE_ID}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="调动">调动</i>
 													</a>
 													</c:if>
 												</div>
@@ -125,18 +118,9 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.STIPENMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="manoeuvre('${var.STAFFEMPLOYEE_ID}');" class="tooltip-success" data-rel="tooltip" title="调动">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
-																	</span>
-																</a>
-															</li>
-															</c:if>
-															<c:if test="${QX.del == 1 }">
-															<li>
-																<a style="cursor:pointer;" onclick="del('${var.STIPENMANAGER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
-																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
 																</a>
 															</li>
@@ -167,12 +151,7 @@
 						<table style="width:100%;">
 							<tr>
 								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
-									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-sm btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
+
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
@@ -265,51 +244,16 @@
 			});
 		});
 		
-		//新增
-		function add(){
+
+		//调动
+		function manoeuvre(Id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
-			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>stipenmanager/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
-			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 if('${page.currentPage}' == '0'){
-						 top.jzts();
-						 setTimeout("self.location=self.location",100);
-					 }else{
-						 nextPage(${page.currentPage});
-					 }
-				}
-				diag.close();
-			 };
-			 diag.show();
-		}
-		
-		//删除
-		function del(Id){
-			bootbox.confirm("确定要删除吗?", function(result) {
-				if(result) {
-					top.jzts();
-					var url = "<%=basePath%>stipenmanager/delete.do?STIPENMANAGER_ID="+Id+"&tm="+new Date().getTime();
-					$.get(url,function(data){
-						nextPage(${page.currentPage});
-					});
-				}
-			});
-		}
-		
-		//修改
-		function edit(Id){
-			 top.jzts();
-			 var diag = new top.Dialog();
-			 diag.Drag=true;
-			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>stipenmanager/goEdit.do?STIPENMANAGER_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Title ="调动人员基本信息";
+			 diag.URL = '<%=basePath%>mobilize/goManoeuvre.do?STAFFEMPLOYEE_ID='+Id;
+			 diag.Width = 550;
+			 diag.Height = 455;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -318,57 +262,8 @@
 			 };
 			 diag.show();
 		}
-		
-		//批量操作
-		function makeAll(msg){
-			bootbox.confirm(msg, function(result) {
-				if(result) {
-					var str = '';
-					for(var i=0;i < document.getElementsByName('ids').length;i++){
-					  if(document.getElementsByName('ids')[i].checked){
-					  	if(str=='') str += document.getElementsByName('ids')[i].value;
-					  	else str += ',' + document.getElementsByName('ids')[i].value;
-					  }
-					}
-					if(str==''){
-						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
-						});
-						$("#zcheckbox").tips({
-							side:1,
-				            msg:'点这里全选',
-				            bg:'#AE81FF',
-				            time:8
-				        });
-						return;
-					}else{
-						if(msg == '确定要删除选中的数据吗?'){
-							top.jzts();
-							$.ajax({
-								type: "POST",
-								url: '<%=basePath%>stipenmanager/deleteAll.do?tm='+new Date().getTime(),
-						    	data: {DATA_IDS:str},
-								dataType:'json',
-								//beforeSend: validateData,
-								cache: false,
-								success: function(data){
-									 $.each(data.list, function(i, list){
-											nextPage(${page.currentPage});
-									 });
-								}
-							});
-						}
-					}
-				}
-			});
-		};
-		
-		//导出excel
-		function toExcel(){
-			window.location.href='<%=basePath%>stipenmanager/excel.do';
-		}
+
+
 	</script>
 
 
