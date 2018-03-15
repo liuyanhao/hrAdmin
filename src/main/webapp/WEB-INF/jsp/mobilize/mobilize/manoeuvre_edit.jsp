@@ -37,7 +37,7 @@
                                     </tr>
                                     <tr>
                                         <td style="width:175px;text-align: right;padding-top: 13px;">现职位类别:</td>
-                                        <td> ${pd.JOB_TYPE}</td>
+                                        <td> ${pd.TYPE_NAME}</td>
                                     </tr>
                                     <tr>
                                         <td style="width:175px;text-align: right;padding-top: 13px;">现职位名称:</td>

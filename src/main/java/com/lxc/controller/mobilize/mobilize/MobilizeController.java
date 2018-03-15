@@ -233,9 +233,9 @@ public class MobilizeController extends BaseController {
 		}else{
 			pd.put("keywords", null);
 		}
+		pd.put("STATES", EmployeeState.PASS.getCode()); //通过
 		page.setPd(pd);
 		List<PageData> varList = new ArrayList<PageData>();
-		pd.put("STATES", EmployeeState.PASS.getCode()); //通过
 		varList = staffemployeeService.getStatePass(page);
 		mv.setViewName("mobilize/mobilize/mobilizeAll_list");
 		mv.addObject("varList", varList);

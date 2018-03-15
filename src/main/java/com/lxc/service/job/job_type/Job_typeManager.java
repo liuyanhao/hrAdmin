@@ -1,17 +1,16 @@
-package com.lxc.service.staff.staffemployee;
+package com.lxc.service.job.job_type;
 
+import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
 
-import java.util.List;
-
 /** 
- * 说明： 员工档案信息表接口
+ * 说明： 职位类型模块接口
  * 创建人：lxc Q1094921525
- * 创建时间：2018-01-16
+ * 创建时间：2018-03-14
  * @version
  */
-public interface StaffEmployeeManager{
+public interface Job_typeManager{
 
 	/**新增
 	 * @param pd
@@ -54,14 +53,6 @@ public interface StaffEmployeeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-
-	/**
-	 * 查询 状态
-	 * @param page
-	 * @return
-	 * @throws Exception
-	 */
-	public List<PageData> getStatePass(Page page)throws Exception;
-
+	
 }
 

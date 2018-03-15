@@ -150,12 +150,18 @@
 	
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
-		select 
+		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
 		<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>
-		where 
-			STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
+		<include refid="tableName"></include>  s
+		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
+		where 1=1
+		and ISROMVE =0
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		and	STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -203,12 +209,20 @@
 
 	<select id="getStatePass" parameterType="page" resultType="pd" >
 		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
 		<include refid="Field"></include>
 		from
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> s
+		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
 		where 1=1
 		and ISROMVE =0
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
 		AND STATES = #{pd.STATES}
+		<if test="pd.LEARING != null">
+			and LEARING LIKE CONCAT(CONCAT('%', #{pd.LEARING}),'%')
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"> <!-- 关键词检索 -->
 			and
 			(
