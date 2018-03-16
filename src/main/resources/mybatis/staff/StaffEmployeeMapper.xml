@@ -186,6 +186,12 @@
 					QQ LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
 		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and ADD_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and ADD_TIME &lt;= #{pd.lastEnd}
+		</if>
 	</select>
 	
 	<!-- 列表(全部) -->
@@ -207,7 +213,7 @@
 		</foreach>
 	</delete>
 
-	<select id="getStatePass" parameterType="page" resultType="pd" >
+	<select id="statePassPage" parameterType="page" resultType="pd" >
 		select
 		t.TYPE_NAME,
 		j.JOB_NAME,

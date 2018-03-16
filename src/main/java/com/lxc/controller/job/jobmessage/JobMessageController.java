@@ -181,7 +181,16 @@ public class JobMessageController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 		return mv;
 	}
-	
+
+	@RequestMapping(value="/select-job-name")
+	@ResponseBody
+	public List<PageData> selectJobName() throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> varOList = jobmessageService.listJobType(pd);
+		return varOList;
+	}
+
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");

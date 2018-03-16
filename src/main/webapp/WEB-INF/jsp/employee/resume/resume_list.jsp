@@ -113,7 +113,11 @@
 											<td class='center'>${var.RESULT}</td>
 											<td class='center'>${var.TIME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
-											<td class='center'>${var.STATUS}</td>
+											<td class='center'>
+														<c:if test="${var.STATUS == 0}">未审核</c:if>
+														<c:if test="${var.STATUS == 1}">通过</c:if>
+														<c:if test="${var.STATUS == 2}">未通过</c:if>
+											</td>
 											<td class='center'>${var.USER_NAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">

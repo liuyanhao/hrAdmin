@@ -1,12 +1,13 @@
 package com.lxc.service.mobilize.mobilize.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.mobilize.mobilize.MobilizeManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 调动管理
@@ -77,6 +78,10 @@ public class MobilizeService implements MobilizeManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("MobilizeMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	public List<PageData> auditList(Page page) throws Exception {
+		return (List<PageData>)dao.findForList("MobilizeMapper.auditListPage", page);
+	}
+
 }
 

@@ -210,7 +210,7 @@ public class StaffEmployeeController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("员工ID");	//1
+		titles.add("员工编号");	//1
 		titles.add("员工姓名");	//2
 		titles.add("性别");	//3
 		titles.add("地址");	//4
@@ -245,8 +245,9 @@ public class StaffEmployeeController extends BaseController {
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).get("STAFF_ID").toString());	//1
-			vpd.put("var2", varOList.get(i).getString("STAFF_NAME"));	    //2
-			vpd.put("var3", varOList.get(i).get("SEX").toString());	//3
+			vpd.put("var2", varOList.get(i).getString("STAFF_NAME"));	    //2
+			String SEX = varOList.get(i).get("SEX").equals(1)  ? "男" : "女";
+			vpd.put("var3",SEX);	//3
 			vpd.put("var4", varOList.get(i).getString("ADDRESS"));	    //4
 			vpd.put("var5", varOList.get(i).getString("PHONE"));	    //5
 			vpd.put("var6", varOList.get(i).getString("PIC"));	    //6
@@ -267,7 +268,7 @@ public class StaffEmployeeController extends BaseController {
 			vpd.put("var21", varOList.get(i).getString("RESUME"));	    //21
 			vpd.put("var22", varOList.get(i).getString("DESCRIBES"));	    //22
 			vpd.put("var23", varOList.get(i).getString("REMARK"));	    //23
-			vpd.put("var24", varOList.get(i).getString("ISROMVE"));	    //24
+			vpd.put("var24", varOList.get(i).get("ISROMVE").toString());	    //24
 			vpd.put("var25", varOList.get(i).get("JOB_ID").toString());	//25
 			vpd.put("var26", varOList.get(i).get("USER_ID").toString());	//26
 			vpd.put("var27", varOList.get(i).get("AGE").toString());	//27

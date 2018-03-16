@@ -14,7 +14,8 @@
 		JOB_ID,	
 		CAUSE,	
 		STATUS,	
-		MOBILIZE_ID
+		MOBILIZE_ID,
+		STAFF_ID
 	</sql>
 	
 	<!-- 字段值 -->
@@ -25,6 +26,7 @@
 		#{CAUSE},	
 		#{STATUS},	
 		#{MOBILIZE_ID}
+		#{STAFF_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -55,6 +57,7 @@
 			JOB_ID = #{JOB_ID},
 			CAUSE = #{CAUSE},
 			STATUS = #{STATUS},
+		STAFF_ID = #{STAFF_ID},
 		MOBILIZE_ID = MOBILIZE_ID
 		where 
 		MOBILIZE_ID = #{MOBILIZE_ID}
@@ -88,7 +91,42 @@
 				)
 		</if>
 	</select>
-	
+	<!-- 列表 -->
+	<select id="auditListPage" parameterType="page" resultType="pd">
+		select
+		CAUSE, STATUS, MOBILIZE_ID,
+		(select  TYPE_NAME from tb_job_type t where t.JOB_TYPE_ID = j.JOB_TYPE_ID) TYPE_NAME,
+		j.JOB_NAME,
+		s.STAFF_ID,
+		s.SEX,
+		s.LEARING,
+		s.SPEIALITY,
+		s.AGE,
+		s.STIPEND_ID,
+		s.STAFF_NAME,
+		s.STAFFEMPLOYEE_ID
+		from <include refid="tableName"></include> m left join TB_STAFFEMPLOYEE s
+		on m.STAFF_ID = s.STAFF_ID
+		,tb_job_message j
+		where
+		j.JOB_MESSAGE_ID = s.JOB_ID
+		and s.ISROMVE =0
+		<if test="pd.LEARING != null">
+			and LEARING LIKE CONCAT(CONCAT('%', #{pd.LEARING}),'%')
+		</if>
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+			(
+			<!--	根据需求自己加检索条件  -->
+			STAFF_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			SPEIALITY  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+
+			)
+		</if>
+	</select>
+
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select

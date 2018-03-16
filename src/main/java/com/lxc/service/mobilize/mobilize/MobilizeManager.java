@@ -1,8 +1,9 @@
 package com.lxc.service.mobilize.mobilize;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 调动管理接口
@@ -53,6 +54,12 @@ public interface MobilizeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 调动审核列表
+	 * @param page
+	 * @return
+	 */
+	public List<PageData> auditList(Page page)throws Exception;
 }
 

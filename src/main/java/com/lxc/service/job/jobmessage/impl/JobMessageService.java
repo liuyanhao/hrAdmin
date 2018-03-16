@@ -62,7 +62,17 @@ public class JobMessageService implements JobMessageManager{
 	public List<PageData> listAll(PageData pd)throws Exception{
 		return (List<PageData>)dao.findForList("JobMessageMapper.listAll", pd);
 	}
-	
+
+	/**
+	 * 根据职位类型查询
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listJobType(PageData pd_Type) throws Exception {
+		return (List<PageData>)dao.findForList("JobMessageMapper.listJobType", pd_Type);
+	}
+
 	/**通过id获取数据
 	 * @param pd
 	 * @throws Exception

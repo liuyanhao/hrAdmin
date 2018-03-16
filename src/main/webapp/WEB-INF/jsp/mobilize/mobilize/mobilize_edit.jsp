@@ -36,7 +36,7 @@
 								<td><input type="text" name="EMP_NAME" id="EMP_NAME" value="${pd.EMP_NAME}" maxlength="20" placeholder="这里输入审核人名称" title="审核人名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位编码:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
 								<td><input type="text" name="JOB_ID" id="JOB_ID" value="${pd.JOB_ID}" maxlength="20" placeholder="这里输入工作职位编码" title="工作职位编码" style="width:98%;"/></td>
 							</tr>
 							<tr>

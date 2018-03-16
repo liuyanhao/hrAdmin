@@ -96,6 +96,9 @@
 		from 
 		<include refid="tableName"></include>
 		where 1=1
+		<if test="pd.SUBJECT_TYPE != null and pd.SUBJECT_TYPE != ''">
+			and SUBJECT_TYPE = #{SUBJECT_TYPE}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -105,6 +108,12 @@
 			SUBJECT_TYPE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 
 				)
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and ISSUE_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and ISSUE_TIME &lt;= #{pd.lastEnd}
 		</if>
 	</select>
 	

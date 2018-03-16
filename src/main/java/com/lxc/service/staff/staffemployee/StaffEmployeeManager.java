@@ -61,7 +61,7 @@ public interface StaffEmployeeManager{
 	 * @return
 	 * @throws Exception
 	 */
-	public List<PageData> getStatePass(Page page)throws Exception;
+	public List<PageData> statePassPage(Page page)throws Exception;
 
 }
 

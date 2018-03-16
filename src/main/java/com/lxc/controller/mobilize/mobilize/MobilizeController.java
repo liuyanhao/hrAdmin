@@ -3,6 +3,8 @@ package com.lxc.controller.mobilize.mobilize;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.enums.EmployeeState;
+import com.lxc.enums.MobilizeState;
+import com.lxc.service.job.job_type.Job_typeManager;
 import com.lxc.service.mobilize.mobilize.MobilizeManager;
 import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
 import com.lxc.util.AppUtil;
@@ -33,12 +35,16 @@ import java.util.*;
 public class MobilizeController extends BaseController {
 	
 	String menuUrl = "mobilize/list.do"; //调动表 菜单地址(权限用)
-	String menuUrl2 = "mobilize/doSelectAll.do"; //调动管理 菜单地址(权限用)
+	String menuUrl2 = "mobilize/doSelectList.do"; //调动管理 菜单地址(权限用)
+	String menuUrl3 = "mobilize/auditList.do"; //调动审核 菜单地址(权限用)
 	@Resource(name="mobilizeService")
 	private MobilizeManager mobilizeService;
 
 	@Resource(name="staffemployeeService")
 	private StaffEmployeeManager staffemployeeService;
+
+	@Resource(name="job_typeService")
+	private Job_typeManager job_typeService;
 
 	/**保存
 	 * @param
@@ -90,7 +96,24 @@ public class MobilizeController extends BaseController {
 		mv.setViewName("save_result");
 		return mv;
 	}
-	
+	/**审核
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/audit")
+	public ModelAndView audit() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"审核Mobilize");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd.put("STATUS",MobilizeState.PASS.getCode()); //审核通过
+		mobilizeService.edit(pd);
+		mv.addObject("msg","success");
+		mv.setViewName("save_result");
+		return mv;
+	}
+
 	/**列表
 	 * @param page
 	 * @throws Exception
@@ -114,7 +137,33 @@ public class MobilizeController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
-	
+	@RequestMapping(value="/auditList")
+	public ModelAndView mobilizeAuditList(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表Mobilize");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl3, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String LEARING = pd.getString("LEARING");				//学历
+		if(null != LEARING && !"".equals(LEARING)){
+			pd.put("LEARING", LEARING.trim());
+		}else {
+			pd.put("LEARING", null);
+		}
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}
+		page.setPd(pd);
+		List<PageData>	varList = mobilizeService.auditList(page);	//列出Mobilize列表
+		mv.setViewName("mobilize/mobilize/mobilizeAudit_list");
+		mv.addObject("varList", varList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
+
+
 	/**去新增页面
 	 * @param
 	 * @throws Exception
@@ -144,8 +193,24 @@ public class MobilizeController extends BaseController {
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
-	}	
-	
+	}
+	/**去审核页面
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/goAudit")
+	public ModelAndView goAudit()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = mobilizeService.findById(pd);	//根据ID读取
+		mv.setViewName("mobilize/mobilize/mobilize_audit");
+		mv.addObject("msg", "audit");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+
+
 	 /**批量删除
 	 * @param
 	 * @throws Exception
@@ -214,7 +279,7 @@ public class MobilizeController extends BaseController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(format,true));
 	}
 
-	@RequestMapping(value="/doSelectAll")
+	@RequestMapping(value="/doSelectList")
 	public ModelAndView doSelectAll(Page page)throws  Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"调用管理列表Mobilize");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
@@ -235,8 +300,7 @@ public class MobilizeController extends BaseController {
 		}
 		pd.put("STATES", EmployeeState.PASS.getCode()); //通过
 		page.setPd(pd);
-		List<PageData> varList = new ArrayList<PageData>();
-		varList = staffemployeeService.getStatePass(page);
+		List<PageData> varList = staffemployeeService.statePassPage(page);
 		mv.setViewName("mobilize/mobilize/mobilizeAll_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
@@ -252,8 +316,10 @@ public class MobilizeController extends BaseController {
 	PageData pd = new PageData();
 	pd = this.getPageData();
 	pd = staffemployeeService.findById(pd);	//根据ID读取
+	List<PageData> jobTypeList = job_typeService.listAll(pd);
 		mv.setViewName("mobilize/mobilize/manoeuvre_edit");
 		mv.addObject("msg", "manoeuvre");
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.addObject("pd", pd);
 		return mv;
    }
@@ -261,11 +327,15 @@ public class MobilizeController extends BaseController {
 	@RequestMapping(value="/manoeuvre")
 	public ModelAndView manoeuvre() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改Mobilize");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "edit")){return null;} //校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mobilizeService.edit(pd);
+		pd.put("MOBILIZE_ID", this.get32UUID());	//主键
+		pd.put("EMP_ID",Jurisdiction.getUserId());
+		pd.put("EMP_NAME",Jurisdiction.getUsername());
+		pd.put("STATUS", MobilizeState.NO_EXAMINE.getCode());
+		mobilizeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;

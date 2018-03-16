@@ -45,7 +45,7 @@
                                         <td> ${pd.JOB_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">调动到职位类别：</td>
+                                        <td style="width:175px;text-align: right;padding-top: 13px;">需要调动的类别：</td>
                                         <td>
                                             <select name="JOB_TYPE_ID" id="JOB_TYPE_ID" onchange="jobType()" style="width:98%;" >
                                                 <option value="">请选择</option>
@@ -63,7 +63,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:75px;text-align: right;padding-top: 13px;">调动到职位名称：</td>
+                                        <td style="width:75px;text-align: right;padding-top: 13px;">需要调动的职位：</td>
                                         <td>
                                             <select name="JOB_ID" id="JOB_ID" style="width:98%;">
                                                 <option value=""></option>

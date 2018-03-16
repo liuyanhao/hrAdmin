@@ -3,10 +3,7 @@ package com.lxc.controller.employee.resume;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.employee.resume.ResumeManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -47,6 +44,7 @@ public class ResumeController extends BaseController {
 		pd = this.getPageData();
 		pd.put("RESUME_ID", this.get32UUID());	//主键
 		pd.put("USER_ID", "");	//审核人编码
+		pd.put("CREATE_TIME", DateUtil.getTime().toString() ); // 创建时间
 		resumeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -79,6 +77,7 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		pd.put("UPDATE_TIME",DateUtil.getTime().toString()); // 修改时间
 		resumeService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

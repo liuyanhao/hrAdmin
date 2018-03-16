@@ -46,6 +46,5 @@ public class Const {
 	//app根据用户名获取会员信息接口_请求协议中的参数
 	public static final String[] APP_GETAPPUSER_PARAM_ARRAY = new String[]{"USERNAME"};
 	public static final String[] APP_GETAPPUSER_VALUE_ARRAY = new String[]{"用户名"};
-	
-	
+
 }

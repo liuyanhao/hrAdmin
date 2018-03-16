@@ -42,7 +42,15 @@ public interface JobMessageManager{
 	 * @throws Exception
 	 */
 	public List<PageData> listAll(PageData pd)throws Exception;
-	
+
+	/**
+	 * 根据工作类别查询
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> listJobType(PageData pd)throws Exception;
+
 	/**通过id获取数据
 	 * @param pd
 	 * @throws Exception

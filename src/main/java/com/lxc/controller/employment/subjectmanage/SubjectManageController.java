@@ -1,14 +1,12 @@
 package com.lxc.controller.employment.subjectmanage;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.employment.subjectmanage.SubjectManageManager;
+import com.lxc.util.AppUtil;
+import com.lxc.util.Jurisdiction;
+import com.lxc.util.ObjectExcelView;
+import com.lxc.util.PageData;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.Tools;
-import com.lxc.service.employment.subjectmanage.SubjectManageManager;
+
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 说明：题库信息表
@@ -100,8 +96,12 @@ public class SubjectManageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String keywords = pd.getString("keywords");				//关键词检索条件
+		String SUBJECT_TYPE = pd.getString("SUBJECT_TYPE");		//题目类型
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
+		}
+		if(null != SUBJECT_TYPE && "".equals(SUBJECT_TYPE)){
+			pd.put("SUBJECT_TYPE", SUBJECT_TYPE);
 		}
 		page.setPd(pd);
 		List<PageData>	varList = subjectmanageService.list(page);	//列出SubjectManage列表

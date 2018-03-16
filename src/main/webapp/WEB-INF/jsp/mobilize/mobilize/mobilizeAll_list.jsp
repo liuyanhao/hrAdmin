@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="/mobilize/doSelectAll.do" method="post" name="Form" id="Form">
+						<form action="/mobilize/doSelectList.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -42,8 +42,8 @@
 										</span>
 									</div>
 								</td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
-								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
+							<%--	<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
+								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>--%>
 								<td style="vertical-align:top;padding-left:2px;">
 								 	<select class="chosen-select form-control" name="LEARING" id="LEARING" data-placeholder="请选择学历" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
@@ -72,7 +72,7 @@
 							<thead>
 								<tr>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">职位类型</th>
+									<th class="center">职位类别</th>
 									<th class="center">职位名称</th>
 									<th class="center">姓名</th>
 									<th class="center">性别</th>
@@ -94,7 +94,10 @@
 											<td class='center'>${var.TYPE_NAME}</td>
 											<td class='center'>${var.JOB_NAME}</td>
 											<td class='center'>${var.STAFF_NAME}</td>
-											<td class='center'>${var.SEX}</td>
+											<td class='center'>
+												<c:if test="${var.SEX == '1' }">男</c:if>
+												<c:if test="${var.SEX == '2' }">女</c:if>
+											</td>
 											<td class='center'>${var.AGE}</td>
 											<td class='center'>${var.LEARING}</td>
 											<td class='center'>${var.SPEIALITY}</td>
@@ -104,7 +107,7 @@
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="调动" onclick="manoeuvre('${var.STAFFEMPLOYEE_ID}');">
+													<a class="btn btn-xs btn-success" title="调动" onclick="manoeuvre('${var.STAFFEMPLOYEE_ID}','${var.TYPE_NAME}','${var.JOB_NAME}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="调动">调动</i>
 													</a>
 													</c:if>
@@ -150,9 +153,6 @@
 						<div class="page-header position-relative">
 						<table style="width:100%;">
 							<tr>
-								<td style="vertical-align:top;">
-
-								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>
 						</table>
@@ -230,24 +230,10 @@
 					 else $('#form-field-select-4').removeClass('tag-input-style');
 				});
 			}
-			
-			
-			//复选框全选控制
-			var active_class = 'active';
-			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-				var th_checked = this.checked;//checkbox inside "TH" table header
-				$(this).closest('table').find('tbody > tr').each(function(){
-					var row = this;
-					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-				});
-			});
 		});
 		
-
 		//调动
 		function manoeuvre(Id,TYPE_NAME,JOB_NAME){
-		    debugger;
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
@@ -257,8 +243,13 @@
 			 diag.Width = 550;
 			 diag.Height = 455;
 			 diag.CancelEvent = function(){ //关闭事件
-				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 nextPage(${page.currentPage});
+				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){ debugger;
+                     if('${page.currentPage}' == '0'){
+                         top.jzts();
+                         setTimeout("self.location=self.location",100);
+                     }else{
+                         nextPage(${page.currentPage});
+                     }
 				}
 				diag.close();
 			 };
