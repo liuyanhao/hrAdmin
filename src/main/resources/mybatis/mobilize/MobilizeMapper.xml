@@ -85,8 +85,6 @@
 				(
 				<!--	根据需求自己加检索条件 -->
 					EMP_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
-
 				)
 		</if>
 	</select>
@@ -120,7 +118,6 @@
 			STAFF_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			or
 			SPEIALITY  LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-
 			)
 		</if>
 	</select>

@@ -46,12 +46,12 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
+									<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+										<option value=""></option>
+										<option value="">全部</option>
+										<option value="0" <c:if test="${pd.STATUS == 0}">selected </c:if> >停用</option>
+										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if> >启用</option>
+									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -69,11 +69,9 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">试卷分类id</th>
 									<th class="center">试题类型</th>
 									<th class="center">创建时间</th>
 									<th class="center">创建人</th>
-									<th class="center">是否删除 0 否 1 是</th>
 									<th class="center">是否启用</th>
 									<th class="center">操作</th>
 								</tr>
@@ -90,12 +88,13 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.SUBJECTTYPEMX_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.SUBJECTTYPE_ID}</td>
 											<td class='center'>${var.SUBJECTMANAGE}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>${var.CREATE_USER}</td>
-											<td class='center'>${var.IS_REMOVE}</td>
-											<td class='center'>${var.STATUS}</td>
+											<td class='center'>
+														<c:if test="${var.STATUS == 0}">停用</c:if>
+														<c:if test="${var.STATUS == 1}">启用</c:if>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>

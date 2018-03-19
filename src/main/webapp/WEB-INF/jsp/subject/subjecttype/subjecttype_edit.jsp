@@ -32,12 +32,17 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">试卷分类名称:</td>
+								<td style="width:125px;text-align: right;padding-top: 13px;">试卷分类名称:</td>
 								<td><input type="text" name="SUBJECT_NAME" id="SUBJECT_NAME" value="${pd.SUBJECT_NAME}" maxlength="255" placeholder="这里输入试卷分类名称" title="试卷分类名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">是否启用:</td>
-								<td><input type="number" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="32" placeholder="这里输入是否启用" title="是否启用" style="width:98%;"/></td>
+								<td style="width:125px;text-align: right;padding-top: 13px;">是否启用:</td>
+								<td>
+									<select  name="STATUS" id="STATUS" style="width:98%;">
+										<option value="0" <c:if test="${pd.STATUS == 0}">selected </c:if> >停用</option>
+										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if> >启用</option>
+									</select>
+								</td>
 							</tr>
 						</table>
 						</div>
@@ -57,7 +62,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/subjecttypemx/list.do?SUBJECTTYPE_ID=${pd.SUBJECTTYPE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/subjecttypemx/list.do?SUBJECTTYPE_ID=${pd.SUBJECTTYPE_ID}" style="margin:0 auto;width:790px;height:368px;;"></iframe>
 	</div>
 </c:if>
 
@@ -93,7 +98,7 @@
 			if($("#STATUS").val()==""){
 				$("#STATUS").tips({
 					side:3,
-		            msg:'请输入是否启用',
+		            msg:'请选择是否启用',
 		            bg:'#AE81FF',
 		            time:2
 		        });

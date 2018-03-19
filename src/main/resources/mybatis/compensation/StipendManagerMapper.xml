@@ -46,15 +46,15 @@
 		)
 	</insert>
 	
-	<!-- 删除-->
-	<delete id="delete" parameterType="pd">
+	<!-- 逻辑删除-->
+	<update id="delete" parameterType="pd">
 		update
 		<include refid="tableName"></include>
 		set
 		STATUS = 3
 		where
 		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
-	</delete>
+	</update>
 	
 	<!-- 修改 -->
 	<update id="edit" parameterType="pd">
@@ -132,8 +132,8 @@
 		and STATUS != 3
 	</select>
 	
-	<!-- 批量删除 -->
-	<delete id="deleteAll" parameterType="String">
+	<!-- 逻辑 批量删除 -->
+	<update id="deleteAll" parameterType="String">
 		update
 		<include refid="tableName"></include>
 		set
@@ -143,7 +143,7 @@
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>
-	</delete>
+	</update>
 
 	<select id="findCount"  parameterType="pd" resultType="pd">
 		select

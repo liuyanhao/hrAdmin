@@ -38,7 +38,12 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">是否启用:</td>
-								<td><input type="number" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="32" placeholder="这里输入是否启用" title="是否启用" style="width:98%;"/></td>
+								<td>
+									<select  name="STATUS" id="STATUS" style="width:98%;">
+										<option value="0" <c:if test="${pd.STATUS == 0}">selected </c:if> >停用</option>
+										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if> >启用</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">

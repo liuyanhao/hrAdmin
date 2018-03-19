@@ -1,12 +1,13 @@
 package com.lxc.service.subject.subjecttype.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.subject.subjecttype.SubjectTypeManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 试卷分类表
@@ -28,12 +29,12 @@ public class SubjectTypeService implements SubjectTypeManager{
 		dao.save("SubjectTypeMapper.save", pd);
 	}
 	
-	/**删除
+	/**逻辑 删除
 	 * @param pd
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception{
-		dao.delete("SubjectTypeMapper.delete", pd);
+		dao.update("SubjectTypeMapper.delete", pd);
 	}
 	
 	/**修改
@@ -70,12 +71,12 @@ public class SubjectTypeService implements SubjectTypeManager{
 		return (PageData)dao.findForObject("SubjectTypeMapper.findById", pd);
 	}
 	
-	/**批量删除
+	/**逻辑 批量删除
 	 * @param ArrayDATA_IDS
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("SubjectTypeMapper.deleteAll", ArrayDATA_IDS);
+		dao.update("SubjectTypeMapper.deleteAll", ArrayDATA_IDS);
 	}
 	
 }

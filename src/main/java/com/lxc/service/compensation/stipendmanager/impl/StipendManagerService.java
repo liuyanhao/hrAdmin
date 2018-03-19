@@ -34,7 +34,7 @@ public class StipendManagerService implements StipendManagerManager{
 	 * @throws Exception
 	 */
 	public void delete(PageData pd)throws Exception{
-		dao.delete("StipendManagerMapper.delete", pd);
+		dao.update("StipendManagerMapper.delete", pd);
 	}
 	
 	/**修改
@@ -76,7 +76,7 @@ public class StipendManagerService implements StipendManagerManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("StipendManagerMapper.deleteAll", ArrayDATA_IDS);
+		dao.update("StipendManagerMapper.deleteAll", ArrayDATA_IDS);
 	}
 
 	/**

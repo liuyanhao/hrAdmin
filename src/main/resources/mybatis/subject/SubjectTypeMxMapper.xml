@@ -66,7 +66,8 @@
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
-		where 
+		where 1=1
+		and IS_REMOVE = 0
 			SUBJECTTYPEMX_ID = #{SUBJECTTYPEMX_ID}
 	</select>
 	
@@ -76,17 +77,24 @@
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
-		where 
-		SUBJECTTYPE_ID = #{pd.SUBJECTTYPE_ID}
+		where 1=1
+		and IS_REMOVE = 0
+		and SUBJECTTYPE_ID = #{pd.SUBJECTTYPE_ID}
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
-					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				-->
+				<!--	根据需求自己加检索条件 -->
+			SUBJECTMANAGE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and CREATE_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and CREATE_TIME &lt;= #{pd.lastEnd}
 		</if>
 	</select>
 	
@@ -96,6 +104,8 @@
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
+		where 1=1
+		and IS_REMOVE = 0
 	</select>
 	
 	<!-- 批量删除 -->
@@ -115,8 +125,9 @@
 			count(*) zs
 		from 
 			<include refid="tableName"></include>
-		where
-			SUBJECTTYPE_ID = #{SUBJECTTYPE_ID}
+		where 1=1
+		and IS_REMOVE = 0
+		and	SUBJECTTYPE_ID = #{SUBJECTTYPE_ID}
 	</select>
 	
 	<!-- lxc 1094921525qq -->
