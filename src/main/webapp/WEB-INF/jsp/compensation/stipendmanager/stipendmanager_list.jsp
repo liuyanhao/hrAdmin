@@ -72,7 +72,7 @@
 									<th class="center">交通补贴</th>
 									<th class="center">午餐补贴</th>
 									<th class="center">登记时间</th>
-									<th class="center">基本薪资id</th>
+									<th class="center">基本薪资</th>
 									<th class="center">薪资类型</th>
 									<th class="center">薪酬总额</th>
 									<th class="center">审批状态</th>
@@ -96,23 +96,32 @@
 											<td class='center'>${var.STIPEN_WEAL_JOURNEY}</td>
 											<td class='center'>${var.STIPEN_WEAL_LUNCH}</td>
 											<td class='center'>${var.GTIPEND_DATE}</td>
-											<td class='center'>${var.BASE_STIPEND_ID}</td>
-											<td class='center'>${var.STIPEND_TYPE}</td>
+											<td class='center'>${var.BASE_STIPEND}</td>
+											<td class='center'>${var.STIPEND_TYPE_NAME}</td>
 											<td class='center'>${var.STIPEND_WEAL}</td>
-											<td class='center'>${var.STATUS}</td>
+											<td class='center'>
+														<c:if test="${var.STATUS == 0}">未审核</c:if>
+														<c:if test="${var.STATUS == 1}">通过</c:if>
+														<c:if test="${var.STATUS == 2}">未通过</c:if>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.stipendStandardAudit == 1}">
+														<a class="btn btn-xs btn-primary" title="审核" onclick="audit('${var.STIPENDMANAGER_ID}');">
+															<i class="ace-icon fa fa-pencil-square-o bigger-120" title="审核">审核</i>
+														</a>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.STIPENDMANAGER_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑">编辑</i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.STIPENDMANAGER_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+														<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除</i>
 													</a>
 													</c:if>
 												</div>
@@ -123,11 +132,20 @@
 														</button>
 			
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.stipendStandardAudit == 1 }">
+																<li>
+																	<a style="cursor:pointer;" onclick="audit('${var.STIPENDMANAGER_ID}');" class="tooltip-primary" data-rel="tooltip" title="审核">
+																	<span class="green">
+																		<i class="ace-icon fa fa-pencil-square-o bigger-120">审核</i>
+																	</span>
+																	</a>
+																</li>
+															</c:if>
 															<c:if test="${QX.edit == 1 }">
 															<li>
 																<a style="cursor:pointer;" onclick="edit('${var.STIPENDMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																		<i class="ace-icon fa fa-pencil-square-o bigger-120">编辑</i>
 																	</span>
 																</a>
 															</li>
@@ -136,7 +154,7 @@
 															<li>
 																<a style="cursor:pointer;" onclick="del('${var.STIPENDMANAGER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																		<i class="ace-icon fa fa-trash-o bigger-120">删除</i>
 																	</span>
 																</a>
 															</li>
@@ -272,8 +290,8 @@
 			 diag.Drag=true;
 			 diag.Title ="新增";
 			 diag.URL = '<%=basePath%>stipendmanager/goAdd.do';
-			 diag.Width = 450;
-			 diag.Height = 355;
+			 diag.Width = 650;
+			 diag.Height = 330;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -308,8 +326,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>stipendmanager/goEdit.do?STIPENDMANAGER_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+             diag.Width = 650;
+             diag.Height = 330;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -318,7 +336,27 @@
 			 };
 			 diag.show();
 		}
-		
+
+        //审核
+        function audit(Id){
+            top.jzts();
+            var diag = new top.Dialog();
+            diag.Drag=true;
+            diag.Title ="审核";
+            diag.URL = '<%=basePath%>stipendmanager/goAudit.do?STIPENDMANAGER_ID='+Id;
+            diag.Width = 650;
+            diag.Height = 330;
+            diag.CancelEvent = function(){ //关闭事件
+                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                    nextPage(${page.currentPage});
+                }
+                diag.close();
+            };
+            diag.show();
+        }
+
+
+
 		//批量操作
 		function makeAll(msg){
 			bootbox.confirm(msg, function(result) {

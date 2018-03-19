@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="subjectmanage/list.do" method="post" name="Form" id="Form">
+						<form action="subjecttype/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -45,7 +45,7 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="SUBJECT_TYPE" id="SUBJECT_TYPE" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
 									<option value="">1</option>
@@ -63,21 +63,12 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">题目</th>
-									<th class="center">试卷类型</th>
-									<th class="center">A选项</th>
-									<th class="center">B选项</th>
-									<th class="center">C选项</th>
-									<th class="center">D选项</th>
-									<th class="center">E选项</th>
-									<th class="center">F选项</th>
-									<th class="center">正确选项</th>
-									<th class="center">分值</th>
-									<th class="center">出题时间</th>
+									<th class="center">试卷分类名称</th>
+									<th class="center">是否删除 0 否 1 是</th>
+									<th class="center">创建时间</th>
+									<th class="center">创建人</th>
+									<th class="center">是否启用</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -89,33 +80,24 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.SUBJECTMANAGE_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.SUBJECT_NAME}</td>
-											<td class='center'>${var.SUBJECT_TYPE}</td>
-											<td class='center'>${var.SELECT_A}</td>
-											<td class='center'>${var.SELECT_B}</td>
-											<td class='center'>${var.SELECT_C}</td>
-											<td class='center'>${var.SELECT_D}</td>
-											<td class='center'>${var.SELECT_E}</td>
-											<td class='center'>${var.SELECT_F}</td>
-											<td class='center'>${var.SELECT_TURE}</td>
-											<td class='center'>${var.ISSUE_PERSON}</td>
-											<td class='center'>${var.ISSUE_TIME}</td>
+											<td class='center'>${var.IS_REMOVE}</td>
+											<td class='center'>${var.CREATE_TIME}</td>
+											<td class='center'>${var.CREATEUSER}</td>
+											<td class='center'>${var.STATUS}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.SUBJECTMANAGE_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.SUBJECTTYPE_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.SUBJECTMANAGE_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.SUBJECTTYPE_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -129,7 +111,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.SUBJECTMANAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.SUBJECTTYPE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -138,7 +120,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.SUBJECTMANAGE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.SUBJECTTYPE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -173,9 +155,6 @@
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
 									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-sm btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -275,9 +254,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>subjectmanage/goAdd.do';
-			 diag.Width = 840;
-			 diag.Height = 450;
+			 diag.URL = '<%=basePath%>subjecttype/goAdd.do';
+			 diag.Width = 500;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -297,9 +276,24 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>subjectmanage/delete.do?SUBJECTMANAGE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>subjecttype/delete.do?SUBJECTTYPE_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
-						nextPage(${page.currentPage});
+						if("success" == data.result){
+							nextPage(${page.currentPage});
+						}else if("false" == data.result){
+							top.hangge();
+							bootbox.dialog({
+								message: "<span class='bigger-110'>删除失败,请先删除明细数据!</span>",
+								buttons: 			
+								{
+									"button" :
+									{
+										"label" : "确定",
+										"className" : "btn-sm btn-success"
+									}
+								}
+							});
+						}
 					});
 				}
 			});
@@ -311,9 +305,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>subjectmanage/goEdit.do?SUBJECTMANAGE_ID='+Id;
-			 diag.Width = 840;
-			 diag.Height = 450;
+			 diag.URL = '<%=basePath%>subjecttype/goEdit.do?SUBJECTTYPE_ID='+Id;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -323,55 +317,9 @@
 			 diag.show();
 		}
 		
-		//批量操作
-		function makeAll(msg){
-			bootbox.confirm(msg, function(result) {
-				if(result) {
-					var str = '';
-					for(var i=0;i < document.getElementsByName('ids').length;i++){
-					  if(document.getElementsByName('ids')[i].checked){
-					  	if(str=='') str += document.getElementsByName('ids')[i].value;
-					  	else str += ',' + document.getElementsByName('ids')[i].value;
-					  }
-					}
-					if(str==''){
-						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
-						});
-						$("#zcheckbox").tips({
-							side:1,
-				            msg:'点这里全选',
-				            bg:'#AE81FF',
-				            time:8
-				        });
-						return;
-					}else{
-						if(msg == '确定要删除选中的数据吗?'){
-							top.jzts();
-							$.ajax({
-								type: "POST",
-								url: '<%=basePath%>subjectmanage/deleteAll.do?tm='+new Date().getTime(),
-						    	data: {DATA_IDS:str},
-								dataType:'json',
-								//beforeSend: validateData,
-								cache: false,
-								success: function(data){
-									 $.each(data.list, function(i, list){
-											nextPage(${page.currentPage});
-									 });
-								}
-							});
-						}
-					}
-				}
-			});
-		};
-		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>subjectmanage/excel.do';
+			window.location.href='<%=basePath%>subjecttype/excel.do';
 		}
 	</script>
 

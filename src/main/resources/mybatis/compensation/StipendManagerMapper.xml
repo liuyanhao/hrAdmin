@@ -14,7 +14,7 @@
 		STIPEN_WEAL_JOURNEY,	
 		STIPEN_WEAL_LUNCH,
 		GTIPEND_DATE,	
-		BASE_STIPEND_ID,	
+		BASE_STIPEND,
 		STIPEND_TYPE,	
 		STIPEND_WEAL,	
 		STATUS,	
@@ -28,7 +28,7 @@
 		#{STIPEN_WEAL_JOURNEY},	
 		#{STIPEN_WEAL_LUNCH},
 		#{GTIPEND_DATE},	
-		#{BASE_STIPEND_ID},	
+		#{BASE_STIPEND},
 		#{STIPEND_TYPE},	
 		#{STIPEND_WEAL},	
 		#{STATUS},	
@@ -48,10 +48,12 @@
 	
 	<!-- 删除-->
 	<delete id="delete" parameterType="pd">
-		delete from
+		update
 		<include refid="tableName"></include>
-		where 
-			STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
+		set
+		STATUS = 3
+		where
+		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -66,12 +68,22 @@
 			GTIPEND_DATE = #{GTIPEND_DATE},
 			STIPEND_TYPE = #{STIPEND_TYPE},
 			STIPEND_WEAL = #{STIPEND_WEAL},
-			STATUS = #{STATUS},
+		STATUS = #{STATUS},
 		STIPENDMANAGER_ID = STIPENDMANAGER_ID
 		where 
 		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
 	</update>
-	
+
+	<!--  审核 -->
+	<update id="audit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		STATUS = #{STATUS}
+		where
+		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
+	</update>
+
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
 		select 
@@ -80,15 +92,18 @@
 		<include refid="tableName"></include>
 		where 
 			STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
+		and STATUS != 3
 	</select>
 	
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
 		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		  ,t.STIPENDNAME as STIPEND_TYPE_NAME
+		from
+		<include refid="tableName"></include> s left join tb_stipendtype t on 	t.STIPENDTYPE_ID = s.STIPEND_TYPE
 		where 1=1
+		and STATUS != 3
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -98,20 +113,31 @@
 			STIPEND_USER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
 		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and GTIPEND_DATE &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and GTIPEND_DATE &lt;= #{pd.lastEnd}
+		</if>
 	</select>
 	
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
+		,t.STIPENDNAME as STIPEND_TYPE_NAME
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> s left join tb_stipendtype t on 	t.STIPENDTYPE_ID = s.STIPEND_TYPE
+		where 1=1
+		and STATUS != 3
 	</select>
 	
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
-		delete from
+		update
 		<include refid="tableName"></include>
+		set
+		STATUS = 3
 		where 
 			STIPENDMANAGER_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
@@ -126,6 +152,7 @@
 		<include refid="tableName"></include>
 		where
 		STIPENDMANAGER_ID = #{STIPENDMANAGER_ID}
+		and STATUS != 3
 	</select>
 
 	<!-- lxc 1094921525qq -->

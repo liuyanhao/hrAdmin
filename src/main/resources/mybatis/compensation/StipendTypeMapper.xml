@@ -1,24 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="Job_typeMapper">
+<mapper namespace="StipendTypeMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_JOB_TYPE
+		TB_STIPENDTYPE
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		TYPE_NAME,	
-		SELET_ID,	
-		JOB_TYPE_ID
+		STIPENDNAME,	
+		CREATETIME,	
+		ISREMOVE,	
+		CREATEUSER,	
+		STIPENDTYPE_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{TYPE_NAME},	
-		#{SELET_ID},	
-		#{JOB_TYPE_ID}
+		#{STIPENDNAME},	
+		#{CREATETIME},	
+		#{ISREMOVE},	
+		#{CREATEUSER},	
+		#{STIPENDTYPE_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -37,7 +41,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			JOB_TYPE_ID = #{JOB_TYPE_ID}
+			STIPENDTYPE_ID = #{STIPENDTYPE_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -45,11 +49,12 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			TYPE_NAME = #{TYPE_NAME},
-			SELET_ID = #{SELET_ID},
-		JOB_TYPE_ID = JOB_TYPE_ID
+			STIPENDNAME = #{STIPENDNAME},
+			ISREMOVE = #{ISREMOVE},
+			CREATEUSER = #{CREATEUSER},
+		STIPENDTYPE_ID = STIPENDTYPE_ID
 		where 
-		JOB_TYPE_ID = #{JOB_TYPE_ID}
+		STIPENDTYPE_ID = #{STIPENDTYPE_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -59,7 +64,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			JOB_TYPE_ID = #{JOB_TYPE_ID}
+			STIPENDTYPE_ID = #{STIPENDTYPE_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -73,17 +78,25 @@
 			and
 				(
 				<!--	根据需求自己加检索条件 -->
-				TYPE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			STIPENDNAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and CREATETIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and CREATETIME &lt;= #{pd.lastEnd}
 		</if>
 	</select>
 	
-	<!-- 列表(全部) -->
+	<!-- 列表(全部) 状态为启用的 -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 		<include refid="Field"></include>
 		from 
 		<include refid="tableName"></include>
+		where
+		ISREMOVE = 1
 	</select>
 	
 	<!-- 批量删除 -->
@@ -91,7 +104,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			JOB_TYPE_ID in
+			STIPENDTYPE_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

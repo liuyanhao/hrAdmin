@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="subjectmanage/list.do" method="post" name="Form" id="Form">
+						<form action="stipendtype/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -44,14 +44,6 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="SUBJECT_TYPE" id="SUBJECT_TYPE" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
-								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -67,17 +59,10 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">题目</th>
-									<th class="center">试卷类型</th>
-									<th class="center">A选项</th>
-									<th class="center">B选项</th>
-									<th class="center">C选项</th>
-									<th class="center">D选项</th>
-									<th class="center">E选项</th>
-									<th class="center">F选项</th>
-									<th class="center">正确选项</th>
-									<th class="center">分值</th>
-									<th class="center">出题时间</th>
+									<th class="center">薪资类型</th>
+									<th class="center">创建时间</th>
+									<th class="center">是否启用</th>
+									<th class="center">创建人</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -90,32 +75,32 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.SUBJECTMANAGE_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.STIPENDTYPE_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.SUBJECT_NAME}</td>
-											<td class='center'>${var.SUBJECT_TYPE}</td>
-											<td class='center'>${var.SELECT_A}</td>
-											<td class='center'>${var.SELECT_B}</td>
-											<td class='center'>${var.SELECT_C}</td>
-											<td class='center'>${var.SELECT_D}</td>
-											<td class='center'>${var.SELECT_E}</td>
-											<td class='center'>${var.SELECT_F}</td>
-											<td class='center'>${var.SELECT_TURE}</td>
-											<td class='center'>${var.ISSUE_PERSON}</td>
-											<td class='center'>${var.ISSUE_TIME}</td>
+											<td class='center'>${var.STIPENDNAME}</td>
+											<td class='center'>${var.CREATETIME}</td>
+											<td class='center'>
+														<c:if test="${var.ISREMOVE == 0}">
+																停用
+														</c:if>
+														<c:if test="${var.ISREMOVE == 1}">
+																启用
+														</c:if>
+											</td>
+											<td class='center'>${var.CREATEUSER}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.SUBJECTMANAGE_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.STIPENDTYPE_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.SUBJECTMANAGE_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.STIPENDTYPE_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -129,7 +114,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.SUBJECTMANAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.STIPENDTYPE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -138,7 +123,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.SUBJECTMANAGE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.STIPENDTYPE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -275,9 +260,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>subjectmanage/goAdd.do';
-			 diag.Width = 840;
-			 diag.Height = 450;
+			 diag.URL = '<%=basePath%>stipendtype/goAdd.do';
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -297,7 +282,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>subjectmanage/delete.do?SUBJECTMANAGE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>stipendtype/delete.do?STIPENDTYPE_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -311,9 +296,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>subjectmanage/goEdit.do?SUBJECTMANAGE_ID='+Id;
-			 diag.Width = 840;
-			 diag.Height = 450;
+			 diag.URL = '<%=basePath%>stipendtype/goEdit.do?STIPENDTYPE_ID='+Id;
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -352,7 +337,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>subjectmanage/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>stipendtype/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -371,7 +356,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>subjectmanage/excel.do';
+			window.location.href='<%=basePath%>stipendtype/excel.do';
 		}
 	</script>
 

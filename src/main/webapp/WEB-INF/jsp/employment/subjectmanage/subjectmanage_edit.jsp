@@ -32,6 +32,18 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
+								<td  style="width:75px;text-align: right;padding-top: 13px;">试卷分类:</td>
+								<td><input type="text" name="SUBJECT_TYPE" id="SUBJECT_TYPE" value="${pd.SUBJECT_TYPE}" maxlength="255" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">试题类型:</td>
+								<td><input type="text" name="SUBJECT_TYPE" id="SUB_TYPE" value="" maxlength="255" style="width:98%;"/></td>
+							</tr>
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">出题人:</td>
+								<td>${pd.ISSUE_PERSON}</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">出题时间:</td>
+								<td><input class="span10 date-picker" name="ISSUE_TIME" id="ISSUE_TIME" value="${pd.ISSUE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="出题时间" title="出题时间" style="width:98%;"/></td>
+							</tr>
+							<tr>
 								<td  style="width:75px;text-align: right;padding-top: 13px;">题目:</td>
 								<td colspan="3" >
                                     <textarea rows="6" name="SUBJECT_NAME" id="SUBJECT_NAME"  maxlength="255" placeholder="这里输入题目" title="题目" style="width:98%;">${pd.SUBJECT_NAME}</textarea>
@@ -60,13 +72,7 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">正确选项:</td>
 								<td><input type="text" name="SELECT_TURE" id="SELECT_TURE" value="${pd.SELECT_TURE}" maxlength="5" placeholder="这里输入正确选项" title="正确选项" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">分值:</td>
-								<td><input type="number" name="ISSUE_PERSON" id="ISSUE_PERSON" value="${pd.ISSUE_PERSON}" maxlength="32" placeholder="这里输入分值" title="分值" style="width:98%;"/></td>
-							</tr>
-                            <tr>
-                                <td  style="width:75px;text-align: right;padding-top: 13px;">资源地址:</td>
-                                <td><input type="text" name="SUBJECT_TYPE" id="SUBJECT_TYPE" value="${pd.SUBJECT_TYPE}" maxlength="255" placeholder="这里输入资源地址" title="资源地址" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">出题时间:</td>
-								<td><input class="span10 date-picker" name="ISSUE_TIME" id="ISSUE_TIME" value="${pd.ISSUE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="出题时间" title="出题时间" style="width:98%;"/></td>
+								<td><input type="number" name="SCORE" id="SCORE" value="${pd.SCORE}" maxlength="32" placeholder="这里输入分值" title="分值" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -116,7 +122,7 @@
 			if($("#SUBJECT_TYPE").val()==""){
 				$("#SUBJECT_TYPE").tips({
 					side:3,
-		            msg:'请输入资源地址',
+		            msg:'请选择试卷类',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -193,16 +199,17 @@
 				$("#SELECT_TURE").focus();
 			return false;
 			}
-			if($("#ISSUE_PERSON").val()==""){
-				$("#ISSUE_PERSON").tips({
-					side:3,
-		            msg:'请输入分值',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#ISSUE_PERSON").focus();
-			return false;
-			}
+
+            if($("#SCORE").val()==""){
+                $("#SCORE").tips({
+                    side:3,
+                    msg:'请输入分值',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#SCORE").focus();
+                return false;
+            }
 			if($("#ISSUE_TIME").val()==""){
 				$("#ISSUE_TIME").tips({
 					side:3,

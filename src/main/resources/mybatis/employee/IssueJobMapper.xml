@@ -87,6 +87,12 @@
 
 				)
 		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and FOUNDTIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and FOUNDTIME &lt;= #{pd.lastEnd}
+		</if>
 	</select>
 	
 	<!-- 列表(全部) -->

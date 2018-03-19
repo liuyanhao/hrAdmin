@@ -74,9 +74,6 @@
 				(
 				<!--	根据需求自己加检索条件 -->
 			   PAPER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or
-			PAPER_TYPE_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-
 				)
 		</if>
 	</select>

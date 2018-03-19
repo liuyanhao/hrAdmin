@@ -1,17 +1,16 @@
-package com.lxc.service.compensation.stipendmanager;
+package com.lxc.service.compensation.stipendtype;
 
+import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
 
-import java.util.List;
-
 /** 
- * 说明： 薪酬等级表接口
+ * 说明： 薪资类型表接口
  * 创建人：lxc Q1094921525
- * 创建时间：2018-01-27
+ * 创建时间：2018-03-19
  * @version
  */
-public interface StipendManagerManager{
+public interface StipendTypeManager{
 
 	/**新增
 	 * @param pd
@@ -54,20 +53,6 @@ public interface StipendManagerManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-
-	/**
-	 * 查询明细总数
-	 * @param pd
-	 * @return
-	 * @throws Exception
-	 */
-	public PageData findCount(PageData pd)throws Exception;
-
-	/**
-	 * 审核
-	 * @param pd
-	 * @throws Exception
-	 */
-	public void audit(PageData pd)throws Exception;
+	
 }
 

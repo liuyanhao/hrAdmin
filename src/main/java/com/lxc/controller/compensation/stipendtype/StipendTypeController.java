@@ -1,8 +1,7 @@
-package com.lxc.controller.compensation.stipendmanager;
+package com.lxc.controller.compensation.stipendtype;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
-import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
 import com.lxc.service.compensation.stipendtype.StipendTypeManager;
 import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -19,104 +18,80 @@ import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
-/**
- * 说明：薪酬登记表
+/** 
+ * 说明：薪资类型表
  * 创建人：liuxc 1094921525
- * 创建时间：2018-01-27
+ * 创建时间：2018-03-19
  */
 @Controller
-@RequestMapping(value="/stipendmanager")
-public class StipendManagerController extends BaseController {
-
-	String menuUrl = "stipendmanager/list.do"; //菜单地址(权限用)
-	@Resource(name="stipendmanagerService")
-	private StipendManagerManager stipendmanagerService;
-
+@RequestMapping(value="/stipendtype")
+public class StipendTypeController extends BaseController {
+	
+	String menuUrl = "stipendtype/list.do"; //菜单地址(权限用)
 	@Resource(name="stipendtypeService")
 	private StipendTypeManager stipendtypeService;
-
+	
 	/**保存
 	 * @param
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增StipendManager");
+		logBefore(logger, Jurisdiction.getUsername()+"新增StipendType");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("STIPENDMANAGER_ID", this.get32UUID());	//主键
-		pd.put("STATUS",0); //状态  未审核
-		pd.put("STIPEND_USER_NAME",Jurisdiction.getUsername()); //登记人
-		pd.put("GTIPEND_DATE", DateUtil.getTime()); //登记时间
-		stipendmanagerService.save(pd);
+		pd.put("STIPENDTYPE_ID", this.get32UUID());	//主键
+		pd.put("CREATETIME", Tools.date2Str(new Date()));	//创建时间
+		pd.put("CREATEUSER",Jurisdiction.getUsername()); //创建人
+		stipendtypeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
 	}
-
+	
 	/**删除
 	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"删除StipendManager");
+		logBefore(logger, Jurisdiction.getUsername()+"删除StipendType");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		stipendmanagerService.delete(pd);
+		stipendtypeService.delete(pd);
 		out.write("success");
 		out.close();
 	}
-
+	
 	/**修改
 	 * @param
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改StipendManager");
+		logBefore(logger, Jurisdiction.getUsername()+"修改StipendType");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("STATUS",0); //状态  未审核
-		pd.put("STIPEND_USER_NAME",Jurisdiction.getUsername()); //登记人
-		pd.put("GTIPEND_DATE", DateUtil.getTime()); //登记时间
-		stipendmanagerService.edit(pd);
+		pd.put("CREATEUSER",Jurisdiction.getUsername()); //创建人
+		stipendtypeService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
 	}
-
-	/**审核
-	 * @param
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/audit")
-	public ModelAndView audit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"审核StipendManager");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "stipendStandardAudit")){return null;} //校验权限
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		stipendmanagerService.audit(pd);
-		mv.addObject("msg","success");
-		mv.setViewName("save_result");
-		return mv;
-	}
-
-
+	
 	/**列表
 	 * @param page
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"列表StipendManager");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		logBefore(logger, Jurisdiction.getUsername()+"列表StipendType");
+		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -125,14 +100,14 @@ public class StipendManagerController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = stipendmanagerService.list(page);	//列出StipendManager列表
-		mv.setViewName("compensation/stipendmanager/stipendmanager_list");
+		List<PageData>	varList = stipendtypeService.list(page);	//列出StipendType列表
+		mv.setViewName("compensation/stipendtype/stipendtype_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
-
+	
 	/**去新增页面
 	 * @param
 	 * @throws Exception
@@ -142,15 +117,13 @@ public class StipendManagerController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> varlist = stipendtypeService.listAll(pd);
-		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
+		mv.setViewName("compensation/stipendtype/stipendtype_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
-		mv.addObject("typeList", varlist);
 		return mv;
-	}
-
-	/**去修改页面
+	}	
+	
+	 /**去修改页面
 	 * @param
 	 * @throws Exception
 	 */
@@ -159,50 +132,30 @@ public class StipendManagerController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = stipendmanagerService.findById(pd);	//根据ID读取
-		List<PageData> varlist = stipendtypeService.listAll(pd);
-		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
+		pd = stipendtypeService.findById(pd);	//根据ID读取
+		mv.setViewName("compensation/stipendtype/stipendtype_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
-		mv.addObject("typeList", varlist);
 		return mv;
-	}
-
-	/**去审核页面
-	 * @param
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/goAudit")
-	public ModelAndView goAudit()throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd = stipendmanagerService.findById(pd);	//根据ID读取
-		List<PageData> varlist = stipendtypeService.listAll(pd);
-		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
-		mv.addObject("msg", "audit");
-		mv.addObject("pd", pd);
-		mv.addObject("typeList", varlist);
-		return mv;
-	}
-
-	/**批量删除
+	}	
+	
+	 /**批量删除
 	 * @param
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
 	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除StipendManager");
+		logBefore(logger, Jurisdiction.getUsername()+"批量删除StipendType");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
-		PageData pd = new PageData();
+		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
 		pd = this.getPageData();
 		List<PageData> pdList = new ArrayList<PageData>();
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			stipendmanagerService.deleteAll(ArrayDATA_IDS);
+			stipendtypeService.deleteAll(ArrayDATA_IDS);
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
@@ -211,43 +164,33 @@ public class StipendManagerController extends BaseController {
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
 	}
-
-	/**导出到excel
+	
+	 /**导出到excel
 	 * @param
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出StipendManager到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出StipendType到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("薪酬名称");	//1
-		titles.add("登记人姓名");	//2
-		titles.add("交通补贴");	//3
-		titles.add("午餐补贴");	//4
-		titles.add("登记时间");	//5
-		titles.add("基本薪资id");	//6
-		titles.add("薪资类型");	//7
-		titles.add("薪酬总额");	//8
-		titles.add("审批状态");	//9
+		titles.add("薪资类型名称");	//1
+		titles.add("创建时间");	//2
+		titles.add("是否删除");	//3
+		titles.add("创建人");	//4
 		dataMap.put("titles", titles);
-		List<PageData> varOList = stipendmanagerService.listAll(pd);
+		List<PageData> varOList = stipendtypeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("STIPEND_NAME"));	    //1
-			vpd.put("var2", varOList.get(i).getString("STIPEND_USER_NAME"));	    //2
-			vpd.put("var3", varOList.get(i).get("STIPEN_WEAL_JOURNEY").toString());	//3
-			vpd.put("var4", varOList.get(i).get("STIPEN_WEAL_LUNCH").toString());	//4
-			vpd.put("var5", varOList.get(i).getString("GTIPEND_DATE"));	    //5
-			vpd.put("var6", varOList.get(i).getString("BASE_STIPEND"));	    //6
-			vpd.put("var7", varOList.get(i).get("STIPEND_TYPE_NAME").toString());	//7
-			vpd.put("var8", varOList.get(i).get("STIPEND_WEAL").toString());	//8
-			vpd.put("var9", varOList.get(i).get("STATUS").toString());	//9
+			vpd.put("var1", varOList.get(i).getString("STIPENDNAME"));	    //1
+			vpd.put("var2", varOList.get(i).getString("CREATETIME"));	    //2
+			vpd.put("var3", varOList.get(i).get("ISREMOVE").toString());	//3
+			vpd.put("var4", varOList.get(i).getString("CREATEUSER"));	    //4
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);
@@ -255,7 +198,7 @@ public class StipendManagerController extends BaseController {
 		mv = new ModelAndView(erv,dataMap);
 		return mv;
 	}
-
+	
 	@InitBinder
 	public void initBinder(WebDataBinder binder){
 		DateFormat format = new SimpleDateFormat("yyyy-MM-dd");

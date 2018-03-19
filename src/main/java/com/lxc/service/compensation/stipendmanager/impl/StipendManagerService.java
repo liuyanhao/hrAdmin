@@ -89,5 +89,9 @@ public class StipendManagerService implements StipendManagerManager{
 		return (PageData)dao.findForObject("StipendManagerMapper.findCount",pd);
 	}
 
+	public void audit(PageData pd) throws Exception {
+		dao.update("StipendManagerMapper.audit", pd);
+	}
+
 }
 
