@@ -46,10 +46,10 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
 								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
+									<option value="">${pd.STATUS}</option>
 									<option value="">全部</option>
-									<option value="0" <c:if test="${pd.STATUS == 0}">selected </c:if> >停用</option>
-									<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if> >启用</option>
+									<option value="0">停用</option>
+									<option value="1">启用</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -80,7 +80,7 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.SUBJECT_NAME}</td>
+											<td class='center'>${var.SUBJECT_TYPE_NAME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>${var.CREATEUSER}</td>
 											<td class='center'>

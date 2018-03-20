@@ -33,7 +33,7 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
 								<td style="width:125px;text-align: right;padding-top: 13px;">试卷分类名称:</td>
-								<td><input type="text" name="SUBJECT_NAME" id="SUBJECT_NAME" value="${pd.SUBJECT_NAME}" maxlength="255" placeholder="这里输入试卷分类名称" title="试卷分类名称" style="width:98%;"/></td>
+								<td><input type="text" name="SUBJECT_TYPE_NAME" id="SUBJECT_TYPE_NAME" value="${pd.SUBJECT_TYPE_NAME}" maxlength="255" placeholder="这里输入试卷分类名称" title="试卷分类名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:125px;text-align: right;padding-top: 13px;">是否启用:</td>
@@ -85,14 +85,14 @@
 		$(top.hangge());
 		//保存
 		function save(){
-			if($("#SUBJECT_NAME").val()==""){
-				$("#SUBJECT_NAME").tips({
+			if($("#SUBJECT_TYPE_NAME").val()==""){
+				$("#SUBJECT_TYPE_NAME").tips({
 					side:3,
 		            msg:'请输入试卷分类名称',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#SUBJECT_NAME").focus();
+				$("#SUBJECT_TYPE_NAME").focus();
 			return false;
 			}
 			if($("#STATUS").val()==""){

@@ -44,13 +44,20 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
+								<td>试题分类:</td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="SUBJECT_TYPE" id="SUBJECT_TYPE" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+								 	<select class="chosen-select form-control" onchange="subjectType()" name="SUBJECTTYPE_ID" id="SUBJECTTYPE_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+										<option value=""></option>
+										<c:forEach  items="${typeList}" var="type" varStatus="t" >
+											<option value="${type.SUBJECTTYPE_ID}" >${type.SUBJECT_TYPE_NAME}</option>
+										</c:forEach>
 								  	</select>
+								</td>
+								<td>试题类型:</td>
+								<td style="vertical-align:top;padding-left:2px;">
+									<select   name="SUBJECT_TYPE" id="SUBJECT_TYPE"  data-placeholder="请选择" style="vertical-align:top;width:120px;">
+										<option value="" >请选择</option>
+									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -67,18 +74,13 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">题目</th>
-									<th class="center">试卷类型</th>
-									<th class="center">A选项</th>
-									<th class="center">B选项</th>
-									<th class="center">C选项</th>
-									<th class="center">D选项</th>
-									<th class="center">E选项</th>
-									<th class="center">F选项</th>
-									<th class="center">正确选项</th>
-									<th class="center">分值</th>
-									<th class="center">出题时间</th>
-									<th class="center">操作</th>
+									<th class="center" style="width:120px;">试题分类</th>
+									<th class="center" style="width:120px;">试题类型</th>
+									<th class="center" >题目</th>
+									<th class="center" style="width:150px;">分值</th>
+									<th class="center"style="width:150px;">出题时间</th>
+									<th class="center"style="width:150px;">发布人</th>
+									<th class="center" style="width:250px;">操作</th>
 								</tr>
 							</thead>
 													
@@ -93,17 +95,12 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.SUBJECTMANAGE_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center'>${var.SUBJECT_TYPE_NAME}</td>
+											<td class='center'>${var.SUBJECTMANAGE}</td>
 											<td class='center'>${var.SUBJECT_NAME}</td>
-											<td class='center'>${var.SUBJECT_TYPE}</td>
-											<td class='center'>${var.SELECT_A}</td>
-											<td class='center'>${var.SELECT_B}</td>
-											<td class='center'>${var.SELECT_C}</td>
-											<td class='center'>${var.SELECT_D}</td>
-											<td class='center'>${var.SELECT_E}</td>
-											<td class='center'>${var.SELECT_F}</td>
-											<td class='center'>${var.SELECT_TURE}</td>
-											<td class='center'>${var.ISSUE_PERSON}</td>
+											<td class='center'>${var.SCORE}</td>
 											<td class='center'>${var.ISSUE_TIME}</td>
+											<th class="center">${var.ISSUE_PERSON}</th>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -217,6 +214,25 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
+        //试题类型 级联查询
+        function subjectType(){
+            var subjectTypeId = $("#SUBJECTTYPE_ID").val();
+            $.ajax({
+                type:"GET",
+                url: "<%=basePath%>subjecttypemx/select-subject-type.do?SUBJECTTYPE_ID=" + subjectTypeId + "&tm="+new Date().getTime(),
+                success: function(data){
+                    //  console.log(data);
+                    var html="<option value='' >请选择</option>";
+                    if(data != null && data.length > 0){
+                        for(var i=0; i<data.length; i++){
+                            html+="<option value='" + data[i].SUBJECTTYPEMX_ID + "'>" + data[i].SUBJECTMANAGE + "</option>";
+                        }
+                    }
+                    $("#SUBJECT_TYPE").html(html);
+                    $("#SUBJECT_TYPE").trigger("create");
+                }
+            })
+        }
 		//检索
 		function tosearch(){
 			top.jzts();

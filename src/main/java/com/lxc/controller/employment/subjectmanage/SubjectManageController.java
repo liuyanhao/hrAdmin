@@ -5,10 +5,7 @@ import com.lxc.entity.Page;
 import com.lxc.service.employment.subjectmanage.SubjectManageManager;
 import com.lxc.service.subject.subjecttype.SubjectTypeManager;
 import com.lxc.service.subject.subjecttypemx.SubjectTypeMxManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -54,6 +51,8 @@ public class SubjectManageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("SUBJECTMANAGE_ID", this.get32UUID());	//主键
+		pd.put("ISSUE_PERSON",Jurisdiction.getUsername()); //出题人
+		pd.put("ISSUE_TIME", Tools.date2Str(new Date())); //发布时间
 		subjectmanageService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -86,6 +85,7 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		pd.put("ISSUE_PERSON",Jurisdiction.getUsername()); //出题人
 		subjectmanageService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -103,6 +103,8 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		//试卷类型
+		List<PageData> typeList= subjecttypeService.listAll(pd);
 		String keywords = pd.getString("keywords");				//关键词检索条件
 		String SUBJECT_TYPE = pd.getString("SUBJECT_TYPE");		//题目类型
 		if(null != keywords && !"".equals(keywords)){
@@ -115,6 +117,7 @@ public class SubjectManageController extends BaseController {
 		List<PageData>	varList = subjectmanageService.list(page);	//列出SubjectManage列表
 		mv.setViewName("employment/subjectmanage/subjectmanage_list");
 		mv.addObject("varList", varList);
+		mv.addObject("typeList", typeList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;

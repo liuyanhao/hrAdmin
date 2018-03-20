@@ -9,7 +9,7 @@
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		SUBJECT_NAME,	
+		SUBJECT_TYPE_NAME,
 		IS_REMOVE,	
 		CREATE_TIME,	
 		CREATEUSER,	
@@ -19,7 +19,7 @@
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{SUBJECT_NAME},	
+		#{SUBJECT_TYPE_NAME},
 		#{IS_REMOVE},	
 		#{CREATE_TIME},	
 		#{CREATEUSER},	
@@ -52,8 +52,8 @@
 	<update id="edit" parameterType="pd">
 		update
 		<include refid="tableName"></include>
-		set 
-			SUBJECT_NAME = #{SUBJECT_NAME},
+		set
+		SUBJECT_TYPE_NAME = #{SUBJECT_TYPE_NAME},
 			STATUS = #{STATUS},
 			CREATEUSER = #{CREATEUSER},
 		SUBJECTTYPE_ID = SUBJECTTYPE_ID
@@ -87,7 +87,7 @@
 			and
 				(
 				<!--	根据需求自己加检索条件 -->
-			SUBJECT_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			SUBJECT_TYPE_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
 		</if>
 		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->

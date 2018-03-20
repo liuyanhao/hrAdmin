@@ -44,7 +44,7 @@ public class ResumeController extends BaseController {
 		pd = this.getPageData();
 		pd.put("RESUME_ID", this.get32UUID());	//主键
 		pd.put("USER_ID", "");	//审核人编码
-		pd.put("CREATE_TIME", DateUtil.getTime().toString() ); // 创建时间
+		pd.put("CREATE_TIME", DateUtil.getTime().toString()); // 创建时间
 		resumeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

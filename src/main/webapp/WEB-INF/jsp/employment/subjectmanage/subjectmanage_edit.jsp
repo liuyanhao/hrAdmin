@@ -37,7 +37,7 @@
 									<select id="SUBJECT_TYPE" name="SUBJECT_TYPE" onchange="subjectType()" style="width:98%;">
 										<option value="" >请选择</option>
 										<c:forEach items="${typeList}" var="var" varStatus="vs" >
-											<option value="${var.SUBJECTTYPE_ID}" >${var.SUBJECT_NAME}</option>
+											<option value="${var.SUBJECTTYPE_ID}" <c:if test="${var.SUBJECTTYPE_ID == pd.SUBJECTTYPE_ID}">selected</c:if> >${var.SUBJECT_TYPE_NAME}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -48,12 +48,14 @@
 									</select>
 								</td>
 							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">出题人:</td>
-								<td>${pd.ISSUE_PERSON}</td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">出题时间:</td>
-								<td><input class="span10 date-picker" name="ISSUE_TIME" id="ISSUE_TIME" value="${pd.ISSUE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="出题时间" title="出题时间" style="width:98%;"/></td>
-							</tr>
+							<c:if test="${msg == 'edit'}">
+								<tr>
+									<td style="width:75px;text-align: right;padding-top: 13px;">出题人:</td>
+									<td>${pd.ISSUE_PERSON}</td>
+									<td style="width:75px;text-align: right;padding-top: 13px;">出题时间:</td>
+									<td>${pd.ISSUE_TIME}</td>
+								</tr>
+							</c:if>
 							<tr>
 								<td  style="width:75px;text-align: right;padding-top: 13px;">题目:</td>
 								<td colspan="3" >
@@ -117,8 +119,13 @@
 	<!--提示框-->
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
-		$(top.hangge());
-
+		$(top.hangge()); //关闭加载状态
+        var SUBJECTTYPE_Id = '${pd.SUBJECT_TYPE != null ? pd.SUBJECT_TYPE : ""}';
+        window.onload = function(){
+            if(SUBJECTTYPE_Id != null){
+                subjectType();
+			}
+        }
 		//试题类型 级联查询
 		function subjectType(){
 		    var subjectTypeId = $("#SUBJECT_TYPE").val();
@@ -127,10 +134,12 @@
                 url: "<%=basePath%>subjecttypemx/select-subject-type.do?SUBJECTTYPE_ID=" + subjectTypeId + "&tm="+new Date().getTime(),
                 success: function(data){
                     //  console.log(data);
+                    var html="<option value='' >请选择</option>";
                     if(data != null && data.length > 0){
-                        var html="";
+                        var select ="";
                         for(var i=0; i<data.length; i++){
-                            html+="<option value='"+data[i].SUBJECTTYPE_ID+"'>"+data[i].SUBJECTMANAGE+"</option>";
+                            if(data[i].SUBJECTTYPEMX_ID == SUBJECTTYPE_Id){ select ="selected";}else {select ="";}
+                            html+="<option value='"+data[i].SUBJECTTYPEMX_ID+"' " + select + " >"+data[i].SUBJECTMANAGE+"</option>";
                         }
                     }
                     $("#SUB_TYPE").html(html);
@@ -200,26 +209,26 @@
 				$("#SELECT_D").focus();
 			return false;
 			}
-//			if($("#SELECT_E").val()==""){
-//				$("#SELECT_E").tips({
-//					side:3,
-//		            msg:'请输入E选项',
-//		            bg:'#AE81FF',
-//		            time:2
-//		        });
-//				$("#SELECT_E").focus();
-//			return false;
-//			}
-//			if($("#SELECT_F").val()==""){
-//				$("#SELECT_F").tips({
-//					side:3,
-//		            msg:'请输入F选项',
-//		            bg:'#AE81FF',
-//		            time:2
-//		        });
-//				$("#SELECT_F").focus();
-//			return false;
-//			}
+			if($("#SELECT_E").val()==""){
+				$("#SELECT_E").tips({
+					side:3,
+		            msg:'请输入E选项',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#SELECT_E").focus();
+			return false;
+			}
+			if($("#SELECT_F").val()==""){
+				$("#SELECT_F").tips({
+					side:3,
+		            msg:'请输入F选项',
+		            bg:'#AE81FF',
+		            time:2
+		        });
+				$("#SELECT_F").focus();
+			return false;
+			}
 			if($("#SELECT_TURE").val()==""){
 				$("#SELECT_TURE").tips({
 					side:3,
@@ -241,16 +250,6 @@
                 $("#SCORE").focus();
                 return false;
             }
-			if($("#ISSUE_TIME").val()==""){
-				$("#ISSUE_TIME").tips({
-					side:3,
-		            msg:'请输入出题时间',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#ISSUE_TIME").focus();
-			return false;
-			}
 			$("#Form").submit();
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();

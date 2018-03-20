@@ -49,8 +49,8 @@
 									<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 										<option value=""></option>
 										<option value="">全部</option>
-										<option value="0" <c:if test="${pd.STATUS == 0}">selected </c:if> >停用</option>
-										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if> >启用</option>
+										<option value="0">停用</option>
+										<option value="1">启用</option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">

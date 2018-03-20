@@ -171,7 +171,7 @@ public class SubjectTypeController extends BaseController {
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("SUBJECT_NAME"));	    //1
+			vpd.put("var1", varOList.get(i).getString("SUBJECT_TYPE_NAME"));	    //1
 			vpd.put("var2", varOList.get(i).getString("CREATE_TIME"));	    //3
 			vpd.put("var3", varOList.get(i).getString("CREATEUSER"));	    //4
 			vpd.put("var4", varOList.get(i).get("STATUS").toString());	//5

@@ -54,9 +54,9 @@
 		<include refid="tableName"></include>
 		set 
 			SUBJECTMANAGE = #{SUBJECTMANAGE},
-			STATUS = #{STATUS},
-		SUBJECTTYPEMX_ID = SUBJECTTYPEMX_ID
-		where 
+			STATUS = #{STATUS}
+		,SUBJECTTYPEMX_ID = SUBJECTTYPEMX_ID
+		where
 		SUBJECTTYPEMX_ID = #{SUBJECTTYPEMX_ID}
 	</update>
 	
@@ -68,7 +68,7 @@
 		<include refid="tableName"></include>
 		where 1=1
 		and IS_REMOVE = 0
-			SUBJECTTYPEMX_ID = #{SUBJECTTYPEMX_ID}
+		and	SUBJECTTYPEMX_ID = #{SUBJECTTYPEMX_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -116,8 +116,8 @@
 		<include refid="tableName"></include>
 		where 1=1
 		and IS_REMOVE = 0
-		<if test="pd.SUBJECTTYPE_ID != null and pd.SUBJECTTYPE_ID != '' ">
-			and SUBJECTTYPE_ID = #{pd.SUBJECTTYPE_ID}
+		<if test="SUBJECTTYPE_ID != null and SUBJECTTYPE_ID != '' ">
+			and SUBJECTTYPE_ID = #{SUBJECTTYPE_ID}
 		</if>
 	</select>
 	<!-- 批量删除 -->

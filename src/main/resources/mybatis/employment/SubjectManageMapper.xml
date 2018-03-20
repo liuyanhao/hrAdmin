@@ -84,23 +84,37 @@
 	
 	<!-- 通过ID获取数据 -->
 	<select id="findById" parameterType="pd" resultType="pd">
-		select 
+		select
+		su_type.SUBJECTTYPE_ID,
+		su_type.SUBJECT_TYPE_NAME as SUBJECT_TYPE_NAME,
+		sumx.SUBJECTMANAGE as SUBJECTMANAGE,
 		<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include>s
+		left join tb_subjecttypemx sumx on sumx.SUBJECTTYPEMX_ID =  s.SUBJECT_TYPE ,
+		tb_subjecttype  su_type
 		where 
 			SUBJECTMANAGE_ID = #{SUBJECTMANAGE_ID}
+			and  su_type.SUBJECTTYPE_ID = sumx.SUBJECTTYPE_ID
 	</select>
 	
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
+		su_type.SUBJECT_TYPE_NAME as SUBJECT_TYPE_NAME,
+		sumx.SUBJECTMANAGE as SUBJECTMANAGE,
 		<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> s
+		left join tb_subjecttypemx sumx on sumx.SUBJECTTYPEMX_ID =  s.SUBJECT_TYPE ,
+		tb_subjecttype  su_type
 		where 1=1
+		and  su_type.SUBJECTTYPE_ID = sumx.SUBJECTTYPE_ID
+		<if test="pd.SUBJECTTYPE_ID != null and pd.SUBJECTTYPE_ID != ''">
+			and su_type.SUBJECTTYPE_ID = #{pd.SUBJECTTYPE_ID}
+		</if>
 		<if test="pd.SUBJECT_TYPE != null and pd.SUBJECT_TYPE != ''">
-			and SUBJECT_TYPE = #{SUBJECT_TYPE}
+			and s.SUBJECT_TYPE = #{pd.SUBJECT_TYPE}
 		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
@@ -122,9 +136,15 @@
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
-		<include refid="Field"></include>
+			su_type.SUBJECT_TYPE_NAME as SUBJECT_TYPE_NAME,
+			sumx.SUBJECTMANAGE as SUBJECT_TYPE,
+			<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> s
+		left join tb_subjecttypemx sumx on sumx.SUBJECTTYPEMX_ID = s.SUBJECT_TYPE ,
+		tb_subjecttype  su_type
+		where 1=1
+		and  su_type.SUBJECTTYPE_ID = sumx.SUBJECTTYPE_ID
 	</select>
 	
 	<!-- 批量删除 -->
