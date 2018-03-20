@@ -33,9 +33,20 @@
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
 								<td  style="width:75px;text-align: right;padding-top: 13px;">试卷分类:</td>
-								<td><input type="text" name="SUBJECT_TYPE" id="SUBJECT_TYPE" value="${pd.SUBJECT_TYPE}" maxlength="255" style="width:98%;"/></td>
+								<td>
+									<select id="SUBJECT_TYPE" name="SUBJECT_TYPE" onchange="subjectType()" style="width:98%;">
+										<option value="" >请选择</option>
+										<c:forEach items="${typeList}" var="var" varStatus="vs" >
+											<option value="${var.SUBJECTTYPE_ID}" >${var.SUBJECT_NAME}</option>
+										</c:forEach>
+									</select>
+								</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">试题类型:</td>
-								<td><input type="text" name="SUBJECT_TYPE" id="SUB_TYPE" value="" maxlength="255" style="width:98%;"/></td>
+								<td>
+									<select name="SUBJECT_TYPE" id="SUB_TYPE" style="width:98%;">
+										<option value="" >请选择</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">出题人:</td>
@@ -107,6 +118,26 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
+
+		//试题类型 级联查询
+		function subjectType(){
+		    var subjectTypeId = $("#SUBJECT_TYPE").val();
+            $.ajax({
+                type:"GET",
+                url: "<%=basePath%>subjecttypemx/select-subject-type.do?SUBJECTTYPE_ID=" + subjectTypeId + "&tm="+new Date().getTime(),
+                success: function(data){
+                    //  console.log(data);
+                    if(data != null && data.length > 0){
+                        var html="";
+                        for(var i=0; i<data.length; i++){
+                            html+="<option value='"+data[i].SUBJECTTYPE_ID+"'>"+data[i].SUBJECTMANAGE+"</option>";
+                        }
+                    }
+                    $("#SUB_TYPE").html(html);
+                    $("#SUB_TYPE").trigger("create");
+                }
+            })
+		}
 		//保存
 		function save(){
 			if($("#SUBJECT_NAME").val()==""){

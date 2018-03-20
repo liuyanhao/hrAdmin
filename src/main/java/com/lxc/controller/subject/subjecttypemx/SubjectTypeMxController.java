@@ -164,7 +164,16 @@ public class SubjectTypeMxController extends BaseController {
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
 	}
-	
+
+	@RequestMapping(value="/select-subject-type")
+	@ResponseBody
+	public List<PageData> selectJobName() throws Exception{
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> varOList = subjecttypemxService.listSubjetType(pd);
+		return varOList;
+	}
+
 	 /**导出到excel
 	 * @param
 	 * @throws Exception

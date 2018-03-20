@@ -107,7 +107,19 @@
 		where 1=1
 		and IS_REMOVE = 0
 	</select>
-	
+
+
+	<select id="listSubjetType" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1
+		and IS_REMOVE = 0
+		<if test="pd.SUBJECTTYPE_ID != null and pd.SUBJECTTYPE_ID != '' ">
+			and SUBJECTTYPE_ID = #{pd.SUBJECTTYPE_ID}
+		</if>
+	</select>
 	<!-- 批量删除 -->
 	<delete id="deleteAll" parameterType="String">
 		delete from

@@ -1,8 +1,9 @@
 package com.lxc.service.subject.subjecttypemx;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 试卷分类表(明细)接口
@@ -59,6 +60,13 @@ public interface SubjectTypeMxManager{
 	 * @throws Exception
 	 */
 	public PageData findCount(PageData pd)throws Exception;
-	
+
+	/**
+	 * 查询符合条件的
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+    List<PageData> listSubjetType(PageData pd)throws  Exception;
 }
 

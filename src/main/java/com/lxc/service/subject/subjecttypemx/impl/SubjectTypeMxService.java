@@ -86,6 +86,17 @@ public class SubjectTypeMxService implements SubjectTypeMxManager{
 	public PageData findCount(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("SubjectTypeMxMapper.findCount", pd);
 	}
-	
+
+	/**
+	 * 根据 试卷类别 级联查询
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listSubjetType(PageData pd) throws Exception {
+		return (List<PageData>)dao.findForList("SubjectTypeMxMapper.listSubjetType", pd);
+	}
+
 }
 

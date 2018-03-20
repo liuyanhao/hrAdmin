@@ -3,6 +3,8 @@ package com.lxc.controller.employment.subjectmanage;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.employment.subjectmanage.SubjectManageManager;
+import com.lxc.service.subject.subjecttype.SubjectTypeManager;
+import com.lxc.service.subject.subjecttypemx.SubjectTypeMxManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
 import com.lxc.util.ObjectExcelView;
@@ -33,7 +35,13 @@ public class SubjectManageController extends BaseController {
 	String menuUrl = "subjectmanage/list.do"; //菜单地址(权限用)
 	@Resource(name="subjectmanageService")
 	private SubjectManageManager subjectmanageService;
-	
+
+	@Resource(name="subjecttypeService")
+	private SubjectTypeManager subjecttypeService;
+
+	@Resource(name="subjecttypemxService")
+	private SubjectTypeMxManager subjecttypemxService;
+
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -121,6 +129,8 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> typeList= subjecttypeService.listAll(pd);
+		mv.addObject("typeList", typeList);
 		mv.setViewName("employment/subjectmanage/subjectmanage_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -136,7 +146,9 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> typeList= subjecttypeService.listAll(pd);
 		pd = subjectmanageService.findById(pd);	//根据ID读取
+		mv.addObject("typeList", typeList);
 		mv.setViewName("employment/subjectmanage/subjectmanage_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);

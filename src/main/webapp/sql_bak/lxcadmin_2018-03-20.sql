@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.27 - MySQL Community Server (GPL)
+-- 服务器版本:                        5.6.29 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.4.0.5125
 -- --------------------------------------------------------
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `sys_app_user` (
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='app 用户表';
 
--- 正在导出表  lxcadmin.sys_app_user 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.sys_app_user 的数据：~0 rows (大约)
 DELETE FROM `sys_app_user`;
 /*!40000 ALTER TABLE `sys_app_user` DISABLE KEYS */;
 INSERT INTO `sys_app_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `PHONE`, `SFID`, `START_TIME`, `END_TIME`, `YEARS`, `NUMBER`, `EMAIL`) VALUES
@@ -491,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`) VALUES
-	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-19 23:55:15', '127.0.0.1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
+	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-20 18:51:26', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
 	('1e17c5d17bce41d6b69178177ab5742c', 'liuxi', 'c9da4bc902c09bbbda3bd43eb3dbda3ec417c575', '刘熙', '', 'f924d00914c54810922c31b62612dc57', '2018-03-11 13:53:35', '0:0:0:0:0:0:0:1', '0', '面试人', 'default', '1094921525@qq.com', '1002', '18911780490'),
 	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556'),
 	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'lisi', '434588cee83dca5aaa683852319c54c22f1b41ab', '李四', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', '313596790@qq.com', '1102', '13566233663'),
@@ -510,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `tb_attached` (
   PRIMARY KEY (`ATTACHED_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主附结构接口';
 
--- 正在导出表  lxcadmin.tb_attached 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_attached 的数据：~0 rows (大约)
 DELETE FROM `tb_attached`;
 /*!40000 ALTER TABLE `tb_attached` DISABLE KEYS */;
 INSERT INTO `tb_attached` (`ATTACHED_ID`, `NAME`, `FDESCRIBE`, `PRICE`, `CTIME`) VALUES
@@ -549,7 +549,7 @@ CREATE TABLE IF NOT EXISTS `tb_interviewinfo` (
   PRIMARY KEY (`INTERVIEWINFO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='面试信息表';
 
--- 正在导出表  lxcadmin.tb_interviewinfo 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_interviewinfo 的数据：~0 rows (大约)
 DELETE FROM `tb_interviewinfo`;
 /*!40000 ALTER TABLE `tb_interviewinfo` DISABLE KEYS */;
 INSERT INTO `tb_interviewinfo` (`INTERVIEWINFO_ID`, `RESUME_ID`, `EMPLOYEE_STATE`, `EMPLOYEE_TIME`, `RESUME_USER_ID`, `RESUME_USER_NAME`) VALUES
@@ -732,7 +732,7 @@ CREATE TABLE IF NOT EXISTS `tb_resume` (
   PRIMARY KEY (`RESUME_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历表';
 
--- 正在导出表  lxcadmin.tb_resume 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_resume 的数据：~0 rows (大约)
 DELETE FROM `tb_resume`;
 /*!40000 ALTER TABLE `tb_resume` DISABLE KEYS */;
 INSERT INTO `tb_resume` (`RESUME_ID`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `USER_ID`, `AGE`, `TIME`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STAFF_NAME`, `STATUS`, `USER_NAME`, `REASON`, `RESULT`, `SCORE`, `JOB_MESSAGE_ID`, `DEGREE`) VALUES
@@ -858,7 +858,7 @@ CREATE TABLE IF NOT EXISTS `tb_subjectmanage` (
   PRIMARY KEY (`SUBJECTMANAGE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题库管理表';
 
--- 正在导出表  lxcadmin.tb_subjectmanage 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_subjectmanage 的数据：~0 rows (大约)
 DELETE FROM `tb_subjectmanage`;
 /*!40000 ALTER TABLE `tb_subjectmanage` DISABLE KEYS */;
 INSERT INTO `tb_subjectmanage` (`SUBJECTMANAGE_ID`, `SUBJECT_NAME`, `SUBJECT_TYPE`, `SELECT_A`, `SELECT_B`, `SELECT_C`, `SELECT_D`, `SELECT_E`, `SELECT_F`, `SELECT_TURE`, `ISSUE_PERSON`, `SCORE`, `ISSUE_TIME`) VALUES
@@ -974,7 +974,7 @@ CREATE TABLE IF NOT EXISTS `weixin_imgmsg` (
   PRIMARY KEY (`IMGMSG_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信图片表';
 
--- 正在导出表  lxcadmin.weixin_imgmsg 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.weixin_imgmsg 的数据：~0 rows (大约)
 DELETE FROM `weixin_imgmsg`;
 /*!40000 ALTER TABLE `weixin_imgmsg` DISABLE KEYS */;
 INSERT INTO `weixin_imgmsg` (`IMGMSG_ID`, `KEYWORD`, `CREATETIME`, `STATUS`, `BZ`, `TITLE1`, `DESCRIPTION1`, `IMGURL1`, `TOURL1`, `TITLE2`, `DESCRIPTION2`, `IMGURL2`, `TOURL2`, `TITLE3`, `DESCRIPTION3`, `IMGURL3`, `TOURL3`, `TITLE4`, `DESCRIPTION4`, `IMGURL4`, `TOURL4`, `TITLE5`, `DESCRIPTION5`, `IMGURL5`, `TOURL5`, `TITLE6`, `DESCRIPTION6`, `IMGURL6`, `TOURL6`, `TITLE7`, `DESCRIPTION7`, `IMGURL7`, `TOURL7`, `TITLE8`, `DESCRIPTION8`, `IMGURL8`, `TOURL8`) VALUES
