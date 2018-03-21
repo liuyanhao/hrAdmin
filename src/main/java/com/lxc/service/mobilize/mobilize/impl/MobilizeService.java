@@ -44,7 +44,16 @@ public class MobilizeService implements MobilizeManager{
 	public void edit(PageData pd)throws Exception{
 		dao.update("MobilizeMapper.edit", pd);
 	}
-	
+
+	/**
+	 * 审核
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void audit(PageData pd) throws Exception {
+		dao.update("MobilizeMapper.audit", pd);
+	}
+
 	/**列表
 	 * @param page
 	 * @throws Exception
@@ -79,8 +88,24 @@ public class MobilizeService implements MobilizeManager{
 		dao.delete("MobilizeMapper.deleteAll", ArrayDATA_IDS);
 	}
 
+	/**
+	 * 审核列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
 	public List<PageData> auditList(Page page) throws Exception {
 		return (List<PageData>)dao.findForList("MobilizeMapper.auditListPage", page);
+	}
+
+	/**
+	 * 审核单条信息
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findAuditById(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("MobilizeMapper.findAuditById", pd);
 	}
 
 }

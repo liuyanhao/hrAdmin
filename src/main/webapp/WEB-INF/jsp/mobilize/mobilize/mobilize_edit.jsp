@@ -36,6 +36,11 @@
 								<td><input type="text" name="EMP_NAME" id="EMP_NAME" value="${pd.EMP_NAME}" maxlength="20" placeholder="这里输入审核人名称" title="审核人名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位列表:</td>
+								<td><input type="text" name="JOB_TYPE_ID" id="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}" maxlength="20" placeholder="这里输入工作职位类别编码" title="工作职位类别编码" style="width:98%;"/></td>
+							</tr>
+
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
 								<td><input type="text" name="JOB_ID" id="JOB_ID" value="${pd.JOB_ID}" maxlength="20" placeholder="这里输入工作职位编码" title="工作职位编码" style="width:98%;"/></td>
 							</tr>
@@ -92,6 +97,17 @@
 				$("#EMP_NAME").focus();
 			return false;
 			}
+
+            if($("#JOB_TYPE_ID").val()==""){
+                $("#JOB_TYPE_ID").tips({
+                    side:3,
+                    msg:'请输入工作职位类别编码',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#JOB_TYPE_ID").focus();
+                return false;
+            }
 			if($("#JOB_ID").val()==""){
 				$("#JOB_ID").tips({
 					side:3,

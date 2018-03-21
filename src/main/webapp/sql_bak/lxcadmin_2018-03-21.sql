@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.27 - MySQL Community Server (GPL)
+-- 服务器版本:                        5.6.29 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.4.0.5125
 -- --------------------------------------------------------
@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `sys_app_user` (
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='app 用户表';
 
--- 正在导出表  lxcadmin.sys_app_user 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.sys_app_user 的数据：~0 rows (大约)
 DELETE FROM `sys_app_user`;
 /*!40000 ALTER TABLE `sys_app_user` DISABLE KEYS */;
 INSERT INTO `sys_app_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `PHONE`, `SFID`, `START_TIME`, `END_TIME`, `YEARS`, `NUMBER`, `EMAIL`) VALUES
@@ -491,7 +491,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`) VALUES
-	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-21 01:05:16', '127.0.0.1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
+	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-21 18:05:16', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
 	('1e17c5d17bce41d6b69178177ab5742c', 'liuxi', 'c9da4bc902c09bbbda3bd43eb3dbda3ec417c575', '刘熙', '', 'f924d00914c54810922c31b62612dc57', '2018-03-11 13:53:35', '0:0:0:0:0:0:0:1', '0', '面试人', 'default', '1094921525@qq.com', '1002', '18911780490'),
 	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556'),
 	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'lisi', '434588cee83dca5aaa683852319c54c22f1b41ab', '李四', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', '313596790@qq.com', '1102', '13566233663'),
@@ -510,7 +510,7 @@ CREATE TABLE IF NOT EXISTS `tb_attached` (
   PRIMARY KEY (`ATTACHED_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主附结构接口';
 
--- 正在导出表  lxcadmin.tb_attached 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_attached 的数据：~0 rows (大约)
 DELETE FROM `tb_attached`;
 /*!40000 ALTER TABLE `tb_attached` DISABLE KEYS */;
 INSERT INTO `tb_attached` (`ATTACHED_ID`, `NAME`, `FDESCRIBE`, `PRICE`, `CTIME`) VALUES
@@ -549,7 +549,7 @@ CREATE TABLE IF NOT EXISTS `tb_interviewinfo` (
   PRIMARY KEY (`INTERVIEWINFO_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='面试信息表';
 
--- 正在导出表  lxcadmin.tb_interviewinfo 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_interviewinfo 的数据：~0 rows (大约)
 DELETE FROM `tb_interviewinfo`;
 /*!40000 ALTER TABLE `tb_interviewinfo` DISABLE KEYS */;
 INSERT INTO `tb_interviewinfo` (`INTERVIEWINFO_ID`, `RESUME_ID`, `EMPLOYEE_STATE`, `EMPLOYEE_TIME`, `RESUME_USER_ID`, `RESUME_USER_NAME`) VALUES
@@ -580,7 +580,7 @@ INSERT INTO `tb_issuejob` (`ISSUEJOB_ID`, `JOB_MESSAGE_ID`, `JOB_MESSAGE_NAME`, 
 DROP TABLE IF EXISTS `tb_job_message`;
 CREATE TABLE IF NOT EXISTS `tb_job_message` (
   `JOB_MESSAGE_ID` varchar(100) NOT NULL,
-  `JOB_TYPE_ID` int(11) NOT NULL COMMENT '工作类型id',
+  `JOB_TYPE_ID` varchar(50) NOT NULL COMMENT '工作类型id',
   `JOB_NAME` varchar(255) DEFAULT NULL COMMENT '工作名称',
   `STIPEND_MANAGER_ID` varchar(255) DEFAULT NULL COMMENT '薪酬标准id',
   PRIMARY KEY (`JOB_MESSAGE_ID`)
@@ -590,20 +590,20 @@ CREATE TABLE IF NOT EXISTS `tb_job_message` (
 DELETE FROM `tb_job_message`;
 /*!40000 ALTER TABLE `tb_job_message` DISABLE KEYS */;
 INSERT INTO `tb_job_message` (`JOB_MESSAGE_ID`, `JOB_TYPE_ID`, `JOB_NAME`, `STIPEND_MANAGER_ID`) VALUES
-	('1', 1001, '测试工程师', '1001'),
-	('2', 1001, '软件工程师', '1002'),
-	('3', 1001, '产品经理', '1003'),
-	('4', 1002, '项目经理', '1005'),
-	('5', 1002, '行政总监', '1004'),
-	('6', 1001, 'ISO工程师', '1001'),
-	('7', 1001, '安卓工程师', '1001');
+	('1', '1001', '测试工程师', '1001'),
+	('2', '1001', '软件工程师', '1002'),
+	('3', '1001', '产品经理', '1003'),
+	('4', '1002', '项目经理', '1005'),
+	('5', '1002', '行政总监', '1004'),
+	('6', '1001', 'ISO工程师', '1001'),
+	('7', '1001', '安卓工程师', '1001');
 /*!40000 ALTER TABLE `tb_job_message` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_job_type 结构
 DROP TABLE IF EXISTS `tb_job_type`;
 CREATE TABLE IF NOT EXISTS `tb_job_type` (
   `JOB_TYPE_ID` varchar(50) NOT NULL,
-  `TYPE_NAME` varchar(50) NOT NULL,
+  `TYPE_NAME` varchar(50) NOT NULL COMMENT '职位类别名称',
   `selet_id` varchar(50) NOT NULL,
   PRIMARY KEY (`JOB_TYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='职位类别表';
@@ -625,20 +625,23 @@ CREATE TABLE IF NOT EXISTS `tb_mobilize` (
   `EMP_ID` varchar(32) DEFAULT NULL COMMENT '审核人编号',
   `EMP_NAME` varchar(20) DEFAULT NULL COMMENT '审核人名称',
   `JOB_ID` varchar(20) DEFAULT NULL COMMENT '工作职位编码',
+  `JOB_TYPE_ID` varchar(20) DEFAULT NULL COMMENT '工作职位类别编码',
   `CAUSE` varchar(255) DEFAULT NULL COMMENT '调动原因',
-  `STATUS` varchar(5) DEFAULT NULL COMMENT '审核状态',
+  `STATUS` varchar(5) DEFAULT NULL COMMENT '审核状态 0 未审核 1 通过 2  拒绝',
   `STAFF_ID` varchar(50) DEFAULT NULL COMMENT '被调动人的id',
   PRIMARY KEY (`MOBILIZE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='调动管理表';
 
--- 正在导出表  lxcadmin.tb_mobilize 的数据：~4 rows (大约)
+-- 正在导出表  lxcadmin.tb_mobilize 的数据：~5 rows (大约)
 DELETE FROM `tb_mobilize`;
 /*!40000 ALTER TABLE `tb_mobilize` DISABLE KEYS */;
-INSERT INTO `tb_mobilize` (`MOBILIZE_ID`, `EMP_ID`, `EMP_NAME`, `JOB_ID`, `CAUSE`, `STATUS`, `STAFF_ID`) VALUES
-	('12a2293fdef64e86a00acc05ee2a53ee', '1', 'admin', '1001', 'dsdsdsd', '0', '101'),
-	('276111b2e3e340e58f8e09c460b3eade', '', '张三', '001', '12121', '1', '11'),
-	('653ca9ee7c124578869ce4f1551a9b13', '1', 'admin', '1001', 'qwqwq', '2', '101'),
-	('ebff4dacd56f423b9de87079076a1a1b', '1', 'admin', '1001', 'dsdsds', '2', '101');
+INSERT INTO `tb_mobilize` (`MOBILIZE_ID`, `EMP_ID`, `EMP_NAME`, `JOB_ID`, `JOB_TYPE_ID`, `CAUSE`, `STATUS`, `STAFF_ID`) VALUES
+	('12a2293fdef64e86a00acc05ee2a53ee', '1', 'admin', '2', '1001', '1212', '1', '101'),
+	('1b4779a8258446d4a5b89d7c106a36d0', '1', 'admin', '2', '1001', '表现好', '1', '1002'),
+	('276111b2e3e340e58f8e09c460b3eade', '', '张三', '2', '1001', '12121', '2', '11'),
+	('653ca9ee7c124578869ce4f1551a9b13', '1', 'admin', '2', '1001', 'qwqwq', '2', '101'),
+	('abd545aeda704322a2f3502d7f968600', '1', 'admin', '5', '1002', '哈哈测试', '1', '1002'),
+	('ebff4dacd56f423b9de87079076a1a1b', '1', 'admin', '2', '1002', 'dsdsds', '2', '101');
 /*!40000 ALTER TABLE `tb_mobilize` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_papertypemanage 结构
@@ -732,7 +735,7 @@ CREATE TABLE IF NOT EXISTS `tb_resume` (
   PRIMARY KEY (`RESUME_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='简历表';
 
--- 正在导出表  lxcadmin.tb_resume 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_resume 的数据：~0 rows (大约)
 DELETE FROM `tb_resume`;
 /*!40000 ALTER TABLE `tb_resume` DISABLE KEYS */;
 INSERT INTO `tb_resume` (`RESUME_ID`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `USER_ID`, `AGE`, `TIME`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STAFF_NAME`, `STATUS`, `USER_NAME`, `REASON`, `RESULT`, `SCORE`, `JOB_MESSAGE_ID`, `DEGREE`) VALUES
@@ -767,7 +770,8 @@ CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   `DESCRIBES` varchar(255) DEFAULT NULL COMMENT '个人描述',
   `REMARK` varchar(255) DEFAULT NULL COMMENT '备注',
   `ISROMVE` int(11) DEFAULT '0' COMMENT '是否删除 0 正常  1 删除 2停职 3 恢复',
-  `JOB_ID` int(11) DEFAULT NULL COMMENT '工作编号',
+  `JOB_ID` varchar(50) DEFAULT NULL COMMENT '工作职位编码',
+  `JOB_TYPE_ID` varchar(50) DEFAULT NULL COMMENT '工作职位类别编码',
   `USER_ID` int(11) DEFAULT NULL COMMENT '用户编号',
   `AGE` int(11) DEFAULT NULL COMMENT '年龄',
   `ADD_TIME` varchar(32) DEFAULT NULL COMMENT '登记时间',
@@ -777,19 +781,20 @@ CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   `CREATE_USER` varchar(255) DEFAULT NULL COMMENT '创建人',
   `UPDATE_USER` varchar(255) DEFAULT NULL COMMENT '修改人',
   `STATES` tinyint(5) DEFAULT '0' COMMENT '状态  0未审核 1通过 2不通过  ',
-  PRIMARY KEY (`STAFFEMPLOYEE_ID`)
+  PRIMARY KEY (`STAFFEMPLOYEE_ID`),
+  UNIQUE KEY `STAFF_ID` (`STAFF_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工档案信息表';
 
 -- 正在导出表  lxcadmin.tb_staffemployee 的数据：~6 rows (大约)
 DELETE FROM `tb_staffemployee`;
 /*!40000 ALTER TABLE `tb_staffemployee` DISABLE KEYS */;
-INSERT INTO `tb_staffemployee` (`STAFFEMPLOYEE_ID`, `STAFF_ID`, `STAFF_NAME`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `JOB_ID`, `USER_ID`, `AGE`, `ADD_TIME`, `STIPEND_ID`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STATES`) VALUES
-	('3e69e297070e42d7b46628317898013e', 11, '张三丰', 1, '北京市', '111', '', '128901920121', '21212212@qq.com', '1901290112', '2121', '1212', '2121', '2', '硕士', '英语', '游泳', 'CN', '1992-12-11', '佛教', '计算机', '111', '111', '11', 0, 2, 11, 11, '2018-01-25', 11, NULL, NULL, NULL, NULL, 1),
-	('58d0c83404c447ec94354d044f489897', 1002, '古成芳', 2, '海南岛', '18911780490', '', '360732199202102113', '212819289@qq.com', '1094921521', '121211214', '3424223', '党员', '5', '研究生', '旅游', '绘画', 'CN', '1992-02-10', '佛教', '金融', '1122222222222222222', '11111111111', '', 0, 2, 10002, 26, '2018-01-22', 111, NULL, NULL, NULL, NULL, 1),
-	('635f7ef8103742d1b59913922da5aff0', 1003, '李潇潇', 1, '北京市海淀区', '18911780491', '', '36073220170191291', '121211211@qq.com', '1910290192', 'lixiaoxiao', '100093', '群众', '0', '本科', '睡觉', '看电视', 'CN', '2017-01-11', '无', '无', '11212', '121212', '哈哈', 0, 3, 101021, 1, '2018-01-23', 11, NULL, NULL, NULL, NULL, 1),
-	('a5032a6ec23a40798448db57e8a5732b', 1002, '李欣欣', 2, '黑龙江省哈尔滨市', '13641059864', '', '23012519910701264X', 'lixinxin852@126.com', '931920085', '13641059864', '100019', '党员', '0', '本科', '逛街购物', '跳舞', 'CN', '1991-07-01', '无', '通信工程', '外语能力： 六级\r\n东北石油大学', '1212', '父母联系方式15146409055', 0, 3, 11111, 27, '2018-02-09', 1001, NULL, NULL, NULL, NULL, 2),
-	('c2cc729ffd684f6896a80cd4d02dfb82', 10022052, '李志华', 2, '河南周口', '15600647138', '', '41272119901102266X', 'zhlee007@gmail.com', '395986883', 'leejenney', '100019', '党员', '0', '本科', '逛街', '唱歌', 'CN', '1990-11-02', '佛教', '软件工程', '中原工学院 \r\n软件工程（java方向）\r\n外语能力： cet-4（501）\r\n是否自备电脑：是', '是否住宿：是', '父母电话 15936913841', 0, 2, 1001, 28, '2018-02-09', 1001, NULL, NULL, NULL, NULL, 0),
-	('f1c558ce3db2423e8e5dd1566839fe28', 101, '刘熙财', 1, '北京市海淀区', '18101298728', '', '360732199306202118', '12811212921@qq.com', '1291290121', 'liuxicai002', '10001', '群众', '3', '本科', '编程', '书法', 'CN', '10919291', '佛教', '计算机科学与技术', 'vvv', '212121212', '哈哈', 0, 1, 975, 23, '2018-01-16', 101, NULL, NULL, NULL, NULL, 1);
+INSERT INTO `tb_staffemployee` (`STAFFEMPLOYEE_ID`, `STAFF_ID`, `STAFF_NAME`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `JOB_ID`, `JOB_TYPE_ID`, `USER_ID`, `AGE`, `ADD_TIME`, `STIPEND_ID`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STATES`) VALUES
+	('3e69e297070e42d7b46628317898013e', 11, '张三丰', 1, '北京市', '111', '', '128901920121', '21212212@qq.com', '1901290112', '2121', '1212', '2121', '2', '硕士', '英语', '游泳', 'CN', '1992-12-11', '佛教', '计算机', '111', '111', '11', 0, '2', '1001', 11, 11, '2018-01-25', 11, NULL, NULL, NULL, NULL, 1),
+	('58d0c83404c447ec94354d044f489897', 1002, '古成芳', 2, '海南岛', '18911780490', '', '360732199202102113', '212819289@qq.com', '1094921521', '121211214', '3424223', '党员', '5', '研究生', '旅游', '绘画', 'CN', '1992-02-10', '佛教', '金融', '1122222222222222222', '11111111111', '', 0, '2', '1001', 10002, 26, '2018-01-22', 111, NULL, NULL, NULL, NULL, 1),
+	('635f7ef8103742d1b59913922da5aff0', 1003, '李潇潇', 1, '北京市海淀区', '18911780491', '', '36073220170191291', '121211211@qq.com', '1910290192', 'lixiaoxiao', '100093', '群众', '0', '本科', '睡觉', '看电视', 'CN', '2017-01-11', '无', '无', '11212', '121212', '哈哈', 0, '2', '1001', 101021, 1, '2018-01-23', 11, NULL, NULL, NULL, NULL, 1),
+	('a5032a6ec23a40798448db57e8a5732b', 1004, '李欣欣', 2, '黑龙江省哈尔滨市', '13641059864', '', '23012519910701264X', 'lixinxin852@126.com', '931920085', '13641059864', '100019', '党员', '0', '本科', '逛街购物', '跳舞', 'CN', '1991-07-01', '无', '通信工程', '外语能力： 六级\r\n东北石油大学', '1212', '父母联系方式15146409055', 0, '2', '1001', 11111, 27, '2018-02-09', 1001, NULL, NULL, NULL, NULL, 2),
+	('c2cc729ffd684f6896a80cd4d02dfb82', 10022052, '李志华', 2, '河南周口', '15600647138', '', '41272119901102266X', 'zhlee007@gmail.com', '395986883', 'leejenney', '100019', '党员', '0', '本科', '逛街', '唱歌', 'CN', '1990-11-02', '佛教', '软件工程', '中原工学院 \r\n软件工程（java方向）\r\n外语能力： cet-4（501）\r\n是否自备电脑：是', '是否住宿：是', '父母电话 15936913841', 0, '2', '1001', 1001, 28, '2018-02-09', 1001, NULL, NULL, NULL, NULL, 0),
+	('f1c558ce3db2423e8e5dd1566839fe28', 101, '刘熙财', 1, '北京市海淀区', '18101298728', '', '360732199306202118', '12811212921@qq.com', '1291290121', 'liuxicai002', '10001', '群众', '3', '本科', '编程', '书法', 'CN', '10919291', '佛教', '计算机科学与技术', 'vvv', '212121212', '哈哈', 0, '2', '1001', 975, 23, '2018-01-16', 101, NULL, NULL, NULL, NULL, 1);
 /*!40000 ALTER TABLE `tb_staffemployee` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_stipendmanager 结构
@@ -979,7 +984,7 @@ CREATE TABLE IF NOT EXISTS `weixin_imgmsg` (
   PRIMARY KEY (`IMGMSG_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='微信图片表';
 
--- 正在导出表  lxcadmin.weixin_imgmsg 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.weixin_imgmsg 的数据：~0 rows (大约)
 DELETE FROM `weixin_imgmsg`;
 /*!40000 ALTER TABLE `weixin_imgmsg` DISABLE KEYS */;
 INSERT INTO `weixin_imgmsg` (`IMGMSG_ID`, `KEYWORD`, `CREATETIME`, `STATUS`, `BZ`, `TITLE1`, `DESCRIPTION1`, `IMGURL1`, `TOURL1`, `TITLE2`, `DESCRIPTION2`, `IMGURL2`, `TOURL2`, `TITLE3`, `DESCRIPTION3`, `IMGURL3`, `TOURL3`, `TITLE4`, `DESCRIPTION4`, `IMGURL4`, `TOURL4`, `TITLE5`, `DESCRIPTION5`, `IMGURL5`, `TOURL5`, `TITLE6`, `DESCRIPTION6`, `IMGURL6`, `TOURL6`, `TITLE7`, `DESCRIPTION7`, `IMGURL7`, `TOURL7`, `TITLE8`, `DESCRIPTION8`, `IMGURL8`, `TOURL8`) VALUES

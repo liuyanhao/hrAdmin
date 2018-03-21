@@ -30,50 +30,52 @@
                         <form action="mobilize/${msg }.do" name="Form" id="Form" method="post">
                             <input type="hidden" name="MOBILIZE_ID" id="MOBILIZE_ID" value="${pd.MOBILIZE_ID}"/>
                             <input type="hidden" id="STAFF_ID" name="STAFF_ID" value="${pd.STAFF_ID}">
+                            <input type="hidden" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="5" placeholder="这里输入审核状态" title="审核状态" style="width:98%;"/>
                             <div id="zhongxin" style="padding-top: 13px;">
                                 <table id="table_report" class="table table-striped table-bordered table-hover">
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">姓名:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">姓名:</td>
                                         <td>${pd.STAFF_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">现职位类别:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">现职位类别:</td>
                                         <td> ${pd.TYPE_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">现职位名称:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">现职位名称:</td>
                                         <td> ${pd.JOB_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">需要调动的类别：</td>
-                                        <td>
-                                            <select name="JOB_TYPE_ID" id="JOB_TYPE_ID" onchange="jobType()" style="width:98%;" >
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">需要调动的类别:</td>
+                                        <td>${pd.NEW_TYPE_NAME}
+                                            <%--<select name="JOB_TYPE_ID" id="JOB_TYPE_ID" onchange="jobType()" style="width:98%;" >
                                                 <option value="">请选择</option>
                                                 <c:choose>
                                                 <c:when test="${not empty jobTypeList}">
                                                     <c:forEach items="${jobTypeList}" var="var" varStatus="vs">
-                                                        <option value="${var.JOB_TYPE_ID}">${var.TYPE_NAME}</option>
+                                                        <option value="${var.JOB_TYPE_ID}" >${var.TYPE_NAME}</option>
                                                     </c:forEach>
                                                 </c:when>
                                                     <c:otherwise>
                                                         <option value=""></option>
                                                     </c:otherwise>
                                                 </c:choose>
-                                            </select>
+                                            </select>--%>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:75px;text-align: right;padding-top: 13px;">需要调动的职位：</td>
+                                        <td style="width:25px;text-align: right;padding-top: 13px;">需要调动的职位:</td>
                                         <td>
-                                            <select name="JOB_ID" id="JOB_ID" style="width:98%;">
+                                            ${pd.NEW_JOB_NAME}
+                                           <%-- <select name="JOB_ID" id="JOB_ID" style="width:98%;">
                                                 <option value=""></option>
-                                            </select>
+                                            </select>--%>
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:75px;text-align: right;padding-top: 13px;">调动原因:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">调动原因:</td>
                                          <td>
-                                            <textarea rows="5" name="CAUSE" id="CAUSE"  maxlength="255" placeholder="这里输入调动原因" title="调动原因" style="width:98%;">${pd.CAUSE}</textarea>
+                                            ${pd.CAUSE}
                                         </td>
                                     </tr>
                                     <%--<tr>
@@ -82,8 +84,8 @@
                                     </tr>--%>
                                     <tr>
                                         <td style="text-align: center;" colspan="10">
-                                            <a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-                                            <a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+                                            <a class="btn btn-mini btn-primary" onclick="audit(1);">通过</a>
+                                            <a class="btn btn-mini btn-danger" onclick="audit(2);">拒绝</a>
                                         </td>
                                     </tr>
                                 </table>
@@ -134,37 +136,8 @@
     }
 
     //保存
-    function save(){
-        if($("#JOB_TYPE_ID").val()==""){
-            $("#JOB_TYPE_ID").tips({
-                side:3,
-                msg:'请选择工作类别',
-                bg:'#AE81FF',
-                time:2
-            });
-            $("#JOB_TYPE_ID").focus();
-            return false;
-        }
-        if($("#JOB_ID").val()==""){
-            $("#JOB_ID").tips({
-                side:3,
-                msg:'请选择工作职位',
-                bg:'#AE81FF',
-                time:2
-            });
-            $("#JOB_ID").focus();
-            return false;
-        }
-        if($("#CAUSE").val()==""){
-            $("#CAUSE").tips({
-                side:3,
-                msg:'请输入调动原因',
-                bg:'#AE81FF',
-                time:2
-            });
-            $("#CAUSE").focus();
-            return false;
-        }
+    function audit(status){
+         $("#STATUS").val(status);
         $("#Form").submit();
         $("#zhongxin").hide();
         $("#zhongxin2").show();

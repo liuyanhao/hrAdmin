@@ -98,7 +98,7 @@
 												<c:if test="${var.SEX == '1' }">男</c:if>
 												<c:if test="${var.SEX == '2' }">女</c:if>
 											</td>
-											<td class='center'>${var.AGE}</td>
+											<td class='center'>${var.AGE}岁</td>
 											<td class='center'>${var.LEARING}</td>
 											<td class='center'>${var.SPEIALITY}</td>
 											<td class="center">

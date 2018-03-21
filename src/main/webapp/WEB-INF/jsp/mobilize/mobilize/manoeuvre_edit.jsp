@@ -33,19 +33,19 @@
                             <div id="zhongxin" style="padding-top: 13px;">
                                 <table id="table_report" class="table table-striped table-bordered table-hover">
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">姓名:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">姓名:</td>
                                         <td>${pd.STAFF_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">现职位类别:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">现职位类别:</td>
                                         <td> ${pd.TYPE_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">现职位名称:</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">现职位名称:</td>
                                         <td> ${pd.JOB_NAME}</td>
                                     </tr>
                                     <tr>
-                                        <td style="width:175px;text-align: right;padding-top: 13px;">调动到职位类别：</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">调动到职位类别:</td>
                                         <td>
                                             <select name="JOB_TYPE_ID" id="JOB_TYPE_ID" onchange="jobType()" style="width:98%;" >
                                                 <option value="">请选择</option>
@@ -63,7 +63,7 @@
                                         </td>
                                     </tr>
                                     <tr>
-                                        <td style="width:75px;text-align: right;padding-top: 13px;">调动到职位名称：</td>
+                                        <td style="width:125px;text-align: right;padding-top: 13px;">调动到职位名称:</td>
                                         <td>
                                             <select name="JOB_ID" id="JOB_ID" style="width:98%;">
                                                 <option value=""></option>
@@ -124,7 +124,7 @@
                 if(data != null && data.length > 0){
                     var html="";
                     for(var i=0; i<data.length; i++){
-                        html+="<option value='"+data[i].JOB_TYPE_ID+"'>"+data[i].JOB_NAME+"</option>";
+                        html+="<option value='"+data[i].JOB_MESSAGE_ID+"'>"+data[i].JOB_NAME+"</option>";
                     }
                 }
                 $("#JOB_ID").html(html);

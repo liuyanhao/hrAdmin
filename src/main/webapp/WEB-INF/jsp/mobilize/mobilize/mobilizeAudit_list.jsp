@@ -75,8 +75,6 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">现职位类别</th>
 									<th class="center">现职位名称</th>
-									<th class="center">调动到职位类别</th>
-									<th class="center">调动到职位名称</th>
 									<th class="center">姓名</th>
 									<th class="center">性别</th>
 									<th class="center">年龄</th>
@@ -101,14 +99,12 @@
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.TYPE_NAME}</td>
 											<td class='center'>${var.JOB_NAME}</td>
-											<td class='center'>${var.NEW_TYPE_NAME}</td>
-											<td class='center'>${var.NEW_JOB_NAME}</td>
 											<td class='center'>${var.STAFF_NAME}</td>
 											<td class='center'>
 												<c:if test="${var.SEX == 1 }">男</c:if>
 												<c:if test="${var.SEX == 2 }">女</c:if>
 											</td>
-											<td class='center'>${var.AGE}</td>
+											<td class='center'>${var.AGE}岁</td>
 											<td class='center'>${var.LEARING}</td>
 											<td class='center'>${var.SPEIALITY}</td>
 											<td class='center'>${var.CAUSE}</td>
@@ -120,7 +116,7 @@
 											<td class="center">
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${var.STATUS == 0}">
-													<a class="btn btn-xs btn-success" title="审核" onclick="edit('${var.MOBILIZE_ID}');">
+													<a class="btn btn-xs btn-success" title="审核" onclick="audit('${var.MOBILIZE_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="审核">审核</i>
 													</a>
 													</c:if>
@@ -134,7 +130,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${var.STATUS == 0}">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.MOBILIZE_ID}');" class="tooltip-success" data-rel="tooltip" title="审核">
+																<a style="cursor:pointer;" onclick="audit('${var.MOBILIZE_ID}');" class="tooltip-success" data-rel="tooltip" title="审核">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120">审核</i>
 																	</span>
@@ -265,8 +261,8 @@
 			});
 		});
 		
-		//修改
-		function edit(Id){
+		//审核
+		function audit(Id){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
@@ -276,7 +272,12 @@
 			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
-					 nextPage(${page.currentPage});
+                     if('${page.currentPage}' == '0'){
+                         top.jzts();
+                         setTimeout("self.location=self.location",100);
+                     }else{
+                         nextPage(${page.currentPage});
+                     }
 				}
 				diag.close();
 			 };

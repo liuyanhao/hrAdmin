@@ -215,9 +215,8 @@
 
 	<select id="statePassPage" parameterType="page" resultType="pd" >
 		select
-		t.TYPE_NAME,
-		j.JOB_NAME,
-		<include refid="Field"></include>
+		t.TYPE_NAME, j.JOB_NAME,STAFF_ID,SEX,CARD_ID,LEARING, SPEIALITY,s.JOB_TYPE_ID,JOB_ID, USER_ID, AGE,
+		ADD_TIME, STAFF_NAME, STAFFEMPLOYEE_ID
 		from
 		<include refid="tableName"></include> s
 		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,

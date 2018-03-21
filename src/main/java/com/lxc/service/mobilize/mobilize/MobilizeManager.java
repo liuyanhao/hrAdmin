@@ -30,7 +30,12 @@ public interface MobilizeManager{
 	 * @throws Exception
 	 */
 	public void edit(PageData pd)throws Exception;
-	
+
+	/**审核
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void audit(PageData pd)throws Exception;
 	/**列表
 	 * @param page
 	 * @throws Exception
@@ -61,5 +66,13 @@ public interface MobilizeManager{
 	 * @return
 	 */
 	public List<PageData> auditList(Page page)throws Exception;
+
+	/**
+	 * 去查询 需要审核的 信息
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	PageData findAuditById(PageData pd)throws Exception;
 }
 

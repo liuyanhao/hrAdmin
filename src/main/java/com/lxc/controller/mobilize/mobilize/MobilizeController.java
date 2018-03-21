@@ -107,9 +107,14 @@ public class MobilizeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("STATUS",MobilizeState.PASS.getCode()); //审核通过
-		mobilizeService.edit(pd);
-		mv.addObject("msg","success");
+		String STATUS = pd.get("STATUS").toString();
+		if(!("1".equals(STATUS) || "2".equals(STATUS))) {
+			mv.addObject("msg","审核非法参数");
+		}else {
+			//pd.put("STATUS",MobilizeState.PASS.getCode()); //审核通过
+			mobilizeService.audit(pd);
+		}
+		mv.addObject("msg", "success");
 		mv.setViewName("save_result");
 		return mv;
 	}
@@ -203,7 +208,7 @@ public class MobilizeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = mobilizeService.findById(pd);	//根据ID读取
+		pd = mobilizeService.findAuditById(pd);	//根据ID读取
 		mv.setViewName("mobilize/mobilize/mobilize_audit");
 		mv.addObject("msg", "audit");
 		mv.addObject("pd", pd);
@@ -252,9 +257,10 @@ public class MobilizeController extends BaseController {
 		List<String> titles = new ArrayList<String>();
 		titles.add("审核人编号");	//1
 		titles.add("审核人名称");	//2
-		titles.add("工作职位编码");	//3
-		titles.add("调用原因");	//4
-		titles.add("审核状态");	//5
+		titles.add("工作职位类别编码");//3
+		titles.add("工作职位编码");	//4
+		titles.add("调用原因");	//5
+		titles.add("审核状态");	//6
 		dataMap.put("titles", titles);
 		List<PageData> varOList = mobilizeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
@@ -262,9 +268,10 @@ public class MobilizeController extends BaseController {
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).getString("EMP_ID"));	    //1
 			vpd.put("var2", varOList.get(i).getString("EMP_NAME"));	    //2
-			vpd.put("var3", varOList.get(i).getString("JOB_ID"));	    //3
-			vpd.put("var4", varOList.get(i).getString("CAUSE"));	    //4
-			vpd.put("var5", varOList.get(i).getString("STATUS"));	    //5
+			vpd.put("var3", varOList.get(i).getString("JOB_TYPE_ID"));	    //3
+			vpd.put("var4", varOList.get(i).getString("JOB_ID"));	    //4
+			vpd.put("var5", varOList.get(i).getString("CAUSE"));	    //5
+			vpd.put("var6", varOList.get(i).getString("STATUS"));	    //6
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);
