@@ -127,8 +127,8 @@
 								<td><input type="text" name="SPEIALITY" id="SPEIALITY" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">时间:</td>
 								<td><input class="span10 date-picker" name="TIME" id="TIME" value="${pd.TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="时间" title="时间" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">目前状况:</td>
-								<td><input type="text" name="ISROMVE" id="ISROMVE" value="${pd.ISROMVE}" maxlength="30" placeholder="这里输入目前状况" title="目前状况" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">等级:</td>
+								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入等级" title="等级" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
@@ -141,14 +141,26 @@
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
 							</tr>
+							<c:if test="${msg == 'save'}">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">等级:</td>
-								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入等级" title="等级" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">审核状态:</td>
-								<td><input type="number" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="32" placeholder="这里输入审核状态" title="审核状态" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">审核人:</td>
-								<td><input type="text" name="USER_NAME" id="USER_NAME" value="${pd.USER_NAME}" maxlength="20" placeholder="这里输入审核人姓名" title="审核人姓名" style="width:98%;"/></td>
+								<td>
+									<select id="STATUS" name="STATUS" style="width:98%;" >
+										<option value="0" <c:if test="${pd.STATUS == 0}">selected</c:if> >未审核</option>
+										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if>>待面试</option>
+										<option value="2" <c:if test="${pd.STATUS == 2}">selected</c:if>>待笔试</option>
+										<option value="3" <c:if test="${pd.STATUS == 3}">selected</c:if>>待录用</option>
+										<option value="4" <c:if test="${pd.STATUS == 4}">selected</c:if>>通过面试</option>
+										<option value="5" <c:if test="${pd.STATUS == 5}">selected</c:if>>笔试通过</option>
+										<option value="6" <c:if test="${pd.STATUS == 6}">selected</c:if>>笔试待审核</option>
+										<option value="7" <c:if test="${pd.STATUS == 7}">selected</c:if>>未通过录用</option>
+										<option value="8" <c:if test="${pd.STATUS == 8}">selected</c:if>>通过录用</option>
+									</select>
+								</td>
+								<%--<td style="width:75px;text-align: right;padding-top: 13px;">审核人:</td>
+								<td><input type="text" name="USER_NAME" id="USER_NAME" value="${pd.USER_NAME}" maxlength="20" placeholder="这里输入审核人姓名" title="审核人姓名" style="width:98%;"/></td>--%>
 							</tr>
+							</c:if>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">个人简历:</td>
 								<td colspan="5" >
@@ -441,16 +453,6 @@
 				$("#REMARK").focus();
 			return false;
 			}
-			if($("#ISROMVE").val()==""){
-				$("#ISROMVE").tips({
-					side:3,
-		            msg:'请输入目前状况',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#ISROMVE").focus();
-			return false;
-			}
 			if($("#AGE").val()==""){
 				$("#AGE").tips({
 					side:3,
@@ -481,7 +483,7 @@
 				$("#STAFF_NAME").focus();
 			return false;
 			}
-			if($("#STATUS").val()==""){
+			/*if($("#STATUS").val()==""){
 				$("#STATUS").tips({
 					side:3,
 		            msg:'请输入审核状态',
@@ -490,7 +492,7 @@
 		        });
 				$("#STATUS").focus();
 			return false;
-			}
+			}*/
 			if($("#USER_NAME").val()==""){
 				$("#USER_NAME").tips({
 					side:3,
@@ -534,7 +536,7 @@
 			if($("#JOB_MESSAGE_ID").val()==""){
 				$("#JOB_MESSAGE_ID").tips({
 					side:3,
-		            msg:'请输入工作职位id',
+		            msg:'请输入工作职位',
 		            bg:'#AE81FF',
 		            time:2
 		        });

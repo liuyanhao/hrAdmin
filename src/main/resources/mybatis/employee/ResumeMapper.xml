@@ -30,8 +30,7 @@
 		RESUME,	
 		DESCRIBES,
 		REMARK,	
-		ISROMVE,	
-		USER_ID,	
+		USER_ID,
 		AGE,	
 		TIME,	
 		CREATE_TIME,	
@@ -45,6 +44,7 @@
 		RESULT,	
 		SCORE,	
 		JOB_MESSAGE_ID,
+		JOB_TYPE_ID,
 		DEGREE,	
 		RESUME_ID
 	</sql>
@@ -72,8 +72,7 @@
 		#{RESUME},	
 		#{DESCRIBES},
 		#{REMARK},	
-		#{ISROMVE},	
-		#{USER_ID},	
+		#{USER_ID},
 		#{AGE},	
 		#{TIME},	
 		#{CREATE_TIME},	
@@ -87,6 +86,7 @@
 		#{RESULT},	
 		#{SCORE},	
 		#{JOB_MESSAGE_ID},
+		#{JOB_TYPE_ID},
 		#{DEGREE},	
 		#{RESUME_ID}
 	</sql>
@@ -136,7 +136,6 @@
 			RESUME = #{RESUME},
 			DESCRIBES = #{DESCRIBES},
 			REMARK = #{REMARK},
-			ISROMVE = #{ISROMVE},
 			AGE = #{AGE},
 			TIME = #{TIME},
 			CREATE_TIME = #{CREATE_TIME},
@@ -150,6 +149,7 @@
 			RESULT = #{RESULT},
 			SCORE = #{SCORE},
 			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID},
+		    JOB_TYPE_ID = #{JOB_TYPE_ID},
 			DEGREE = #{DEGREE},
 		RESUME_ID = RESUME_ID
 		where 

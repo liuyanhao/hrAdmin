@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="resume/list.do" method="post" name="Form" id="Form">
+						<form action="grantidmanager/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -67,18 +67,15 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">姓名</th>
-									<th class="center">性别</th>
-									<th class="center">身份证号码</th>
-									<th class="center">E-mail</th>
-									<th class="center">民族</th>
-									<th class="center">学历</th>
-									<th class="center">国籍</th>
-									<th class="center">面试成绩</th>
-									<th class="center">时间</th>
-									<th class="center">创建时间</th>
+									<th class="center">员工id</th>
+									<th class="center">薪酬总额</th>
+									<th class="center">发放时间</th>
+									<th class="center">发放人</th>
 									<th class="center">审核状态</th>
-									<th class="center">审核人</th>
+									<th class="center">创建人</th>
+									<th class="center">创建时间</th>
+									<th class="center">修改人</th>
+									<th class="center">修改时间</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -91,50 +88,30 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.RESUME_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.GRANTIDMANAGER_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.STAFF_NAME}</td>
-											<td class='center'>
-												<c:if test="${var.SEX == 1 }">
-													男
-												</c:if>
-												<c:if test="${var.SEX == 2 }">
-													女
-												</c:if>
-											</td>
-											<td class='center'>${var.CARD_ID}</td>
-											<td class='center'>${var.EMAIL}</td>
-											<td class='center'>${var.NATION}</td>
-											<td class='center'>${var.LEARING}</td>
-											<td class='center'>${var.SPEIALITY}</td>
-											<td class='center'>${var.RESULT}</td>
-											<td class='center'>${var.TIME}</td>
+											<td class='center'>${var.TEMLOYEE_ID}</td>
+											<td class='center'>${var.GRANT_PRICE}</td>
+											<td class='center'>${var.GRANT_TIME}</td>
+											<td class='center'>${var.GRANT_USER}</td>
+											<td class='center'>${var.GRANT_STATUS}</td>
+											<td class='center'>${var.CREATE_USER}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
-											<td class='center'>
-														<c:if test="${var.STATUS == 0}">未审核</c:if>
-														<c:if test="${var.STATUS == 1}">待面试</c:if>
-														<c:if test="${var.STATUS == 2}">待笔试</c:if>
-														<c:if test="${var.STATUS == 3}">待录用</c:if>
-														<c:if test="${var.STATUS == 4}">通过面试</c:if>
-														<c:if test="${var.STATUS == 5}">笔试通过</c:if>
-														<c:if test="${var.STATUS == 6}">笔试待审核</c:if>
-														<c:if test="${var.STATUS == 7}">未通过录用</c:if>
-														<c:if test="${var.STATUS == 8}">通过录用</c:if>
-											</td>
-											<td class='center'>${var.USER_NAME}</td>
+											<td class='center'>${var.UPDATE_USER}</td>
+											<td class='center'>${var.UPDATE_TIME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.RESUME_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.GRANTIDMANAGER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.RESUME_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.GRANTIDMANAGER_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -148,7 +125,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.RESUME_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.GRANTIDMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -157,7 +134,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.RESUME_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.GRANTIDMANAGER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -294,9 +271,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>resume/goAdd.do';
-			 diag.Width = 840;
-			 diag.Height = 655;
+			 diag.URL = '<%=basePath%>grantidmanager/goAdd.do';
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -316,7 +293,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>resume/delete.do?RESUME_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>grantidmanager/delete.do?GRANTIDMANAGER_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -330,9 +307,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>resume/goEdit.do?RESUME_ID='+Id;
-			 diag.Width = 840;
-			 diag.Height = 655;
+			 diag.URL = '<%=basePath%>grantidmanager/goEdit.do?GRANTIDMANAGER_ID='+Id;
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -371,7 +348,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>resume/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>grantidmanager/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -390,7 +367,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>resume/excel.do';
+			window.location.href='<%=basePath%>grantidmanager/excel.do';
 		}
 	</script>
 

@@ -1,30 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="InterviewInfoMapper">
+<mapper namespace="SubPaperMapper">
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_INTERVIEWINFO
+		TB_SUBPAPER
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		RESUME_ID,	
-		EMPLOYEE_STATE,	
-		EMPLOYEE_TIME,	
-		RESUME_USER_ID,	
-		RESUME_USER_NAME,	
-		INTERVIEWINFO_ID
+		JOB_MANAGER_ID,	
+		CREATE_USER,	
+		CREATE_TIME,	
+		STATUS,	
+		SUBPAPER_ID
 	</sql>
 	
 	<!-- 字段值 -->
 	<sql id="FieldValue">
-		#{RESUME_ID},	
-		#{EMPLOYEE_STATE},	
-		#{EMPLOYEE_TIME},	
-		#{RESUME_USER_ID},	
-		#{RESUME_USER_NAME},	
-		#{INTERVIEWINFO_ID}
+		#{JOB_MANAGER_ID},	
+		#{CREATE_USER},	
+		#{CREATE_TIME},	
+		#{STATUS},	
+		#{SUBPAPER_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -43,7 +41,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			INTERVIEWINFO_ID = #{INTERVIEWINFO_ID}
+			SUBPAPER_ID = #{SUBPAPER_ID}
 	</delete>
 	
 	<!-- 修改 -->
@@ -51,13 +49,11 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			EMPLOYEE_STATE = #{EMPLOYEE_STATE},
-			EMPLOYEE_TIME = #{EMPLOYEE_TIME},
-			RESUME_USER_ID = #{RESUME_USER_ID},
-			RESUME_USER_NAME = #{RESUME_USER_NAME},
-		INTERVIEWINFO_ID = INTERVIEWINFO_ID
+			JOB_MANAGER_ID = #{JOB_MANAGER_ID},
+			STATUS = #{STATUS},
+		SUBPAPER_ID = SUBPAPER_ID
 		where 
-		INTERVIEWINFO_ID = #{INTERVIEWINFO_ID}
+		SUBPAPER_ID = #{SUBPAPER_ID}
 	</update>
 	
 	<!-- 通过ID获取数据 -->
@@ -67,7 +63,7 @@
 		from 
 		<include refid="tableName"></include>
 		where 
-			INTERVIEWINFO_ID = #{INTERVIEWINFO_ID}
+			SUBPAPER_ID = #{SUBPAPER_ID}
 	</select>
 	
 	<!-- 列表 -->
@@ -77,23 +73,15 @@
 		from 
 		<include refid="tableName"></include>
 		where 1=1
-		<if test="pd.EMPLOYEE_STATE != null and pd.EMPLOYEE_STATE != ''">
-			and	EMPLOYEE_STATE = #{pd.EMPLOYEE_STATE}
-		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件 -->
-			RESUME_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or
-			RESUME_USER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+				<!--	根据需求自己加检索条件
+					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or 
+					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
+				-->
 				)
-		</if>
-		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
-			and EMPLOYEE_TIME &gt;= #{pd.lastStart}
-		</if>
-		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
-			and EMPLOYEE_TIME &lt;= #{pd.lastEnd}
 		</if>
 	</select>
 	
@@ -110,7 +98,7 @@
 		delete from
 		<include refid="tableName"></include>
 		where 
-			INTERVIEWINFO_ID in
+			SUBPAPER_ID in
 		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
                  #{item}
 		</foreach>

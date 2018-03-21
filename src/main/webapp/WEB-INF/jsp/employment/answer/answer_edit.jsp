@@ -27,35 +27,17 @@
 				<div class="row">
 					<div class="col-xs-12">
 					
-					<form action="interviewinfo/${msg }.do" name="Form" id="Form" method="post">
-						<input type="hidden" name="INTERVIEWINFO_ID" id="INTERVIEWINFO_ID" value="${pd.INTERVIEWINFO_ID}"/>
+					<form action="answer/${msg }.do" name="Form" id="Form" method="post">
+						<input type="hidden" name="ANSWER_ID" id="ANSWER_ID" value="${pd.ANSWER_ID}"/>
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">录用状态:</td>
-								<td>
-									<select id="EMPLOYEE_STATE" name="EMPLOYEE_STATE" style="width:98%;" >
-										<option value="0" <c:if test="${pd.EMPLOYEE_STATE == 0}">selected</c:if> >未审核</option>
-										<option value="1" <c:if test="${pd.EMPLOYEE_STATE == 1}">selected</c:if>>待面试</option>
-										<option value="2" <c:if test="${pd.EMPLOYEE_STATE == 2}">selected</c:if>>待笔试</option>
-										<option value="3" <c:if test="${pd.EMPLOYEE_STATE == 3}">selected</c:if>>待录用</option>
-										<option value="4" <c:if test="${pd.EMPLOYEE_STATE == 4}">selected</c:if>>通过面试</option>
-										<option value="5" <c:if test="${pd.EMPLOYEE_STATE == 5}">selected</c:if>>笔试通过</option>
-										<option value="6" <c:if test="${pd.EMPLOYEE_STATE == 6}">selected</c:if>>笔试待审核</option>
-										<option value="7" <c:if test="${pd.EMPLOYEE_STATE == 7}">selected</c:if>>未通过录用</option>
-										<option value="8" <c:if test="${pd.EMPLOYEE_STATE == 8}">selected</c:if>>通过录用</option>
-									</select>
-								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">选择的答案:</td>
+								<td><input type="text" name="SELECT_KEY" id="SELECT_KEY" value="${pd.SELECT_KEY}" maxlength="255" placeholder="这里输入选择的答案" title="选择的答案" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">录用时间:</td>
-								<td><input class="span10 date-picker" name="EMPLOYEE_TIME" id="EMPLOYEE_TIME" value="${pd.EMPLOYEE_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="录用时间" title="录用时间" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
-								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">考试时间:</td>
+								<td><input class="span10 date-picker" name="EXAM_TIME" id="EXAM_TIME" value="${pd.EXAM_TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="考试时间" title="考试时间" style="width:98%;"/></td>
 							</tr>
 						</table>
 						</div>
@@ -73,6 +55,18 @@
 </div>
 <!-- /.main-container -->
 
+<c:if test="${'edit' == msg }">
+	<div>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/answermx/list.do?ANSWER_ID=${pd.ANSWER_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+	</div>
+</c:if>
+
+<footer>
+<div style="width: 100%;padding-bottom: 2px;" class="center">
+	<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
+	<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+</div>
+</footer>
 
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
@@ -86,24 +80,24 @@
 		$(top.hangge());
 		//保存
 		function save(){
-			if($("#EMPLOYEE_STATE").val()==""){
-				$("#EMPLOYEE_STATE").tips({
+			if($("#SELECT_KEY").val()==""){
+				$("#SELECT_KEY").tips({
 					side:3,
-		            msg:'请输入录用状态',
+		            msg:'请输入选择的答案',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#EMPLOYEE_STATE").focus();
+				$("#SELECT_KEY").focus();
 			return false;
 			}
-			if($("#EMPLOYEE_TIME").val()==""){
-				$("#EMPLOYEE_TIME").tips({
+			if($("#EXAM_TIME").val()==""){
+				$("#EXAM_TIME").tips({
 					side:3,
-		            msg:'请输入录用时间',
+		            msg:'请输入考试时间',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#EMPLOYEE_TIME").focus();
+				$("#EXAM_TIME").focus();
 			return false;
 			}
 			$("#Form").submit();

@@ -1,12 +1,9 @@
-package com.lxc.controller.employment.interviewinfo;
+package com.lxc.controller.employment.answer;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
-import com.lxc.service.employment.interviewinfo.InterviewInfoManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
+import com.lxc.service.employment.answer.AnswerManager;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,23 +13,22 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
 
 /** 
- * 说明：面试人账户表
- * 创建人：liuxc 1094921525
- * 创建时间：2018-03-19
+ * 说明：答题表
+ * 创建人：lxc Q1094921525
+ * 创建时间：2018-03-22
  */
 @Controller
-@RequestMapping(value="/interviewinfo")
-public class InterviewInfoController extends BaseController {
+@RequestMapping(value="/answer")
+public class AnswerController extends BaseController {
 	
-	String menuUrl = "interviewinfo/list.do"; //菜单地址(权限用)
-	@Resource(name="interviewinfoService")
-	private InterviewInfoManager interviewinfoService;
+	String menuUrl = "answer/list.do"; //菜单地址(权限用)
+	@Resource(name="answerService")
+	private AnswerManager answerService;
 	
 	/**保存
 	 * @param
@@ -40,34 +36,42 @@ public class InterviewInfoController extends BaseController {
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增InterviewInfo");
+		logBefore(logger, Jurisdiction.getUsername()+"新增Answer");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("INTERVIEWINFO_ID", this.get32UUID());	//主键
-		pd.put("RESUME_ID", "0");	//简历id
-		pd.put("RESUME_USER_ID",Jurisdiction.getUserId()); //招聘人id
-		pd.put("RESUME_USER_NAME",Jurisdiction.getUsername()); //招聘人姓名
-		interviewinfoService.save(pd);
+		pd.put("ANSWER_ID", this.get32UUID());	//主键
+		pd.put("SUBJECT_ID", "");	//试题ID,引用试题表
+		pd.put("JOB_MESSAGE_ID", "");	//应聘职位ID,引用职位表
+		pd.put("RESUME_ID", "");	//简历Id
+		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
+		pd.put("CREATE_USER", "Jurisdiction.getUsername()");	//创建人
+		answerService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
 	}
 	
 	/**删除
-	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
-	public void delete(PrintWriter out) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"删除InterviewInfo");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+	@ResponseBody
+	public Object delete() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"删除Answer");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null ;} //校验权限
+		Map<String,String> map = new HashMap<String,String>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		interviewinfoService.delete(pd);
-		out.write("success");
-		out.close();
+		String errInfo = "success";
+	/*	if(Integer.parseInt(answermxService.findCount(pd).get("zs").toString()) > 0){
+			errInfo = "false";
+		}else{
+			answerService.delete(pd);
+		}*/
+		map.put("result", errInfo);
+		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**修改
@@ -76,14 +80,12 @@ public class InterviewInfoController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改InterviewInfo");
+		logBefore(logger, Jurisdiction.getUsername()+"修改Answer");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("RESUME_USER_ID",Jurisdiction.getUserId()); //招聘人id
-		pd.put("RESUME_USER_NAME",Jurisdiction.getUsername()); //招聘人姓名
-		interviewinfoService.edit(pd);
+		answerService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -95,7 +97,7 @@ public class InterviewInfoController extends BaseController {
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"列表InterviewInfo");
+		logBefore(logger, Jurisdiction.getUsername()+"列表Answer");
 		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -105,8 +107,8 @@ public class InterviewInfoController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = interviewinfoService.list(page);	//列出InterviewInfo列表
-		mv.setViewName("employment/interviewinfo/interviewinfo_list");
+		List<PageData>	varList = answerService.list(page);	//列出Answer列表
+		mv.setViewName("employment/answer/answer_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -122,7 +124,7 @@ public class InterviewInfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("employment/interviewinfo/interviewinfo_edit");
+		mv.setViewName("employment/answer/answer_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
@@ -137,38 +139,12 @@ public class InterviewInfoController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = interviewinfoService.findById(pd);	//根据ID读取
-		mv.setViewName("employment/interviewinfo/interviewinfo_edit");
+		pd = answerService.findById(pd);	//根据ID读取
+		mv.setViewName("employment/answer/answer_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
 	}	
-	
-	 /**批量删除
-	 * @param
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/deleteAll")
-	@ResponseBody
-	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除InterviewInfo");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
-		PageData pd = new PageData();		
-		Map<String,Object> map = new HashMap<String,Object>();
-		pd = this.getPageData();
-		List<PageData> pdList = new ArrayList<PageData>();
-		String DATA_IDS = pd.getString("DATA_IDS");
-		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			interviewinfoService.deleteAll(ArrayDATA_IDS);
-			pd.put("msg", "ok");
-		}else{
-			pd.put("msg", "no");
-		}
-		pdList.add(pd);
-		map.put("list", pdList);
-		return AppUtil.returnObject(pd, map);
-	}
 	
 	 /**导出到excel
 	 * @param
@@ -176,26 +152,32 @@ public class InterviewInfoController extends BaseController {
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出InterviewInfo到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出Answer到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("简历id");	//1
-		titles.add("录用状态");	//2
-		titles.add("录用时间");	//3
-		titles.add("招聘人姓名");	//4
+		titles.add("试题ID,引用试题表");	//1
+		titles.add("应聘职位ID,引用职位表");	//2
+		titles.add("选择的答案");	//3
+		titles.add("简历Id");	//4
+		titles.add("考试时间");	//5
+		titles.add("创建时间");	//6
+		titles.add("创建人");	//7
 		dataMap.put("titles", titles);
-		List<PageData> varOList = interviewinfoService.listAll(pd);
+		List<PageData> varOList = answerService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).get("RESUME_ID").toString());	//1
-			vpd.put("var2", varOList.get(i).get("EMPLOYEE_STATE").toString());	//2
-			vpd.put("var3", varOList.get(i).getString("EMPLOYEE_TIME"));	    //3
-			vpd.put("var4", varOList.get(i).getString("RESUME_USER_NAME"));	    //4
+			vpd.put("var1", varOList.get(i).getString("SUBJECT_ID"));	    //1
+			vpd.put("var2", varOList.get(i).getString("JOB_MESSAGE_ID"));	    //2
+			vpd.put("var3", varOList.get(i).getString("SELECT_KEY"));	    //3
+			vpd.put("var4", varOList.get(i).getString("RESUME_ID"));	    //4
+			vpd.put("var5", varOList.get(i).getString("EXAM_TIME"));	    //5
+			vpd.put("var6", varOList.get(i).getString("CREATE_TIME"));	    //6
+			vpd.put("var7", varOList.get(i).getString("CREATE_USER"));	    //7
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

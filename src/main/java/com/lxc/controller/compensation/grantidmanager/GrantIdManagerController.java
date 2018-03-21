@@ -1,8 +1,8 @@
-package com.lxc.controller.employee.resume;
+package com.lxc.controller.compensation.grantidmanager;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
-import com.lxc.service.employee.resume.ResumeManager;
+import com.lxc.service.compensation.grantidmanager.GrantIdManagerManager;
 import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -19,17 +19,17 @@ import java.text.SimpleDateFormat;
 import java.util.*;
 
 /** 
- * 说明：简历表
+ * 说明：薪酬发放
  * 创建人：liuxc 1094921525
- * 创建时间：2018-01-27
+ * 创建时间：2018-03-21
  */
 @Controller
-@RequestMapping(value="/resume")
-public class ResumeController extends BaseController {
+@RequestMapping(value="/grantidmanager")
+public class GrantIdManagerController extends BaseController {
 	
-	String menuUrl = "resume/list.do"; //菜单地址(权限用)
-	@Resource(name="resumeService")
-	private ResumeManager resumeService;
+	String menuUrl = "grantidmanager/list.do"; //菜单地址(权限用)
+	@Resource(name="grantidmanagerService")
+	private GrantIdManagerManager grantidmanagerService;
 	
 	/**保存
 	 * @param
@@ -37,17 +37,18 @@ public class ResumeController extends BaseController {
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"新增Resume");
+		logBefore(logger, Jurisdiction.getUsername()+"新增GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("RESUME_ID", this.get32UUID());	//主键
-		pd.put("CREATE_TIME", DateUtil.getTime().toString()); // 创建时间
-		pd.put("CREATE_USER",Jurisdiction.getUsername());     //创建人
-		pd.put("UPDATE_TIME", DateUtil.getTime().toString()); // 修改时间
-		pd.put("UPDATE_USER",Jurisdiction.getUsername());     //修改人
-		resumeService.save(pd);
+		pd.put("GRANTIDMANAGER_ID", this.get32UUID());	//主键
+		pd.put("TEMLOYEE_ID", "");	//员工id
+		pd.put("CREATE_USER", Jurisdiction.getUsername());	//创建人
+		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
+		pd.put("UPDATE_USER", Jurisdiction.getUsername());	//修改人
+		pd.put("UPDATE_TIME", Tools.date2Str(new Date()));	//修改时间
+		grantidmanagerService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -59,11 +60,11 @@ public class ResumeController extends BaseController {
 	 */
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"删除Resume");
+		logBefore(logger, Jurisdiction.getUsername()+"删除GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		resumeService.delete(pd);
+		grantidmanagerService.delete(pd);
 		out.write("success");
 		out.close();
 	}
@@ -74,14 +75,14 @@ public class ResumeController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改Resume");
+		logBefore(logger, Jurisdiction.getUsername()+"修改GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("UPDATE_TIME", DateUtil.getTime().toString()); // 修改时间
-		pd.put("UPDATE_USER",Jurisdiction.getUsername());   //修改人
-		resumeService.edit(pd);
+		pd.put("UPDATE_USER", Jurisdiction.getUsername());	//修改人
+		pd.put("UPDATE_TIME", Tools.date2Str(new Date()));	//修改时间
+		grantidmanagerService.edit(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
@@ -93,7 +94,7 @@ public class ResumeController extends BaseController {
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"列表Resume");
+		logBefore(logger, Jurisdiction.getUsername()+"列表GrantIdManager");
 		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -103,8 +104,8 @@ public class ResumeController extends BaseController {
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = resumeService.list(page);	//列出Resume列表
-		mv.setViewName("employee/resume/resume_list");
+		List<PageData>	varList = grantidmanagerService.list(page);	//列出GrantIdManager列表
+		mv.setViewName("compensation/grantidmanager/grantidmanager_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
@@ -120,7 +121,7 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		mv.setViewName("employee/resume/resume_edit");
+		mv.setViewName("compensation/grantidmanager/grantidmanager_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
@@ -135,8 +136,8 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = resumeService.findById(pd);	//根据ID读取
-		mv.setViewName("employee/resume/resume_edit");
+		pd = grantidmanagerService.findById(pd);	//根据ID读取
+		mv.setViewName("compensation/grantidmanager/grantidmanager_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
@@ -149,7 +150,7 @@ public class ResumeController extends BaseController {
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
 	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除Resume");
+		logBefore(logger, Jurisdiction.getUsername()+"批量删除GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
@@ -158,7 +159,7 @@ public class ResumeController extends BaseController {
 		String DATA_IDS = pd.getString("DATA_IDS");
 		if(null != DATA_IDS && !"".equals(DATA_IDS)){
 			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			resumeService.deleteAll(ArrayDATA_IDS);
+			grantidmanagerService.deleteAll(ArrayDATA_IDS);
 			pd.put("msg", "ok");
 		}else{
 			pd.put("msg", "no");
@@ -174,82 +175,36 @@ public class ResumeController extends BaseController {
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出Resume到excel");
+		logBefore(logger, Jurisdiction.getUsername()+"导出GrantIdManager到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("员工姓名");	//1
-		titles.add("性别");	//2
-		titles.add("地址");	//3
-		titles.add("电话");	//4
-		titles.add("照片地址");	//5
-		titles.add("身份证号码");	//6
-		titles.add("E-mail");	//7
-		titles.add("QQ");	//8
-		titles.add("微信");	//9
-		titles.add("邮编号码");	//10
-		titles.add("政治面貌");	//11
-		titles.add("民族");	//12
-		titles.add("学历");	//13
-		titles.add("爱好");	//14
-		titles.add("特长");	//15
-		titles.add("国籍");	//16
-		titles.add("出生年月");	//17
-		titles.add("宗教信仰");	//18
-		titles.add("专业");	//19
-		titles.add("个人简历");	//20
-		titles.add("个人描述");	//21
-		titles.add("备注");	//22
-		titles.add("审核人编码");	//23
-		titles.add("年龄");	//24
-		titles.add("时间");	//25
-		titles.add("审核状态");	//26
-		titles.add("审核人姓名");	//27
-		titles.add("推荐理由");	//28
-		titles.add("面试成绩");	//29
-		titles.add("面试评价");	//30
-		titles.add("工作职位id");	//31
-		titles.add("等级");	//32
+		titles.add("员工ID");	//1
+		titles.add("薪酬总额");	//2
+		titles.add("发放时间");	//3
+		titles.add("发放人");	//4
+		titles.add("审核状态");	//5
+		titles.add("创建人");	//6
+		titles.add("创建时间");	//7
+		titles.add("修改人");	//8
+		titles.add("修改时间");	//9
 		dataMap.put("titles", titles);
-		List<PageData> varOList = resumeService.listAll(pd);
+		List<PageData> varOList = grantidmanagerService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("STAFF_NAME"));	//1
-			vpd.put("var2", varOList.get(i).get("SEX").toString());	        //2
-			vpd.put("var3", varOList.get(i).getString("ADDRESS"));	    //3
-			vpd.put("var4", varOList.get(i).getString("PHONE"));	    //4
-			vpd.put("var5", varOList.get(i).getString("PIC"));	        //5
-			vpd.put("var6", varOList.get(i).getString("CARD_ID"));	    //6
-			vpd.put("var7", varOList.get(i).getString("EMAIL"));	    //7
-			vpd.put("var8", varOList.get(i).getString("QQ"));	        //8
-			vpd.put("var9", varOList.get(i).getString("WECHAT"));	    //9
-			vpd.put("var10", varOList.get(i).getString("POST_CODE"));	//10
-			vpd.put("var11", varOList.get(i).getString("GOVEMMET"));	//11
-			vpd.put("var12", varOList.get(i).getString("NATION"));	    //12
-			vpd.put("var13", varOList.get(i).getString("LEARING"));	    //13
-			vpd.put("var14", varOList.get(i).getString("HOBBY"));	    //14
-			vpd.put("var15", varOList.get(i).getString("SUIT"));	    //15
-			vpd.put("var16", varOList.get(i).getString("NATIONALITY"));	//16
-			vpd.put("var17", varOList.get(i).getString("BIRTH"));	    //17
-			vpd.put("var18", varOList.get(i).getString("FAITH"));	    //18
-			vpd.put("var19", varOList.get(i).getString("SPEIALITY"));	//19
-			vpd.put("var20", varOList.get(i).getString("RESUME"));	    //20
-			vpd.put("var21", varOList.get(i).getString("DESCRIBES"));	//21
-			vpd.put("var22", varOList.get(i).getString("REMARK"));	    //22
-			vpd.put("var23", varOList.get(i).getString("USER_ID"));	    //23
-			vpd.put("var24", varOList.get(i).get("AGE").toString());	    //24
-			vpd.put("var25", varOList.get(i).getString("TIME"));	    //24
-			vpd.put("var26", varOList.get(i).get("STATUS").toString());		//26
-			vpd.put("var27", varOList.get(i).getString("USER_NAME"));	//27
-			vpd.put("var28", varOList.get(i).getString("REASON"));	    //28
-			vpd.put("var29", varOList.get(i).get("RESULT").toString());		//29
-			vpd.put("var30", varOList.get(i).getString("SCORE"));		//30
-			vpd.put("var31", varOList.get(i).get("JOB_MESSAGE_ID").toString());	//31
-			vpd.put("var32", varOList.get(i).getString("DEGREE"));	    //32
+			vpd.put("var1", varOList.get(i).getString("TEMLOYEE_ID"));	    //1
+			vpd.put("var2", varOList.get(i).getString("GRANT_PRICE"));	    //2
+			vpd.put("var3", varOList.get(i).getString("GRANT_TIME"));	    //3
+			vpd.put("var4", varOList.get(i).getString("GRANT_USER"));	    //4
+			vpd.put("var5", varOList.get(i).get("GRANT_STATUS").toString());	//5
+			vpd.put("var6", varOList.get(i).getString("CREATE_USER"));	    //6
+			vpd.put("var7", varOList.get(i).getString("CREATE_TIME"));	    //7
+			vpd.put("var8", varOList.get(i).getString("UPDATE_USER"));	    //8
+			vpd.put("var9", varOList.get(i).getString("UPDATE_TIME"));	    //9
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

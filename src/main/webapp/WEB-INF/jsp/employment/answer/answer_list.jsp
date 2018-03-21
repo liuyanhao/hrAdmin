@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="resume/list.do" method="post" name="Form" id="Form">
+						<form action="answer/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -63,22 +63,14 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">姓名</th>
-									<th class="center">性别</th>
-									<th class="center">身份证号码</th>
-									<th class="center">E-mail</th>
-									<th class="center">民族</th>
-									<th class="center">学历</th>
-									<th class="center">国籍</th>
-									<th class="center">面试成绩</th>
-									<th class="center">时间</th>
+									<th class="center">试题ID,引用试题表</th>
+									<th class="center">应聘职位ID,引用职位表</th>
+									<th class="center">选择的答案</th>
+									<th class="center">简历Id</th>
+									<th class="center">考试时间</th>
 									<th class="center">创建时间</th>
-									<th class="center">审核状态</th>
-									<th class="center">审核人</th>
+									<th class="center">创建人</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -90,51 +82,26 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.RESUME_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.STAFF_NAME}</td>
-											<td class='center'>
-												<c:if test="${var.SEX == 1 }">
-													男
-												</c:if>
-												<c:if test="${var.SEX == 2 }">
-													女
-												</c:if>
-											</td>
-											<td class='center'>${var.CARD_ID}</td>
-											<td class='center'>${var.EMAIL}</td>
-											<td class='center'>${var.NATION}</td>
-											<td class='center'>${var.LEARING}</td>
-											<td class='center'>${var.SPEIALITY}</td>
-											<td class='center'>${var.RESULT}</td>
-											<td class='center'>${var.TIME}</td>
+											<td class='center'>${var.SUBJECT_ID}</td>
+											<td class='center'>${var.JOB_MESSAGE_ID}</td>
+											<td class='center'>${var.SELECT_KEY}</td>
+											<td class='center'>${var.RESUME_ID}</td>
+											<td class='center'>${var.EXAM_TIME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
-											<td class='center'>
-														<c:if test="${var.STATUS == 0}">未审核</c:if>
-														<c:if test="${var.STATUS == 1}">待面试</c:if>
-														<c:if test="${var.STATUS == 2}">待笔试</c:if>
-														<c:if test="${var.STATUS == 3}">待录用</c:if>
-														<c:if test="${var.STATUS == 4}">通过面试</c:if>
-														<c:if test="${var.STATUS == 5}">笔试通过</c:if>
-														<c:if test="${var.STATUS == 6}">笔试待审核</c:if>
-														<c:if test="${var.STATUS == 7}">未通过录用</c:if>
-														<c:if test="${var.STATUS == 8}">通过录用</c:if>
-											</td>
-											<td class='center'>${var.USER_NAME}</td>
+											<td class='center'>${var.CREATE_USER}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.RESUME_ID}');">
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.ANSWER_ID}');">
 														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.RESUME_ID}');">
+													<a class="btn btn-xs btn-danger" onclick="del('${var.ANSWER_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
 													</c:if>
@@ -148,7 +115,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.RESUME_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.ANSWER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -157,7 +124,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.RESUME_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.ANSWER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -192,9 +159,6 @@
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
 									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-sm btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -294,9 +258,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>resume/goAdd.do';
-			 diag.Width = 840;
-			 diag.Height = 655;
+			 diag.URL = '<%=basePath%>answer/goAdd.do';
+			 diag.Width = 500;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -316,9 +280,24 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>resume/delete.do?RESUME_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>answer/delete.do?ANSWER_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
-						nextPage(${page.currentPage});
+						if("success" == data.result){
+							nextPage(${page.currentPage});
+						}else if("false" == data.result){
+							top.hangge();
+							bootbox.dialog({
+								message: "<span class='bigger-110'>删除失败,请先删除明细数据!</span>",
+								buttons: 			
+								{
+									"button" :
+									{
+										"label" : "确定",
+										"className" : "btn-sm btn-success"
+									}
+								}
+							});
+						}
 					});
 				}
 			});
@@ -330,9 +309,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>resume/goEdit.do?RESUME_ID='+Id;
-			 diag.Width = 840;
-			 diag.Height = 655;
+			 diag.URL = '<%=basePath%>answer/goEdit.do?ANSWER_ID='+Id;
+			 diag.Width = 800;
+			 diag.Height = 600;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -342,55 +321,9 @@
 			 diag.show();
 		}
 		
-		//批量操作
-		function makeAll(msg){
-			bootbox.confirm(msg, function(result) {
-				if(result) {
-					var str = '';
-					for(var i=0;i < document.getElementsByName('ids').length;i++){
-					  if(document.getElementsByName('ids')[i].checked){
-					  	if(str=='') str += document.getElementsByName('ids')[i].value;
-					  	else str += ',' + document.getElementsByName('ids')[i].value;
-					  }
-					}
-					if(str==''){
-						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
-						});
-						$("#zcheckbox").tips({
-							side:1,
-				            msg:'点这里全选',
-				            bg:'#AE81FF',
-				            time:8
-				        });
-						return;
-					}else{
-						if(msg == '确定要删除选中的数据吗?'){
-							top.jzts();
-							$.ajax({
-								type: "POST",
-								url: '<%=basePath%>resume/deleteAll.do?tm='+new Date().getTime(),
-						    	data: {DATA_IDS:str},
-								dataType:'json',
-								//beforeSend: validateData,
-								cache: false,
-								success: function(data){
-									 $.each(data.list, function(i, list){
-											nextPage(${page.currentPage});
-									 });
-								}
-							});
-						}
-					}
-				}
-			});
-		};
-		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>resume/excel.do';
+			window.location.href='<%=basePath%>answer/excel.do';
 		}
 	</script>
 

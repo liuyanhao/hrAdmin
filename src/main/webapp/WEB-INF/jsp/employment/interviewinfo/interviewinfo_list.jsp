@@ -45,12 +45,19 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
+									<select  class="chosen-select form-control"  id="EMPLOYEE_STATE" name="EMPLOYEE_STATE" data-placeholder="请选择" style="vertical-align:top;width: 120px;" >
+										<option value=""></option>
+										<option value="">全部</option>
+										<option value="0" <c:if test="${pd.EMPLOYEE_STATE == 0}">selected</c:if> >未审核</option>
+										<option value="1" <c:if test="${pd.EMPLOYEE_STATE == 1}">selected</c:if>>待面试</option>
+										<option value="2" <c:if test="${pd.EMPLOYEE_STATE == 2}">selected</c:if>>待笔试</option>
+										<option value="3" <c:if test="${pd.EMPLOYEE_STATE == 3}">selected</c:if>>待录用</option>
+										<option value="4" <c:if test="${pd.EMPLOYEE_STATE == 4}">selected</c:if>>通过面试</option>
+										<option value="5" <c:if test="${pd.EMPLOYEE_STATE == 5}">selected</c:if>>笔试通过</option>
+										<option value="6" <c:if test="${pd.EMPLOYEE_STATE == 6}">selected</c:if>>笔试待审核</option>
+										<option value="7" <c:if test="${pd.EMPLOYEE_STATE == 7}">selected</c:if>>未通过录用</option>
+										<option value="8" <c:if test="${pd.EMPLOYEE_STATE == 8}">selected</c:if>>通过录用</option>
+									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -67,11 +74,10 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">简历id</th>
+									<th class="center">简历</th>
 									<th class="center">录用状态</th>
 									<th class="center">录用时间</th>
-									<th class="center">招聘人id</th>
-									<th class="center">招聘人姓名</th>
+									<th class="center">招聘人</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -88,9 +94,18 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.RESUME_ID}</td>
-											<td class='center'>${var.EMPLOYEE_STATE}</td>
+											<td class='center'>
+														<c:if test="${var.EMPLOYEE_STATE == 0}">未审核</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 1}">待面试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 2}">待笔试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 3}">待录用</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 4}">通过面试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 5}">笔试通过</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 6}">笔试待审核</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 7}">未通过录用</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 8}">通过录用</c:if>
+											</td>
 											<td class='center'>${var.EMPLOYEE_TIME}</td>
-											<td class='center'>${var.RESUME_USER_ID}</td>
 											<td class='center'>${var.RESUME_USER_NAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
