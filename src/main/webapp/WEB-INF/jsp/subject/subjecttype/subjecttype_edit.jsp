@@ -62,7 +62,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/subjecttypemx/list.do?SUBJECTTYPE_ID=${pd.SUBJECTTYPE_ID}" style="margin:0 auto;width:790px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/subjecttypemx/list.do?SUBJECTTYPE_ID=${pd.SUBJECTTYPE_ID}" style="margin:0 auto;width:790px;height:568px;;"></iframe>
 	</div>
 </c:if>
 

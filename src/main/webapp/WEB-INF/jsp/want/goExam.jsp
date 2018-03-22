@@ -38,10 +38,21 @@
                                     </div>
                                 </div>
                                 <div class="form-group">
-                                    <label class="col-sm-3 control-label no-padding-right" for="JOB_TYPE">职位类型：</label>
+                                    <label class="col-sm-3 control-label no-padding-right" for="JOB_TYPE_ID">职位类型：</label>
                                     <div class="col-sm-9">
-                                        <input type="text" name="JOB_TYPE" id="JOB_TYPE" value="${pd.JOB_TYPE}" placeholder="请输入职位类型" class="col-xs-10 col-sm-5">
-                                        <input type="hidden" name="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}">
+                                        <select  name="JOB_TYPE_ID" id="JOB_TYPE_ID" disabled="disabled"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" class="col-xs-10 col-sm-5">
+                                            <option value="">请选择</option>
+                                            <c:choose>
+                                                <c:when test="${not empty jobTypeList}">
+                                                    <c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+                                                        <option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
+                                                    </c:forEach>
+                                                </c:when>
+                                                <c:otherwise>
+                                                    <option value=""></option>
+                                                </c:otherwise>
+                                            </c:choose>
+                                        </select>
                                     </div>
                                 </div>
                                 <div class="form-group">
@@ -60,10 +71,11 @@
                                 </div>
                             </div>
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" for="jobName">职位名称：</label>
+                                <label class="col-sm-3 control-label no-padding-right" for="JOB_MESSAGE_ID">职位名称：</label>
                                 <div class="col-sm-9">
-                                    <input type="text" name="jobName" id="jobName" value="${pd.JOB_NAME}" placeholder="请输入职位名称" readonly="readonly" class="col-xs-10 col-sm-5">
-                                    <input type="hidden" name="JOB_ID" value="${pd.id}" />
+                                    <select name="JOB_ID" id="JOB_MESSAGE_ID"  disabled="disabled" placeholder="请选择职位名称"  class="col-xs-10 col-sm-5">
+                                        <option value=""></option>
+                                    </select>
                                 </div>
                             </div>
                             <div class="form-group">
@@ -104,7 +116,36 @@
 	<script src="static/ace/js/ace/elements.fileinput.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());
-		$(function() {
+        var JobMessageId = '${pd.JOB_MESSAGE_ID}'; //工作职位分类
+        var JobTypeId = '${pd.JOB_TYPE_ID}';// 工作类别名称
+
+        //选择职位类别 级联查询
+        function jobType(){
+            var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
+            $("#JOB_ID option").remove();
+            $.ajax({
+                type:"GET",
+                url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
+                success: function(data){
+                    //  console.log(data);
+                    if(data != null && data.length > 0){
+                        var html="<option value=''>请选择</option>";
+                        var selectd ="";
+                        for(var i=0; i<data.length; i++){
+                            if(JobMessageId == data[i].JOB_MESSAGE_ID) selectd = "selectd";
+                            html+="<option value='"+data[i].JOB_MESSAGE_ID+"'" +selectd + " >"+data[i].JOB_NAME+"</option>";
+                        }
+                    }
+                    $("#JOB_MESSAGE_ID").html(html);
+                    $("#JOB_MESSAGE_ID").trigger("create");
+                }
+            })
+        }
+
+		$(function() {debugger;
+            if(JobTypeId != null){
+                jobType();
+            }
 			//日期框
 			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
 			//下拉框

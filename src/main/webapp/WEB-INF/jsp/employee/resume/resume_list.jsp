@@ -78,7 +78,8 @@
 									<th class="center">时间</th>
 									<th class="center">创建时间</th>
 									<th class="center">审核状态</th>
-									<th class="center">审核人</th>
+									<th class="center">审核操作</th>
+								<%--	<th class="center">审核人</th>--%>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -122,7 +123,45 @@
 														<c:if test="${var.STATUS == 7}">未通过录用</c:if>
 														<c:if test="${var.STATUS == 8}">通过录用</c:if>
 											</td>
-											<td class='center'>${var.USER_NAME}</td>
+											<td class='center'>
+												<c:if test="${var.STATUS == 0}">
+													<a class="btn btn-xs btn-success" title="审核" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="审核">审核</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 1}">
+													<a class="btn btn-xs btn-success" title="待面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待面试">待面试</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 2}">
+													<a class="btn btn-xs btn-primary" title="待笔试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待笔试">待笔试</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 3}">
+													<a class="btn btn-xs btn-primary" title="待录用" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待录用">待录用</i>
+												</a>></c:if>
+												<c:if test="${var.STATUS == 4}">
+													<a class="btn btn-xs btn-primary" title="通过面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="通过面试">通过面试</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 5}">
+													<a class="btn btn-xs btn-primary" title="笔试通过" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="笔试通过">笔试通过</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 6}">
+													<a class="btn btn-xs btn-primary" title="笔试待审核" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="笔试待审核">笔试待审核</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 7}">未通过录用</c:if>
+												<c:if test="${var.STATUS == 8}">通过录用</c:if>
+											</td>
+										<%--	<td class='center'>${var.USER_NAME}</td>--%>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -130,12 +169,12 @@
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.RESUME_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑">编辑</i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.RESUME_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+														<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除</i>
 													</a>
 													</c:if>
 												</div>
@@ -323,7 +362,29 @@
 				}
 			});
 		}
-		
+
+		//审核
+        function audit(Id,Status){
+            top.jzts();
+            var diag = new top.Dialog();
+            diag.Drag=true;
+            diag.Title ="编辑";
+            diag.URL = '<%=basePath%>resume/goAudit.do?RESUME_ID='+Id +'&STATUS='+ Status;
+            diag.Width = 840;
+            diag.Height = 655;
+            diag.CancelEvent = function(){ //关闭事件
+                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                    if('${page.currentPage}' == '0'){
+                        top.jzts();
+                        setTimeout("self.location=self.location",100);
+                    }else{
+                        nextPage(${page.currentPage});
+                    }
+                }
+                diag.close();
+            };
+            diag.show();
+        }
 		//修改
 		function edit(Id){
 			 top.jzts();
@@ -341,7 +402,7 @@
 			 };
 			 diag.show();
 		}
-		
+
 		//批量操作
 		function makeAll(msg){
 			bootbox.confirm(msg, function(result) {

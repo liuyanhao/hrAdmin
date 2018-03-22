@@ -45,11 +45,11 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="SELET_ID" id="SELET_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<option value="0">停用</option>
+									<option value="1">启用</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -63,9 +63,6 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">类别名称</th>
 									<th class="center">是否启用</th>
@@ -80,12 +77,12 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.JOB_TYPE_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.TYPE_NAME}</td>
-											<td class='center'>${var.SELET_ID}</td>
+											<td class='center'>
+														<c:if test="${var.SELET_ID == 0}">停用</c:if>
+														<c:if test="${var.SELET_ID == 1}">启用</c:if>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -155,9 +152,6 @@
 								<td style="vertical-align:top;">
 									<c:if test="${QX.add == 1 }">
 									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
-									</c:if>
-									<c:if test="${QX.del == 1 }">
-									<a class="btn btn-sm btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
 									</c:if>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
@@ -274,18 +268,33 @@
 			 diag.show();
 		}
 		
-		//删除
-		function del(Id){
-			bootbox.confirm("确定要删除吗?", function(result) {
-				if(result) {
-					top.jzts();
-					var url = "<%=basePath%>job_type/delete.do?JOB_TYPE_ID="+Id+"&tm="+new Date().getTime();
-					$.get(url,function(data){
-						nextPage(${page.currentPage});
-					});
-				}
-			});
-		}
+        //删除
+        function del(Id){
+            bootbox.confirm("确定要删除吗?", function(result) {
+                if(result) {
+                    top.jzts();
+                    var url = "<%=basePath%>job_type/delete.do?JOB_TYPE_ID="+Id+"&tm="+new Date().getTime();
+                    $.get(url,function(data){
+                        if("success" == data.result){
+                            nextPage(${page.currentPage});
+                        }else if("false" == data.result){
+                            top.hangge();
+                            bootbox.dialog({
+                                message: "<span class='bigger-110'>删除失败,请先删除明细数据!</span>",
+                                buttons:
+                                    {
+                                        "button" :
+                                            {
+                                                "label" : "确定",
+                                                "className" : "btn-sm btn-success"
+                                            }
+                                    }
+                            });
+                        }
+                    });
+                }
+            });
+        }
 		
 		//修改
 		function edit(Id){
@@ -294,8 +303,8 @@
 			 diag.Drag=true;
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>job_type/goEdit.do?JOB_TYPE_ID='+Id;
-			 diag.Width = 450;
-			 diag.Height = 355;
+            diag.Width = 800;
+            diag.Height = 700;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -304,52 +313,6 @@
 			 };
 			 diag.show();
 		}
-		
-		//批量操作
-		function makeAll(msg){
-			bootbox.confirm(msg, function(result) {
-				if(result) {
-					var str = '';
-					for(var i=0;i < document.getElementsByName('ids').length;i++){
-					  if(document.getElementsByName('ids')[i].checked){
-					  	if(str=='') str += document.getElementsByName('ids')[i].value;
-					  	else str += ',' + document.getElementsByName('ids')[i].value;
-					  }
-					}
-					if(str==''){
-						bootbox.dialog({
-							message: "<span class='bigger-110'>您没有选择任何内容!</span>",
-							buttons: 			
-							{ "button":{ "label":"确定", "className":"btn-sm btn-success"}}
-						});
-						$("#zcheckbox").tips({
-							side:1,
-				            msg:'点这里全选',
-				            bg:'#AE81FF',
-				            time:8
-				        });
-						return;
-					}else{
-						if(msg == '确定要删除选中的数据吗?'){
-							top.jzts();
-							$.ajax({
-								type: "POST",
-								url: '<%=basePath%>job_type/deleteAll.do?tm='+new Date().getTime(),
-						    	data: {DATA_IDS:str},
-								dataType:'json',
-								//beforeSend: validateData,
-								cache: false,
-								success: function(data){
-									 $.each(data.list, function(i, list){
-											nextPage(${page.currentPage});
-									 });
-								}
-							});
-						}
-					}
-				}
-			});
-		};
 		
 		//导出excel
 		function toExcel(){

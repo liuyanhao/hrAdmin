@@ -3,6 +3,7 @@ package com.lxc.controller.employee.resume;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.employee.resume.ResumeManager;
+import com.lxc.service.job.job_type.Job_typeManager;
 import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -30,7 +31,10 @@ public class ResumeController extends BaseController {
 	String menuUrl = "resume/list.do"; //菜单地址(权限用)
 	@Resource(name="resumeService")
 	private ResumeManager resumeService;
-	
+
+	@Resource(name="job_typeService")
+	private Job_typeManager job_typeService;
+
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -120,6 +124,8 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("employee/resume/resume_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -135,13 +141,32 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		pd = resumeService.findById(pd);	//根据ID读取
 		mv.setViewName("employee/resume/resume_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
 		return mv;
-	}	
-	
+	}
+	/**去审核页面
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/goAudit")
+	public ModelAndView goAudit()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
+		pd = resumeService.findById(pd);	//根据ID读取
+		mv.setViewName("employee/resume/resume_audit");
+		mv.addObject("msg", "edit");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+
 	 /**批量删除
 	 * @param
 	 * @throws Exception
@@ -212,7 +237,7 @@ public class ResumeController extends BaseController {
 		titles.add("面试成绩");	//29
 		titles.add("面试评价");	//30
 		titles.add("工作职位id");	//31
-		titles.add("等级");	//32
+		titles.add("英语等级");	//32
 		dataMap.put("titles", titles);
 		List<PageData> varOList = resumeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();

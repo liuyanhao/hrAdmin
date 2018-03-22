@@ -32,8 +32,29 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
+								<td style="width:125px;text-align: right;padding-top: 13px;">职位类别:</td>
+								<td><select name="JOB_TYPE_ID" id="JOB_TYPE_ID" onchange="jobType()" style="width:98%;" >
+									<option value="">请选择</option>
+									<c:choose>
+										<c:when test="${not empty jobTypeList}">
+											<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+												<option value="${var.JOB_TYPE_ID}">${var.TYPE_NAME}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<option value=""></option>
+										</c:otherwise>
+									</c:choose>
+								</select>
+								</td>
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
-								<td><input type="number" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}" maxlength="32" placeholder="这里输入工作职位" title="工作职位" style="width:98%;"/></td>
+								<td>
+									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" style="width:98%;">
+										<option value=""></option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">招聘人数:</td>
@@ -75,12 +96,40 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 		<script type="text/javascript">
 		$(top.hangge());
+		var  JobMessageId = '${pd.JOB_MESSAGE_ID}';
+        window.onload = function(){
+            if(JobMessageId != null && JobMessageId != ''){
+                jobType();
+            }
+        }
+        //选择职位类别 级联查询
+        function jobType(){
+            var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
+            $("#JOB_ID option").remove();
+            $.ajax({
+                type:"GET",
+                url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
+                success: function(data){
+                    //  console.log(data);
+                    if(data != null && data.length > 0){
+                        var html="<option value=''>请选择</option>";
+                        var selectd ="";
+                        for(var i=0; i<data.length; i++){
+                            if(JobMessageId == data[i].JOB_MESSAGE_ID) selectd = "selectd";
+                            html+="<option value='"+data[i].JOB_MESSAGE_ID+"'" +selectd + " >"+data[i].JOB_NAME+"</option>";
+                        }
+                    }
+                    $("#JOB_MESSAGE_ID").html(html);
+                    $("#JOB_MESSAGE_ID").trigger("create");
+                }
+            })
+        }
 		//保存
 		function save(){
 			if($("#JOB_MESSAGE_ID").val()==""){
 				$("#JOB_MESSAGE_ID").tips({
 					side:3,
-		            msg:'请输入工作职位',
+		            msg:'请选择工作职位',
 		            bg:'#AE81FF',
 		            time:2
 		        });

@@ -4,6 +4,7 @@ import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.employee.issuejob.IssueJobManager;
 import com.lxc.service.employee.resume.ResumeManager;
+import com.lxc.service.job.job_type.Job_typeManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
 import com.lxc.util.ObjectExcelView;
@@ -36,6 +37,9 @@ public class IssueJobController extends BaseController {
 
 	@Resource(name="resumeService")
 	private ResumeManager resumeService;
+
+	@Resource(name="job_typeService")
+	private Job_typeManager job_typeService;
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -123,6 +127,8 @@ public class IssueJobController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("employee/issuejob/issuejob_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -138,6 +144,8 @@ public class IssueJobController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		pd = issuejobService.findById(pd);	//根据ID读取
 		mv.setViewName("employee/issuejob/issuejob_edit");
 		mv.addObject("msg", "edit");
@@ -167,7 +175,7 @@ public class IssueJobController extends BaseController {
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).get("JOB_MESSAGE_ID").toString());	//1
+			vpd.put("var1", varOList.get(i).get("JOB_MESSAGE_NAME"));	//1
 			vpd.put("var2", varOList.get(i).get("COUNT").toString());	//2
 			vpd.put("var3", varOList.get(i).get("PRINCIPAL").toString());	//3
 			vpd.put("var4", varOList.get(i).getString("FOUNDTIME"));	    //4

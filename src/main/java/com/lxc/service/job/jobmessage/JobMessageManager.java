@@ -63,5 +63,10 @@ public interface JobMessageManager{
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
 
+	/**查询明细总数
+	 * @param pd
+	 * @throws Exception
+	 */
+	public PageData findCount(PageData pd)throws Exception;
 }
 

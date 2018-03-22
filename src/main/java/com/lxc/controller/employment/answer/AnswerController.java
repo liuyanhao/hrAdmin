@@ -46,7 +46,7 @@ public class AnswerController extends BaseController {
 		pd.put("JOB_MESSAGE_ID", "");	//应聘职位ID,引用职位表
 		pd.put("RESUME_ID", "");	//简历Id
 		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
-		pd.put("CREATE_USER", "Jurisdiction.getUsername()");	//创建人
+		pd.put("CREATE_USER", Jurisdiction.getUsername());	//创建人
 		answerService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

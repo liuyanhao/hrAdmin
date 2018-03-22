@@ -1,8 +1,9 @@
 package com.lxc.service.job.job_type;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 职位类型模块接口
@@ -47,12 +48,6 @@ public interface Job_typeManager{
 	 * @throws Exception
 	 */
 	public PageData findById(PageData pd)throws Exception;
-	
-	/**批量删除
-	 * @param ArrayDATA_IDS
-	 * @throws Exception
-	 */
-	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
 	
 }
 

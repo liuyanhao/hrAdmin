@@ -69,6 +69,9 @@
 		from 
 		<include refid="tableName"></include>
 		where 1=1
+		<if test="pd.SELET_ID != null and pd.SELET_ID != ''">
+			and SELET_ID = #{pd.SELET_ID}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -85,17 +88,6 @@
 		from 
 		<include refid="tableName"></include>
 	</select>
-	
-	<!-- 批量删除 -->
-	<delete id="deleteAll" parameterType="String">
-		delete from
-		<include refid="tableName"></include>
-		where 
-			JOB_TYPE_ID in
-		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
-                 #{item}
-		</foreach>
-	</delete>
 	
 	<!-- lxc 1094921525qq -->
 </mapper>

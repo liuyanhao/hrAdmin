@@ -37,10 +37,10 @@
 								<td><input type="text" name="STIPEND_NAME" id="STIPEND_NAME" value="${pd.STIPEND_NAME}" maxlength="20" placeholder="这里输入薪酬名称" title="薪酬名称" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">薪资类型:</td>
 								<td>
-									<select name="STIPEND_TYPE" id="STIPEND_TYPE" style="width:98%;">
+									<select name="STIPENDTYPE_ID" id="STIPENDTYPE_ID" style="width:98%;">
 										<option value="">请选择</option>
 										<c:forEach items="${typeList}" var="var" varStatus="vs" >
-											<option value="${var.STIPENDTYPE_ID}" <c:if test="${pd.STIPEND_TYPE == var.STIPENDTYPE_ID }"> selected</c:if> >${var.STIPENDNAME}</option>
+											<option value="${var.STIPENDTYPE_ID}" <c:if test="${pd.STIPENDTYPE_ID == var.STIPENDTYPE_ID }"> selected</c:if> >${var.STIPENDNAME}</option>
 										</c:forEach>
 									</select>
 								</td>
@@ -154,14 +154,14 @@
 				$("#STIPEN_WEAL_LUNCH").focus();
 			return false;
 			}
-			if($("#STIPEND_TYPE").val()==""){
-				$("#STIPEND_TYPE").tips({
+			if($("#STIPENDTYPE_ID").val()==""){
+				$("#STIPENDTYPE_ID").tips({
 					side:3,
 		            msg:'请选择薪资类型',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#STIPEND_TYPE").focus();
+				$("#STIPENDTYPE_ID").focus();
 			return false;
 			}
 			if($("#STIPEND_WEAL").val()==""){

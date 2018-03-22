@@ -308,7 +308,7 @@
 			 diag.Title ="编辑";
 			 diag.URL = '<%=basePath%>subjecttype/goEdit.do?SUBJECTTYPE_ID='+Id;
 			 diag.Width = 800;
-			 diag.Height = 600;
+			 diag.Height = 650;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});

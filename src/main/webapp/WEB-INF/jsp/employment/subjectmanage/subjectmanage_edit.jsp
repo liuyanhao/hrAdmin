@@ -138,7 +138,7 @@
                     if(data != null && data.length > 0){
                         var select ="";
                         for(var i=0; i<data.length; i++){
-                            if(data[i].SUBJECTTYPEMX_ID == SUBJECTTYPE_Id){ select ="selected";}else {select ="";}
+                            if(data[i].SUBJECTTYPEMX_ID == SUBJECTTYPE_Id){ select ="selected";}
                             html+="<option value='"+data[i].SUBJECTTYPEMX_ID+"' " + select + " >"+data[i].SUBJECTMANAGE+"</option>";
                         }
                     }

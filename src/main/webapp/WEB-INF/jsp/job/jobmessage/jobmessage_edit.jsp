@@ -57,7 +57,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/jobmessagemx/list.do?JOB_MESSAGE_ID=${pd.JOB_MESSAGE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/stipendmanager/list.do?STIPENDMANAGER_ID=${pd.STIPEND_MANAGER_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
 	</div>
 </c:if>
 

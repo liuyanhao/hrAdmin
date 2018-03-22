@@ -46,8 +46,8 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">员工姓名:</td>
-								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入员工姓名" title="员工姓名" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">姓名:</td>
+								<td><input type="text" name="STAFF_NAME" id="STAFF_NAME" value="${pd.STAFF_NAME}" maxlength="20" placeholder="这里输入姓名" title="姓名" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">性别:</td>
 								<td><select name="SEX" title="性别" style="width:98%;">
 										<option value="1" <c:if test="${pd.SEX == '1' }">selected</c:if> >男</option>
@@ -60,7 +60,7 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">出生年月:</td>
-								<td><input type="text" name="BIRTH" id="BIRTH" value="${pd.BIRTH}" maxlength="20" placeholder="这里输入出生年月" title="出生年月" style="width:98%;"/></td>
+								<td><input type="text" class="span10 date-picker" name="BIRTH" id="BIRTH" value="${pd.BIRTH}" maxlength="20" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="这里输入出生年月" title="出生年月" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">年龄:</td>
 								<td><input type="number" name="AGE" id="AGE" value="${pd.AGE}" maxlength="32" placeholder="这里输入年龄" title="年龄" style="width:98%;"/></td>
 							</tr>
@@ -93,7 +93,7 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">政治面貌:</td>
 								<td><input type="text" name="GOVEMMET" id="GOVEMMET" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号码:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号:</td>
 								<td><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">照片地址:</td>
 								<td><input type="file" name="PIC"  id="uploadify1"  keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
@@ -127,22 +127,37 @@
 								<td><input type="text" name="SPEIALITY" id="SPEIALITY" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">时间:</td>
 								<td><input class="span10 date-picker" name="TIME" id="TIME" value="${pd.TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="时间" title="时间" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">等级:</td>
-								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入等级" title="等级" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">英语等级:</td>
+								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入英语等级" title="英语等级" style="width:98%;"/></td>
+							</tr>
+							<c:if test="${msg == 'audit'}">
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">职位类别:</td>
+								<td>
+									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID" placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" style="width:98%;" >
+									<option value="">请选择</option>
+									<c:choose>
+										<c:when test="${not empty jobTypeList}">
+											<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+												<option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<option value=""></option>
+										</c:otherwise>
+									</c:choose>
+									</select>
+								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
+								<td>
+									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" style="width:98%;">
+										<option value=""></option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
 								<td><input type="number" name="RESULT" id="RESULT" value="${pd.RESULT}" maxlength="32" placeholder="这里输入面试成绩" title="面试成绩" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
-								<td>
-									<input type="text" name="JOB_MESSAGE_NAME" id="JOB_MESSAGE_Name" value="${pd.JOB_MESSAGE_ID}"  maxlength="32" placeholder="这里输入工作职位" title="工作职位" style="width:98%;"/>
-									<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}"  maxlength="32" placeholder="这里输入工作职位id" title="工作职位id" />
-								</td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
-								<td><input type="text" name="REMARK" id="REMARK" value="${pd.REMARK}" maxlength="255" placeholder="这里输入备注" title="备注" style="width:98%;"/></td>
-							</tr>
-							<c:if test="${msg == 'save'}">
-							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">审核状态:</td>
 								<td>
 									<select id="STATUS" name="STATUS" style="width:98%;" >
@@ -162,26 +177,22 @@
 							</tr>
 							</c:if>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
+								<td colspan="5">
+									<textarea rows="5" name="REMARK" id="REMARK"   maxlength="255"  placeholder="这里输入备注" title="备注" style="width:98%;">${pd.REMARK}</textarea>
+								</td>
+
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">个人简历:</td>
 								<td colspan="5" >
-									<textarea rows="10" name="RESUME" id="RESUME"  maxlength="255" placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>${pd.RESUME}</textarea>
+									<textarea rows="10" name="RESUME" id="RESUME"   placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>${pd.RESUME}</textarea>
 								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">个人描述:</td>
 								<td colspan="5">
-									<textarea rows="10" name="DESCRIBES" id="DESCRIBES" maxlength="255" placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/>${pd.DESCRIBES}</textarea>
-								</td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">推荐理由:</td>
-								<td colspan="5" >
-									<textarea rows="10" name="REASON" id="REASON"  maxlength="255" placeholder="这里输入推荐理由" title="推荐理由" style="width:98%;"/>${pd.REASON}</textarea>
-								</td>
-							</tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">面试评价:</td>
-								<td colspan="5" >
-									<textarea rows="10" name="SCORE" id="SCORE"  maxlength="255" placeholder="这里输入面试评价" title="面试评价" style="width:98%;"/>${pd.SCORE}</textarea>
+									<textarea rows="10" name="DESCRIBES" id="DESCRIBES"  placeholder="这里输入个人描述" title="个人描述" style="width:98%;"/>${pd.DESCRIBES}</textarea>
 								</td>
 							</tr>
 							<tr>
@@ -218,6 +229,7 @@
 		<script type="text/javascript">
         //编辑 民族 赋值
         var nationValue = ${pd.NATION == null ? 0 : pd.NATION};
+        var JobMessageId = '${pd.JOB_MESSAGE_ID}'; //工作职位分类
         window.onload = function (){
             var nat = document.getElementById ("NATION");
             for ( var i = 0; i < national.length; i++){
@@ -241,6 +253,30 @@
             }
         }
         $(top.hangge());
+
+        //选择职位类别 级联查询
+        function jobType(){
+            var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
+            $("#JOB_ID option").remove();
+            $.ajax({
+                type:"GET",
+                url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
+                success: function(data){
+                    //  console.log(data);
+                    if(data != null && data.length > 0){
+                        var html="<option value=''>请选择</option>";
+                        var selectd ="";
+                        for(var i=0; i<data.length; i++){
+                            if(JobMessageId == data[i].JOB_MESSAGE_ID) selectd = "selectd";
+                            html+="<option value='"+data[i].JOB_MESSAGE_ID+"'" +selectd + " >"+data[i].JOB_NAME+"</option>";
+                        }
+                    }
+                    $("#JOB_MESSAGE_ID").html(html);
+                    $("#JOB_MESSAGE_ID").trigger("create");
+                }
+            })
+        }
+
 		//保存
 		function save(){
 			if($("#SEX").val()==""){
@@ -276,7 +312,7 @@
 			if($("#uploadify1").val()==""){
 				$("#uploadify1").tips({
 					side:3,
-		            msg:'请输入照片地址',
+		            msg:'请上传照片',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -346,7 +382,7 @@
 			if($("#NATION").val()==""){
 				$("#NATION").tips({
 					side:3,
-		            msg:'请输入民族',
+		            msg:'请选择民族',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -356,7 +392,7 @@
 			if($("#LEARING").val()==""){
 				$("#LEARING").tips({
 					side:3,
-		            msg:'请输入学历',
+		            msg:'请选择学历',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -386,7 +422,7 @@
 			if($("#NATIONALITY").val()==""){
 				$("#NATIONALITY").tips({
 					side:3,
-		            msg:'请输入国籍',
+		            msg:'请选择国籍',
 		            bg:'#AE81FF',
 		            time:2
 		        });
@@ -493,26 +529,6 @@
 				$("#STATUS").focus();
 			return false;
 			}*/
-			if($("#USER_NAME").val()==""){
-				$("#USER_NAME").tips({
-					side:3,
-		            msg:'请输入审核人姓名',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#USER_NAME").focus();
-			return false;
-			}
-			if($("#REASON").val()==""){
-				$("#REASON").tips({
-					side:3,
-		            msg:'请输入推荐理由',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#REASON").focus();
-			return false;
-			}
 			if($("#RESULT").val()==""){
 				$("#RESULT").tips({
 					side:3,
@@ -523,16 +539,7 @@
 				$("#RESULT").focus();
 			return false;
 			}
-			if($("#SCORE").val()==""){
-				$("#SCORE").tips({
-					side:3,
-		            msg:'请输入面试评价',
-		            bg:'#AE81FF',
-		            time:2
-		        });
-				$("#SCORE").focus();
-			return false;
-			}
+			/*
 			if($("#JOB_MESSAGE_ID").val()==""){
 				$("#JOB_MESSAGE_ID").tips({
 					side:3,
@@ -543,10 +550,11 @@
 				$("#JOB_MESSAGE_ID").focus();
 			return false;
 			}
+			*/
 			if($("#DEGREE").val()==""){
 				$("#DEGREE").tips({
 					side:3,
-		            msg:'请输入等级',
+		            msg:'请输入英语等级',
 		            bg:'#AE81FF',
 		            time:2
 		        });

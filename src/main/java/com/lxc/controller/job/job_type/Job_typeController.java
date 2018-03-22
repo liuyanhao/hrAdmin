@@ -3,6 +3,7 @@ package com.lxc.controller.job.job_type;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.job.job_type.Job_typeManager;
+import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
 import com.lxc.util.ObjectExcelView;
@@ -16,7 +17,6 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import javax.annotation.Resource;
-import java.io.PrintWriter;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.*;
@@ -33,7 +33,10 @@ public class Job_typeController extends BaseController {
 	String menuUrl = "job_type/list.do"; //菜单地址(权限用)
 	@Resource(name="job_typeService")
 	private Job_typeManager job_typeService;
-	
+
+	@Resource(name="jobmessageService")
+	private JobMessageManager jobmessageService;
+
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -53,18 +56,24 @@ public class Job_typeController extends BaseController {
 	}
 	
 	/**删除
-	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
-	public void delete(PrintWriter out) throws Exception{
+	@ResponseBody
+	public Object delete() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"删除Job_type");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
+		Map<String,String> map = new HashMap<String,String>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		job_typeService.delete(pd);
-		out.write("success");
-		out.close();
+		String errInfo = "success";
+		if(Integer.parseInt(jobmessageService.findCount(pd).get("zs").toString()) > 0){
+			errInfo = "false";
+		}else{
+			job_typeService.delete(pd);
+		}
+		map.put("result", errInfo);
+		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**修改
@@ -138,32 +147,6 @@ public class Job_typeController extends BaseController {
 		mv.addObject("pd", pd);
 		return mv;
 	}	
-	
-	 /**批量删除
-	 * @param
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/deleteAll")
-	@ResponseBody
-	public Object deleteAll() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"批量删除Job_type");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
-		PageData pd = new PageData();		
-		Map<String,Object> map = new HashMap<String,Object>();
-		pd = this.getPageData();
-		List<PageData> pdList = new ArrayList<PageData>();
-		String DATA_IDS = pd.getString("DATA_IDS");
-		if(null != DATA_IDS && !"".equals(DATA_IDS)){
-			String ArrayDATA_IDS[] = DATA_IDS.split(",");
-			job_typeService.deleteAll(ArrayDATA_IDS);
-			pd.put("msg", "ok");
-		}else{
-			pd.put("msg", "no");
-		}
-		pdList.add(pd);
-		map.put("list", pdList);
-		return AppUtil.returnObject(pd, map);
-	}
 	
 	 /**导出到excel
 	 * @param

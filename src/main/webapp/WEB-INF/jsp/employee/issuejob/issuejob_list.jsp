@@ -84,7 +84,7 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.JOB_MESSAGE_ID}</td>
+											<td class='center'>${var.JOB_MESSAGE_NAME}</td>
 											<td class='center'>${var.COUNTS}</td>
 											<td class='center'>${var.PRINCIPAL}</td>
 											<td class='center'>${var.FOUNDTIME}</td>

@@ -34,6 +34,9 @@ public class JobMessageController extends BaseController {
 	@Resource(name="jobmessageService")
 	private JobMessageManager jobmessageService;
 
+	/**
+	 * 薪酬等级表接口
+	 */
 	@Resource(name="stipendmanagerService")
 	private StipendManagerManager stipendmanagerService;
 	
@@ -163,7 +166,7 @@ public class JobMessageController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("工作类型id");	//1
+		titles.add("工作类型");	//1
 		titles.add("工作名称");	//2
 		titles.add("薪酬标准id");	//3
 		dataMap.put("titles", titles);
@@ -171,7 +174,7 @@ public class JobMessageController extends BaseController {
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).get("JOB_TYPE_ID").toString());	//1
+			vpd.put("var1", varOList.get(i).get("TYPE_NAME"));	//1
 			vpd.put("var2", varOList.get(i).getString("JOB_NAME"));	    //2
 			vpd.put("var3", varOList.get(i).getString("STIPEND_MANAGER_ID"));	    //3
 			varList.add(vpd);

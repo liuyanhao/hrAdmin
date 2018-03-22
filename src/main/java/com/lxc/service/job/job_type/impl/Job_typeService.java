@@ -1,12 +1,13 @@
 package com.lxc.service.job.job_type.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.job.job_type.Job_typeManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 职位类型模块
@@ -68,14 +69,6 @@ public class Job_typeService implements Job_typeManager{
 	 */
 	public PageData findById(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("Job_typeMapper.findById", pd);
-	}
-	
-	/**批量删除
-	 * @param ArrayDATA_IDS
-	 * @throws Exception
-	 */
-	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
-		dao.delete("Job_typeMapper.deleteAll", ArrayDATA_IDS);
 	}
 	
 }

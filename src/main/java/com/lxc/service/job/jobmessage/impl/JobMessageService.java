@@ -89,5 +89,9 @@ public class JobMessageService implements JobMessageManager{
 		dao.delete("JobMessageMapper.deleteAll", ArrayDATA_IDS);
 	}
 
+	public PageData findCount(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("JobMessageMapper.findCount", pd);
+	}
+
 }
 

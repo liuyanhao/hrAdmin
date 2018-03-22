@@ -11,7 +11,7 @@
 	<sql id="Field">
 		JOB_TYPE_ID,	
 		JOB_NAME,	
-		STIPEND_MANAGER_ID,	
+		STIPENDTYPE_ID,
 		JOB_MESSAGE_ID
 	</sql>
 	
@@ -19,7 +19,7 @@
 	<sql id="FieldValue">
 		#{JOB_TYPE_ID},	
 		#{JOB_NAME},	
-		#{STIPEND_MANAGER_ID},	
+		#{STIPENDTYPE_ID},
 		#{JOB_MESSAGE_ID}
 	</sql>
 	
@@ -48,7 +48,7 @@
 		<include refid="tableName"></include>
 		set 
 			JOB_NAME = #{JOB_NAME},
-			STIPEND_MANAGER_ID = #{STIPEND_MANAGER_ID},
+		STIPENDTYPE_ID = #{STIPENDTYPE_ID},
 		JOB_MESSAGE_ID = JOB_MESSAGE_ID
 		where 
 		JOB_MESSAGE_ID = #{JOB_MESSAGE_ID}
@@ -67,10 +67,18 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
+		j.JOB_TYPE_ID,
+		JOB_NAME,
+		STIPENDTYPE_ID,
+		JOB_MESSAGE_ID,
+		t.TYPE_NAME
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> j left JOIN tb_job_type t
+		 on t.JOB_TYPE_ID = j.JOB_TYPE_ID
 		where 1=1
+		<if test="pd.JOB_TYPE_ID != null and pd.JOB_TYPE_ID != ''">
+			and j.JOB_TYPE_ID = #{pd.JOB_TYPE_ID}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -95,9 +103,18 @@
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
-		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		j.JOB_TYPE_ID,
+		JOB_NAME,
+		STIPENDTYPE_ID,
+		JOB_MESSAGE_ID,
+		t.TYPE_NAME
+		from
+		<include refid="tableName"></include> j left JOIN tb_job_type t
+		on t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		where 1=1
+		<if test="pd.JOB_TYPE_ID != null and pd.JOB_TYPE_ID != ''">
+			and j.JOB_TYPE_ID = #{pd.JOB_TYPE_ID}
+		</if>
 	</select>
 	
 	<!-- 批量删除 -->
@@ -111,5 +128,14 @@
 		</foreach>
 	</delete>
 
+	<!-- 查询明细总数 -->
+	<select id="findCount" parameterType="pd" resultType="pd">
+		select
+		count(*) zs
+		from
+		<include refid="tableName"></include>
+		where 1=1
+		and	JOB_TYPE_ID = #{JOB_TYPE_ID}
+	</select>
 	<!-- lxc 1094921525qq -->
 </mapper>

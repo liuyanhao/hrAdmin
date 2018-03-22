@@ -37,12 +37,11 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">是否启用:</td>
-								<td><input type="text" name="SELET_ID" id="SELET_ID" value="${pd.SELET_ID}" maxlength="255" placeholder="这里输入是否启用" title="是否启用" style="width:98%;"/></td>
-							</tr>
-							<tr>
-								<td style="text-align: center;" colspan="10">
-									<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
-									<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+								<td>
+									<select class="chosen-select form-control" name="SELET_ID" id="SELET_ID"  placeholder="这里输入是否启用" title="是否启用" style="width:98%;">
+										<option value="1" <c:if test="${pd.SELET_ID == 1}">selected</c:if>>启用</option>
+										<option value="0" <c:if test="${pd.SELET_ID == 0}">selected</c:if>>停用</option>
+									</select>
 								</td>
 							</tr>
 						</table>
@@ -60,7 +59,18 @@
 	<!-- /.main-content -->
 </div>
 <!-- /.main-container -->
+	<c:if test="${'edit' == msg }">
+		<div>
+			<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/jobmessage/list.do?JOB_TYPE_ID=${pd.JOB_TYPE_ID}" style="margin:0 auto;width:790px;height:500px;;"></iframe>
+		</div>
+	</c:if>
 
+<footer>
+	<div style="width: 100%;padding-bottom: 2px;" class="center">
+		<a class="btn btn-mini btn-primary" onclick="save();">保存</a>
+		<a class="btn btn-mini btn-danger" onclick="top.Dialog.close();">取消</a>
+	</div>
+</footer>
 
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
