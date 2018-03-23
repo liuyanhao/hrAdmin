@@ -45,11 +45,12 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+										<option value="0" <c:if test="${pd.STATUS == 0 }">selected</c:if>>未审核</option>
+									<option value="1" <c:if test="${pd.STATUS == 1 }">selected</c:if> >通过</option>
+									<option value="2" <c:if test="${pd.STATUS == 2 }">selected</c:if> >未通过</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -68,13 +69,13 @@
 									</th>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">薪酬名称</th>
-									<th class="center">登记人姓名</th>
+									<th class="center">薪资类型</th>
+									<th class="center">基本薪资</th>
 									<th class="center">交通补贴</th>
 									<th class="center">午餐补贴</th>
-									<th class="center">登记时间</th>
-									<th class="center">基本薪资</th>
-									<th class="center">薪资类型</th>
 									<th class="center">薪酬总额</th>
+									<th class="center">登记人姓名</th>
+									<th class="center">登记时间</th>
 									<th class="center">审批状态</th>
 									<th class="center">操作</th>
 								</tr>
@@ -92,13 +93,13 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.STIPEND_NAME}</td>
-											<td class='center'>${var.STIPEND_USER_NAME}</td>
+											<td class='center'>${var.STIPEND_TYPE_NAME}</td>
+											<td class='center'>${var.BASE_STIPEND}</td>
 											<td class='center'>${var.STIPEN_WEAL_JOURNEY}</td>
 											<td class='center'>${var.STIPEN_WEAL_LUNCH}</td>
-											<td class='center'>${var.GTIPEND_DATE}</td>
-											<td class='center'>${var.BASE_STIPEND}</td>
-											<td class='center'>${var.STIPEND_TYPE_NAME}</td>
 											<td class='center'>${var.STIPEND_WEAL}</td>
+											<td class='center'>${var.STIPEND_USER_NAME}</td>
+											<td class='center'>${var.GTIPEND_DATE}</td>
 											<td class='center'>
 														<c:if test="${var.STATUS == 0}">未审核</c:if>
 														<c:if test="${var.STATUS == 1}">通过</c:if>

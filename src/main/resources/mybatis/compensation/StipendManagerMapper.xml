@@ -113,6 +113,9 @@
 		<include refid="tableName"></include> s left join tb_stipendtype t on 	t.STIPENDTYPE_ID = s.STIPENDTYPE_ID
 		where 1=1
 		and STATUS != 3
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and s.STATUS = #{pd.STATUS}
+		</if>
 		<if test="pd.STIPENDTYPE_ID != null and pd.STIPENDTYPE_ID != ''">
 			and s.STIPENDTYPE_ID = #{pd.STIPENDTYPE_ID}
 		</if>

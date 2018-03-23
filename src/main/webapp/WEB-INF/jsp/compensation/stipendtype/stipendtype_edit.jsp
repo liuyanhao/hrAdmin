@@ -37,7 +37,9 @@
 							</tr>
 							<tr>
 								<td style="width:120px;text-align: right;padding-top: 13px;">薪资待遇:</td>
-								<td><input type="text" name="SALARY_PACKAGE" id="SALARY_PACKAGE" value="${pd.SALARY_PACKAGE}" maxlength="255" placeholder="这里输入薪资待遇" title="薪资待遇" style="width:98%;"/></td>
+								<td>
+									<textarea rows="3" name="SALARY_PACKAGE" id="SALARY_PACKAGE"  maxlength="255" placeholder="这里输入薪资待遇" title="薪资待遇" style="width:98%;"/>${pd.SALARY_PACKAGE}</textarea>
+								</td>
 							</tr>
 							<tr>
 								<td style="width:120px;text-align: right;padding-top: 13px;">薪资范围:</td>

@@ -63,7 +63,8 @@
 			GRANT_TIME = #{GRANT_TIME},
 			GRANT_USER = #{GRANT_USER},
 			GRANT_STATUS = #{GRANT_STATUS},
-			CREATE_USER = #{CREATE_USER},
+			UPDATE_USER = #{UPDATE_USER},
+			UPDATE_TIME = #{UPDATE_TIME},
 		GRANTIDMANAGER_ID = GRANTIDMANAGER_ID
 		where 
 		GRANTIDMANAGER_ID = #{GRANTIDMANAGER_ID}
@@ -78,32 +79,103 @@
 		where 
 			GRANTIDMANAGER_ID = #{GRANTIDMANAGER_ID}
 	</select>
-	
+
+	<select id="findByStipend" parameterType="pd" resultType="pd">
+		select
+		s.STAFF_NAME,
+		s.STAFFEMPLOYEE_ID,
+		jt.JOB_TYPE_ID,
+		jt.TYPE_NAME,
+		jm.JOB_MESSAGE_ID,
+		jm.JOB_NAME,
+		st.STIPEND_NAME,
+		st.STIPEN_WEAL_JOURNEY,
+		st.STIPEN_WEAL_LUNCH,
+		st.GTIPEND_DATE,
+		st.BASE_STIPEND,
+		st.STIPENDTYPE_ID,
+		st.STIPEND_WEAL,
+		st.`STATUS`
+	from tb_staffemployee s left join tb_job_type jt on jt.JOB_TYPE_ID = s.JOB_TYPE_ID,
+	tb_job_message jm, tb_stipendmanager st
+	where 1=1
+	and jm.JOB_MESSAGE_ID = s.JOB_ID
+	and st.STIPENDMANAGER_ID = s.STIPEND_ID
+	and s.STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
+	</select>
+
+	<!-- 查询需要发放薪资列表  -->
+	<select id="stipendManagerlistPage" parameterType="page" resultType="pd">
+		select
+		s.STAFF_NAME,
+		s.STAFFEMPLOYEE_ID,
+		jt.JOB_TYPE_ID,
+		jt.TYPE_NAME,
+		jm.JOB_MESSAGE_ID,
+		jm.JOB_NAME,
+		st.STIPEND_NAME,
+		st.STIPEN_WEAL_JOURNEY,
+		st.STIPEN_WEAL_LUNCH,
+		st.GTIPEND_DATE,
+		st.BASE_STIPEND,
+		st.STIPENDTYPE_ID,
+		st.STIPEND_WEAL,
+		st.`STATUS`
+	from tb_staffemployee s left join tb_job_type jt on jt.JOB_TYPE_ID = s.JOB_TYPE_ID,
+	tb_job_message jm, tb_stipendmanager st
+	where 1=1
+	and jm.JOB_MESSAGE_ID = s.JOB_ID
+	and st.STIPENDMANAGER_ID = s.STIPEND_ID
+
+	</select>
+
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		g.TEMLOYEE_ID,
+		s.STAFF_NAME,
+		g.GRANT_PRICE,
+		g.GRANT_TIME,
+		g.GRANT_USER,
+		g.GRANT_STATUS,
+		g.CREATE_USER,
+		g.CREATE_TIME,
+		g.UPDATE_USER,
+		g.UPDATE_TIME,
+		g.GRANTIDMANAGER_ID
+		from  tb_grantidmanager g left join tb_staffemployee s
+		on g.TEMLOYEE_ID = s.STAFFEMPLOYEE_ID
 		where 1=1
+		<if test="pd.GRANT_STATUS != null and pd.GRANT_STATUS != ''">
+			and GRANT_STATUS = #{GRANT_STATUS}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
-				<!--	根据需求自己加检索条件
-					字段1 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or 
-					字段2 LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%') 
-				-->
+				<!--	根据需求自己加检索条件 -->
+					s.STAFF_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
 		</if>
 	</select>
-	
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
-		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		g.TEMLOYEE_ID,
+		s.STAFF_NAME,
+		g.GRANT_PRICE,
+		g.GRANT_TIME,
+		g.GRANT_USER,
+		g.GRANT_STATUS,
+		g.CREATE_USER,
+		g.CREATE_TIME,
+		g.UPDATE_USER,
+		g.UPDATE_TIME,
+		g.GRANTIDMANAGER_ID
+		from  tb_grantidmanager g left join tb_staffemployee s
+		on g.TEMLOYEE_ID = s.STAFFEMPLOYEE_ID
+		where 1=1
 	</select>
 	
 	<!-- 批量删除 -->
@@ -116,6 +188,7 @@
                  #{item}
 		</foreach>
 	</delete>
-	
+
+
 	<!-- lxc 1094921525qq -->
 </mapper>

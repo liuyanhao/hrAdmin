@@ -43,7 +43,7 @@ public class GrantIdManagerController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("GRANTIDMANAGER_ID", this.get32UUID());	//主键
-		pd.put("TEMLOYEE_ID", "");	//员工id
+		pd.put("GRANT_USER", Jurisdiction.getUsername());	//发放人
 		pd.put("CREATE_USER", Jurisdiction.getUsername());	//创建人
 		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
 		pd.put("UPDATE_USER", Jurisdiction.getUsername());	//修改人
@@ -111,7 +111,27 @@ public class GrantIdManagerController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
-	
+
+
+	@RequestMapping(value="/stipend_list")
+	public ModelAndView stipendManagerlistPage(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表GrantIdManager");
+		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}
+		page.setPd(pd);
+		List<PageData>	varList = grantidmanagerService.stipendManagerlistPage(page);	//列出GrantIdManager列表
+		mv.setViewName("compensation/grantidmanager/stipend_list");
+		mv.addObject("varList", varList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
 	/**去新增页面
 	 * @param
 	 * @throws Exception
@@ -125,9 +145,21 @@ public class GrantIdManagerController extends BaseController {
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
 		return mv;
-	}	
-	
-	 /**去修改页面
+	}
+
+	@RequestMapping(value="/goStipend")
+	public ModelAndView goStipend()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		pd = grantidmanagerService.findByStipend(pd);
+		mv.setViewName("compensation/grantidmanager/stipend_edit");
+		mv.addObject("msg", "save");
+		mv.addObject("pd", pd);
+		return mv;
+	}
+
+	/**去修改页面
 	 * @param
 	 * @throws Exception
 	 */

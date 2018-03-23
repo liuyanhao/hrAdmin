@@ -1,12 +1,13 @@
 package com.lxc.service.compensation.grantidmanager.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.compensation.grantidmanager.GrantIdManagerManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 薪酬发放
@@ -52,7 +53,27 @@ public class GrantIdManagerService implements GrantIdManagerManager{
 	public List<PageData> list(Page page)throws Exception{
 		return (List<PageData>)dao.findForList("GrantIdManagerMapper.datalistPage", page);
 	}
-	
+
+	/**
+	 * 查询需要发放薪资的员工薪资列表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	public List<PageData> stipendManagerlistPage(Page page)throws  Exception{
+		return  (List<PageData>) dao.findForList("GrantIdManagerMapper.stipendManagerlistPage",page);
+	}
+
+	/**
+	 * 查询需要发放薪资员工薪资信息
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByStipend(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("GrantIdManagerMapper.findByStipend", pd);
+	}
+
 	/**列表(全部)
 	 * @param pd
 	 * @throws Exception

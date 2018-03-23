@@ -78,6 +78,10 @@ public class StaffEmployeeController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("STAFFEMPLOYEE_ID", this.get32UUID());	//主键
+		pd.put("CREATE_TIME",Tools.date2Str(new Date())); //创建时间
+		pd.put("CREATE_USER",Jurisdiction.getUsername()); //创建人
+		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
+		pd.put("UPDATE_USER",Jurisdiction.getUsername()); //修改人
 		staffemployeeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -111,6 +115,8 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData  pd = this.getPageData();
 		staffemployeeService.edit(pd);
+		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
+		pd.put("UPDATE_USER",Jurisdiction.getUsername()); //修改人
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;

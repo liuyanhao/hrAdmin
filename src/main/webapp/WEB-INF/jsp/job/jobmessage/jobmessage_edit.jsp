@@ -36,8 +36,15 @@
 								<td><input type="text" name="JOB_NAME" id="JOB_NAME" value="${pd.JOB_NAME}" maxlength="255" placeholder="这里输入工作名称" title="工作名称" style="width:98%;"/></td>
 							</tr>
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">薪酬标准id:</td>
-								<td><input type="text" name="STIPEND_MANAGER_ID" id="STIPEND_MANAGER_ID" value="${pd.STIPEND_MANAGER_ID}" maxlength="255" placeholder="这里输入薪酬标准id" title="薪酬标准id" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">薪酬待遇:</td>
+								<td>
+
+									<select  name="STIPENDTYPE_ID" id="STIPENDTYPE_ID" placeholder="这里选择薪资待遇" title="薪资待遇" style="width:98%;">
+										<c:forEach items="${stipendTypeList}" var="var" varStatus="vs">
+											<option value="${var.STIPENDTYPE_ID}" <c:if test="var.STIPENDTYPE_ID == pd.STIPENDTYPE_ID">selected</c:if> >${var.STIPENDNAME}</option>
+										</c:forEach>
+									</select>
+								</td>
 							</tr>
 						</table>
 						</div>
@@ -57,7 +64,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>/stipendmanager/list.do?STIPENDMANAGER_ID=${pd.STIPEND_MANAGER_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>stipendtype/listOne.do?STIPENDTYPE_ID=${pd.STIPENDTYPE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
 	</div>
 </c:if>
 

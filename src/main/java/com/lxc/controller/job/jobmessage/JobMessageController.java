@@ -3,6 +3,7 @@ package com.lxc.controller.job.jobmessage;
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
+import com.lxc.service.compensation.stipendtype.StipendTypeManager;
 import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
@@ -33,6 +34,9 @@ public class JobMessageController extends BaseController {
 	String menuUrl = "jobmessage/list.do"; //菜单地址(权限用)
 	@Resource(name="jobmessageService")
 	private JobMessageManager jobmessageService;
+
+	@Resource(name="stipendtypeService")
+	private StipendTypeManager stipendtypeService;
 
 	/**
 	 * 薪酬等级表接口
@@ -131,6 +135,8 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> stipendTypeList =stipendtypeService.listAll(pd);
+		mv.addObject("stipendTypeList",stipendTypeList);
 		mv.setViewName("job/jobmessage/jobmessage_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -146,6 +152,8 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> stipendTypeList =stipendtypeService.listAll(pd);
+		mv.addObject("stipendTypeList",stipendTypeList);
 		pd = jobmessageService.findById(pd);	//根据ID读取
 		mv.setViewName("job/jobmessage/jobmessage_edit");
 		mv.addObject("msg", "edit");

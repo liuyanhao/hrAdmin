@@ -45,7 +45,13 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">审核状态:</td>
-								<td><input type="number" name="GRANT_STATUS" id="GRANT_STATUS" value="${pd.GRANT_STATUS}" maxlength="32" placeholder="这里输入审核状态" title="审核状态" style="width:98%;"/></td>
+								<td>
+									<select  name="GRANT_STATUS" id="GRANT_STATUS" placeholder="这里输入审核状态" title="审核状态" style="width:98%;">
+										<option value="0" <c:if test="${pd.GRANT_STATUS ==0}">selected</c:if> >未审核</option>
+										<option value="1" <c:if test="${pd.GRANT_STATUS ==1}">selected</c:if> >通过</option>
+										<option value="2" <c:if test="${pd.GRANT_STATUS ==2}">selected</c:if> >未通过</option>
+									</select>
+								</td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">
@@ -115,7 +121,7 @@
 			if($("#GRANT_STATUS").val()==""){
 				$("#GRANT_STATUS").tips({
 					side:3,
-		            msg:'请输入审核状态',
+		            msg:'请选择审核状态',
 		            bg:'#AE81FF',
 		            time:2
 		        });
