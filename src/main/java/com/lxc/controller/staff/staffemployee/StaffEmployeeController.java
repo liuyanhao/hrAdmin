@@ -2,6 +2,7 @@ package com.lxc.controller.staff.staffemployee;
 
 import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
+import com.lxc.service.job.job_type.Job_typeManager;
 import com.lxc.service.staff.staffemployee.StaffEmployeeManager;
 import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
@@ -33,6 +34,8 @@ public class StaffEmployeeController extends BaseController {
 	@Resource(name="staffemployeeService")
 	private StaffEmployeeManager staffemployeeService;
 
+	@Resource(name="job_typeService")
+	private Job_typeManager job_typeService;
 	/**
 	 * 上传头像照片
 	 * @param file
@@ -155,6 +158,8 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("staff/staffemployee/staffemployee_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -170,6 +175,8 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		mv.addObject("jobTypeList", jobTypeList);
 		pd = staffemployeeService.findById(pd);	//根据ID读取
 		mv.setViewName("staff/staffemployee/staffemployee_edit");
 		mv.addObject("msg", "edit");

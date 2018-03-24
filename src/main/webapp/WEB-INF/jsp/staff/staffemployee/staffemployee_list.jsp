@@ -45,11 +45,12 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="STATES" id="STATES" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<option value="0">未审核</option>
+									<option value="1">通过</option>
+									<option value="2">未通过</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -67,7 +68,6 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">员工ID</th>
                                     <th class="center">员工姓名</th>
                                     <th class="center">地址</th>
                                     <th class="center">电话</th>
@@ -89,7 +89,6 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.STAFFEMPLOYEE_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
                                             <td class='center' style="width: 30px;">${vs.index+1}</td>
-                                            <td class='center'>${var.STAFF_ID}</td>
                                             <td class='center'>${var.STAFF_NAME}</td>
                                             <td class='center'>${var.ADDRESS}</td>
                                             <td class='center'>${var.PHONE}</td>

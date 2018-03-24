@@ -229,7 +229,7 @@
 		<script type="text/javascript">
         //编辑 民族 赋值
         var nationValue = ${pd.NATION == null ? 0 : pd.NATION};
-        var JobMessageId = '${pd.JOB_MESSAGE_ID}'; //工作职位分类
+        var JobMessageId = '${pd.JOB_MESSAGE_ID}'; //职位名称
         window.onload = function (){
             var nat = document.getElementById ("NATION");
             for ( var i = 0; i < national.length; i++){
