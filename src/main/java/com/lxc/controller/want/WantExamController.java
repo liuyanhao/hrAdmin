@@ -44,7 +44,7 @@ public class WantExamController  extends BaseController {
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
-        List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+        List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
         mv.addObject("jobTypeList", jobTypeList);
         pd = jobmessageService.findById(pd);
         if(pd != null) {

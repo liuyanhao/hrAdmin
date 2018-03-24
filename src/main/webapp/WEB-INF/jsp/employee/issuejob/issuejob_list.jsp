@@ -101,8 +101,8 @@
 												</div>
 												<div class="hidden-md hidden-lg">
 													<div class="inline pos-rel">
-														<button class="btn" data-toggle="dropdown" data-position="auto">
-															<i class="ace-icon fa fa-check-square-o align-top bigger-125"></i>
+														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+															<i class="ace-icon fa fa-check-square-o align-top bigger-110"></i>
 														</button>
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
@@ -139,7 +139,7 @@
 																<li>
 																	<a style="cursor:pointer;" onclick="fillResume('${var.JOB_MESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="填写简历">
 																	<span class="green">
-																		<i class="ace-icon fa fa-pencil align-top bigger-125">填写简历</i>
+																		<i class="ace-icon fa fa-pencil align-top bigger-125"></i>
 																	</span>
 																	</a>
 																</li>

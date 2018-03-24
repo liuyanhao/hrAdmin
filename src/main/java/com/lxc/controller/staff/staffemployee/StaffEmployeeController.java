@@ -158,7 +158,7 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd);
 		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("staff/staffemployee/staffemployee_edit");
 		mv.addObject("msg", "save");
@@ -175,7 +175,7 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd);
 		mv.addObject("jobTypeList", jobTypeList);
 		pd = staffemployeeService.findById(pd);	//根据ID读取
 		mv.setViewName("staff/staffemployee/staffemployee_edit");

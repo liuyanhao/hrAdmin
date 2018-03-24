@@ -124,7 +124,7 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd);
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd);
 		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("employee/resume/resume_edit");
 		mv.addObject("msg", "save");
@@ -141,7 +141,7 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
 		mv.addObject("jobTypeList", jobTypeList);
 		pd = resumeService.findById(pd);	//根据ID读取
 		mv.setViewName("employee/resume/resume_edit");
@@ -158,7 +158,7 @@ public class ResumeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
 		mv.addObject("jobTypeList", jobTypeList);
 		pd = resumeService.findById(pd);	//根据ID读取
 		mv.setViewName("employee/resume/resume_audit");

@@ -42,6 +42,13 @@ public interface Job_typeManager{
 	 * @throws Exception
 	 */
 	public List<PageData> listAll(PageData pd)throws Exception;
+
+    /**列表(全部是启用)
+     * @param pd
+     * @throws Exception
+     */
+    public List<PageData> listStartAll(PageData pd)throws Exception;
+
 	
 	/**通过id获取数据
 	 * @param pd

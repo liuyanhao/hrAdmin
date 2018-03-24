@@ -127,7 +127,7 @@ public class IssueJobController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
 		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("employee/issuejob/issuejob_edit");
 		mv.addObject("msg", "save");
@@ -144,7 +144,7 @@ public class IssueJobController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> jobTypeList = job_typeService.listAll(pd); //职位类别
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
 		mv.addObject("jobTypeList", jobTypeList);
 		pd = issuejobService.findById(pd);	//根据ID读取
 		mv.setViewName("employee/issuejob/issuejob_edit");

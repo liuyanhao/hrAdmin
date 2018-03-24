@@ -77,15 +77,25 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">E选项:</td>
-								<td><input type="text" name="SELECT_E" id="SELECT_E" value="${pd.SELECT_E}" maxlength="50" placeholder="这里输入E选项" title="E选项" style="width:98%;"/></td>
+								<td><input type="text" name="SELECT_E" id="SELECT_E" value="${pd.SELECT_E != null ? pd.SELECT_E :  '其他' }" maxlength="50" placeholder="这里输入E选项" title="E选项" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">F选项:</td>
-								<td><input type="text" name="SELECT_F" id="SELECT_F" value="${pd.SELECT_F}" maxlength="50" placeholder="这里输入F选项" title="F选项" style="width:98%;"/></td>
+								<td><input type="text" name="SELECT_F" id="SELECT_F" value="${pd.SELECT_F != null ? pd.SELECT_F : '以上都是'}" maxlength="50" placeholder="这里输入F选项" title="F选项" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">正确选项:</td>
-								<td><input type="text" name="SELECT_TURE" id="SELECT_TURE" value="${pd.SELECT_TURE}" maxlength="5" placeholder="这里输入正确选项" title="正确选项" style="width:98%;"/></td>
+								<td>
+                                    <select name="SELECT_TURE" id="SELECT_TURE"  maxlength="5" placeholder="这里输入正确选项" title="正确选项" style="width:98%;">
+                                        <option value="" >请选择</option>
+                                        <option value="A" <c:if test="${pd.SELECT_TURE == 'A'}" >selected</c:if> >A</option>
+                                        <option value="B" <c:if test="${pd.SELECT_TURE == 'B'}" >selected</c:if>>B</option>
+                                        <option value="C" <c:if test="${pd.SELECT_TURE == 'C'}" >selected</c:if>>C</option>
+                                        <option value="D" <c:if test="${pd.SELECT_TURE == 'D'}" >selected</c:if>>D</option>
+                                        <option value="E" <c:if test="${pd.SELECT_TURE == 'E'}" >selected</c:if>>E</option>
+                                        <option value="F" <c:if test="${pd.SELECT_TURE == 'F'}" >selected</c:if>>F</option>
+                                    </select>
+                                </td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">分值:</td>
-								<td><input type="number" name="SCORE" id="SCORE" value="${pd.SCORE}" maxlength="32" placeholder="这里输入分值" title="分值" style="width:98%;"/></td>
+								<td><input type="number" min = 0 name="SCORE" id="SCORE" value="${pd.SCORE}" maxlength="32" placeholder="这里输入分值" title="分值" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="text-align: center;" colspan="10">

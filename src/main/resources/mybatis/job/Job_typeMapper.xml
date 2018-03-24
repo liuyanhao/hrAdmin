@@ -88,6 +88,15 @@
 		from 
 		<include refid="tableName"></include>
 	</select>
-	
+
+    <!-- 列表(全部启用) -->
+    <select id="listStartAll" parameterType="pd" resultType="pd">
+        select
+        <include refid="Field"></include>
+        from
+        <include refid="tableName"></include>
+        where 1=1
+        and SELET_ID = 1
+    </select>
 	<!-- lxc 1094921525qq -->
 </mapper>

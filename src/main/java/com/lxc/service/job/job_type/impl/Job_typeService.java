@@ -62,6 +62,15 @@ public class Job_typeService implements Job_typeManager{
 	public List<PageData> listAll(PageData pd)throws Exception{
 		return (List<PageData>)dao.findForList("Job_typeMapper.listAll", pd);
 	}
+
+    /**列表(全部启用的)
+     * @param pd
+     * @throws Exception
+     */
+    @SuppressWarnings("unchecked")
+    public List<PageData> listStartAll(PageData pd)throws Exception{
+        return (List<PageData>)dao.findForList("Job_typeMapper.listStartAll", pd);
+    }
 	
 	/**通过id获取数据
 	 * @param pd

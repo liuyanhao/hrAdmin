@@ -323,7 +323,7 @@ public class MobilizeController extends BaseController {
 	PageData pd = new PageData();
 	pd = this.getPageData();
 	pd = staffemployeeService.findById(pd);	//根据ID读取
-	List<PageData> jobTypeList = job_typeService.listAll(pd);
+	List<PageData> jobTypeList = job_typeService.listStartAll(pd);
 		mv.setViewName("mobilize/mobilize/manoeuvre_edit");
 		mv.addObject("msg", "manoeuvre");
 		mv.addObject("jobTypeList", jobTypeList);

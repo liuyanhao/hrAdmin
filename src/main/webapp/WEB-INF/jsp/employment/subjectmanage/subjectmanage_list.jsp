@@ -76,11 +76,11 @@
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center" style="width:120px;">试题分类</th>
 									<th class="center" style="width:120px;">试题类型</th>
-									<th class="center" >题目</th>
-									<th class="center" style="width:150px;">分值</th>
+									<th class="center" style="width:350px;">题目</th>
+									<th class="center" style="width:50px;">分值</th>
 									<th class="center"style="width:150px;">出题时间</th>
 									<th class="center"style="width:150px;">发布人</th>
-									<th class="center" style="width:250px;">操作</th>
+									<th class="center" style="width:150px;">操作</th>
 								</tr>
 							</thead>
 													
