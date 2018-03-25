@@ -104,7 +104,7 @@ public class SubjectManageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		//试卷类型
-		List<PageData> typeList= subjecttypeService.listAll(pd);
+		List<PageData> typeList= subjecttypeService.listStartAll(pd);
 		String keywords = pd.getString("keywords");				//关键词检索条件
 		String SUBJECT_TYPE = pd.getString("SUBJECT_TYPE");		//题目类型
 		if(null != keywords && !"".equals(keywords)){
@@ -132,7 +132,7 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> typeList= subjecttypeService.listAll(pd);
+		List<PageData> typeList= subjecttypeService.listStartAll(pd);
 		mv.addObject("typeList", typeList);
 		mv.setViewName("employment/subjectmanage/subjectmanage_edit");
 		mv.addObject("msg", "save");
@@ -149,7 +149,7 @@ public class SubjectManageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> typeList= subjecttypeService.listAll(pd);
+		List<PageData> typeList= subjecttypeService.listStartAll(pd);
 		pd = subjectmanageService.findById(pd);	//根据ID读取
 		mv.addObject("typeList", typeList);
 		mv.setViewName("employment/subjectmanage/subjectmanage_edit");

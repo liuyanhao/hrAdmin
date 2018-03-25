@@ -27,7 +27,6 @@
 		BIRTH,	
 		FAITH,	
 		SPEIALITY,	
-		RESUME,	
 		DESCRIBES,
 		REMARK,	
 		USER_ID,
@@ -69,7 +68,6 @@
 		#{BIRTH},	
 		#{FAITH},	
 		#{SPEIALITY},	
-		#{RESUME},	
 		#{DESCRIBES},
 		#{REMARK},	
 		#{USER_ID},
@@ -114,43 +112,103 @@
 	<update id="edit" parameterType="pd">
 		update
 		<include refid="tableName"></include>
-		set 
+		set
+		<if test="SEX != null and SEX !=''">
 			SEX = #{SEX},
+		</if>
+		<if test="ADDRESS != null and ADDRESS !=''">
 			ADDRESS = #{ADDRESS},
+		</if>
+		<if test="PHONE != null and PHONE !=''">
 			PHONE = #{PHONE},
+		</if>
+		<if test="PIC != null and PIC !=''">
 			PIC = #{PIC},
+		</if>
+		<if test="CARD_ID != null and CARD_ID !=''">
 			CARD_ID = #{CARD_ID},
+		</if>
+		<if test="EMAIL != null and EMAIL !=''">
 			EMAIL = #{EMAIL},
+		</if>
+		<if test="QQ != null and QQ !=''">
 			QQ = #{QQ},
+		</if>
+		<if test="WECHAT != null and WECHAT !=''">
 			WECHAT = #{WECHAT},
+		</if>
+		<if test="POST_CODE != null and POST_CODE !=''">
 			POST_CODE = #{POST_CODE},
+		</if>
+		<if test="GOVEMMET != null and GOVEMMET !=''">
 			GOVEMMET = #{GOVEMMET},
+		</if>
+		<if test="NATION != null and NATION !=''">
 			NATION = #{NATION},
+		</if>
+		<if test="LEARING != null and LEARING !=''">
 			LEARING = #{LEARING},
+		</if>
+		<if test="HOBBY != null and HOBBY !=''">
 			HOBBY = #{HOBBY},
+		</if>
+		<if test="SUIT != null and SUIT !=''">
 			SUIT = #{SUIT},
+		</if>
+		<if test="NATIONALITY != null and NATIONALITY !=''">
 			NATIONALITY = #{NATIONALITY},
+		</if>
+		<if test="BIRTH != null and BIRTH !=''">
 			BIRTH = #{BIRTH},
+		</if>
+		<if test="FAITH != null and FAITH !=''">
 			FAITH = #{FAITH},
+		</if>
+		<if test="SPEIALITY != null and SPEIALITY !=''">
 			SPEIALITY = #{SPEIALITY},
-			RESUME = #{RESUME},
+		</if>
+		<if test="DESCRIBES != null and DESCRIBES !=''">
 			DESCRIBES = #{DESCRIBES},
+		</if>
+		<if test="REMARK != null and REMARK !=''">
 			REMARK = #{REMARK},
+		</if>
+		<if test="AGE != null and AGE !=''">
 			AGE = #{AGE},
-			TIME = #{TIME},
-			CREATE_TIME = #{CREATE_TIME},
+		</if>
+		<if test="UPDATE_TIME != null and UPDATE_TIME !=''">
 			UPDATE_TIME = #{UPDATE_TIME},
-			CREATE_USER = #{CREATE_USER},
+		</if>
+		<if test="UPDATE_USER != null and UPDATE_USER !=''">
 			UPDATE_USER = #{UPDATE_USER},
+		</if>
+		<if test="STAFF_NAME != null and STAFF_NAME !=''">
 			STAFF_NAME = #{STAFF_NAME},
+		</if>
+		<if test="STATUS != null and STATUS !=''">
 			STATUS = #{STATUS},
+		</if>
+		<if test="USER_NAME != null and USER_NAME !=''">
 			USER_NAME = #{USER_NAME},
+		</if>
+		<if test="REASON != null and REASON !=''">
 			REASON = #{REASON},
+		</if>
+		<if test="RESULT != null and RESULT !=''">
 			RESULT = #{RESULT},
+		</if>
+		<if test="SCORE != null and SCORE !=''">
 			SCORE = #{SCORE},
+		</if>
+		<if test="JOB_MESSAGE_ID != null and JOB_MESSAGE_ID !=''">
 			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID},
+		</if>
+		<if test="JOB_TYPE_ID != null and JOB_TYPE_ID !=''">
 		    JOB_TYPE_ID = #{JOB_TYPE_ID},
+		</if>
+		<if test="DEGREE != null and DEGREE !=''">
 			DEGREE = #{DEGREE},
+		</if>
 		RESUME_ID = RESUME_ID
 		where 
 		RESUME_ID = #{RESUME_ID}
@@ -171,8 +229,10 @@
 		<include refid="Field"></include>
 		from
 		<include refid="tableName"></include>
-		where
-		CARD_ID = #{CARD_ID}
+		where 1=1
+		<if test="CARD_ID != null and  CARD_ID != ''">
+		and CARD_ID = #{CARD_ID}
+		</if>
 	</select>
 
 	<!-- 列表 -->

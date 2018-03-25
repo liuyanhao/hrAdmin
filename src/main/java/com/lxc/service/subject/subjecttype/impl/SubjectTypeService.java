@@ -78,6 +78,17 @@ public class SubjectTypeService implements SubjectTypeManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.update("SubjectTypeMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	/**
+	 * 列表 （全部启用的）
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	@SuppressWarnings("unchecked")
+	public List<PageData> listStartAll(PageData pd) throws Exception {
+		return (List<PageData>)dao.findForList("SubjectTypeMapper.listStartAll", pd);
+	}
+
 }
 

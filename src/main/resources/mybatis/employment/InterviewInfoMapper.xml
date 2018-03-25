@@ -69,31 +69,80 @@
 		where 
 			INTERVIEWINFO_ID = #{INTERVIEWINFO_ID}
 	</select>
-	
+
+	<!-- 录取列表  -->
+	<select id="empolyListPage" parameterType="page" resultType="pd">
+		select
+		i.RESUME_ID,
+		r.STAFF_NAME,
+		r.SEX,
+		u.NAME,
+		EMPLOYEE_STATE,
+		EMPLOYEE_TIME,
+		RESUME_USER_ID,
+		RESUME_USER_NAME,
+		INTERVIEWINFO_ID,
+		jt.TYPE_NAME,
+		jm.JOB_NAME
+		from  tb_interviewinfo i left join tb_resume r on i.RESUME_ID = r.RESUME_ID ,
+		tb_job_type jt ,tb_job_message jm ,sys_user u
+		where 1=1
+		and  jt.JOB_TYPE_ID = r.JOB_TYPE_ID
+		and jm.JOB_MESSAGE_ID = r.JOB_MESSAGE_ID
+		and u.USER_ID = r.USER_ID
+		<if test="pd.EMPLOYEE_STATE != null and pd.EMPLOYEE_STATE != ''">
+			and	i.EMPLOYEE_STATE = #{pd.EMPLOYEE_STATE}
+		</if>
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+			(
+			<!--	根据需求自己加检索条件 -->
+			i.RESUME_USER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			)
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and i.EMPLOYEE_TIME &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and i.EMPLOYEE_TIME &lt;= #{pd.lastEnd}
+		</if>
+	</select>
+
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
-		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		i.RESUME_ID,
+		r.STAFF_NAME,
+		r.SEX,
+		u.NAME,
+		EMPLOYEE_STATE,
+		EMPLOYEE_TIME,
+		RESUME_USER_ID,
+		RESUME_USER_NAME,
+		INTERVIEWINFO_ID,
+		jt.TYPE_NAME,
+		jm.JOB_NAME
+		from  tb_interviewinfo i left join tb_resume r on i.RESUME_ID = r.RESUME_ID ,
+		tb_job_type jt ,tb_job_message jm ,sys_user u
 		where 1=1
+		and  jt.JOB_TYPE_ID = r.JOB_TYPE_ID
+		and jm.JOB_MESSAGE_ID = r.JOB_MESSAGE_ID
+		and u.USER_ID = r.USER_ID
 		<if test="pd.EMPLOYEE_STATE != null and pd.EMPLOYEE_STATE != ''">
-			and	EMPLOYEE_STATE = #{pd.EMPLOYEE_STATE}
+			and	i.EMPLOYEE_STATE = #{pd.EMPLOYEE_STATE}
 		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
 				<!--	根据需求自己加检索条件 -->
-			RESUME_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-					 or
-			RESUME_USER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			i.RESUME_USER_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 				)
 		</if>
 		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
-			and EMPLOYEE_TIME &gt;= #{pd.lastStart}
+			and i.EMPLOYEE_TIME &gt;= #{pd.lastStart}
 		</if>
 		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
-			and EMPLOYEE_TIME &lt;= #{pd.lastEnd}
+			and i.EMPLOYEE_TIME &lt;= #{pd.lastEnd}
 		</if>
 	</select>
 	

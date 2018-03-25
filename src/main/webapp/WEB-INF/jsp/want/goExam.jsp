@@ -40,7 +40,8 @@
                                 <div class="form-group">
                                     <label class="col-sm-3 control-label no-padding-right" for="JOB_TYPE_ID">职位类型：</label>
                                     <div class="col-sm-9">
-                                        <select  name="JOB_TYPE_ID" id="JOB_TYPE_ID" disabled="disabled"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" class="col-xs-10 col-sm-5">
+                                        <input type="hidden" name="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}" />
+                                        <select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" class="col-xs-10 col-sm-5">
                                             <option value="">请选择</option>
                                             <c:choose>
                                                 <c:when test="${not empty jobTypeList}">
@@ -64,8 +65,8 @@
                          </div>
                         <div class="col-md-6">
                             <div class="form-group">
-                                <label class="col-sm-3 control-label no-padding-right" ></label>
-                                <div class="col-sm-9">
+                                <label class="col-sm-9 control-label no-padding-right" style="color: red"  >${message}</label>
+                                <div class="col-sm-3">
                                     <button class="btn  btn-primary" type="submit" onclick="">提交</button>
                                    <%-- <button class="btn btn-danger" type="reset" onclick="">重置</button>--%>
                                 </div>
@@ -73,6 +74,7 @@
                             <div class="form-group">
                                 <label class="col-sm-3 control-label no-padding-right" for="JOB_MESSAGE_ID">职位名称：</label>
                                 <div class="col-sm-9">
+                                    <input type="hidden" name="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}" />
                                     <select name="JOB_ID" id="JOB_MESSAGE_ID"  disabled="disabled" placeholder="请选择职位名称"  class="col-xs-10 col-sm-5">
                                         <option value=""></option>
                                     </select>
@@ -122,7 +124,7 @@
         //选择职位类别 级联查询
         function jobType(){
             var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
-            $("#JOB_ID option").remove();
+            $("#JOB_MESSAGE_ID option").remove();
             $.ajax({
                 type:"GET",
                 url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
@@ -132,7 +134,7 @@
                         var html="<option value=''>请选择</option>";
                         var selectd ="";
                         for(var i=0; i<data.length; i++){
-                            if(JobMessageId == data[i].JOB_MESSAGE_ID) selectd = "selectd";
+                            if(JobMessageId == data[i].JOB_MESSAGE_ID){ selectd = "selected";}else{selectd="";}
                             html+="<option value='"+data[i].JOB_MESSAGE_ID+"'" +selectd + " >"+data[i].JOB_NAME+"</option>";
                         }
                     }
@@ -142,7 +144,7 @@
             })
         }
 
-		$(function() {debugger;
+		$(function() {
             if(JobTypeId != null){
                 jobType();
             }

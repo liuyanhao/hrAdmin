@@ -1,14 +1,12 @@
 package com.lxc.controller.employment.papertypemanage;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import javax.annotation.Resource;
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.employment.papertypemanage.PaperTypeManageManager;
+import com.lxc.util.AppUtil;
+import com.lxc.util.Jurisdiction;
+import com.lxc.util.ObjectExcelView;
+import com.lxc.util.PageData;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -16,14 +14,12 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.Tools;
-import com.lxc.service.employment.papertypemanage.PaperTypeManageManager;
+
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 说明：试卷分类表
@@ -50,6 +46,7 @@ public class PaperTypeManageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("PAPERTYPEMANAGE_ID", this.get32UUID());	//主键
+		pd.put("STATUS",0); //初始是否启用
 		papertypemanageService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");

@@ -1,8 +1,9 @@
 package com.lxc.service.employment.interviewinfo;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 面试人账户表接口
@@ -53,6 +54,12 @@ public interface InterviewInfoManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 *录取列表
+	 * @param page
+	 * @return
+	 */
+	public List<PageData> empolyList(Page page)throws Exception;
 }
 

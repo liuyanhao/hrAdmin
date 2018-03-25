@@ -1,12 +1,13 @@
 package com.lxc.service.compensation.stipendtype.impl;
 
-import java.util.List;
-import javax.annotation.Resource;
-import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.lxc.util.PageData;
 import com.lxc.service.compensation.stipendtype.StipendTypeManager;
+import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 /** 
  * 说明： 薪资标准
@@ -77,6 +78,10 @@ public class StipendTypeService implements StipendTypeManager{
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception{
 		dao.delete("StipendTypeMapper.deleteAll", ArrayDATA_IDS);
 	}
-	
+
+	public List<PageData> listStartAll(PageData pd)throws Exception{
+		return (List<PageData>)dao.findForList("StipendTypeMapper.listStartAll", pd);
+	}
+
 }
 

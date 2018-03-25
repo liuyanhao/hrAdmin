@@ -45,12 +45,17 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-									<option value=""></option>
-									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
-								  	</select>
+								<select class="chosen-select form-control" id="STATUS" name="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;" >
+									<option value="0" <c:if test="${pd.STATUS == 0}">selected</c:if> >未审核</option>
+									<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if>>待笔试</option>
+									<option value="2" <c:if test="${pd.STATUS == 2}">selected</c:if>>笔试通过</option>
+									<option value="3" <c:if test="${pd.STATUS == 3}">selected</c:if>>笔试待审核</option>
+									<option value="4" <c:if test="${pd.STATUS == 4}">selected</c:if>>待面试</option>
+									<option value="5" <c:if test="${pd.STATUS == 5}">selected</c:if>>通过面试</option>
+									<option value="6" <c:if test="${pd.STATUS == 6}">selected</c:if>>待录用</option>
+									<option value="7" <c:if test="${pd.STATUS == 7}">selected</c:if>>未通过录用</option>
+									<option value="8" <c:if test="${pd.STATUS == 8}">selected</c:if>>通过录用</option>
+								</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
@@ -71,11 +76,9 @@
 									<th class="center">性别</th>
 									<th class="center">身份证号码</th>
 									<th class="center">E-mail</th>
-									<th class="center">民族</th>
 									<th class="center">学历</th>
 									<th class="center">国籍</th>
 									<th class="center">面试成绩</th>
-									<th class="center">时间</th>
 									<th class="center">创建时间</th>
 									<th class="center">审核状态</th>
 									<th class="center">审核操作</th>
@@ -106,22 +109,20 @@
 											</td>
 											<td class='center'>${var.CARD_ID}</td>
 											<td class='center'>${var.EMAIL}</td>
-											<td class='center'>${var.NATION}</td>
 											<td class='center'>${var.LEARING}</td>
 											<td class='center'>${var.SPEIALITY}</td>
 											<td class='center'>${var.RESULT}</td>
-											<td class='center'>${var.TIME}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>
-														<c:if test="${var.STATUS == 0}">未审核</c:if>
-														<c:if test="${var.STATUS == 1}">待面试</c:if>
-														<c:if test="${var.STATUS == 2}">待笔试</c:if>
-														<c:if test="${var.STATUS == 3}">待录用</c:if>
-														<c:if test="${var.STATUS == 4}">通过面试</c:if>
-														<c:if test="${var.STATUS == 5}">笔试通过</c:if>
-														<c:if test="${var.STATUS == 6}">笔试待审核</c:if>
-														<c:if test="${var.STATUS == 7}">未通过录用</c:if>
-														<c:if test="${var.STATUS == 8}">通过录用</c:if>
+												<c:if test="${var.STATUS == 0}">未审核</c:if>
+												<c:if test="${var.STATUS == 1}">待面试</c:if>
+												<c:if test="${var.STATUS == 2}">待笔试</c:if>
+												<c:if test="${var.STATUS == 3}">通过面试</c:if>
+												<c:if test="${var.STATUS == 4}">笔试通过</c:if>
+												<c:if test="${var.STATUS == 5}">笔试待审核</c:if>
+												<c:if test="${var.STATUS == 6}">待录用</c:if>
+												<c:if test="${var.STATUS == 7}">未通过录用</c:if>
+												<c:if test="${var.STATUS == 8}">通过录用</c:if>
 											</td>
 											<td class='center'>
 												<c:if test="${var.STATUS == 0}">
@@ -130,32 +131,32 @@
 													</a>
 												</c:if>
 												<c:if test="${var.STATUS == 1}">
-													<a class="btn btn-xs btn-success" title="待面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待面试">待面试</i>
+													<a class="btn btn-xs btn-success" title="待笔试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待笔试">待笔试</i>
 													</a>
 												</c:if>
 												<c:if test="${var.STATUS == 2}">
-													<a class="btn btn-xs btn-primary" title="待笔试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待笔试">待笔试</i>
-													</a>
-												</c:if>
-												<c:if test="${var.STATUS == 3}">
-													<a class="btn btn-xs btn-primary" title="待录用" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待录用">待录用</i>
-												</a>></c:if>
-												<c:if test="${var.STATUS == 4}">
-													<a class="btn btn-xs btn-primary" title="通过面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
-													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="通过面试">通过面试</i>
-													</a>
-												</c:if>
-												<c:if test="${var.STATUS == 5}">
 													<a class="btn btn-xs btn-primary" title="笔试通过" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
 													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="笔试通过">笔试通过</i>
 													</a>
 												</c:if>
-												<c:if test="${var.STATUS == 6}">
+												<c:if test="${var.STATUS == 3}">
 													<a class="btn btn-xs btn-primary" title="笔试待审核" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
 													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="笔试待审核">笔试待审核</i>
+												</a>></c:if>
+												<c:if test="${var.STATUS == 4}">
+													<a class="btn btn-xs btn-primary" title="待面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待面试">待面试</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 5}">
+													<a class="btn btn-xs btn-primary" title="通过面试" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="通过面试">通过面试</i>
+													</a>
+												</c:if>
+												<c:if test="${var.STATUS == 6}">
+													<a class="btn btn-xs btn-primary" title="待录用" onclick="audit('${var.RESUME_ID}','${var.STATUS}');">
+													<i class="ace-icon fa fa-pencil-square-o bigger-120" title="待录用">待录用</i>
 													</a>
 												</c:if>
 												<c:if test="${var.STATUS == 7}">未通过录用</c:if>
@@ -314,7 +315,7 @@
 				});
 			}
 			
-			
+
 			//复选框全选控制
 			var active_class = 'active';
 			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){

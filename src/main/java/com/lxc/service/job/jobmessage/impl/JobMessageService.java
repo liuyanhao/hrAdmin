@@ -93,5 +93,8 @@ public class JobMessageService implements JobMessageManager{
 		return (PageData)dao.findForObject("JobMessageMapper.findCount", pd);
 	}
 
+    public List<PageData> listSelectAll(PageData pd) throws Exception {
+    	return  (List<PageData>)dao.findForList("JobMessageMapper.listSelectAll",pd);
+	}
 }
 

@@ -124,7 +124,7 @@
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.fillResume == 1 }">
-														<a class="btn btn-xs btn-success" title="填写简历" onclick="fillResume('${var.JOB_MESSAGE_ID}');">
+														<a class="btn btn-xs btn-success" title="填写简历" onclick="fillResume('${var.JOB_MESSAGE_ID}','${var.JOB_TYPE_ID}');">
 															<i class="ace-icon fa fa-pencil align-top bigger-125" title="填写简历">填写简历</i>
 														</a>
 													</c:if>
@@ -137,7 +137,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.fillResume == 1 }">
 																<li>
-																	<a style="cursor:pointer;" onclick="fillResume('${var.JOB_MESSAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="填写简历">
+																	<a style="cursor:pointer;" onclick="fillResume('${var.JOB_MESSAGE_ID}','${var.JOB_TYPE_ID}');" class="tooltip-success" data-rel="tooltip" title="填写简历">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil align-top bigger-125"></i>
 																	</span>
@@ -390,12 +390,12 @@
 
 
 		//填写简历
-		function fillResume(Id){
+		function fillResume(Id,JOB_TYPE_ID){
             top.jzts();
             var diag = new top.Dialog();
             diag.Drag=true;
             diag.Title ="填写简历";
-            diag.URL = '<%=basePath%>resume/goAdd.do?JOB_MESSAGE_ID='+Id;
+            diag.URL = '<%=basePath%>resume/goAdd.do?JOB_MESSAGE_ID='+Id +"&JOB_TYPE_ID=" + JOB_TYPE_ID ;
             diag.Width = 840;
             diag.Height = 655;
             diag.CancelEvent = function(){ //关闭事件

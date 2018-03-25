@@ -43,6 +43,8 @@
 					
 					<form action="resume/${msg }.do" name="Form" id="Form" method="post">
 						<input type="hidden" name="RESUME_ID" id="RESUME_ID" value="${pd.RESUME_ID}"/>
+						<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}" />
+						<input type="hidden" name="JOB_TYPE_ID" id="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
@@ -86,7 +88,7 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">国籍:</td>
-								<td><select  name="NATIONALITY" id="NATIONALITY"  title="国籍"></select>	</td>
+								<td><select  name="NATIONALITY" id="NATIONALITY"  title="国籍" style="width:98%;"></select>	</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">宗教信仰:</td>
 								<td><input type="text" name="FAITH" id="FAITH" value="${pd.FAITH}" maxlength="30" placeholder="这里输入宗教信仰" title="宗教信仰" style="width:98%;"/></td>
 							</tr>
@@ -125,69 +127,15 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">专业:</td>
 								<td><input type="text" name="SPEIALITY" id="SPEIALITY" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">时间:</td>
-								<td><input class="span10 date-picker" name="TIME" id="TIME" value="${pd.TIME}" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" placeholder="时间" title="时间" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">英语等级:</td>
 								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入英语等级" title="英语等级" style="width:98%;"/></td>
 							</tr>
-							<c:if test="${msg == 'audit'}">
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">职位类别:</td>
-								<td>
-									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID" placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" style="width:98%;" >
-									<option value="">请选择</option>
-									<c:choose>
-										<c:when test="${not empty jobTypeList}">
-											<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
-												<option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
-											</c:forEach>
-										</c:when>
-										<c:otherwise>
-											<option value=""></option>
-										</c:otherwise>
-									</c:choose>
-									</select>
-								</td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
-								<td>
-									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" style="width:98%;">
-										<option value=""></option>
-									</select>
-								</td>
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
-								<td><input type="number" name="RESULT" id="RESULT" value="${pd.RESULT}" maxlength="32" placeholder="这里输入面试成绩" title="面试成绩" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">审核状态:</td>
-								<td>
-									<select id="STATUS" name="STATUS" style="width:98%;" >
-										<option value="0" <c:if test="${pd.STATUS == 0}">selected</c:if> >未审核</option>
-										<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if>>待面试</option>
-										<option value="2" <c:if test="${pd.STATUS == 2}">selected</c:if>>待笔试</option>
-										<option value="3" <c:if test="${pd.STATUS == 3}">selected</c:if>>待录用</option>
-										<option value="4" <c:if test="${pd.STATUS == 4}">selected</c:if>>通过面试</option>
-										<option value="5" <c:if test="${pd.STATUS == 5}">selected</c:if>>笔试通过</option>
-										<option value="6" <c:if test="${pd.STATUS == 6}">selected</c:if>>笔试待审核</option>
-										<option value="7" <c:if test="${pd.STATUS == 7}">selected</c:if>>未通过录用</option>
-										<option value="8" <c:if test="${pd.STATUS == 8}">selected</c:if>>通过录用</option>
-									</select>
-								</td>
-								<%--<td style="width:75px;text-align: right;padding-top: 13px;">审核人:</td>
-								<td><input type="text" name="USER_NAME" id="USER_NAME" value="${pd.USER_NAME}" maxlength="20" placeholder="这里输入审核人姓名" title="审核人姓名" style="width:98%;"/></td>--%>
-							</tr>
-							</c:if>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td colspan="5">
 									<textarea rows="5" name="REMARK" id="REMARK"   maxlength="255"  placeholder="这里输入备注" title="备注" style="width:98%;">${pd.REMARK}</textarea>
 								</td>
 
-							</tr>
-							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">个人简历:</td>
-								<td colspan="5" >
-									<textarea rows="10" name="RESUME" id="RESUME"   placeholder="这里输入个人简历" title="个人简历" style="width:98%;"/>${pd.RESUME}</textarea>
-								</td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">个人描述:</td>
@@ -267,7 +215,7 @@
                         var html="<option value=''>请选择</option>";
                         var selectd ="";
                         for(var i=0; i<data.length; i++){
-                            if(JobMessageId == data[i].JOB_MESSAGE_ID) selectd = "selectd";
+                            if(JobMessageId == data[i].JOB_MESSAGE_ID){ selectd = "selected";}else {selectd ="";}
                             html+="<option value='"+data[i].JOB_MESSAGE_ID+"'" +selectd + " >"+data[i].JOB_NAME+"</option>";
                         }
                     }

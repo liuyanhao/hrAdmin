@@ -68,5 +68,12 @@ public interface JobMessageManager{
 	 * @throws Exception
 	 */
 	public PageData findCount(PageData pd)throws Exception;
+
+	/**
+	 * 考试出题
+	 * @param pd
+	 * @return
+	 */
+	public List<PageData> listSelectAll(PageData pd)throws Exception;
 }
 

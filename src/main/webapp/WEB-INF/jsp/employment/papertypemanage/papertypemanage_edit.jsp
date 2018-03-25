@@ -32,7 +32,7 @@
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
-								<td style="width:75px;text-align: right;padding-top: 13px;">试卷分类id:</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">试卷分类编码:</td>
 								<td><input type="number" name="PAPER_TYPE_ID" id="PAPER_TYPE_ID" value="${pd.PAPER_TYPE_ID}" maxlength="32" placeholder="这里输入试卷分类id" title="试卷分类id" style="width:98%;"/></td>
 							</tr>
 							<tr>

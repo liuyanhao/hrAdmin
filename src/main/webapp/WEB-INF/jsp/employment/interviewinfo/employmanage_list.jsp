@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="subjectmanage/list.do" method="post" name="Form" id="Form">
+						<form action="interviewinfo/list.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -44,21 +44,6 @@
 								</td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
-								<td>试题分类:</td>
-								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" onchange="subjectType()" name="SUBJECTTYPE_ID" id="SUBJECTTYPE_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
-										<option value=""></option>
-										<c:forEach  items="${typeList}" var="type" varStatus="t" >
-											<option value="${type.SUBJECTTYPE_ID}" >${type.SUBJECT_TYPE_NAME}</option>
-										</c:forEach>
-								  	</select>
-								</td>
-								<td>试题类型:</td>
-								<td style="vertical-align:top;padding-left:2px;">
-									<select   name="SUBJECT_TYPE" id="SUBJECT_TYPE"  data-placeholder="请选择" style="vertical-align:top;width:120px;">
-										<option value="" >请选择</option>
-									</select>
-								</td>
 								<c:if test="${QX.cha == 1 }">
 								<td style="vertical-align:top;padding-left:2px"><a class="btn btn-light btn-xs" onclick="tosearch();"  title="检索"><i id="nav-search-icon" class="ace-icon fa fa-search bigger-110 nav-search-icon blue"></i></a></td>
 								</c:if>
@@ -74,13 +59,16 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center" style="width:100px;">试题分类</th>
-									<th class="center" style="width:100px;">试题类型</th>
-									<th class="center" style="width:400px;">题目</th>
-									<th class="center" style="width:50px;">分值</th>
-									<th class="center"style="width:100px;">出题时间</th>
-									<th class="center"style="width:50px;">发布人</th>
-									<th class="center" style="width:150px;">操作</th>
+									<th class="center">应聘者</th>
+									<th class="center">性别</th>
+									<th class="center">应聘职位分类</th>
+									<th class="center">应聘职位</th>
+									<th class="center">推荐人</th>
+									<th class="center">录用状态</th>
+									<th class="center">通过时间</th>
+									<th class="center">招聘人</th>
+									<th class="center">审核</th>
+									<th class="center">操作</th>
 								</tr>
 							</thead>
 													
@@ -92,28 +80,88 @@
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
 											<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.SUBJECTMANAGE_ID}" class="ace" /><span class="lbl"></span></label>
+												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.INTERVIEWINFO_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.SUBJECT_TYPE_NAME}</td>
-											<td class='center'>${var.SUBJECTMANAGE}</td>
-											<td class='center'>${var.SUBJECT_NAME}</td>
-											<td class='center'>${var.SCORE}</td>
-											<td class='center'>${var.ISSUE_TIME}</td>
-											<th class="center">${var.ISSUE_PERSON}</th>
+											<td class='center'>${var.STAFF_NAME}</td>
+											<td class='center'>
+												<c:if test="${var.SEX == 1}">男</c:if>
+												<c:if test="${var.SEX == 2}">女</c:if>
+											</td>
+											<td class='center'>${var.TYPE_NAME}</td>
+											<td class='center'>${var.JOB_NAME}</td>
+											<td class='center'>${var.NAME}</td>
+											<td class='center'>
+														<c:if test="${var.EMPLOYEE_STATE == 0}">未审核</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 1}">待面试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 2}">待笔试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 3}">待录用</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 4}">通过面试</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 5}">笔试通过</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 6}">笔试待审核</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 7}">未通过录用</c:if>
+														<c:if test="${var.EMPLOYEE_STATE == 8}">通过录用</c:if>
+											</td>
+											<td class='center'>${var.EMPLOYEE_TIME}</td>
+											<td class='center'>${var.RESUME_USER_NAME}</td>
+											<td class="center">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.edit == 1 }">
+														<a class="btn btn-xs btn-success" title="通过" onclick="audit('${var.INTERVIEWINFO_ID}');">
+															<i class="ace-icon fa fa-check bigger-120" title="通过">通过</i>
+														</a>
+													</c:if>
+													<c:if test="${QX.del == 1 }">
+														<a class="btn btn-xs btn-danger" onclick="audit('${var.INTERVIEWINFO_ID}');">
+															<i class="ace-icon fa fa-ban bigger-120" title="拒绝">拒绝</i>
+														</a>
+													</c:if>
+												</div>
+												<div class="hidden-md hidden-lg">
+													<div class="inline pos-rel">
+														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+															<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+														</button>
+
+														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.edit == 1 }">
+																<li>
+																	<a style="cursor:pointer;" onclick="audit('${var.INTERVIEWINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="通过">
+																	<span class="green">
+																		<i class="ace-icon fa fa-check bigger-120"></i>
+																	</span>
+																	</a>
+																</li>
+															</c:if>
+															<c:if test="${QX.del == 1 }">
+																<li>
+																	<a style="cursor:pointer;" onclick="audit('${var.INTERVIEWINFO_ID}');" class="tooltip-error" data-rel="tooltip" title="拒绝">
+																	<span class="red">
+																		<i class="ace-icon fa fa-ban bigger-120"></i>
+																	</span>
+																	</a>
+																</li>
+															</c:if>
+														</ul>
+													</div>
+												</div>
+											</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
-													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.SUBJECTMANAGE_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.INTERVIEWINFO_ID}');">
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑">编辑</i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
-													<a class="btn btn-xs btn-danger" onclick="del('${var.SUBJECTMANAGE_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+													<a class="btn btn-xs btn-danger" onclick="del('${var.INTERVIEWINFO_ID}');">
+														<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除</i>
 													</a>
 													</c:if>
 												</div>
@@ -126,7 +174,7 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.SUBJECTMANAGE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.INTERVIEWINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
 																	</span>
@@ -135,7 +183,7 @@
 															</c:if>
 															<c:if test="${QX.del == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="del('${var.SUBJECTMANAGE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
+																<a style="cursor:pointer;" onclick="del('${var.INTERVIEWINFO_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
 																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
 																	</span>
@@ -214,25 +262,6 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
-        //试题类型 级联查询
-        function subjectType(){
-            var subjectTypeId = $("#SUBJECTTYPE_ID").val();
-            $.ajax({
-                type:"GET",
-                url: "<%=basePath%>subjecttypemx/select-subject-type.do?SUBJECTTYPE_ID=" + subjectTypeId + "&tm="+new Date().getTime(),
-                success: function(data){
-                    //  console.log(data);
-                    var html="<option value='' >请选择</option>";
-                    if(data != null && data.length > 0){
-                        for(var i=0; i<data.length; i++){
-                            html+="<option value='" + data[i].SUBJECTTYPEMX_ID + "'>" + data[i].SUBJECTMANAGE + "</option>";
-                        }
-                    }
-                    $("#SUBJECT_TYPE").html(html);
-                    $("#SUBJECT_TYPE").trigger("create");
-                }
-            })
-        }
 		//检索
 		function tosearch(){
 			top.jzts();
@@ -291,9 +320,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>subjectmanage/goAdd.do';
-			 diag.Width = 840;
-			 diag.Height = 470;
+			 diag.URL = '<%=basePath%>interviewinfo/goAdd.do';
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 if('${page.currentPage}' == '0'){
@@ -313,7 +342,7 @@
 			bootbox.confirm("确定要删除吗?", function(result) {
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>subjectmanage/delete.do?SUBJECTMANAGE_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>interviewinfo/delete.do?INTERVIEWINFO_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -327,9 +356,9 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="编辑";
-			 diag.URL = '<%=basePath%>subjectmanage/goEdit.do?SUBJECTMANAGE_ID='+Id;
-			 diag.Width = 840;
-			 diag.Height = 510;
+			 diag.URL = '<%=basePath%>interviewinfo/goEdit.do?INTERVIEWINFO_ID='+Id;
+			 diag.Width = 450;
+			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件
 				 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
 					 nextPage(${page.currentPage});
@@ -338,8 +367,26 @@
 			 };
 			 diag.show();
 		}
-		
-		//批量操作
+
+		//审核
+        function audit(Id){
+            top.jzts();
+            var diag = new top.Dialog();
+            diag.Drag=true;
+            diag.Title ="编辑";
+            diag.URL = '<%=basePath%>interviewinfo/goEdit.do?INTERVIEWINFO_ID='+Id;
+            diag.Width = 450;
+            diag.Height = 355;
+            diag.CancelEvent = function(){ //关闭事件
+                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                    nextPage(${page.currentPage});
+                }
+                diag.close();
+            };
+            diag.show();
+        }
+
+        //批量操作
 		function makeAll(msg){
 			bootbox.confirm(msg, function(result) {
 				if(result) {
@@ -368,7 +415,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>subjectmanage/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>interviewinfo/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
@@ -387,7 +434,7 @@
 		
 		//导出excel
 		function toExcel(){
-			window.location.href='<%=basePath%>subjectmanage/excel.do';
+			window.location.href='<%=basePath%>interviewinfo/excel.do';
 		}
 	</script>
 

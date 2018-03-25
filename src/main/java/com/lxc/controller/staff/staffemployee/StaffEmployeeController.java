@@ -80,7 +80,9 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("STAFFEMPLOYEE_ID", this.get32UUID());	//主键
+		pd.put("STAFFEMPLOYEE_ID", this.get32UUID());	  //主键
+		pd.put("USER_ID",Jurisdiction.getUsername());     //建档人
+		pd.put("TIME", DateUtil.getTime().toString());    //建档时间
 		pd.put("CREATE_TIME",Tools.date2Str(new Date())); //创建时间
 		pd.put("CREATE_USER",Jurisdiction.getUsername()); //创建人
 		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
@@ -248,7 +250,7 @@ public class StaffEmployeeController extends BaseController {
 		titles.add("备注");	//23
 		titles.add("目前状况");	//24
 		titles.add("工作编号");	//25
-		titles.add("用户编号");	//26
+		titles.add("登记人");	//26
 		titles.add("年龄");	//27
 		titles.add("登记时间");	//28
 		titles.add("薪资");	//29

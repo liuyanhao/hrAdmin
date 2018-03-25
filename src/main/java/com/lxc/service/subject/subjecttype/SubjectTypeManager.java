@@ -1,8 +1,9 @@
 package com.lxc.service.subject.subjecttype;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 试卷分类表接口
@@ -53,6 +54,13 @@ public interface SubjectTypeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 列表 (全部启用的)
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+    public List<PageData> listStartAll(PageData pd)throws Exception;
 }
 

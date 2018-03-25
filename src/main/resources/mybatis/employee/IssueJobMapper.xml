@@ -10,6 +10,7 @@
 	<!-- 字段 -->
 	<sql id="Field">
 		JOB_MESSAGE_ID,
+		JOB_TYPE_ID,
 		COUNTS,
 		PRINCIPAL,
 		FOUNDTIME,
@@ -19,6 +20,7 @@
 	<!-- 字段值 -->
 	<sql id="FieldValue">
 		#{JOB_MESSAGE_ID},
+		#{JOB_TYPE_ID},
 		#{COUNTS},
 		#{PRINCIPAL},	
 		#{FOUNDTIME},	
@@ -50,6 +52,7 @@
 		<include refid="tableName"></include>
 		set 
 			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID},
+		JOB_TYPE_ID = #{JOB_TYPE_ID},
 			COUNTS = #{COUNTS},
 			FOUNDTIME = #{FOUNDTIME},
 		ISSUEJOB_ID = ISSUEJOB_ID
@@ -71,6 +74,7 @@
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
 			i.JOB_MESSAGE_ID,
+			i.JOB_TYPE_ID,
 			COUNTS,
 			PRINCIPAL,
 			FOUNDTIME,
@@ -99,6 +103,7 @@
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 			i.JOB_MESSAGE_ID,
+			i.JOB_TYPE_ID,
 			COUNTS,
 			PRINCIPAL,
 			FOUNDTIME,

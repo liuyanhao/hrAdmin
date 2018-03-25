@@ -74,10 +74,15 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
-									<th class="center">简历</th>
+									<th class="center">应聘者</th>
+									<th class="center">性别</th>
+									<th class="center">应聘职位分类</th>
+									<th class="center">应聘职位</th>
+									<th class="center">推荐人</th>
 									<th class="center">录用状态</th>
-									<th class="center">录用时间</th>
+									<th class="center">通过时间</th>
 									<th class="center">招聘人</th>
+									<th class="center">审核</th>
 									<th class="center">操作</th>
 								</tr>
 							</thead>
@@ -93,7 +98,14 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.INTERVIEWINFO_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
-											<td class='center'>${var.RESUME_ID}</td>
+											<td class='center'>${var.STAFF_NAME}</td>
+											<td class='center'>
+												<c:if test="${var.SEX == 1}">男</c:if>
+												<c:if test="${var.SEX == 2}">女</c:if>
+											</td>
+											<td class='center'>${var.TYPE_NAME}</td>
+											<td class='center'>${var.JOB_NAME}</td>
+											<td class='center'>${var.NAME}</td>
 											<td class='center'>
 														<c:if test="${var.EMPLOYEE_STATE == 0}">未审核</c:if>
 														<c:if test="${var.EMPLOYEE_STATE == 1}">待面试</c:if>
@@ -109,17 +121,62 @@
 											<td class='center'>${var.RESUME_USER_NAME}</td>
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+													<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
+												</c:if>
+												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.edit == 1 }">
+														<a class="btn btn-xs btn-success" title="通过" onclick="audit('${var.INTERVIEWINFO_ID}');">
+															<i class="ace-icon fa fa-check bigger-120" title="通过">通过</i>
+														</a>
+													</c:if>
+													<c:if test="${QX.del == 1 }">
+														<a class="btn btn-xs btn-danger" onclick="audit('${var.INTERVIEWINFO_ID}');">
+															<i class="ace-icon fa fa-ban bigger-120" title="拒绝">拒绝</i>
+														</a>
+													</c:if>
+												</div>
+												<div class="hidden-md hidden-lg">
+													<div class="inline pos-rel">
+														<button class="btn btn-minier btn-primary dropdown-toggle" data-toggle="dropdown" data-position="auto">
+															<i class="ace-icon fa fa-cog icon-only bigger-110"></i>
+														</button>
+
+														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.edit == 1 }">
+																<li>
+																	<a style="cursor:pointer;" onclick="audit('${var.INTERVIEWINFO_ID}');" class="tooltip-success" data-rel="tooltip" title="通过">
+																	<span class="green">
+																		<i class="ace-icon fa fa-check bigger-120"></i>
+																	</span>
+																	</a>
+																</li>
+															</c:if>
+															<c:if test="${QX.del == 1 }">
+																<li>
+																	<a style="cursor:pointer;" onclick="audit('${var.INTERVIEWINFO_ID}');" class="tooltip-error" data-rel="tooltip" title="拒绝">
+																	<span class="red">
+																		<i class="ace-icon fa fa-ban bigger-120"></i>
+																	</span>
+																	</a>
+																</li>
+															</c:if>
+														</ul>
+													</div>
+												</div>
+											</td>
+											<td class="center">
+												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.INTERVIEWINFO_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑">编辑</i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.INTERVIEWINFO_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+														<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除</i>
 													</a>
 													</c:if>
 												</div>
@@ -325,8 +382,26 @@
 			 };
 			 diag.show();
 		}
-		
-		//批量操作
+
+		//审核
+        function audit(Id){
+            top.jzts();
+            var diag = new top.Dialog();
+            diag.Drag=true;
+            diag.Title ="编辑";
+            diag.URL = '<%=basePath%>interviewinfo/goEdit.do?INTERVIEWINFO_ID='+Id;
+            diag.Width = 450;
+            diag.Height = 355;
+            diag.CancelEvent = function(){ //关闭事件
+                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                    nextPage(${page.currentPage});
+                }
+                diag.close();
+            };
+            diag.show();
+        }
+
+        //批量操作
 		function makeAll(msg){
 			bootbox.confirm(msg, function(result) {
 				if(result) {

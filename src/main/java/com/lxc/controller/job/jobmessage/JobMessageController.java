@@ -56,7 +56,7 @@ public class JobMessageController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("JOB_MESSAGE_ID", this.get32UUID());	//主键
-		pd.put("JOB_TYPE_ID", "0");	//工作类型id
+		//pd.put("JOB_TYPE_ID", "0");	//工作类型id
 		jobmessageService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -64,7 +64,6 @@ public class JobMessageController extends BaseController {
 	}
 	
 	/**删除
-	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
@@ -135,7 +134,7 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> stipendTypeList =stipendtypeService.listAll(pd);
+		List<PageData> stipendTypeList =stipendtypeService.listStartAll(pd);
 		mv.addObject("stipendTypeList",stipendTypeList);
 		mv.setViewName("job/jobmessage/jobmessage_edit");
 		mv.addObject("msg", "save");
@@ -152,7 +151,7 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> stipendTypeList =stipendtypeService.listAll(pd);
+		List<PageData> stipendTypeList =stipendtypeService.listStartAll(pd);
 		mv.addObject("stipendTypeList",stipendTypeList);
 		pd = jobmessageService.findById(pd);	//根据ID读取
 		mv.setViewName("job/jobmessage/jobmessage_edit");
@@ -176,7 +175,7 @@ public class JobMessageController extends BaseController {
 		List<String> titles = new ArrayList<String>();
 		titles.add("工作类型");	//1
 		titles.add("工作名称");	//2
-		titles.add("薪酬标准id");	//3
+		titles.add("薪酬标准");	//3
 		dataMap.put("titles", titles);
 		List<PageData> varOList = jobmessageService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();

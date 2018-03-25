@@ -1,8 +1,9 @@
 package com.lxc.service.compensation.stipendtype;
 
-import java.util.List;
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 /** 
  * 说明： 薪资标准接口
@@ -53,6 +54,12 @@ public interface StipendTypeManager{
 	 * @throws Exception
 	 */
 	public void deleteAll(String[] ArrayDATA_IDS)throws Exception;
-	
+
+	/**
+	 * 列表(全部启用)
+	 * @param pd
+	 * @return
+	 */
+   public  List<PageData> listStartAll(PageData pd)throws Exception;
 }
 

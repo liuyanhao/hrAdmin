@@ -88,7 +88,32 @@ public class InterviewInfoController extends BaseController {
 		mv.setViewName("save_result");
 		return mv;
 	}
-	
+
+
+	/**列表
+	 * @param page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/empolylist")
+	public ModelAndView empolyList(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表InterviewInfo");
+		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}
+		page.setPd(pd);
+		List<PageData>	varList = interviewinfoService.empolyList(page);	//列出InterviewInfo列表
+		mv.setViewName("employment/interviewinfo/employmanage_list");
+		mv.addObject("varList", varList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
+
 	/**列表
 	 * @param page
 	 * @throws Exception
@@ -183,7 +208,7 @@ public class InterviewInfoController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("简历id");	//1
+		titles.add("简历");	//1
 		titles.add("录用状态");	//2
 		titles.add("录用时间");	//3
 		titles.add("招聘人姓名");	//4

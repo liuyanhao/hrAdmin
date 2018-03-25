@@ -104,6 +104,19 @@
 		</if>
 	</select>
 
+	<select id="listSelectAll" parameterType="pd" resultType="pd">
+	select
+		sj.SUBJECTTYPE_ID,
+		sj.SUBJECT_TYPE_NAME,
+		jt.SUBJECTMANAGE,
+		jt.SUBJECTTYPE_ID,
+		(select count(1) from tb_subjectmanage st where st.SUBJECT_TYPE = jt.SUBJECTTYPEMX_ID and  jt.IS_REMOVE = 0 and jt.`STATUS`= 1 ) as counts
+	  from  tb_subjecttypemx jt
+		left join  tb_subjecttype sj on  sj.SUBJECTTYPE_ID = jt.SUBJECTTYPE_ID
+		where 1=1
+	 group by jt.SUBJECTTYPE_ID
+	</select>
+
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select

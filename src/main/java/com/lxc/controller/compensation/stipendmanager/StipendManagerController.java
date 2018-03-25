@@ -142,7 +142,7 @@ public class StipendManagerController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> varlist = stipendtypeService.listAll(pd);
+		List<PageData> varlist = stipendtypeService.listStartAll(pd);
 		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -160,11 +160,11 @@ public class StipendManagerController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = stipendmanagerService.findById(pd);	//根据ID读取
-		List<PageData> varlist = stipendtypeService.listAll(pd);
+		List<PageData> typeList = stipendtypeService.listStartAll(pd);
 		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
-		mv.addObject("typeList", varlist);
+		mv.addObject("typeList", typeList);
 		return mv;
 	}
 
@@ -178,7 +178,7 @@ public class StipendManagerController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd = stipendmanagerService.findById(pd);	//根据ID读取
-		List<PageData> varlist = stipendtypeService.listAll(pd);
+		List<PageData> varlist = stipendtypeService.listStartAll(pd);
 		mv.setViewName("compensation/stipendmanager/stipendmanager_edit");
 		mv.addObject("msg", "audit");
 		mv.addObject("pd", pd);
