@@ -56,13 +56,35 @@ public class WantExamController  extends BaseController {
     }
 
 
+    /**
+     * 保存考试出题
+     * @return
+     * @throws Exception
+     */
     @RequestMapping(value="/saveSubject")
     public ModelAndView saveSubject()throws Exception{
         logBefore(logger, Jurisdiction.getUsername()+"保存考试出题 saveSubject");
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
+        //获取 职位分类
+        String JOB_TYPE_ID = pd.getString("JOB_TYPE_ID");
+        //获取 职位名称
+        String JOB_MESSAGE_ID = pd.getString("JOB_MESSAGE_ID");
+        //获取 题目类型id 数组
+        String[] keys = getRequest().getParameterValues("keys");
+        //获取 获取所抽选的题目类型的 题目数量 数组
+        String[] values = getRequest().getParameterValues("values");
 
+        if(values == null || values.length < 0) {
+            mv.addObject("message", "哈哈不允许为空");
+            if (pd != null) {
+                mv.addObject("pd", pd);
+            }
+            List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+            mv.addObject("jobTypeList", jobTypeList);
+            mv.setViewName("want/goExam");
+        }
         mv.addObject("msg","success");
         mv.setViewName("save_result");
         return mv;
@@ -100,15 +122,15 @@ public class WantExamController  extends BaseController {
         PageData pd = new PageData();
         pd = this.getPageData();
         String JOB_MESSAGE_ID = pd.get("JOB_MESSAGE_ID") != null ?  pd.get("JOB_MESSAGE_ID").toString() : "" ;
-        pd = resumeService.findByCardId(pd);
-        if(pd == null || pd.isEmpty()){
+        PageData CardPd = resumeService.findByCardId(pd);
+        if(CardPd == null || CardPd.isEmpty()){
             mv.addObject("message","未找到与您身份证号码匹配的简历");
             if(pd != null) {
                 mv.addObject("pd", pd);
             }
             mv.setViewName("want/goExam");
         }else{
-            if(pd.getString("JOB_MESSAGE_ID") != JOB_MESSAGE_ID){ //判断职位是否符合
+            if(CardPd.getString("JOB_MESSAGE_ID") != JOB_MESSAGE_ID){ //判断职位是否符合
                 mv.addObject("message","您没有参加该职务考试的权限");
                 mv.addObject("pd", pd);
                 mv.setViewName("want/goExam");

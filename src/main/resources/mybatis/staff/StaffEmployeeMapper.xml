@@ -109,42 +109,95 @@
 		update
 		<include refid="tableName"></include>
 		set 
-			STAFF_ID = #{STAFF_ID},
+			<if test="STAFF_ID != null and STAFF_ID !=''" >
+				STAFF_ID = #{STAFF_ID},
+			</if>
+			<if test="SEX != null and SEX !=''" >
 			SEX = #{SEX},
+			</if>
+		<if test="ADDRESS != null and ADDRESS !=''" >
 			ADDRESS = #{ADDRESS},
+		</if>
+		<if test="PHONE != null and PHONE !=''" >
 			PHONE = #{PHONE},
+		</if>
+		<if test="PIC != null and PIC !=''" >
 			PIC = #{PIC},
+		</if>
+		<if test="CARD_ID != null and CARD_ID !=''" >
 			CARD_ID = #{CARD_ID},
+		</if>
+		<if test="EMAIL != null and EMAIL !=''" >
 			EMAIL = #{EMAIL},
+		</if>
+		<if test="QQ != null and QQ !=''" >
 			QQ = #{QQ},
+		</if>
+		<if test="WECHAT != null and WECHAT !=''" >
 			WECHAT = #{WECHAT},
+		</if>
+		<if test="POST_CODE != null and POST_CODE !=''" >
 			POST_CODE = #{POST_CODE},
+		</if>
+		<if test="GOVEMMET != null and GOVEMMET !=''" >
 			GOVEMMET = #{GOVEMMET},
+		</if>
+		<if test="NATION != null and NATION !=''" >
 			NATION = #{NATION},
+		</if>
+		<if test="LEARING != null and LEARING !=''" >
 			LEARING = #{LEARING},
+		</if>
+		<if test="HOBBY != null and HOBBY !=''" >
 			HOBBY = #{HOBBY},
+		</if>
+		<if test="SUIT != null and SUIT !=''" >
 			SUIT = #{SUIT},
+		</if>
+		<if test="NATIONALITY != null and NATIONALITY !=''" >
 			NATIONALITY = #{NATIONALITY},
+		</if>
+		<if test="BIRTH != null and BIRTH !=''" >
 			BIRTH = #{BIRTH},
+		</if>
+		<if test="FAITH != null and FAITH !=''" >
 			FAITH = #{FAITH},
+		</if>
+		<if test="SPEIALITY != null and SPEIALITY !=''" >
 			SPEIALITY = #{SPEIALITY},
+		</if>
+		<if test="RESUME != null and RESUME !=''" >
 			RESUME = #{RESUME},
+		</if>
+		<if test="DESCRIBES != null and DESCRIBES !=''" >
 			DESCRIBES = #{DESCRIBES},
+		</if>
+		<if test="REMARK != null and REMARK !=''" >
 			REMARK = #{REMARK},
-			ISROMVE = #{ISROMVE},
+		</if>
+		<if test="JOB_ID != null and JOB_ID !=''" >
 			JOB_ID = #{JOB_ID},
-			USER_ID = #{USER_ID},
+		</if>
+		<if test="AGE != null and AGE !=''" >
 			AGE = #{AGE},
+		</if>
+		<if test="ADD_TIME != null and ADD_TIME !=''" >
 			ADD_TIME = #{ADD_TIME},
+		</if>
+		<if test="STIPEND_ID != null and STIPEND_ID !=''" >
 			STIPEND_ID = #{STIPEND_ID},
-			CREATE_TIME = #{CREATE_TIME},
+		</if>
+		<if test="UPDATE_TIME != null and UPDATE_TIME !=''" >
 			UPDATE_TIME = #{UPDATE_TIME},
-			CREATE_USER = #{CREATE_USER},
+		</if>
+		<if test="UPDATE_USER != null and UPDATE_USER !=''" >
 			UPDATE_USER = #{UPDATE_USER},
+		</if>
+		<if test="STAFF_NAME != null and STAFF_NAME !=''" >
 			STAFF_NAME = #{STAFF_NAME},
-			STATES = #{STATES},
+		</if>
 		STAFFEMPLOYEE_ID = STAFFEMPLOYEE_ID
-		where 
+		where
 		STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
 	</update>
 	
@@ -242,5 +295,13 @@
 		</if>
 	</select>
 
+
+	<select id="findMaxId" resultType="pd" parameterType="pd">
+		select
+		max(STAFF_ID) zs
+		from
+		<include refid="tableName"></include>
+		where 1=1
+	</select>
 	<!-- lxc 1094921525qq -->
 </mapper>

@@ -74,7 +74,7 @@
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
 			i.JOB_MESSAGE_ID,
-			i.JOB_TYPE_ID,
+			j.JOB_TYPE_ID,
 			COUNTS,
 			PRINCIPAL,
 			FOUNDTIME,
@@ -103,7 +103,7 @@
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
 			i.JOB_MESSAGE_ID,
-			i.JOB_TYPE_ID,
+			j.JOB_TYPE_ID,
 			COUNTS,
 			PRINCIPAL,
 			FOUNDTIME,

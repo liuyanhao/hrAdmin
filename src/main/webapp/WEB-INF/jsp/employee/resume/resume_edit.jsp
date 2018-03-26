@@ -14,22 +14,22 @@
 	<link rel="stylesheet" href="static/ace/css/chosen.css" />
 	<!-- jsp文件头和头部 -->
 	<%@ include file="../../system/index/top.jsp"%>
-	<!-- 日期框 -->
-	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
-	<!-- 上传图片插件 -->
-	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+	<script type="text/javascript" src="static/ace/js/jquery.js"></script>
+	<!-- 上传头像图片插件 -->
+	<link href="plugins/uploadify/uploadify.touxiang.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="plugins/uploadify/swfobject.js"></script>
 	<script type="text/javascript" src="plugins/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-	<!-- 上传图片插件 -->
+	<!-- 上传头像图片插件 -->
 	<script type="text/javascript">
 		var jsessionid = "<%=session.getId()%>";  //勿删，uploadify兼容火狐用到
 	</script>
 	<!-- 民族信息 -->
 	<script type="text/javascript" src="static/js/nationUtils.js"/>
 	<script  type="text/javascript">
-
 	</script>
 	<!-- 民族信息 -->
+	<!-- 日期框 -->
+	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
 </head>
 <body class="no-skin">
 <!-- /section:basics/navbar.layout -->
@@ -56,8 +56,16 @@
 										<option value="2" <c:if test="${pd.SEX == '2' }">selected</c:if> >女</option>
 									</select>
 								</td>
-								<td rowspan="4" colspan="2">
-									<div ><img src="<%=basePath%>uploadFiles/uploadImgs/${pd.PIC}" onerror="this.src='<%=basePath%>uploadFiles/uploadImgs/defaultImage.jpg';this.onerror=null" width="200" height="240"></div>
+								<td style="width:79px;text-align: right;padding-top: 13px;">员工照片:</td>
+								<td rowspan="5" colspan="1">
+									<div >
+										<img id="picImage" src="<c:if test='${pd.PIC != null}'><%=basePath%>uploadFiles/touXiang/${pd.PIC}</c:if>" onerror="this.src='<%=basePath%>uploadFiles/uploadImgs/defaultImage.jpg';this.onerror=null"
+											 width="180" height="200" style="margin-left: 15px;  margin-bottom: 5px" >
+									</div >
+									<div id="tipsTwo">
+										<input type="hidden" name="PIC" id="PIC" value="${pd.PIC}">
+										<input type="file"  id="uploadify1"  keepDefaultStyle = "true"   title="照片地址" style="width:98%;"/>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -89,16 +97,25 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">国籍:</td>
 								<td><select  name="NATIONALITY" id="NATIONALITY"  title="国籍" style="width:98%;"></select>	</td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">宗教信仰:</td>
-								<td><input type="text" name="FAITH" id="FAITH" value="${pd.FAITH}" maxlength="30" placeholder="这里输入宗教信仰" title="宗教信仰" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号:</td>
+								<td colspan="2"><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">政治面貌:</td>
-								<td><input type="text" name="GOVEMMET" id="GOVEMMET" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号:</td>
-								<td><input type="text" name="CARD_ID" id="CARD_ID" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">照片地址:</td>
-								<td><input type="file" name="PIC"  id="uploadify1"  keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
+								<td>
+									<select name="GOVEMMET" id="GOVEMMET"  maxlength="15" placeholder="这里选择政治面貌" title="政治面貌" style="width:98%;">
+										<option value="">请选择</option>
+										<option value="中共党员" <c:if test="${pd.GOVEMMET =='中共党员'}" >selected</c:if> >中共党员</option>
+										<option value="中共预备党员" <c:if test="${pd.GOVEMMET =='中共预备党员'}" >selected</c:if>>中共预备党员</option>
+										<option value="共青团员" <c:if test="${pd.GOVEMMET =='共青团员'}" >selected</c:if>>共青团员</option>
+										<option value="无党派人士" <c:if test="${pd.GOVEMMET =='无党派人士'}" >selected</c:if>>无党派人士</option>
+										<option value="群众" <c:if test="${pd.GOVEMMET =='群众'}" >selected</c:if>>群众</option>
+										<option value="其他" <c:if test="${pd.GOVEMMET !=''}" >selected</c:if>>其他</option>
+									</select>
+								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">宗教信仰:</td>
+								<td><input type="text" name="FAITH" id="FAITH" value="${pd.FAITH}" maxlength="30" placeholder="这里输入宗教信仰" title="宗教信仰" style="width:98%;"/></td>
+								<td style="width:79px;text-align: right;padding-top: 13px;"><a class="btn btn-mini btn-success" onclick="uploadTouXiang()" >上传</a></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">E-mail:</td>
@@ -152,6 +169,9 @@
 						</table>
 						</div>
 						<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
+						<div class="step-content row-fluid position-relative">
+							<input type="hidden" value="no" id="hasTp1" />
+						</div>
 					</form>
 					</div>
 					<!-- /.col -->
@@ -168,6 +188,8 @@
 
 	<!-- 页面底部js¨ -->
 	<%@ include file="../../system/index/foot.jsp"%>
+	<!-- ace scripts -->
+	<script src="static/ace/js/ace/ace.js"></script>
 	<!-- 下拉框 -->
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
@@ -257,14 +279,14 @@
 				$("#PHONE").focus();
 			return false;
 			}
-			if($("#uploadify1").val()==""){
-				$("#uploadify1").tips({
+			if($("#PIC").val()==""){
+				$("#PIC").tips({
 					side:3,
 		            msg:'请上传照片',
 		            bg:'#AE81FF',
 		            time:2
 		        });
-				$("#uploadify1").focus();
+				$("#PIC").focus();
 			return false;
 			}
 			if($("#CARD_ID").val()==""){
@@ -513,11 +535,65 @@
 			$("#zhongxin").hide();
 			$("#zhongxin2").show();
 		}
-		
-		$(function() {
+
+        //上传头像
+        var locat = (window.location+'').split('/');
+        $(function(){if('resume'== locat[3]){locat =  locat[0]+'//'+locat[2];}else{locat =  locat[0]+'//'+locat[2]+'/'+locat[3];};});
+
+        $(function() {
 			//日期框
 			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
 		});
+
+        //====================上传头像照片=================
+        $(document).ready(function(){
+            var str='';
+            $("#uploadify1").uploadify({
+                'buttonImg'	: 	locat+"/static/images/touxiang.png",
+                'uploader'	:	locat+"/plugins/uploadify/uploadify.swf",
+                'script'    :	locat+"/plugins/uploadify/uploadFile.jsp;jsessionid="+jsessionid,
+                'cancelImg' :	locat+"/plugins/uploadify/cancel.png",
+                'folder'	:	locat+"/uploadFiles/touXiang",//上传文件存放的路径,请保持与uploadFile.jsp中PATH的值相同
+                'queueId'	:	"fileQueue",
+                'queueSizeLimit':1,//限制上传文件的数量
+                //'fileExt'	:	"*.rar,*.zip",
+                //'fileDesc'	:	"RAR *.rar",//限制文件类型
+                'fileExt'     : '*.jpg;*.gif;*.png',
+                'fileDesc'    : 'Please choose(.JPG, .GIF, .PNG)',
+                'auto'		:	false,
+                'multi'		:	true,//是否允许多文件上传
+                'simUploadLimit':	2,//同时运行上传的进程数量
+                'buttonText':	"files",
+                'scriptData':	{'uploadPath':'/uploadFiles/touXiang/'},//这个参数用于传递用户自己的参数，此时'method' 必须设置为GET, 后台可以用request.getParameter('name')获取名字的值
+                'method'	:	"GET",
+                'onComplete':function(event,queueId,fileObj,response,data){
+                    str = response.trim();//单个上传完毕执行
+                },
+                'onAllComplete' : function(event,data) {
+                    //  alert(str);	//全部上传完毕执行
+                    $("#picImage").attr("src","<%=basePath%>uploadFiles/touXiang/" + str);
+                    $("#PIC").val(str);
+                },
+                'onSelect' : function(event, queueId, fileObj){
+                    $("#hasTp1").val("ok");
+                }
+            });
+
+        });
+        //====================上传头像照片=================
+
+        function uploadTouXiang(){
+            if($("#hasTp1").val()=="no"){
+                $("#tipsTwo").tips({
+                    side:3,
+                    msg:'请选择头像照片',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                return false;
+            }
+            $('#uploadify1').uploadifyUpload();
+        }
 		</script>
 </body>
 </html>

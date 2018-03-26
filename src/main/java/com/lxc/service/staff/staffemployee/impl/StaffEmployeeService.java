@@ -89,5 +89,9 @@ public class StaffEmployeeService implements StaffEmployeeManager{
 		return (List<PageData>)dao.findForList("StaffEmployeeMapper.statePassPage", page);
 	}
 
+	public PageData findMaxId(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("StaffEmployeeMapper.findMaxId", pd);
+	}
+
 }
 

@@ -32,12 +32,12 @@
 						<div class="col-xs-12">
 
 						<!-- 存放生成的html开头  -->
-						<form class="form-horizontal" role="form" id="FORM" action="wantexam/saveSubject.do">
+						<form class="form-horizontal" role="form" id="Form" action="wantexam/saveSubject.do" method="POST">
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="JOB_TYPE_ID">职位分类：</label>
 								<div class="col-sm-9">
-									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" class="col-xs-10 col-sm-5" >
+									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  placeholder="这里选择工作职位分类" onchange="jobType()"  title="职位分类" class="col-xs-10 col-sm-5" >
 										<option value="">请选择</option>
 										<c:choose>
 											<c:when test="${not empty jobTypeList}">
@@ -54,33 +54,36 @@
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" >出题人：</label>
-								<div class="col-sm-9">
+								<div class="col-sm-7">
 									<input type="hidden" name="setThemeUser"  value="${setThemeUser}">
 									<p class="form-control-static">${setThemeUser}</p>
+								</div>
+								<div class="col-sm-2">
+
 								</div>
 							</div>
 						</div>
 						<div class="col-md-6">
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="JOB_MESSAGE_ID">职位名称：</label>
-								<div class="col-sm-9">
+								<div class="col-sm-7">
 									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" placeholder="请选择职位名称"  class="col-xs-10 col-sm-5">
 										<option value=""></option>
 									</select>
 								</div>
+								<div class="col-sm-２">
+
+								</div>
 							</div>
 							<div class="form-group">
 								<label class="col-sm-3 control-label no-padding-right" for="EXAM_TIME">考试时间：</label>
-								<div class="col-sm-9">
-									<input type="number" id="EXAM_TIME" placeholder="考试时间" class="col-xs-10 col-sm-5"><span class="input-icon input-icon-right">分钟</span>
+								<div class="col-sm-7">
+									<input type="number" id="EXAM_TIME" name="EXAM_TIME" placeholder="考试时间" class="col-xs-10 col-sm-5"><span class="input-icon no-padding-right" style="margin-top: 7px;margin-left: 8px;">分钟</span>
+								</div>
+								<div class="col-sm-２">
+									<a class="btn btn-primary" onclick="save();">提交</a>
 								</div>
 							</div>
-						</div>
-						<div class="col-md-6">
-							出题信息
-						</div>
-						<div class="col-md-6">
-
 						</div>
 							<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">
 								<thead>
@@ -100,9 +103,10 @@
 												<tr>
 													<td class='center'>${var.SUBJECT_TYPE_NAME}</td>
 													<td class='center'>${var.SUBJECTMANAGE}</td>
-													<td class='center'>${var.counts}</td>
+													<td class='center'>${var.counts} <input type="hidden" id="${var.SUBJECTTYPE_ID}_counts"  value="${var.counts}"> </td>
 													<td class="center">
-														 <input id="" name="" type="number"  value="0" />
+														<input id="keys_${var.SUBJECTTYPE_ID}" name="keys" value="${var.SUBJECTTYPE_ID}" type="hidden" />
+														<input id="values_${var.SUBJECTTYPE_ID}" name="values" type="number" max="${var.counts}" min="0" value="0" />
 													</td>
 												</tr>
 
@@ -116,9 +120,9 @@
 								</c:choose>
 								</tbody>
 							</table>
+							<div id="zhongxin2" class="center" style="display:none"><br/><br/><br/><br/><br/><img src="static/images/jiazai.gif" /><br/><h4 class="lighter block green">提交中...</h4></div>
 						</form>
 						<!-- 存放生成的html结尾 -->
-
 						</div>
 						<!-- /.col -->
 					</div>
@@ -145,10 +149,12 @@ s	</div>
 	<script src="static/ace/js/chosen.jquery.js"></script>
 	<!-- 日期框 -->
 	<script src="static/ace/js/date-time/bootstrap-datepicker.js"></script>
+	<!--提示框-->
+	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());
 
-        //选择职位类别 级联查询
+        //选择职位分类 级联查询
         function jobType(){
             var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
             $("#JOB_MESSAGE_ID option").remove();
@@ -197,6 +203,45 @@ s	</div>
                     });
                 }
             });
+
+        //保存
+        function save(){
+            if($("#JOB_TYPE_ID").val()==""){
+                $("#JOB_TYPE_ID").tips({
+                    side:3,
+                    msg:'请选择职位分类',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#JOB_TYPE_ID").focus();
+                return false;
+            }
+            if($("#JOB_MESSAGE_ID").val()==""){
+                $("#JOB_MESSAGE_ID").tips({
+                    side:3,
+                    msg:'请选择职位类型',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#JOB_MESSAGE_ID").focus();
+                return false;
+            }
+            if($("#EXAM_TIME").val()==""){
+                $("#EXAM_TIME").tips({
+                    side:3,
+                    msg:'请填写考试时间',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#EXAM_TIME").focus();
+                return false;
+            }
+
+
+            $("#Form").submit();
+            $("#zhongxin").hide();
+            $("#zhongxin2").show();
+        }
 	</script>
 </body>
 </html>

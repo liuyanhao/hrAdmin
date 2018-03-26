@@ -1,6 +1,6 @@
 -- --------------------------------------------------------
 -- 主机:                           127.0.0.1
--- 服务器版本:                        5.5.27 - MySQL Community Server (GPL)
+-- 服务器版本:                        5.6.29 - MySQL Community Server (GPL)
 -- 服务器操作系统:                      Win64
 -- HeidiSQL 版本:                  9.4.0.5125
 -- --------------------------------------------------------
@@ -499,7 +499,7 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`) VALUES
-	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-25 15:45:44', '127.0.0.1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
+	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-26 19:58:49', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
 	('1e17c5d17bce41d6b69178177ab5742c', 'liuxi', 'c9da4bc902c09bbbda3bd43eb3dbda3ec417c575', '刘熙', '', 'f924d00914c54810922c31b62612dc57', '2018-03-11 13:53:35', '0:0:0:0:0:0:0:1', '0', '面试人', 'default', '1094921525@qq.com', '1002', '18911780490'),
 	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556'),
 	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'lisi', '434588cee83dca5aaa683852319c54c22f1b41ab', '李四', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', '313596790@qq.com', '1102', '13566233663'),
@@ -768,11 +768,12 @@ CREATE TABLE IF NOT EXISTS `tb_resume` (
   `BIRTH` varchar(20) DEFAULT NULL COMMENT '出生年月',
   `FAITH` varchar(30) DEFAULT NULL COMMENT '宗教信仰',
   `SPEIALITY` varchar(20) DEFAULT NULL COMMENT '专业',
+  `RESUME` text COMMENT '个人简历',
   `DESCRIBES` text COMMENT '个人描述',
   `REMARK` varchar(255) DEFAULT NULL COMMENT '备注',
-  `USER_ID` varchar(32) DEFAULT NULL COMMENT '推荐人id',
+  `USER_ID` varchar(32) DEFAULT NULL COMMENT '登录账号id',
   `AGE` int(11) DEFAULT NULL COMMENT '年龄',
-  `TIME` varchar(32) DEFAULT NULL COMMENT '建档时间',
+  `TIME` varchar(32) DEFAULT NULL COMMENT '时间',
   `CREATE_TIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
   `UPDATE_TIME` varchar(32) DEFAULT NULL COMMENT '修改时间',
   `CREATE_USER` varchar(255) DEFAULT NULL COMMENT '创建人',
@@ -792,12 +793,12 @@ CREATE TABLE IF NOT EXISTS `tb_resume` (
 -- 正在导出表  lxcadmin.tb_resume 的数据：~5 rows (大约)
 DELETE FROM `tb_resume`;
 /*!40000 ALTER TABLE `tb_resume` DISABLE KEYS */;
-INSERT INTO `tb_resume` (`RESUME_ID`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `DESCRIBES`, `REMARK`, `USER_ID`, `AGE`, `TIME`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STAFF_NAME`, `STATUS`, `USER_NAME`, `REASON`, `RESULT`, `SCORE`, `JOB_MESSAGE_ID`, `JOB_TYPE_ID`, `DEGREE`) VALUES
-	('63fe8322e6f34a448a15cd3362140f57', 2, '广西省南宁', '1810291021', '', '3609119201921291021', '2121182129@qq,com', '2121182129', 'xiongqingchun', '10091', '群众', '0', '本科', '谈恋爱', '敲诈', 'CN', '1985-08-14', '无', '人力资源管理', '青春职业介绍所', '少时诵诗书所所所所所所', '1', 33, '2018-03-22', '2018-03-22 09:28:37', '2018-03-24 23:00:54', 'admin', 'admin', '熊青春', 1, 'admin', '121212', 0, NULL, '1', '1001', '英语四级'),
-	('a31fc9a04ba14a5c9474571aea318141', 1, '浙江钱塘县', '18181091112', '', '360732201803222116', '1281921921@qq.com', '181291011', 'xushilin', '100086', '群众', '0', '本科', '读书', '写文章', 'CN', '2018-03-22', '佛教', '汉语文学', '简单', '1111', '1e17c5d17bce41d6b69178177ab5742c', 20, '2018-03-22', '2018-03-22 09:28:37', '2018-03-24 22:32:36', 'admin', 'admin', '许仕林', 7, 'admin', '文采出众，见解独到。文曲星下凡', 100, NULL, '5', '1001', '六级'),
-	('a388af209c22499285de1d051e2a46ce', 1, '山东青岛', '18911780490', 'CRm测试环境账号.txt', '3607322018032211910', '1821902102@qq.com', '1821902102', 'jiangchao', '10091', '群众', '0', '大学', '玩游戏', '编程', 'CN', '2018-03-22', '无', '计算机科学与技术', '很好', '无', '1', 28, '2018-03-22', '2018-03-22 09:28:37', '2018-03-24 23:17:25', 'admin', 'admin', '姜超', 1, 'admin', '技术大牛', 98, 'ok ', '2', '1001', '四级'),
-	('b0a739b2700042e483bd686bb6205363', 1, '北京市海淀区', '18102910911', '示例图片_02.jpg', '3607321919029101', '212111291@qq.com', '212111291', 'huanxiao', '10091', '群众', '0', '大学', '表演', '唱歌', 'CN', '1989-10-12', '佛教', '演员', '111111111111', '111', '1e17c5d17bce41d6b69178177ab5742c', 12, '2018-01-28', '2018-03-21 22:34:07', '2018-03-24 23:16:59', 'admin', 'admin', '黄晓', 4, 'admin', '111111111111', 96, '1111111111', '1', '1001', '四级'),
-	('f51db1d892084adfb2037d0b0e499af6', 1, '北京市朝阳区CBD', '18102901111', '', '36073219801001190916', '128190290@qq.com', '128190290', 'zhengqiudong', '100091', '群众', '0', '本科', '看书', '金融行业，猎聘', 'CN', '1980-10-01', '无', '人力资源管理', '德聚仁合', '猎场', '1', 38, '2018-03-23', '2018-03-24 18:23:02', '2018-03-24 23:43:08', 'admin', 'admin', '郑秋冬', 0, 'admin', 'dfsfssd', 0, NULL, '3', '1001', '英语六级');
+INSERT INTO `tb_resume` (`RESUME_ID`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `USER_ID`, `AGE`, `TIME`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STAFF_NAME`, `STATUS`, `USER_NAME`, `REASON`, `RESULT`, `SCORE`, `JOB_MESSAGE_ID`, `JOB_TYPE_ID`, `DEGREE`) VALUES
+	('657b322d33ea447d8959561e0baf3cd3', 1, '钱塘江', '1821201290121', '2018032605510236223.jpg', '360219209101211111', '121214412@qq.com', '121214412', 'qibaoshan', '100092', '其他', '0', '大学', '射猎', '练武', 'CN', '1960-12-08', '佛教', '计算机', NULL, '11111111111111', '1111111111', '1', 59, '2018-03-26 17:51:05', '2018-03-26 17:51:05', '2018-03-26 17:51:05', 'admin', 'admin', '戚宝山', 0, NULL, NULL, NULL, NULL, '', '', '三级'),
+	('a31fc9a04ba14a5c9474571aea318141', 1, '浙江钱塘县', '18181091112', 'CRm测试环境账号.txt', '360732201803222116', '1281921921@qq.com', '181291011', 'xushilin', '100086', '群众', '0', '本科', '读书', '写文章', 'CN', '2018-03-22', '佛教', '汉语文学', '出生之后无父母，有姑父母带大。', '简单', '1111', NULL, 20, '2018-03-22', '2018-03-22 08:55:21', '2018-03-22 08:55:21', 'admin', 'admin', '许仕林', 0, NULL, '文采出众，见解独到。文曲星下凡', 100, '文采出众，见解独到。', '1001', NULL, '六级'),
+	('a388af209c22499285de1d051e2a46ce', 1, '山东青岛', '18911780490', 'CRm测试环境账号.txt', '3607322018032211910', '1821902102@qq.com', '1821902102', 'jiangchao', '10091', '群众', '0', '大学', '玩游戏', '编程', 'CN', '2018-03-22', '无', '计算机科学与技术', '很简单', '很好', '无', NULL, 28, '2018-03-22', '2018-03-22 09:28:37', '2018-03-22 09:28:37', 'admin', 'admin', '姜超', 0, NULL, '技术大牛', 98, 'ok ', '2', '1001', '四级'),
+	('b0a739b2700042e483bd686bb6205363', 1, '北京市海淀区', '18102910911', '示例图片_02.jpg', '3607321919029101', '212111291@qq.com', '212111291', 'huanxiao', '10091', '群众', '0', '大学', '表演', '唱歌', 'CN', '1989-10-12', '佛教', '演员', '11111111', '111111111111', '111', '', 12, '2018-01-28', '2018-03-21 22:34:07', '2018-03-21 22:34:07', 'admin', 'admin', '黄晓', 0, NULL, '111111111111', 96, '1111111111', '11', NULL, '四级'),
+	('b9292ec0bd1f430e8ec14c8eccd29f4d', 1, '临安', '18121901211', '2018032605452963117.jpg', '360732199306202113', '121821920@qq.com', '128192901', 'wwiew', '100093', '中共党员', '0', '大学', '看书', '写文章', 'CN', '1970-07-08', '佛教', '外国语翻译', NULL, 'ddddddddddddddd', 'dddddddddd', '1', 41, '2018-03-26 17:48:12', '2018-03-26 17:48:12', '2018-03-26 17:48:12', 'admin', 'admin', '陈玉俊', 0, NULL, NULL, NULL, NULL, '', '', '专八级');
 /*!40000 ALTER TABLE `tb_resume` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_staffemployee 结构
@@ -829,7 +830,7 @@ CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   `REMARK` varchar(255) DEFAULT NULL COMMENT '备注',
   `ISROMVE` int(11) DEFAULT '0' COMMENT '是否删除 0 正常  1 删除 2停职 3 恢复',
   `JOB_ID` varchar(50) DEFAULT NULL COMMENT '工作职位编码',
-  `USER_ID` varchar(50) DEFAULT NULL COMMENT '建档人',
+  `USER_ID` varchar(50) DEFAULT NULL COMMENT '建档人id',
   `JOB_TYPE_ID` varchar(50) DEFAULT NULL COMMENT '工作职位类别编码',
   `AGE` int(11) DEFAULT NULL COMMENT '年龄',
   `ADD_TIME` varchar(32) DEFAULT NULL COMMENT '登记时间',
@@ -843,16 +844,17 @@ CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   UNIQUE KEY `STAFF_ID` (`STAFF_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工档案信息表';
 
--- 正在导出表  lxcadmin.tb_staffemployee 的数据：~6 rows (大约)
+-- 正在导出表  lxcadmin.tb_staffemployee 的数据：~7 rows (大约)
 DELETE FROM `tb_staffemployee`;
 /*!40000 ALTER TABLE `tb_staffemployee` DISABLE KEYS */;
 INSERT INTO `tb_staffemployee` (`STAFFEMPLOYEE_ID`, `STAFF_ID`, `STAFF_NAME`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `JOB_ID`, `USER_ID`, `JOB_TYPE_ID`, `AGE`, `ADD_TIME`, `STIPEND_ID`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STATES`) VALUES
-	('3e69e297070e42d7b46628317898013e', 11, '张三丰', 1, '北京市', '111', '', '128901920121', '21212212@qq.com', '1901290112', '2121', '1212', '2121', '2', '硕士', '英语', '游泳', 'CN', '1992-12-11', '佛教', '计算机', '111', '111', '11', 0, '2', '1', '1001', 11, '2018-01-25', 'c3dd94150b594f34b6541f8c205ab130', NULL, NULL, NULL, NULL, 1),
-	('58d0c83404c447ec94354d044f489897', 1002, '古成芳', 2, '海南岛', '18911780490', '', '360732199202102113', '212819289@qq.com', '1094921521', '121211214', '3424223', '党员', '5', '研究生', '旅游', '绘画', 'CN', '1992-02-10', '佛教', '金融', '1122222222222222222', '11111111111', '', 0, '2', '1', '1001', 26, '2018-01-22', 'd7b60e8f222c46fb8e2d45caf9fe4542', NULL, NULL, NULL, NULL, 1),
-	('635f7ef8103742d1b59913922da5aff0', 1003, '李潇潇', 1, '北京市海淀区', '18911780491', '', '36073220170191291', '121211211@qq.com', '1910290192', 'lixiaoxiao', '100093', '群众', '0', '本科', '睡觉', '看电视', 'CN', '2017-01-11', '无', '无', '11212', '121212', '哈哈', 0, '2', '1', '1001', 1, '2018-01-23', 'c3dd94150b594f34b6541f8c205ab130', NULL, NULL, NULL, NULL, 1),
-	('a5032a6ec23a40798448db57e8a5732b', 1004, '李欣欣', 2, '黑龙江省哈尔滨市', '13641059864', '', '23012519910701264X', 'lixinxin852@126.com', '931920085', '13641059864', '100019', '党员', '0', '本科', '逛街购物', '跳舞', 'CN', '1991-07-01', '无', '通信工程', '外语能力： 六级\r\n东北石油大学', '1212', '父母联系方式15146409055', 0, '2', '1', '1001', 27, '2018-02-09', '1001', NULL, NULL, NULL, NULL, 2),
-	('c2cc729ffd684f6896a80cd4d02dfb82', 10022052, '李志华', 2, '河南周口', '15600647138', '', '41272119901102266X', 'zhlee007@gmail.com', '395986883', 'leejenney', '100019', '党员', '0', '本科', '逛街', '唱歌', 'CN', '1990-11-02', '佛教', '软件工程', '中原工学院 \r\n软件工程（java方向）\r\n外语能力： cet-4（501）\r\n是否自备电脑：是', '是否住宿：是', '父母电话 15936913841', 0, '2', '1', '1001', 28, '2018-02-09', '1001', NULL, NULL, NULL, NULL, 0),
-	('f1c558ce3db2423e8e5dd1566839fe28', 101, '刘熙财', 1, '北京市海淀区', '18101298728', '', '360732199306202118', '12811212921@qq.com', '1291290121', 'liuxicai002', '10001', '群众', '3', '本科', '编程', '书法', 'CN', '10919291', '佛教', '计算机科学与技术', 'vvv', '212121212', '哈哈', 0, '2', '1', '1001', 23, '2018-01-16', 'd7b60e8f222c46fb8e2d45caf9fe4542', NULL, NULL, NULL, NULL, 1);
+	('3e69e297070e42d7b46628317898013e', 1001, '大乔', 2, '北京市', '111', '2018032604370844033.jpg', '128901920121', '21212212@qq.com', '1901290112', 'daqiao', '1212', '2121', '0', '硕士', '英语', '游泳', 'CN', '1992-12-11', '佛教', '计算机', '111', '111', '11', 0, '3', '1', '1001', 21, '2018-01-25', '1001', NULL, NULL, NULL, NULL, 0),
+	('58d0c83404c447ec94354d044f489897', 1002, '古成芳', 2, '海南岛', '18911780490', '', '360732199202102113', '212819289@qq.com', '1094921521', '121211214', '3424223', '党员', '5', '研究生', '旅游', '绘画', 'CN', '1992-02-10', '佛教', '金融', '1122222222222222222', '11111111111', '', 0, '2', '10002', '1001', 26, '2018-01-22', 'd7b60e8f222c46fb8e2d45caf9fe4542', NULL, NULL, NULL, NULL, 1),
+	('635f7ef8103742d1b59913922da5aff0', 1003, '李潇潇', 1, '北京市海淀区', '18911780491', '', '36073220170191291', '121211211@qq.com', '1910290192', 'lixiaoxiao', '100093', '群众', '0', '本科', '睡觉', '看电视', 'CN', '2017-01-11', '无', '无', '11212', '121212', '哈哈', 0, '2', '101021', '1001', 1, '2018-01-23', 'c3dd94150b594f34b6541f8c205ab130', NULL, NULL, NULL, NULL, 1),
+	('81ffa65e091c4906a253264dbe7e47b7', 1007, '张超', 1, '北京市海淀区', '181029102910', '2018032605052228473.jpg', '360732199306202118', '1829129121@qq.com', '1218291290', 'zhangchao', '100093', '群众', '0', '大学', '游泳', '编程', 'CN', '1990-02-11', '无', '软件技术', '11111', '11111', '1111', NULL, '2', 'admin', NULL, 28, '2018-03-26', NULL, '2018-03-26 17:05:31', '2018-03-26 17:05:31', 'admin', 'admin', 0),
+	('a5032a6ec23a40798448db57e8a5732b', 1004, '李欣欣', 2, '黑龙江省哈尔滨市', '13641059864', '', '23012519910701264X', 'lixinxin852@126.com', '931920085', '13641059864', '100019', '党员', '0', '本科', '逛街购物', '跳舞', 'CN', '1991-07-01', '无', '通信工程', '外语能力： 六级\r\n东北石油大学', '1212', '父母联系方式15146409055', 0, '2', '11111', '1001', 27, '2018-02-09', '1001', NULL, NULL, NULL, NULL, 2),
+	('c2cc729ffd684f6896a80cd4d02dfb82', 1005, '李志华', 2, '河南周口', '15600647138', '', '41272119901102266X', 'zhlee007@gmail.com', '395986883', 'leejenney', '100019', '党员', '0', '本科', '逛街', '唱歌', 'CN', '1990-11-02', '佛教', '软件工程', '中原工学院 \r\n软件工程（java方向）\r\n外语能力： cet-4（501）\r\n是否自备电脑：是', '是否住宿：是', '父母电话 15936913841', 0, '2', '1001', '1001', 28, '2018-02-09', '1001', NULL, NULL, NULL, NULL, 0),
+	('f1c558ce3db2423e8e5dd1566839fe28', 1006, '刘熙财', 1, '北京市海淀区', '18101298728', '', '360732199306202118', '12811212921@qq.com', '1291290121', 'liuxicai002', '10001', '群众', '3', '本科', '编程', '书法', 'CN', '10919291', '佛教', '计算机科学与技术', 'vvv', '212121212', '哈哈', 0, '2', '975', '1001', 23, '2018-01-16', 'd7b60e8f222c46fb8e2d45caf9fe4542', NULL, NULL, NULL, NULL, 1);
 /*!40000 ALTER TABLE `tb_staffemployee` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_stipendmanager 结构
@@ -995,7 +997,7 @@ CREATE TABLE IF NOT EXISTS `tb_subjecttypemx` (
   PRIMARY KEY (`SUBJECTTYPEMX_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  lxcadmin.tb_subjecttypemx 的数据：~9 rows (大约)
+-- 正在导出表  lxcadmin.tb_subjecttypemx 的数据：~19 rows (大约)
 DELETE FROM `tb_subjecttypemx`;
 /*!40000 ALTER TABLE `tb_subjecttypemx` DISABLE KEYS */;
 INSERT INTO `tb_subjecttypemx` (`SUBJECTTYPEMX_ID`, `SUBJECTTYPE_ID`, `SUBJECTMANAGE`, `CREATE_TIME`, `CREATE_USER`, `IS_REMOVE`, `STATUS`) VALUES

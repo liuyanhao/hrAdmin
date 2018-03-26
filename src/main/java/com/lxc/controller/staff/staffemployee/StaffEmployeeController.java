@@ -87,6 +87,7 @@ public class StaffEmployeeController extends BaseController {
 		pd.put("CREATE_USER",Jurisdiction.getUsername()); //创建人
 		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
 		pd.put("UPDATE_USER",Jurisdiction.getUsername()); //修改人
+		pd.put("STATES",0); //默认状态
 		staffemployeeService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -160,10 +161,12 @@ public class StaffEmployeeController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
+		Integer maxId = Integer.parseInt(staffemployeeService.findMaxId(pd).get("zs").toString());
 		List<PageData> jobTypeList = job_typeService.listStartAll(pd);
 		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("staff/staffemployee/staffemployee_edit");
 		mv.addObject("msg", "save");
+		pd.put("STAFF_ID",maxId+1); //最大的员工编号
 		mv.addObject("pd", pd);
 		return mv;
 	}	

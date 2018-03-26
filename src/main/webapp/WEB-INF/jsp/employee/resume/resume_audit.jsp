@@ -104,7 +104,9 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">政治面貌:</td>
-								<td><input type="text" name="GOVEMMET" id="GOVEMMET"  readonly="readonly" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/></td>
+								<td>
+									<input type="text" name="GOVEMMET" id="GOVEMMET"  readonly="readonly" value="${pd.GOVEMMET}" maxlength="15" placeholder="这里输入政治面貌" title="政治面貌" style="width:98%;"/>
+								</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">身份证号:</td>
 								<td colspan="2"><input type="text" name="CARD_ID" id="CARD_ID"  readonly="readonly" value="${pd.CARD_ID}" maxlength="20" placeholder="这里输入身份证号码" title="身份证号码" style="width:98%;"/></td>
 							</tr>

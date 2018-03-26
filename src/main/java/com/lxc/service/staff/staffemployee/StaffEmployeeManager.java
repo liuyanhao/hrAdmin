@@ -63,5 +63,12 @@ public interface StaffEmployeeManager{
 	 */
 	public List<PageData> statePassPage(Page page)throws Exception;
 
+	/**
+	 * 查询现在最大员工编号数据
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findMaxId(PageData pd)throws Exception;
 }
 
