@@ -41,7 +41,7 @@
 					<li class="">
 						<a href="main/index">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text">后台首页</span>
+							<span class="menu-text">系统首页</span>
 						</a>
 						<b class="arrow"></b>
 					</li>

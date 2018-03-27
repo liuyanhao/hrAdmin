@@ -51,7 +51,7 @@
 						        // 指定图表的配置项和数据
 								var option = {
 						            title: {
-						                text: 'HR Admin用户统计'
+						                text: '人力资源管理系统 用户统计'
 						            },
 						            tooltip: {},
 						            xAxis: {

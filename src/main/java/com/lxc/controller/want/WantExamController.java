@@ -76,6 +76,8 @@ public class WantExamController  extends BaseController {
         //获取 获取所抽选的题目类型的 题目数量 数组
         String[] values = getRequest().getParameterValues("values");
 
+
+
         if(values == null || values.length < 0) {
             mv.addObject("message", "哈哈不允许为空");
             if (pd != null) {

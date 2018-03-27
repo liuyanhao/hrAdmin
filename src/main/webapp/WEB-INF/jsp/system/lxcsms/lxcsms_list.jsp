@@ -295,7 +295,7 @@
 				}
 				if(result) {
 					top.jzts();
-					var url = "<%=basePath%>Lxcsms/delete.do?LXCSMS_ID="+Id+"&tm="+new Date().getTime();
+					var url = "<%=basePath%>lxcsms/delete.do?LXCSMS_ID="+Id+"&tm="+new Date().getTime();
 					$.get(url,function(data){
 						nextPage(${page.currentPage});
 					});
@@ -313,7 +313,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="站内信";
-			 diag.URL = '<%=basePath%>Lxcsms/goView.do?LXCSMS_ID='+Id+'&TYPE='+type+'&SANME_ID='+SANME_ID+'&STATUS='+STATUS;
+			 diag.URL = '<%=basePath%>lxcsms/goView.do?LXCSMS_ID='+Id+'&TYPE='+type+'&SANME_ID='+SANME_ID+'&STATUS='+STATUS;
 			 diag.Width = 600;
 			 diag.Height = 460;
 			 diag.CancelEvent = function(){ //关闭事件
@@ -355,7 +355,7 @@
 							top.jzts();
 							$.ajax({
 								type: "POST",
-								url: '<%=basePath%>Lxcsms/deleteAll.do?tm='+new Date().getTime(),
+								url: '<%=basePath%>lxcsms/deleteAll.do?tm='+new Date().getTime(),
 						    	data: {DATA_IDS:str},
 								dataType:'json',
 								//beforeSend: validateData,
