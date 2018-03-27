@@ -121,7 +121,7 @@ CREATE TABLE IF NOT EXISTS `sys_app_user` (
 DELETE FROM `sys_app_user`;
 /*!40000 ALTER TABLE `sys_app_user` DISABLE KEYS */;
 INSERT INTO `sys_app_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `PHONE`, `SFID`, `START_TIME`, `END_TIME`, `YEARS`, `NUMBER`, `EMAIL`) VALUES
-	('1e89e6504be349a68c025976b3ecc1d1', 'a1', '698d51a19d8a121ce581499d7b701668', '会员甲', '', '115b386ff04f4352b060dffcd2b5d1da', '', '', '1', '121', '1212', '1212', '2015-12-02', '2015-12-25', 2, '111', '313596790@qq.com');
+	('1e89e6504be349a68c025976b3ecc1d1', 'a1', '8a8bb7cd343aa2ad99b7d762030857a2', '会员甲', '', '115b386ff04f4352b060dffcd2b5d1da', '', '', '1', '121', '1212', '1212', '2015-12-02', '2015-12-25', 2, '111', '313596790@qq.com');
 /*!40000 ALTER TABLE `sys_app_user` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.sys_createcode 结构
@@ -232,18 +232,28 @@ CREATE TABLE IF NOT EXISTS `sys_lxcsms` (
   PRIMARY KEY (`LXCSMS_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='平台短信表';
 
--- 正在导出表  lxcadmin.sys_lxcsms 的数据：~10 rows (大约)
+-- 正在导出表  lxcadmin.sys_lxcsms 的数据：~19 rows (大约)
 DELETE FROM `sys_lxcsms`;
 /*!40000 ALTER TABLE `sys_lxcsms` DISABLE KEYS */;
 INSERT INTO `sys_lxcsms` (`LXCSMS_ID`, `CONTENT`, `TYPE`, `TO_USERNAME`, `FROM_USERNAME`, `SEND_TIME`, `STATUS`, `SANME_ID`) VALUES
 	('05879f5868824f35932ee9f2062adc03', '你好', '2', 'admin', 'san', '2016-01-25 14:05:31', '1', 'b311e893228f42d5a05dbe16917fd16f'),
 	('2635dd035c6f4bb5a091abdd784bd899', '你好', '2', 'san', 'admin', '2016-01-25 14:05:02', '2', '1b7637306683460f89174c2b025862b5'),
+	('2b14d2a4f7f4439581f75ad21b208738', 'dsdsds', '1', 'admin', 'hr', '2018-03-27 18:21:56', '1', '7c00406aae714658a2752427abba3124'),
+	('315c6436c26f450b9dbb0b242c5512ea', '是的是的是多所', '2', 'hr', 'admin', '2018-03-27 17:56:39', '1', '6a010f47509742fcbab9cd7df5952b60'),
+	('38b4e396f5c9464ab2cbb707bce2631e', '阿萨飒飒阿萨', '2', 'liuxi', 'admin', '2018-03-27 17:56:28', '2', 'e646bcd9e8694623899acf4e29d76288'),
+	('49e1783d9e2f408ca85fa780f70de772', '<p>哈哈哈哈哈哈哈哈&nbsp; 收到了‘<img src="http://img.baidu.com/hi/jx2/j_0025.gif"/>’<img src="http://img.baidu.com/hi/jx2/j_0001.gif"/></p>', '2', 'admin', 'hr', '2018-03-27 18:38:31', '2', '5ce6da3b5d6542d0bd8b18cc5101dec9'),
 	('52378ccd4e2d4fe08994d1652af87c68', '你好', '1', 'admin', 'san', '2016-01-25 16:26:44', '1', '920b20dafdfb4c09b560884eb277c51d'),
+	('55ae23c06fc24bdd8127324bbca3f607', '大叔大婶的是阿萨', '2', 'hr', 'admin', '2018-03-27 18:16:16', '1', '5f5643f16b3c44108c257a3deb7d1a77'),
+	('59881b787538416d8eec6c5de88889c8', 'dsdsds', '2', 'hr', 'admin', '2018-03-27 18:21:56', '1', '7c00406aae714658a2752427abba3124'),
 	('77ed13f9c49a4c4bb460c41b8580dd36', 'gggg', '2', 'admin', 'san', '2016-01-24 21:22:43', '2', 'dd9ee339576e48c5b046b94fa1901d00'),
+	('846b7905beb04dd290118fdbc8e2ee29', '是的是的是多所', '1', 'admin', 'hr', '2018-03-27 17:56:39', '1', '6a010f47509742fcbab9cd7df5952b60'),
 	('98a6869f942042a1a037d9d9f01cb50f', '你好', '1', 'admin', 'san', '2016-01-25 14:05:02', '2', '1b7637306683460f89174c2b025862b5'),
+	('9a5ed1293157499ab78b1b7e81c58577', '<p>哈哈哈哈哈哈哈哈&nbsp; 收到了‘<img src="http://img.baidu.com/hi/jx2/j_0025.gif"/>’<img src="http://img.baidu.com/hi/jx2/j_0001.gif"/></p>', '1', 'hr', 'admin', '2018-03-27 18:38:31', '2', '5ce6da3b5d6542d0bd8b18cc5101dec9'),
 	('9e00295529014b6e8a27019cbccb3da1', '柔柔弱弱', '1', 'admin', 'san', '2016-01-24 21:22:57', '1', 'a29603d613ea4e54b5678033c1bf70a6'),
+	('cbcc6cff76f245e8ad3f59ec52dfb4ca', '阿萨飒飒阿萨', '1', 'admin', 'liuxi', '2018-03-27 17:56:28', '2', 'e646bcd9e8694623899acf4e29d76288'),
 	('d3aedeb430f640359bff86cd657a8f59', '你好', '1', 'admin', 'san', '2016-01-24 21:22:12', '1', 'f022fbdce3d845aba927edb698beb90b'),
 	('e5376b1bd54b489cb7f2203632bd74ec', '管理员好', '2', 'admin', 'san', '2016-01-25 14:06:13', '2', 'b347b2034faf43c79b54be4627f3bd2b'),
+	('e5ce6ec6a12e4e9abd9f656a24e32f4f', '大叔大婶的是阿萨', '1', 'admin', 'hr', '2018-03-27 18:16:16', '1', '5f5643f16b3c44108c257a3deb7d1a77'),
 	('e613ac0fcc454f32895a70b747bf4fb5', '你也好', '2', 'admin', 'san', '2016-01-25 16:27:54', '2', 'ce8dc3b15afb40f28090f8b8e13f078d'),
 	('f25e00cfafe741a3a05e3839b66dc7aa', '你好', '2', 'san', 'admin', '2016-01-25 16:26:44', '1', '920b20dafdfb4c09b560884eb277c51d');
 /*!40000 ALTER TABLE `sys_lxcsms` ENABLE KEYS */;
@@ -379,7 +389,7 @@ INSERT INTO `sys_role` (`ROLE_ID`, `ROLE_NAME`, `RIGHTS`, `PARENT_ID`, `ADD_QX`,
 	('ab76c87c943b4551842a33f2f69be277', '普通员工', '9902613619917768276318347206', '1', '0', '0', '0', '0'),
 	('acf2091bd2014d72824fea2b6898bcda', '招聘专员', '9902613619917768276318347206', '1', '10329004437600757450516352056119949495867338143311706149050930444560797425658268552155527979418894886790305323818340581568', '37762214501140362428416', '37762214501140362428416', '10329004437600757451636224961205865210992038556772291071801397097086346651829768185504906441018596397640825515064829149376'),
 	('c21cecf84048434b93383182b1d98cba', '组长', '77371235737982146963308544', '46294b31a71c4600801724a6eb06bb26', '0', '0', '0', '0'),
-	('c2ae457987fd4704bef5f630583aa6ad', '人力资源系统管理员', '9902613619917768276318347206', '1', '77371251896080604112904134', '77371242664827267910229766', '77371242664827267910229766', '77371242664827267910229766'),
+	('c2ae457987fd4704bef5f630583aa6ad', '人力资源系统管理员', '9902613619917768276318347206', '1', '77371251896080604112904134', '77371242664827267910229766', '77371242664827267910229766', '76464548301242195936042822'),
 	('d449195cd8e7491080688c58e11452eb', '总监', '77371235737982146963308544', '46294b31a71c4600801724a6eb06bb26', '0', '0', '0', '0'),
 	('de9de2f006e145a29d52dfadda295353', '三级管理员', '9902613619917768276318347206', '1', '0', '0', '0', '0'),
 	('f66cc8ea8acd44bdb8df001e253b5d2c', '薪酬绩效总监', '9902613619917768276318347206', '1', '77333475252855566929756160', '1208853762020591246770176', '1171148617133928923267072', '61655144742752049982078976'),
@@ -405,7 +415,6 @@ DELETE FROM `sys_role_lxcbutton`;
 INSERT INTO `sys_role_lxcbutton` (`RB_ID`, `ROLE_ID`, `BUTTON_ID`) VALUES
 	('0a48a3ea60ef49fa85cadedfc16924d8', 'f66cc8ea8acd44bdb8df001e253b5d2c', '3542adfbda73410c976e185ffe50ad06'),
 	('0a7e6563493f4a88af1851117dbfb369', '5466347ac07044cb8d82990ec7f3a90e', 'da7fd386de0b49ce809984f5919022b8'),
-	('0c883cae19cf4a35a163f376e21d5094', 'c2ae457987fd4704bef5f630583aa6ad', 'da7fd386de0b49ce809984f5919022b8'),
 	('0c9f6bedaab14cd98c43a9b8e34a012b', '3264c8e83d0248bb9e3ea6195b4c0216', '6c63f4c03cb845099850a0c703e66cb2'),
 	('0cb658060a124f1eb2f57844a39a5a7e', '5466347ac07044cb8d82990ec7f3a90e', '46992ea280ba4b72b29dedb0d4bc0106'),
 	('0da3d27b2f474fbd9ed87b3a1f073cb0', '856849f422774ad390a4e564054d8cc8', '3542adfbda73410c976e185ffe50ad06'),
@@ -453,6 +462,7 @@ INSERT INTO `sys_role_lxcbutton` (`RB_ID`, `ROLE_ID`, `BUTTON_ID`) VALUES
 	('b6548f1993d9465fa717daae43e83954', 'acf2091bd2014d72824fea2b6898bcda', 'cc51b694d5344d28a9aa13c84b7166cd'),
 	('ba3d44a087dd4d728ea4284fe9c34ea7', 'acf2091bd2014d72824fea2b6898bcda', '46992ea280ba4b72b29dedb0d4bc0106'),
 	('ba6696b8761044618e44c7e02c9ba89e', '68f8e4a39efe47c7bb869e9d15ab925d', 'cc51b694d5344d28a9aa13c84b7166cd'),
+	('bc71be5149214c6784885ad27a414501', 'c2ae457987fd4704bef5f630583aa6ad', 'da7fd386de0b49ce809984f5919022b8'),
 	('bf3d22712f8143ae9c8ff51c36d5e432', 'f66cc8ea8acd44bdb8df001e253b5d2c', '4efa162fce8340f0bd2dcd3b11d327ec'),
 	('bf904799e325417fa0bf5cbf0226ba3e', 'ab76c87c943b4551842a33f2f69be277', '3542adfbda73410c976e185ffe50ad06'),
 	('c1cade21046043ee9d5dc51f282391f3', '3264c8e83d0248bb9e3ea6195b4c0216', '282ac5b115474b23a326fd82fcdc62a1'),
@@ -499,12 +509,12 @@ CREATE TABLE IF NOT EXISTS `sys_user` (
 DELETE FROM `sys_user`;
 /*!40000 ALTER TABLE `sys_user` DISABLE KEYS */;
 INSERT INTO `sys_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `SKIN`, `EMAIL`, `NUMBER`, `PHONE`) VALUES
-	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-27 08:47:07', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
-	('1e17c5d17bce41d6b69178177ab5742c', 'liuxi', 'c9da4bc902c09bbbda3bd43eb3dbda3ec417c575', '刘熙', '', 'f924d00914c54810922c31b62612dc57', '2018-03-11 13:53:35', '0:0:0:0:0:0:0:1', '0', '面试人', 'default', '1094921525@qq.com', '1002', '18911780490'),
-	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', '978336446@qq.com', '333', '13562202556'),
-	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'lisi', '434588cee83dca5aaa683852319c54c22f1b41ab', '李四', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', '313596790@qq.com', '1102', '13566233663'),
-	('b920e29ae2264f40a6a9530036c732fd', 'hr', '861d10246b852f459de5d6e853db324ec270f270', 'HR', '', 'c2ae457987fd4704bef5f630583aa6ad', '2018-02-09 09:43:00', '0:0:0:0:0:0:0:1', '0', '人力资源管理员', 'default', '1281290121@qq.com', '1001', '18911780490'),
-	('e29149962e944589bb7da23ad18ddeed', 'zhangsan', 'f1665429dbb3e6c2af7a461a4f547b82ee9ab233', '张三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:51:10', '127.0.0.1', '0', '小张', 'default', 'zhangsan@www.com', '1101', '18918192891');
+	('1', 'admin', 'de41b7fb99201d8334c23c014db35ecd92df81bc', 'lxc', '1133671055321055258374707980945218933803269864762743594642571294', '1', '2018-03-27 18:15:13', '0:0:0:0:0:0:0:1', '0', 'admin', 'default', 'QQ1094921525@main.com', '001', '18101298728'),
+	('1e17c5d17bce41d6b69178177ab5742c', 'liuxi', 'c9da4bc902c09bbbda3bd43eb3dbda3ec417c575', '刘熙', '', 'f924d00914c54810922c31b62612dc57', '2018-03-11 13:53:35', '0:0:0:0:0:0:0:1', '0', '面试人', 'default', 'liuxi@yanhaoxicai.club', '1002', '18911780490'),
+	('69177258a06e4927b4639ab1684c3320', 'san', '577bdf3a59d0972ad918a38b30688440425717cc', '三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:14', '127.0.0.1', '0', '111', 'default', 'san@yanhaoxicai.club', '333', '13562202556'),
+	('9991f4d7782a4ccfb8a65bd96ea7aafa', 'zhouzuyou', '434588cee83dca5aaa683852319c54c22f1b41ab', '周祖优', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:49:34', '127.0.0.1', '0', '小李', 'default', 'zouqinhui@yanhaoxicai.club', '1102', '13566233663'),
+	('b920e29ae2264f40a6a9530036c732fd', 'hr', '861d10246b852f459de5d6e853db324ec270f270', 'HR', '', 'c2ae457987fd4704bef5f630583aa6ad', '2018-03-27 18:34:01', '0:0:0:0:0:0:0:1', '0', '人力资源管理员', 'default', 'hr@yanhaoxicai.club', '1001', '18911780490'),
+	('e29149962e944589bb7da23ad18ddeed', 'zhangsan', 'f1665429dbb3e6c2af7a461a4f547b82ee9ab233', '张三', '', '3264c8e83d0248bb9e3ea6195b4c0216', '2018-01-27 13:51:10', '127.0.0.1', '0', '小张', 'default', 'zhangsan@yanhaoxicai.club', '1101', '18918192891');
 /*!40000 ALTER TABLE `sys_user` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.tb_answer 结构
@@ -522,7 +532,7 @@ CREATE TABLE IF NOT EXISTS `tb_answer` (
   KEY `Index 2` (`SUBJECT_ID`),
   KEY `Index 3` (`JOB_MESSAGE_ID`),
   KEY `Index 4` (`RESUME_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='应聘答题表';
 
 -- 正在导出表  lxcadmin.tb_answer 的数据：~0 rows (大约)
 DELETE FROM `tb_answer`;
@@ -535,7 +545,7 @@ CREATE TABLE IF NOT EXISTS `tb_attached` (
   `ATTACHED_ID` varchar(100) NOT NULL,
   `NAME` varchar(255) DEFAULT NULL COMMENT '名称',
   `FDESCRIBE` varchar(255) DEFAULT NULL COMMENT '描述',
-  `PRICE` double(11,2) DEFAULT NULL COMMENT '薪酬',
+  `PRICE` double(11,2) DEFAULT NULL COMMENT '价格',
   `CTIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
   PRIMARY KEY (`ATTACHED_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='主附结构接口';
@@ -544,6 +554,7 @@ CREATE TABLE IF NOT EXISTS `tb_attached` (
 DELETE FROM `tb_attached`;
 /*!40000 ALTER TABLE `tb_attached` DISABLE KEYS */;
 INSERT INTO `tb_attached` (`ATTACHED_ID`, `NAME`, `FDESCRIBE`, `PRICE`, `CTIME`) VALUES
+	('0bb5625f25aa4d24ad59f5128927b288', 'BB', 'BB', 10.00, '2018-03-27 16:10:54'),
 	('d74b6f507e784607b8f85e31e3cfad22', 'AA', 'aaa', 222.00, '2016-04-17 18:20:41');
 /*!40000 ALTER TABLE `tb_attached` ENABLE KEYS */;
 
@@ -559,11 +570,14 @@ CREATE TABLE IF NOT EXISTS `tb_attachedmx` (
   PRIMARY KEY (`ATTACHEDMX_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='明细表';
 
--- 正在导出表  lxcadmin.tb_attachedmx 的数据：~2 rows (大约)
+-- 正在导出表  lxcadmin.tb_attachedmx 的数据：~4 rows (大约)
 DELETE FROM `tb_attachedmx`;
 /*!40000 ALTER TABLE `tb_attachedmx` DISABLE KEYS */;
 INSERT INTO `tb_attachedmx` (`ATTACHEDMX_ID`, `NAME`, `TITLE`, `CTIME`, `PRICE`, `ATTACHED_ID`) VALUES
 	('04717d1a034c4e51aacd5e062a4c63bd', 'ddd', 'ddd', '2016-03-29', 111.00, 'd74b6f507e784607b8f85e31e3cfad22'),
+	('3b2b97a524b74e13a8c1b71d4b9c3bab', '1', '1', '2018-03-27', 11.00, '0bb5625f25aa4d24ad59f5128927b288'),
+	('5f16bf6d53f84f31a49266d026d3b197', '3', '3', '2018-03-27', 3.00, '0bb5625f25aa4d24ad59f5128927b288'),
+	('dc22f1de47ac4344b419dc824693b4a3', '2', '2', '2018-03-27', 2.00, '0bb5625f25aa4d24ad59f5128927b288'),
 	('f7ac797407be4a76a7125d41fe345112', 'rgt', 'gdf', '2016-03-30', 3423.00, 'd74b6f507e784607b8f85e31e3cfad22');
 /*!40000 ALTER TABLE `tb_attachedmx` ENABLE KEYS */;
 
@@ -668,7 +682,7 @@ CREATE TABLE IF NOT EXISTS `tb_job_type` (
   `TYPE_NAME` varchar(50) NOT NULL COMMENT '职位类型名称',
   `selet_id` varchar(50) NOT NULL COMMENT '是否启用',
   PRIMARY KEY (`JOB_TYPE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='职位类别表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COMMENT='职位分类表';
 
 -- 正在导出表  lxcadmin.tb_job_type 的数据：~4 rows (大约)
 DELETE FROM `tb_job_type`;
@@ -1010,7 +1024,7 @@ CREATE TABLE IF NOT EXISTS `tb_subjecttypemx` (
   PRIMARY KEY (`SUBJECTTYPEMX_ID`),
   KEY `FK_tb_subjecttypemx_tb_subjecttype` (`SUBJECTTYPE_ID`),
   CONSTRAINT `FK_tb_subjecttypemx_tb_subjecttype` FOREIGN KEY (`SUBJECTTYPE_ID`) REFERENCES `tb_subjecttype` (`SUBJECTTYPE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题类型';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题类型表';
 
 -- 正在导出表  lxcadmin.tb_subjecttypemx 的数据：~19 rows (大约)
 DELETE FROM `tb_subjecttypemx`;
