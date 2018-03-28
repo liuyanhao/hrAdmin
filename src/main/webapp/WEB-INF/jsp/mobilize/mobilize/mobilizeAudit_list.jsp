@@ -69,9 +69,6 @@
 						<table id="simple-table" class="table table-striped table-bordered table-hover" style="margin-top:5px;">	
 							<thead>
 								<tr>
-									<%--<th class="center" style="width:35px;">
-									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
-									</th>--%>
 									<th class="center" style="width:50px;">序号</th>
 									<th class="center">现职位类别</th>
 									<th class="center">现职位名称</th>
@@ -93,9 +90,6 @@
 									<c:if test="${QX.cha == 1 }">
 									<c:forEach items="${varList}" var="var" varStatus="vs">
 										<tr>
-										<%--	<td class='center'>
-												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.MOBILIZE_ID}" class="ace" /><span class="lbl"></span></label>
-											</td>--%>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.TYPE_NAME}</td>
 											<td class='center'>${var.JOB_NAME}</td>
@@ -247,18 +241,6 @@
 					 else $('#form-field-select-4').removeClass('tag-input-style');
 				});
 			}
-			
-			
-			//复选框全选控制
-			var active_class = 'active';
-			$('#simple-table > thead > tr > th input[type=checkbox]').eq(0).on('click', function(){
-				var th_checked = this.checked;//checkbox inside "TH" table header
-				$(this).closest('table').find('tbody > tr').each(function(){
-					var row = this;
-					if(th_checked) $(row).addClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', true);
-					else $(row).removeClass(active_class).find('input[type=checkbox]').eq(0).prop('checked', false);
-				});
-			});
 		});
 		
 		//审核

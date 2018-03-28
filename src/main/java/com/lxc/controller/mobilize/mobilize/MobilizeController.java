@@ -111,8 +111,20 @@ public class MobilizeController extends BaseController {
 		if(!("1".equals(STATUS) || "2".equals(STATUS))) {
 			mv.addObject("msg","审核非法参数");
 		}else {
-			//pd.put("STATUS",MobilizeState.PASS.getCode()); //审核通过
-			mobilizeService.audit(pd);
+            try { //保证事务唯一性
+            mobilizeService.audit(pd);
+            if(pd.get("STATUS").equals(MobilizeState.PASS.getCode())){  //审核通过
+                //更新 档案信息
+                PageData byId = staffemployeeService.findById(pd);
+                String newJobTypeId =  pd.get("NEW_JOB_TYPE_ID").toString();  //职位分类
+                String newJobId = pd.get("NEW_JOB_ID").toString(); //职位名称
+                byId.put("JOB_TYPE_ID",newJobTypeId);  //职位分类ID
+                byId.put("JOB_ID",newJobId); //职位名称ID
+                staffemployeeService.edit(byId); //更新
+            }
+            }catch (Exception e){
+                throw  e;
+            }
 		}
 		mv.addObject("msg", "success");
 		mv.setViewName("save_result");

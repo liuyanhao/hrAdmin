@@ -51,8 +51,7 @@ function sendEm(){
 	var CONTENT = $("#CONTENT").val();
 	var isAll = $("#isAll").val();
 	
-	var fmsg = "${pd.msg}";
-	
+
 	$.ajax({
 		type: "POST",
 		url: locat+'/head/sendEmail.do?tm='+new Date().getTime(),

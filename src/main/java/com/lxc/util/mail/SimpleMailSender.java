@@ -1,20 +1,14 @@
 package com.lxc.util.mail;
 
-import java.util.Date;    
-import java.util.Properties;   
-
-import javax.mail.Address;    
-import javax.mail.BodyPart;    
-import javax.mail.Message;    
-import javax.mail.Multipart;    
-import javax.mail.Session;    
-import javax.mail.Transport;    
-import javax.mail.internet.InternetAddress;    
-import javax.mail.internet.MimeBodyPart;    
-import javax.mail.internet.MimeMessage;    
-import javax.mail.internet.MimeMultipart;    
-
 import com.lxc.controller.base.BaseController;
+
+import javax.mail.*;
+import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
+import javax.mail.internet.MimeMultipart;
+import java.util.Date;
+import java.util.Properties;
 
 /**   
  * 邮件发送器   
@@ -110,12 +104,12 @@ public class SimpleMailSender extends BaseController {
         
     	//这个类主要是设置邮件   
 	     MailSenderInfo mailInfo = new MailSenderInfo();    
-	     mailInfo.setMailServerHost("smtp.qq.com");    
-	     mailInfo.setMailServerPort("25");    
+	     mailInfo.setMailServerHost("smtp.exmail.qq.com");
+	     mailInfo.setMailServerPort("465");
 	     mailInfo.setValidate(true);    
-	     mailInfo.setUserName("itfather@1b23.com");    
-	     mailInfo.setPassword("tttt");//您的邮箱密码    
-	     mailInfo.setFromAddress("itfather@1b23.com");    
+	     mailInfo.setUserName("liuyanhao@yanhaoxicai.club");
+	     mailInfo.setPassword("Root1234@");//您的邮箱密码
+	     mailInfo.setFromAddress("liuyanhao@yanhaoxicai.club");
 	     mailInfo.setToAddress(tomail);    
 	     mailInfo.setSubject(title);    
 	     mailInfo.setContent(content);    
@@ -160,21 +154,21 @@ public class SimpleMailSender extends BaseController {
 	     
 	   }
     
-    public static void main(String[] args){   
+    public static void main(String[] args) throws Exception {
         //这个类主要是设置邮件   
 	     MailSenderInfo mailInfo = new MailSenderInfo();    
-	     mailInfo.setMailServerHost("smtp.qq.com");    
-	     mailInfo.setMailServerPort("25");    
+	     mailInfo.setMailServerHost("smtp.exmail.qq.com");
+	     mailInfo.setMailServerPort("465");
 	     mailInfo.setValidate(true);    
-	     mailInfo.setUserName("1099103386@qq.com");
-	     mailInfo.setPassword("tttt");//您的邮箱密码    
-	     mailInfo.setFromAddress("1099103386@qq.com");
+	     mailInfo.setUserName("liuyanhao@yanhaoxicai.club");
+	     mailInfo.setPassword("Root1234@");//您的邮箱密码
+	     mailInfo.setFromAddress("liuyanhao@yanhaoxicai.club");
 	     mailInfo.setToAddress("1094921525@qq.com");
 	     mailInfo.setSubject("设置邮箱标题");    
 	     mailInfo.setContent("设置邮箱内容");    
 	     //这个类主要来发送邮件   
-	     //SimpleMailSender sms = new SimpleMailSender();   
-	     //sms.sendTextMail(mailInfo);//发送文体格式    
+	     SimpleMailSender sms = new SimpleMailSender();
+	     sms.sendTextMail(mailInfo);//发送文体格式
 	     //sms.sendHtmlMail(mailInfo);//发送html格式   
 	   }
     

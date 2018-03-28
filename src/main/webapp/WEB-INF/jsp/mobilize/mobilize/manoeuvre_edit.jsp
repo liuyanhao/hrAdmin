@@ -29,7 +29,7 @@
 
                         <form action="mobilize/${msg }.do" name="Form" id="Form" method="post">
                             <input type="hidden" name="MOBILIZE_ID" id="MOBILIZE_ID" value="${pd.MOBILIZE_ID}"/>
-                            <input type="hidden" id="STAFF_ID" name="STAFF_ID" value="${pd.STAFF_ID}">
+                            <input type="hidden" id="STAFFEMPLOYEE_ID" name="STAFFEMPLOYEE_ID" value="${pd.STAFFEMPLOYEE_ID}">
                             <div id="zhongxin" style="padding-top: 13px;">
                                 <table id="table_report" class="table table-striped table-bordered table-hover">
                                     <tr>

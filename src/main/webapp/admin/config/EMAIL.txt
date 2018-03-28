@@ -1,1 +1,1 @@
-smtp.yanhaoxicai.club,lxc,465,lxc,liuyanhao@yanhaoxicai.club,lxc,Root668899@
+smtp.exmail.qq.com,lxc,25,lxc,liuyanhao@yanhaoxicai.club,lxc,Root1234@

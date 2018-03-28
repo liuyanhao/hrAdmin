@@ -16,7 +16,7 @@
 		CAUSE,	
 		STATUS,	
 		MOBILIZE_ID,
-		STAFF_ID
+		STAFFEMPLOYEE_ID
 	</sql>
 	
 	<!-- 字段值 -->
@@ -28,7 +28,7 @@
 		#{CAUSE},	
 		#{STATUS},	
 		#{MOBILIZE_ID},
-		#{STAFF_ID}
+		#{STAFFEMPLOYEE_ID}
 	</sql>
 	
 	<!-- 新增-->
@@ -60,7 +60,7 @@
 			JOB_ID = #{JOB_ID},
 			CAUSE = #{CAUSE},
 			STATUS = #{STATUS},
-		STAFF_ID = #{STAFF_ID},
+		STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID},
 		MOBILIZE_ID = MOBILIZE_ID
 		where 
 		MOBILIZE_ID = #{MOBILIZE_ID}
@@ -88,6 +88,8 @@
 	<!-- 通过ID获取审核信息数据 -->
 	<select id="findAuditById" parameterType="pd" resultType="pd">
 		SELECT m.CAUSE, m.STATUS, m.MOBILIZE_ID,
+		m.JOB_TYPE_ID as NEW_JOB_TYPE_ID,
+		m.JOB_ID as NEW_JOB_ID,
 		 (SELECT TYPE_NAME FROM tb_job_type t2 WHERE t2.JOB_TYPE_ID = m.JOB_TYPE_ID) AS NEW_TYPE_NAME,
 		(select  JOB_NAME from tb_job_message j2 where  j2.JOB_MESSAGE_ID = m.JOB_ID) AS NEW_JOB_NAME,
 		 (SELECT TYPE_NAME FROM tb_job_type t WHERE t.JOB_TYPE_ID = s.JOB_TYPE_ID) AS TYPE_NAME,
@@ -97,9 +99,10 @@
 		 s.SPEIALITY,
 		 s.AGE,
 		 s.STIPEND_ID,
+		 s.STAFFEMPLOYEE_ID,
 		 s.STAFF_NAME
 		FROM tb_mobilize m
-		LEFT JOIN TB_STAFFEMPLOYEE s ON m.STAFF_ID = s.STAFF_ID
+		LEFT JOIN TB_STAFFEMPLOYEE s ON m.STAFFEMPLOYEE_ID = s.STAFFEMPLOYEE_ID
 		WHERE 1=1
 		AND s.ISROMVE =0
 		AND m.STATUS = 0
@@ -126,7 +129,7 @@
 	<select id="auditListPage" parameterType="page" resultType="pd">
 		select
 		CAUSE, STATUS, MOBILIZE_ID,
-		(select  TYPE_NAME from tb_job_type t where t.JOB_TYPE_ID = j.JOB_TYPE_ID) TYPE_NAME,
+		(select  TYPE_NAME from tb_job_type t where t.JOB_TYPE_ID = j.JOB_TYPE_ID) as TYPE_NAME,
 		j.JOB_NAME,
 		s.STAFF_ID,
 		s.SEX,
@@ -135,9 +138,10 @@
 		s.AGE,
 		s.STIPEND_ID,
 		s.STAFF_NAME,
+		s.STAFFEMPLOYEE_ID,
 		s.STAFFEMPLOYEE_ID
 		from <include refid="tableName"></include> m left join TB_STAFFEMPLOYEE s
-		on m.STAFF_ID = s.STAFF_ID
+		on m.STAFFEMPLOYEE_ID = s.STAFFEMPLOYEE_ID
 		,tb_job_message j
 		where
 		j.JOB_MESSAGE_ID = s.JOB_ID

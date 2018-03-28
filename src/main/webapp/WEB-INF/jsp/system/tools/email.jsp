@@ -137,6 +137,7 @@
 <script type="text/javascript" src="static/js/myjs/toolEmail.js"></script>	
 <script type="text/javascript">
 	$(top.hangge());
+    var fmsg = "${pd.msg}";
 </script>
 </body>
 </html>

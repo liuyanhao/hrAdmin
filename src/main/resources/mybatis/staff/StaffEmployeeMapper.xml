@@ -4,7 +4,7 @@
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_STAFFEMPLOYEE
+		TB_STAFFEMPLOYEE s
 	</sql>
 	
 	<!-- 字段 -->
@@ -32,7 +32,8 @@
 		DESCRIBES,
 		REMARK,	
 		ISROMVE,	
-		JOB_ID,	
+		JOB_ID,
+		s.JOB_TYPE_ID,
 		USER_ID,	
 		AGE,	
 		ADD_TIME,	
@@ -43,6 +44,7 @@
 		UPDATE_USER,	
 		STAFF_NAME,	
 		STAFFEMPLOYEE_ID,
+		DEPARTMENT_ID,
 		STATES
 	</sql>
 	
@@ -71,7 +73,8 @@
 		#{DESCRIBES},
 		#{REMARK},	
 		#{ISROMVE},	
-		#{JOB_ID},	
+		#{JOB_ID},
+		#{JOB_TYPE_ID},
 		#{USER_ID},	
 		#{AGE},	
 		#{ADD_TIME},	
@@ -82,6 +85,7 @@
 		#{UPDATE_USER},	
 		#{STAFF_NAME},	
 		#{STAFFEMPLOYEE_ID},
+		#{DEPARTMENT_ID},
 		#{STATES}
 	</sql>
 	
@@ -178,6 +182,9 @@
 		<if test="JOB_ID != null and JOB_ID !=''" >
 			JOB_ID = #{JOB_ID},
 		</if>
+		<if test="JOB_TYPE_ID != null and JOB_TYPE_ID !=''" >
+			JOB_TYPE_ID = #{JOB_TYPE_ID},
+		</if>
 		<if test="AGE != null and AGE !=''" >
 			AGE = #{AGE},
 		</if>
@@ -196,6 +203,9 @@
 		<if test="STAFF_NAME != null and STAFF_NAME !=''" >
 			STAFF_NAME = #{STAFF_NAME},
 		</if>
+		<if test="DEPARTMENT_ID != null and DEPARTMENT_ID != ''">
+			DEPARTMENT_ID = #{DEPARTMENT_ID},
+		</if>
 		STAFFEMPLOYEE_ID = STAFFEMPLOYEE_ID
 		where
 		STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
@@ -208,7 +218,7 @@
 		j.JOB_NAME,
 		<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>  s
+		<include refid="tableName"></include>
 		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,
 		tb_job_type t
 		where 1=1
@@ -272,9 +282,9 @@
 	<select id="statePassPage" parameterType="page" resultType="pd" >
 		select
 		t.TYPE_NAME, j.JOB_NAME,STAFF_ID,SEX,CARD_ID,LEARING, SPEIALITY,s.JOB_TYPE_ID,JOB_ID, USER_ID, AGE,
-		ADD_TIME, STAFF_NAME, STAFFEMPLOYEE_ID
+		ADD_TIME, STAFF_NAME, STAFFEMPLOYEE_ID,DEPARTMENT_ID
 		from
-		<include refid="tableName"></include> s
+		<include refid="tableName"></include>
 		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,
 		tb_job_type t
 		where 1=1

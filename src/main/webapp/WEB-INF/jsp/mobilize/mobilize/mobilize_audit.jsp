@@ -29,7 +29,9 @@
 
                         <form action="mobilize/${msg }.do" name="Form" id="Form" method="post">
                             <input type="hidden" name="MOBILIZE_ID" id="MOBILIZE_ID" value="${pd.MOBILIZE_ID}"/>
-                            <input type="hidden" id="STAFF_ID" name="STAFF_ID" value="${pd.STAFF_ID}">
+                            <input type="hidden" id="STAFFEMPLOYEE_ID" name="STAFFEMPLOYEE_ID" value="${pd.STAFFEMPLOYEE_ID}">
+                            <input type="hidden" id="NEW_JOB_TYPE_ID" name="NEW_JOB_TYPE_ID" value="${pd.NEW_JOB_TYPE_ID}">
+                            <input type="hidden" id="NEW_JOB_ID" name="NEW_JOB_ID" value="${pd.NEW_JOB_ID}">
                             <input type="hidden" name="STATUS" id="STATUS" value="${pd.STATUS}" maxlength="5" placeholder="这里输入审核状态" title="审核状态" style="width:98%;"/>
                             <div id="zhongxin" style="padding-top: 13px;">
                                 <table id="table_report" class="table table-striped table-bordered table-hover">

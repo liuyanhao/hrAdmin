@@ -1,63 +1,32 @@
 package com.lxc.controller.weixin;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileWriter;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
-import java.io.PrintWriter;
-import java.net.ConnectException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-import javax.annotation.Resource;
-import javax.net.ssl.HttpsURLConnection;
-import javax.net.ssl.SSLContext;
-import javax.net.ssl.SSLSocketFactory;
-import javax.net.ssl.TrustManager;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import net.sf.json.JSONObject;
-
-import org.marker.weixin.DefaultSession;
-import org.marker.weixin.HandleMessageAdapter;
-import org.marker.weixin.MySecurity;
-import org.marker.weixin.msg.Data4Item;
-import org.marker.weixin.msg.Msg4Event;
-import org.marker.weixin.msg.Msg4Image;
-import org.marker.weixin.msg.Msg4ImageText;
-import org.marker.weixin.msg.Msg4Link;
-import org.marker.weixin.msg.Msg4Location;
-import org.marker.weixin.msg.Msg4Text;
-import org.marker.weixin.msg.Msg4Video;
-import org.marker.weixin.msg.Msg4Voice;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-
 import com.lxc.controller.base.BaseController;
-
-
-
-
-
-
 import com.lxc.service.weixin.command.CommandService;
 import com.lxc.service.weixin.imgmsg.ImgmsgService;
 import com.lxc.service.weixin.textmsg.TextmsgService;
 import com.lxc.util.Const;
 import com.lxc.util.PageData;
 import com.lxc.util.Tools;
+import net.sf.json.JSONObject;
+import org.marker.weixin.DefaultSession;
+import org.marker.weixin.HandleMessageAdapter;
+import org.marker.weixin.MySecurity;
+import org.marker.weixin.msg.*;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
 
+import javax.annotation.Resource;
+import javax.net.ssl.*;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.net.ConnectException;
+import java.net.URL;
 import java.security.cert.CertificateException;
 import java.security.cert.X509Certificate;
-
-import javax.net.ssl.X509TrustManager;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 
 /**
  * 
@@ -371,13 +340,13 @@ public class WeixinController extends BaseController{
 	public void getAt(PrintWriter out) {
 		logBefore(logger, "获取access_token");
 		try{
-			String appid = "wx9f43c8daa1c13934";
-			String appsecret = "2c7f6552a5a845b49d47f65dd90beb50";
+			String appid = "wx649c6c1b78f7b375";
+			String appsecret = "cf22d92b59b8867a57cbe696befbee79";
 			
 			String requestUrl=access_token_url.replace("APPID", appid).replace("APPSECRET", appsecret);
 			JSONObject jsonObject=httpRequst(requestUrl, "GET", null);
 			
-			//System.out.println(jsonObject.getString("access_token")+"============");
+			System.out.println(jsonObject.getString("access_token")+"============");
 			
 			PrintWriter pw;
 			try {

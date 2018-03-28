@@ -91,7 +91,7 @@
 							<tr>
 								<td style="width:79px;text-align: right;padding-top: 13px;">国籍:</td>
 								<td>
-									<select  name="NATIONALITY" id="NATIONALITY"  title="国籍"></select>
+									<select  name="NATIONALITY" id="NATIONALITY"  title="国籍" style="width:98%;"></select>
 								</td>
 								<td style="width:79px;text-align: right;padding-top: 13px;">民族:</td>
 								<td><select id="NATION"  class="chosen-select form-control"  name ="NATION" title="民族" style="width:98%;"></select></td>
