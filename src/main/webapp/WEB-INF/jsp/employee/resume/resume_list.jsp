@@ -115,11 +115,11 @@
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>
 												<c:if test="${var.STATUS == 0}">未审核</c:if>
-												<c:if test="${var.STATUS == 1}">待面试</c:if>
-												<c:if test="${var.STATUS == 2}">待笔试</c:if>
-												<c:if test="${var.STATUS == 3}">通过面试</c:if>
-												<c:if test="${var.STATUS == 4}">笔试通过</c:if>
-												<c:if test="${var.STATUS == 5}">笔试待审核</c:if>
+												<c:if test="${var.STATUS == 1}">待笔试</c:if>
+												<c:if test="${var.STATUS == 2}">笔试待审核</c:if>
+												<c:if test="${var.STATUS == 3}">笔试通过</c:if>
+												<c:if test="${var.STATUS == 4}">待面试</c:if>
+												<c:if test="${var.STATUS == 5}">通过面试</c:if>
 												<c:if test="${var.STATUS == 6}">待录用</c:if>
 												<c:if test="${var.STATUS == 7}">未通过录用</c:if>
 												<c:if test="${var.STATUS == 8}">通过录用</c:if>

@@ -16,11 +16,11 @@
 	<%@ include file="../../system/index/top.jsp"%>
 	<!-- 日期框 -->
 	<link rel="stylesheet" href="static/ace/css/datepicker.css" />
-	<!-- 上传图片插件 -->
-	<link href="plugins/uploadify/uploadify.css" rel="stylesheet" type="text/css">
+	<!-- 上传头像图片插件 -->
+	<link href="plugins/uploadify/uploadify.touxiang.css" rel="stylesheet" type="text/css">
 	<script type="text/javascript" src="plugins/uploadify/swfobject.js"></script>
 	<script type="text/javascript" src="plugins/uploadify/jquery.uploadify.v2.1.4.min.js"></script>
-	<!-- 上传图片插件 -->
+	<!-- 上传头像图片插件 -->
 	<script type="text/javascript">
 		var jsessionid = "<%=session.getId()%>";  //勿删，uploadify兼容火狐用到
 	</script>
@@ -60,7 +60,14 @@
 									</c:if>
 								</td>
 								<td rowspan="5" colspan="1">
-									<div ><img src="<%=basePath%>uploadFiles/uploadImgs/${pd.PIC}" onerror="this.src='<%=basePath%>uploadFiles/uploadImgs/defaultImage.jpg';this.onerror=null" width="200" height="240"></div>
+									<div >
+										<img id="picImage" src="<c:if test='${pd.PIC != null}'><%=basePath%>uploadFiles/touXiang/${pd.PIC}</c:if>" onerror="this.src='<%=basePath%>uploadFiles/uploadImgs/defaultImage.jpg';this.onerror=null"
+											 width="180" height="200" style="margin-left: 15px;  margin-bottom: 5px" >
+									</div >
+									<div id="tipsTwo">
+										<input type="hidden" name="PIC" id="PIC" value="${pd.PIC}">
+										<%--<input type="file"  id="uploadify1"  keepDefaultStyle = "true"   title="照片地址" style="width:98%;"/>--%>
+									</div>
 								</td>
 							</tr>
 							<tr>
@@ -113,18 +120,18 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">E-mail:</td>
 								<td><input type="text" name="EMAIL" id="EMAIL"  readonly="readonly" value="${pd.EMAIL}" maxlength="30" placeholder="这里输入E-mail" title="E-mail" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">QQ:</td>
-								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}"  readonly="readonly" maxlength="15" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">照片地址:</td>
-								<td ><input type="file" name="PIC"  id="uploadify1"   readonly="readonly" keepDefaultStyle = "true" value="${pd.PIC}" placeholder="这里输入照片地址" title="照片地址" style="width:98%;"/></td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">地址:</td>
+								<td colspan="3" >
+									<input type="text" name="ADDRESS" id="ADDRESS"  readonly="readonly" value="${pd.ADDRESS}" maxlength="50" placeholder="这里输入地址" title="地址" style="width:98%;"/>
+								</td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">QQ:</td>
+								<td><input type="text" name="QQ" id="QQ" value="${pd.QQ}"  readonly="readonly" maxlength="15" placeholder="这里输入QQ" title="QQ" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">微信:</td>
 								<td><input type="text" name="WECHAT" id="WECHAT"  readonly="readonly" value="${pd.WECHAT}" maxlength="30" placeholder="这里输入微信" title="微信" style="width:98%;"/></td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">英语等级:</td>
 								<td><input type="text" name="DEGREE" id="DEGREE"  readonly="readonly" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入等级" title="等级" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
-								<td><input type="number" name="RESULT" id="RESULT"  readonly="readonly"  value="${pd.RESULT == null ? 0 :pd.RESULT}" maxlength="32" placeholder="这里输入面试成绩" title="面试成绩" style="width:98%;"/></td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">电话:</td>
@@ -137,19 +144,16 @@
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">邮编号码:</td>
 								<td><input type="text" name="POST_CODE" id="POST_CODE"  readonly="readonly" value="${pd.POST_CODE}" maxlength="255" placeholder="这里输入邮编号码" title="邮编号码" style="width:98%;"/></td>
-								<td style="width:75px;text-align: right;padding-top: 13px;">地址:</td>
-								<td colspan="1" >
-									<input type="text" name="ADDRESS" id="ADDRESS"  readonly="readonly" value="${pd.ADDRESS}" maxlength="50" placeholder="这里输入地址" title="地址" style="width:98%;"/>
-								</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">专业:</td>
 								<td><input type="text" name="SPEIALITY" id="SPEIALITY"  readonly="readonly" value="${pd.SPEIALITY}" maxlength="20" placeholder="这里输入专业" title="专业" style="width:98%;"/></td>
-
+								<td style="width:75px;text-align: right;padding-top: 13px;">面试成绩:</td>
+								<td><input type="number" name="RESULT" id="RESULT"  readonly="readonly"  value="${pd.RESULT == null ? 0 :pd.RESULT}" maxlength="32" placeholder="这里输入面试成绩" title="面试成绩" style="width:98%;"/></td>
 							</tr>
 							<c:if test="${msg == 'audit'}">
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">职位类别:</td>
 								<td>
-									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  disabled="disabled" placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" style="width:98%;" >
+									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" style="width:98%;" >
 									<option value="">请选择</option>
 									<c:choose>
 										<c:when test="${not empty jobTypeList}">
@@ -165,7 +169,7 @@
 								</td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
 								<td>
-									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID"  disabled="disabled"  style="width:98%;">
+									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID"    style="width:98%;">
 										<option value=""></option>
 									</select>
 								</td>
@@ -297,7 +301,7 @@
         }
 
         //审核
-        function  audit(status) { debugger;
+        function  audit(status) {
             if(status == 1){ //推荐笔试
                 if($("#REASON").val()==""){
                     $("#REASON").tips({

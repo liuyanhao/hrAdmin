@@ -43,8 +43,6 @@
 					
 					<form action="resume/${msg }.do" name="Form" id="Form" method="post">
 						<input type="hidden" name="RESUME_ID" id="RESUME_ID" value="${pd.RESUME_ID}"/>
-						<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}" />
-						<input type="hidden" name="JOB_TYPE_ID" id="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}" />
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
 							<tr>
@@ -148,6 +146,30 @@
 								<td><input type="text" name="DEGREE" id="DEGREE" value="${pd.DEGREE}" maxlength="10" placeholder="这里输入英语等级" title="英语等级" style="width:98%;"/></td>
 							</tr>
 							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">职位类别:</td>
+								<td>
+									<select  name="JOB_TYPE_ID" id="JOB_TYPE_ID"  placeholder="这里选择工作职位类别" onchange="jobType()"  title="职位类别" style="width:98%;" >
+										<option value="">请选择</option>
+										<c:choose>
+											<c:when test="${not empty jobTypeList}">
+												<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+													<option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<option value=""></option>
+											</c:otherwise>
+										</c:choose>
+									</select>
+								</td>
+								<td style="width:75px;text-align: right;padding-top: 13px;">工作职位:</td>
+								<td>
+									<select name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID"    style="width:98%;">
+										<option value=""></option>
+									</select>
+								</td>
+							</tr>
+							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">备注:</td>
 								<td colspan="5">
 									<textarea rows="5" name="REMARK" id="REMARK"   maxlength="255"  placeholder="这里输入备注" title="备注" style="width:98%;">${pd.REMARK}</textarea>
@@ -221,13 +243,14 @@
                 option.appendChild (txt);
                 nationality_id.appendChild (option);
             }
+            jobType();
         }
         $(top.hangge());
 
         //选择职位类别 级联查询
         function jobType(){
             var JOB_TYPE_ID = $("#JOB_TYPE_ID").val();
-            $("#JOB_ID option").remove();
+            $("#JOB_MESSAGE_ID option").remove();
             $.ajax({
                 type:"GET",
                 url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
