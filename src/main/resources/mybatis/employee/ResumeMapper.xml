@@ -230,9 +230,7 @@
 		from
 		<include refid="tableName"></include>
 		where 1=1
-		<if test="CARD_ID != null and  CARD_ID != ''">
 		and CARD_ID = #{CARD_ID}
-		</if>
 	</select>
 
 	<!-- 列表 -->

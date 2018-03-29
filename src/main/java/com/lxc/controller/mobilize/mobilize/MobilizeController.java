@@ -112,9 +112,9 @@ public class MobilizeController extends BaseController {
 			mv.addObject("msg","审核非法参数");
 		}else {
             try { //保证事务唯一性
-            mobilizeService.audit(pd);
-            if(pd.get("STATUS").equals(MobilizeState.PASS.getCode())){  //审核通过
+            if(Integer.parseInt(STATUS) == MobilizeState.PASS.getCode()){  //审核通过
                 //更新 档案信息
+                mobilizeService.audit(pd);
                 PageData byId = staffemployeeService.findById(pd);
                 String newJobTypeId =  pd.get("NEW_JOB_TYPE_ID").toString();  //职位分类
                 String newJobId = pd.get("NEW_JOB_ID").toString(); //职位名称

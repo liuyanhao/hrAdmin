@@ -136,7 +136,7 @@
 															<c:if test="${QX.stipendStandardAudit == 1 }">
 																<li>
 																	<a style="cursor:pointer;" onclick="audit('${var.STIPENDMANAGER_ID}');" class="tooltip-primary" data-rel="tooltip" title="审核">
-																	<span class="green">
+																	<span class="blue">
 																		<i class="ace-icon fa fa-pencil-square-o bigger-120">审核</i>
 																	</span>
 																	</a>
@@ -351,7 +351,7 @@
                 if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
                     nextPage(${page.currentPage});
                 }
-                diag.close();
+                diag.close();audit
             };
             diag.show();
         }

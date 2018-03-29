@@ -96,43 +96,33 @@
                                             <td class='center'>${var.QQ}</td>
 											<td class='center'>
 												<c:if test="${var.STATES == 0 }">
-													<c:if test="${QX.staffemployeeExamine == 1}">
-														<a href="#">未审核</a>
-													</c:if>
-													<c:if test="${QX.staffemployeeExamine != 1}">
 														未审核
-													</c:if>
 												</c:if>
 												<c:if test="${var.STATES == 1 }">
-													<c:if test="${QX.staffemployeeExamine == 1}">
-														<a href="#">通过</a>
-													</c:if>
-													<c:if test="${QX.staffemployeeExamine != 1}">
 														通过
-													</c:if>
 												</c:if>
 												<c:if test="${var.STATES == 2 }">
-													<c:if test="${QX.staffemployeeExamine == 1}">
-													<a href="#">不通过</a>
-													</c:if>
-													<c:if test="${QX.staffemployeeExamine != 1}">
 														不通过
-													</c:if>
 												</c:if>
 											</td>
 											<td class="center">
-												<c:if test="${QX.edit != 1 && QX.del != 1 }">
+												<c:if test="${QX.edit != 1 && QX.del != 1  }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
 												</c:if>
 												<div class="hidden-sm hidden-xs btn-group">
+													<c:if test="${QX.staffemployeeExamine == 1 && var.STATES == 0 }">
+														<a class="btn btn-xs btn-primary" title="审核" onclick="audit('${var.STAFFEMPLOYEE_ID}');">
+															<i class="ace-icon fa fa-circle-o bigger-120" title="审核">审核</i>
+														</a>
+													</c:if>
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.STAFFEMPLOYEE_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑">编辑</i>
 													</a>
 													</c:if>
 													<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.STAFFEMPLOYEE_ID}');">
-														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
+														<i class="ace-icon fa fa-trash-o bigger-120" title="删除">删除</i>
 													</a>
 													</c:if>
 												</div>
@@ -143,11 +133,20 @@
 														</button>
 			
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
+															<c:if test="${QX.staffemployeeExamine == 1 && var.STATES == 0  }">
+															<li>
+																<a style="cursor:pointer;" onclick="audit('${var.STAFFEMPLOYEE_ID}');" class="tooltip-success" data-rel="tooltip" title="审核">
+																<span class="blue">
+																	<i class="ace-icon fa fa-circle-o bigger-120">审核</i>
+																</span>
+																</a>
+															</li>
+															</c:if>
 															<c:if test="${QX.edit == 1 }">
 															<li>
 																<a style="cursor:pointer;" onclick="edit('${var.STAFFEMPLOYEE_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
 																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																		<i class="ace-icon fa fa-pencil-square-o bigger-120">修改</i>
 																	</span>
 																</a>
 															</li>
@@ -156,7 +155,7 @@
 															<li>
 																<a style="cursor:pointer;" onclick="del('${var.STAFFEMPLOYEE_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
-																		<i class="ace-icon fa fa-trash-o bigger-120"></i>
+																		<i class="ace-icon fa fa-trash-o bigger-120">删除</i>
 																	</span>
 																</a>
 															</li>
@@ -338,6 +337,24 @@
 			 };
 			 diag.show();
 		}
+
+        //审核
+        function audit(Id){
+            top.jzts();
+            var diag = new top.Dialog();
+            diag.Drag=true;
+            diag.Title ="审核档案信息";
+            diag.URL = '<%=basePath%>staffemployee/goAudit.do?STAFFEMPLOYEE_ID='+Id;
+            diag.Width = 840;
+            diag.Height = 655;
+            diag.CancelEvent = function(){ //关闭事件
+                if(diag.innerFrame.contentWindow.document.getElementById('zhongxin').style.display == 'none'){
+                    nextPage(${page.currentPage});
+                }
+                diag.close();
+            };
+            diag.show();
+        }
 		
 		//批量操作
 		function makeAll(msg){

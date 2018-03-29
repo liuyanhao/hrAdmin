@@ -99,5 +99,14 @@ public class StaffEmployeeService implements StaffEmployeeManager{
 		return (PageData)dao.findForObject("StaffEmployeeMapper.findMaxId", pd);
 	}
 
+	/**
+	 * 审核
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void audit(PageData pd) throws Exception {
+		dao.update("StaffEmployeeMapper.audit", pd);
+	}
+
 }
 

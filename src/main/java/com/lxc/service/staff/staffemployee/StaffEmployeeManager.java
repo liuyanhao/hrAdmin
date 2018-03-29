@@ -70,5 +70,12 @@ public interface StaffEmployeeManager{
 	 * @throws Exception
 	 */
 	public PageData findMaxId(PageData pd)throws Exception;
+
+	/**
+	 * 审核
+	 * @param pd
+	 * @throws Exception
+	 */
+	public void audit(PageData pd)throws Exception;;
 }
 

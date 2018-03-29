@@ -124,6 +124,11 @@ public class WantExamController  extends BaseController {
         PageData pd = new PageData();
         pd = this.getPageData();
         String JOB_MESSAGE_ID = pd.get("JOB_MESSAGE_ID") != null ?  pd.get("JOB_MESSAGE_ID").toString() : "" ;
+        if(pd.get("CARD_ID") == null ){
+            mv.addObject("message","身份证号码不允许为空");
+            mv.setViewName("want/goExam");
+            return mv;
+        }
         PageData CardPd = resumeService.findByCardId(pd);
         if(CardPd == null || CardPd.isEmpty()){
             mv.addObject("message","未找到与您身份证号码匹配的简历");

@@ -127,6 +127,7 @@
 				/uploadFiles/uploadImgs/** 	= anon
 	           	/code.do 					= anon
 	           	/login_login	 			= anon
+				/front/**		 			= anon
 	           	/app**/** 					= anon
 	           	/weixin/** 					= anon
 	           	/**							= authc

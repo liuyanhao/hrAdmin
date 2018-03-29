@@ -263,7 +263,7 @@
                 url: "<%=basePath%>jobmessage/select-job-name.do?JOB_TYPE_ID=" + JOB_TYPE_ID + "&tm="+new Date().getTime(),
                 success: function(data){
                     //  console.log(data);
-                    if(data != null && data.length > 0){debugger;
+                    if(data != null && data.length > 0){
                         var html="<option value=''>请选择</option>";
                         var selectd ="";
                         for(var i=0; i<data.length; i++){

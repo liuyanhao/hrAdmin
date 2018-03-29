@@ -44,7 +44,6 @@
 		UPDATE_USER,	
 		STAFF_NAME,	
 		STAFFEMPLOYEE_ID,
-		DEPARTMENT_ID,
 		STATES
 	</sql>
 	
@@ -85,7 +84,6 @@
 		#{UPDATE_USER},	
 		#{STAFF_NAME},	
 		#{STAFFEMPLOYEE_ID},
-		#{DEPARTMENT_ID},
 		#{STATES}
 	</sql>
 	
@@ -203,8 +201,18 @@
 		<if test="STAFF_NAME != null and STAFF_NAME !=''" >
 			STAFF_NAME = #{STAFF_NAME},
 		</if>
-		<if test="DEPARTMENT_ID != null and DEPARTMENT_ID != ''">
-			DEPARTMENT_ID = #{DEPARTMENT_ID},
+		STAFFEMPLOYEE_ID = STAFFEMPLOYEE_ID
+		where
+		STAFFEMPLOYEE_ID = #{STAFFEMPLOYEE_ID}
+	</update>
+
+	<!-- 审核 -->
+	<update id="audit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		<if test="STATES != null and STATES != ''">
+			STATES = #{STATES},
 		</if>
 		STAFFEMPLOYEE_ID = STAFFEMPLOYEE_ID
 		where
@@ -230,10 +238,15 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
+		t.TYPE_NAME, j.JOB_NAME,
 		<include refid="Field"></include>
-		from 
+		from
 		<include refid="tableName"></include>
+		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
 		where 1=1
+		and ISROMVE =0
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
 		<if test="pd.STATES != null and pd.STATES != ''">
 			and STATES = #{pd.STATES }
 		</if>
@@ -282,7 +295,7 @@
 	<select id="statePassPage" parameterType="page" resultType="pd" >
 		select
 		t.TYPE_NAME, j.JOB_NAME,STAFF_ID,SEX,CARD_ID,LEARING, SPEIALITY,s.JOB_TYPE_ID,JOB_ID, USER_ID, AGE,
-		ADD_TIME, STAFF_NAME, STAFFEMPLOYEE_ID,DEPARTMENT_ID
+		ADD_TIME, STAFF_NAME, STAFFEMPLOYEE_ID
 		from
 		<include refid="tableName"></include>
 		left join tb_job_message  j on s.JOB_ID = j.JOB_MESSAGE_ID,

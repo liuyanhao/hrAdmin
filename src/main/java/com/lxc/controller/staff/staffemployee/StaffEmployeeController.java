@@ -31,6 +31,7 @@ import java.util.*;
 public class StaffEmployeeController extends BaseController {
 	
 	String menuUrl = "staffemployee/list.do"; //菜单地址(权限用)
+	String menuUrl2 = "staffemployee/report.do"; //员工报表菜单地址(权限用)
 	@Resource(name="staffemployeeService")
 	private StaffEmployeeManager staffemployeeService;
 
@@ -87,6 +88,7 @@ public class StaffEmployeeController extends BaseController {
 		pd.put("CREATE_USER",Jurisdiction.getUsername()); //创建人
 		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
 		pd.put("UPDATE_USER",Jurisdiction.getUsername()); //修改人
+		pd.put("ISROMVE",0); //是否删除
 		pd.put("STATES",0); //默认状态
 		staffemployeeService.save(pd);
 		mv.addObject("msg","success");
@@ -127,6 +129,24 @@ public class StaffEmployeeController extends BaseController {
 		mv.setViewName("save_result");
 		return mv;
 	}
+	/**审核
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/audit")
+	public ModelAndView audit() throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"修改StaffEmployee");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "audit")){return null;} //校验权限
+		String  ffile = "staff", fileName = "";
+		ModelAndView mv = this.getModelAndView();
+		PageData  pd = this.getPageData();
+		staffemployeeService.audit(pd);
+		pd.put("UPDATE_TIME",Tools.date2Str(new Date())); //修改时间
+		pd.put("UPDATE_USER",Jurisdiction.getUsername()); //修改人
+		mv.addObject("msg","success");
+		mv.setViewName("save_result");
+		return mv;
+	}
 	
 	/**列表
 	 * @param page
@@ -151,7 +171,33 @@ public class StaffEmployeeController extends BaseController {
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
-	
+
+	/**
+	 *  员工报表
+	 * @param page
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/report")
+	public ModelAndView reportList(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表StaffEmployee");
+		if(!Jurisdiction.buttonJurisdiction(menuUrl2, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}
+		page.setPd(pd);
+		List<PageData>	varList = staffemployeeService.list(page);	//列出StaffEmployee列表
+		mv.setViewName("staff/staffemployee/staffemployee_all");
+		mv.addObject("varList", varList);
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
+
 	/**去新增页面
 	 * @param
 	 * @throws Exception
@@ -169,7 +215,25 @@ public class StaffEmployeeController extends BaseController {
 		pd.put("STAFF_ID",maxId+1); //最大的员工编号
 		mv.addObject("pd", pd);
 		return mv;
-	}	
+	}
+
+	/**去修改页面
+	 * @param
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/goAudit")
+	public ModelAndView goAudit()throws Exception{
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd);
+		mv.addObject("jobTypeList", jobTypeList);
+		pd = staffemployeeService.findById(pd);	//根据ID读取
+		mv.setViewName("staff/staffemployee/staffemployee_audit");
+		mv.addObject("msg", "audit");
+		mv.addObject("pd", pd);
+		return mv;
+	}
 	
 	 /**去修改页面
 	 * @param

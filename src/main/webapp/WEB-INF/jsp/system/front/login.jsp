@@ -152,7 +152,7 @@ String path = request.getContextPath();
 
 											<div class="space-6"></div>
 											<p>
-												Enter your email and to receive instructions
+												请输入你的E-mail并接收指令
 											</p>
 
 											<form>
