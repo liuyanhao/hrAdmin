@@ -205,7 +205,7 @@
 			});
 
 		//新增
-		/*function add(){
+		function add(){
 			 top.jzts();
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
@@ -225,7 +225,7 @@
 				diag.close();
 			 };
 			 diag.show();
-		}*/
+		}
 		
 		//删除
 		/*function del(Id){

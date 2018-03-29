@@ -137,7 +137,8 @@ public class WantExamController  extends BaseController {
             }
             mv.setViewName("want/goExam");
         }else{
-            if(CardPd.getString("JOB_MESSAGE_ID") != JOB_MESSAGE_ID){ //判断职位是否符合
+            String jobMessageId = CardPd.getString("JOB_MESSAGE_ID").toString();
+            if(!jobMessageId.equals(JOB_MESSAGE_ID)){ //判断职位是否符合
                 mv.addObject("message","您没有参加该职务考试的权限");
                 mv.addObject("pd", pd);
                 mv.setViewName("want/goExam");
@@ -145,6 +146,7 @@ public class WantExamController  extends BaseController {
                 //查询符合条件的试卷
 
                 //考试页面
+                mv.setViewName("want/attendexam");
             }
 
 

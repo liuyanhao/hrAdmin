@@ -45,11 +45,19 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastStart" id="lastStart"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="开始日期" title="开始日期"/></td>
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
-								 	<select class="chosen-select form-control" name="name" id="id" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
+								 	<select class="chosen-select form-control" name="JOB_TYPE_ID" id="JOB_TYPE_ID" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-									<option value="">1</option>
-									<option value="">2</option>
+									<c:choose>
+										<c:when test="${not empty jobTypeList}">
+											<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+												<option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
+											</c:forEach>
+										</c:when>
+										<c:otherwise>
+											<option value=""></option>
+										</c:otherwise>
+									</c:choose>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -261,7 +269,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>jobmessage/goAdd.do';
+			 diag.URL = '<%=basePath%>jobmessage/goAdd.do?JOB_TYPE_ID=' + ${pd.JOB_TYPE_ID} + '&tm=' +new Date().getTime() ;
 			 diag.Width = 500;
 			 diag.Height = 355;
 			 diag.CancelEvent = function(){ //关闭事件

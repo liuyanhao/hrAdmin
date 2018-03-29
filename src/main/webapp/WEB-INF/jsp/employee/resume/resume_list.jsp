@@ -46,15 +46,17 @@
 								<td style="padding-left:2px;"><input class="span10 date-picker" name="lastEnd" name="lastEnd"  value="" type="text" data-date-format="yyyy-mm-dd" readonly="readonly" style="width:88px;" placeholder="结束日期" title="结束日期"/></td>
 								<td style="vertical-align:top;padding-left:2px;">
 								<select class="chosen-select form-control" id="STATUS" name="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;" >
-									<option value="0" <c:if test="${pd.STATUS == 0}">selected</c:if> >未审核</option>
-									<option value="1" <c:if test="${pd.STATUS == 1}">selected</c:if>>待笔试</option>
-									<option value="2" <c:if test="${pd.STATUS == 2}">selected</c:if>>笔试通过</option>
-									<option value="3" <c:if test="${pd.STATUS == 3}">selected</c:if>>笔试待审核</option>
-									<option value="4" <c:if test="${pd.STATUS == 4}">selected</c:if>>待面试</option>
-									<option value="5" <c:if test="${pd.STATUS == 5}">selected</c:if>>通过面试</option>
-									<option value="6" <c:if test="${pd.STATUS == 6}">selected</c:if>>待录用</option>
-									<option value="7" <c:if test="${pd.STATUS == 7}">selected</c:if>>未通过录用</option>
-									<option value="8" <c:if test="${pd.STATUS == 8}">selected</c:if>>通过录用</option>
+									<option value=""></option>
+									<option value="">全部</option>
+									<option value="0"  >未审核</option>
+									<option value="1" >待笔试</option>
+									<option value="2" >笔试通过</option>
+									<option value="3" >笔试待审核</option>
+									<option value="4" >待面试</option>
+									<option value="5" >通过面试</option>
+									<option value="6" >待录用</option>
+									<option value="7" >未通过录用</option>
+									<option value="8" >通过录用</option>
 								</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -72,6 +74,8 @@
 									<label class="pos-rel"><input type="checkbox" class="ace" id="zcheckbox" /><span class="lbl"></span></label>
 									</th>
 									<th class="center" style="width:50px;">序号</th>
+									<th class="center">职位类别</th>
+									<th class="center">职位名称</th>
 									<th class="center">姓名</th>
 									<th class="center">性别</th>
 									<th class="center">身份证号码</th>
@@ -98,6 +102,8 @@
 												<label class="pos-rel"><input type='checkbox' name='ids' value="${var.RESUME_ID}" class="ace" /><span class="lbl"></span></label>
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
+											<td class='center'>${var.TYPE_NAME}</td>
+											<td class='center'>${var.JOB_NAME}</td>
 											<td class='center'>${var.STAFF_NAME}</td>
 											<td class='center'>
 												<c:if test="${var.SEX == 1 }">

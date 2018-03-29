@@ -47,7 +47,6 @@ public class StipendTypeController extends BaseController {
 		pd = this.getPageData();
 		pd.put("STIPENDTYPE_ID", this.get32UUID());	//主键
 		pd.put("CREATETIME", Tools.date2Str(new Date()));	//创建时间
-		pd.put("ISREMOVE", "0");	//是否启用
 		pd.put("CREATEUSER", Jurisdiction.getUsername());	//创建人
 		stipendtypeService.save(pd);
 		mv.addObject("msg","success");
@@ -56,7 +55,6 @@ public class StipendTypeController extends BaseController {
 	}
 	
 	/**删除
-	 * @param out
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
@@ -95,7 +93,7 @@ public class StipendTypeController extends BaseController {
 	}
 
 
-	/**列表
+	/**职位类型相同的列表
 	 * @param page
 	 * @throws Exception
 	 */

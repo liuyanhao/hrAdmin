@@ -29,8 +29,28 @@
 					
 					<form action="jobmessage/${msg }.do" name="Form" id="Form" method="post">
 						<input type="hidden" name="JOB_MESSAGE_ID" id="JOB_MESSAGE_ID" value="${pd.JOB_MESSAGE_ID}"/>
+						<input type="hidden" name="JOB_TYPE_ID" value="${pd.JOB_TYPE_ID}"/>
+
 						<div id="zhongxin" style="padding-top: 13px;">
 						<table id="table_report" class="table table-striped table-bordered table-hover">
+							<tr>
+								<td style="width:75px;text-align: right;padding-top: 13px;">职位类别:</td>
+								<td>
+									<select id="JOB_TYPE_ID" name="JOB_TYPE_ID" disabled="disabled" title="职位类别" style="width:98%;">
+										<option value="">请选择</option>
+										<c:choose>
+											<c:when test="${not empty jobTypeList}">
+												<c:forEach items="${jobTypeList}" var="var" varStatus="vs">
+													<option value="${var.JOB_TYPE_ID}" <c:if test="${pd.JOB_TYPE_ID == var.JOB_TYPE_ID}"> selected</c:if> >${var.TYPE_NAME}</option>
+												</c:forEach>
+											</c:when>
+											<c:otherwise>
+												<option value=""></option>
+											</c:otherwise>
+										</c:choose>
+									</select>
+								</td>
+							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">工作名称:</td>
 								<td><input type="text" name="JOB_NAME" id="JOB_NAME" value="${pd.JOB_NAME}" maxlength="255" placeholder="这里输入工作名称" title="工作名称" style="width:98%;"/></td>
@@ -40,6 +60,7 @@
 								<td>
 
 									<select  name="STIPENDTYPE_ID" id="STIPENDTYPE_ID" placeholder="这里选择薪资待遇" title="薪资待遇" style="width:98%;">
+										<option>请选择</option>
 										<c:forEach items="${stipendTypeList}" var="var" varStatus="vs">
 											<option value="${var.STIPENDTYPE_ID}" <c:if test="var.STIPENDTYPE_ID == pd.STIPENDTYPE_ID">selected</c:if> >${var.STIPENDNAME}</option>
 										</c:forEach>
@@ -64,7 +85,7 @@
 
 <c:if test="${'edit' == msg }">
 	<div>
-		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>stipendtype/listOne.do?STIPENDTYPE_ID=${pd.STIPENDTYPE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
+		<iframe name="treeFrame" id="treeFrame" frameborder="0" src="<%=basePath%>stipendtype/listOne.do?STIPENDTYPE_ID=${pd.STIPENDTYPE_ID}&JOB_TYPE_ID=${pd.JOB_TYPE_ID}" style="margin:0 auto;width:805px;height:368px;;"></iframe>
 	</div>
 </c:if>
 
@@ -87,6 +108,16 @@
 		$(top.hangge());
 		//保存
 		function save(){
+            if($("#JOB_TYPE_ID").val()==""){
+                $("#JOB_TYPE_ID").tips({
+                    side:3,
+                    msg:'请选择职位类别',
+                    bg:'#AE81FF',
+                    time:2
+                });
+                $("#JOB_TYPE_ID").focus();
+                return false;
+            }
 			if($("#JOB_NAME").val()==""){
 				$("#JOB_NAME").tips({
 					side:3,

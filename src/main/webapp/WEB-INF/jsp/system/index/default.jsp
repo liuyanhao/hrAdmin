@@ -55,7 +55,7 @@
 						            },
 						            tooltip: {},
 						            xAxis: {
-						                data: ["系统用户","系统员员工"]
+						                data: ["系统用户","公司员工"]
 						            },
 						            yAxis: {},
 						            series: [

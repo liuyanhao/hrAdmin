@@ -4,6 +4,7 @@ import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.employee.resume.ResumeManager;
 import com.lxc.service.job.job_type.Job_typeManager;
+import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
@@ -32,9 +33,17 @@ public class ResumeController extends BaseController {
 	@Resource(name="resumeService")
 	private ResumeManager resumeService;
 
+	/**
+	 * 职位类别service
+	 */
 	@Resource(name="job_typeService")
 	private Job_typeManager job_typeService;
 
+	/**
+	 * 职位名称service
+	 */
+	@Resource(name="jobmessageService")
+	private JobMessageManager jobmessageService;
 	/**保存
 	 * @param
 	 * @throws Exception
@@ -122,7 +131,7 @@ public class ResumeController extends BaseController {
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表Resume");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -259,8 +268,9 @@ public class ResumeController extends BaseController {
 		titles.add("推荐理由");	//27
 		titles.add("面试成绩");	//28
 		titles.add("面试评价");	//29
-		titles.add("工作职位id");	//30
-		titles.add("英语等级");	//31
+        titles.add("职位类别");	//30
+		titles.add("工作职位");	//31
+		titles.add("英语等级");	//32
 		dataMap.put("titles", titles);
 		List<PageData> varOList = resumeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
@@ -286,18 +296,19 @@ public class ResumeController extends BaseController {
 			vpd.put("var17", varOList.get(i).getString("BIRTH"));	    //17
 			vpd.put("var18", varOList.get(i).getString("FAITH"));	    //18
 			vpd.put("var19", varOList.get(i).getString("SPEIALITY"));	//19
-			vpd.put("var21", varOList.get(i).getString("DESCRIBES"));	//20
-			vpd.put("var22", varOList.get(i).getString("REMARK"));	    //21
-			vpd.put("var23", varOList.get(i).getString("USER_ID"));	    //22
-			vpd.put("var24", varOList.get(i).get("AGE").toString());	    //23
-			vpd.put("var25", varOList.get(i).getString("TIME"));	    //24
-			vpd.put("var26", varOList.get(i).get("STATUS").toString());		//25
-			vpd.put("var27", varOList.get(i).getString("USER_NAME"));	//26
-			vpd.put("var28", varOList.get(i).getString("REASON"));	    //27
-			vpd.put("var29", varOList.get(i).get("RESULT").toString());		//28
-			vpd.put("var30", varOList.get(i).getString("SCORE"));		//29
-			vpd.put("var31", varOList.get(i).get("JOB_MESSAGE_ID").toString());	//30
-			vpd.put("var32", varOList.get(i).getString("DEGREE"));	    //31
+			vpd.put("var20", varOList.get(i).getString("DESCRIBES"));	//20
+			vpd.put("var21", varOList.get(i).getString("REMARK"));	    //21
+			vpd.put("var22", varOList.get(i).getString("USER_ID"));	    //22
+			vpd.put("var23", varOList.get(i).get("AGE").toString());	    //23
+			vpd.put("var24", varOList.get(i).getString("TIME"));	    //24
+			vpd.put("var25", varOList.get(i).get("STATUS").toString());		//25
+			vpd.put("var26", varOList.get(i).getString("USER_NAME"));	//26
+			vpd.put("var27", varOList.get(i).getString("REASON"));	    //27
+			vpd.put("var28", varOList.get(i).get("RESULT").toString());		//28
+			vpd.put("var29", varOList.get(i).getString("SCORE"));		//29
+            vpd.put("var30", varOList.get(i).getString("TYPE_NAME"));	//30
+            vpd.put("var30", varOList.get(i).getString("JOB_NAME"));	//31
+			vpd.put("var32", varOList.get(i).getString("DEGREE"));	    //32
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

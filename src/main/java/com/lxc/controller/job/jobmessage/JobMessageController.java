@@ -4,6 +4,7 @@ import com.lxc.controller.base.BaseController;
 import com.lxc.entity.Page;
 import com.lxc.service.compensation.stipendmanager.StipendManagerManager;
 import com.lxc.service.compensation.stipendtype.StipendTypeManager;
+import com.lxc.service.job.job_type.Job_typeManager;
 import com.lxc.service.job.jobmessage.JobMessageManager;
 import com.lxc.util.AppUtil;
 import com.lxc.util.Jurisdiction;
@@ -34,6 +35,9 @@ public class JobMessageController extends BaseController {
 	String menuUrl = "jobmessage/list.do"; //菜单地址(权限用)
 	@Resource(name="jobmessageService")
 	private JobMessageManager jobmessageService;
+
+	@Resource(name="job_typeService")
+	private Job_typeManager job_typeService;
 
 	@Resource(name="stipendtypeService")
 	private StipendTypeManager stipendtypeService;
@@ -118,6 +122,8 @@ public class JobMessageController extends BaseController {
 		}
 		page.setPd(pd);
 		List<PageData>	varList = jobmessageService.list(page);	//列出JobMessage列表
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("job/jobmessage/jobmessage_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
@@ -134,8 +140,10 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> stipendTypeList =stipendtypeService.listStartAll(pd);
-		mv.addObject("stipendTypeList",stipendTypeList);
+		List<PageData> stipendTypeList = stipendtypeService.listStartAll(pd);
+		mv.addObject("stipendTypeList", stipendTypeList); //薪资类型
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		mv.setViewName("job/jobmessage/jobmessage_edit");
 		mv.addObject("msg", "save");
 		mv.addObject("pd", pd);
@@ -151,8 +159,10 @@ public class JobMessageController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		List<PageData> stipendTypeList =stipendtypeService.listStartAll(pd);
-		mv.addObject("stipendTypeList",stipendTypeList);
+		List<PageData> stipendTypeList = stipendtypeService.listStartAll(pd);
+		mv.addObject("stipendTypeList", stipendTypeList); //薪资类型
+		List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+		mv.addObject("jobTypeList", jobTypeList);
 		pd = jobmessageService.findById(pd);	//根据ID读取
 		mv.setViewName("job/jobmessage/jobmessage_edit");
 		mv.addObject("msg", "edit");

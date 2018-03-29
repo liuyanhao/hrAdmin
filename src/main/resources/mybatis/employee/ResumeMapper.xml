@@ -4,48 +4,48 @@
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_RESUME
+		TB_RESUME as r
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		SEX,	
-		ADDRESS,	
-		PHONE,	
-		PIC,	
-		CARD_ID,	
-		EMAIL,	
-		QQ,	
-		WECHAT,	
-		POST_CODE,	
-		GOVEMMET,	
-		NATION,	
-		LEARING,	
-		HOBBY,	
-		SUIT,	
-		NATIONALITY,	
-		BIRTH,	
-		FAITH,	
-		SPEIALITY,	
-		DESCRIBES,
-		REMARK,	
-		USER_ID,
-		AGE,	
-		TIME,	
-		CREATE_TIME,	
-		UPDATE_TIME,	
-		CREATE_USER,	
-		UPDATE_USER,	
-		STAFF_NAME,	
-		STATUS,	
-		USER_NAME,	
-		REASON,	
-		RESULT,	
-		SCORE,	
-		JOB_MESSAGE_ID,
-		JOB_TYPE_ID,
-		DEGREE,	
-		RESUME_ID
+		r.SEX,
+		r.ADDRESS,
+		r.PHONE,
+		r.PIC,
+		r.CARD_ID,
+		r.EMAIL,
+		r.QQ,
+		r.WECHAT,
+		r.POST_CODE,
+		r.GOVEMMET,
+		r.NATION,
+		r.LEARING,
+		r.HOBBY,
+		r.SUIT,
+		r.NATIONALITY,
+		r.BIRTH,
+		r.FAITH,
+		r.SPEIALITY,
+		r.DESCRIBES,
+		r.REMARK,
+		r.USER_ID,
+		r.AGE,
+		r.TIME,
+		r.CREATE_TIME,
+		r.UPDATE_TIME,
+		r.CREATE_USER,
+		r.UPDATE_USER,
+		r.STAFF_NAME,
+		r.STATUS,
+		r.USER_NAME,
+		r.REASON,
+		r.RESULT,
+		r.SCORE,
+		r.JOB_MESSAGE_ID,
+		r.JOB_TYPE_ID,
+		r.DEGREE,
+		r.RESUME_ID
 	</sql>
 	
 	<!-- 字段值 -->
@@ -236,10 +236,17 @@
 	<!-- 列表 -->
 	<select id="datalistPage" parameterType="page" resultType="pd">
 		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
 		<include refid="Field"></include>
 		from 
-		<include refid="tableName"></include>
+		<include refid="tableName"></include> left join tb_job_message  j on r.JOB_MESSAGE_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
 		where 1=1
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and r.STATUS = #{pd.STATUS}
+		</if>
 		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
 			and
 				(
@@ -251,8 +258,6 @@
 			QQ LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			or
 			WECHAT LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
-			or
-			CARD_ID LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
 			)
 		</if>
 		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
@@ -266,9 +271,17 @@
 	<!-- 列表(全部) -->
 	<select id="listAll" parameterType="pd" resultType="pd">
 		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
 		<include refid="Field"></include>
-		from 
-		<include refid="tableName"></include>
+		from
+		<include refid="tableName"></include> left join tb_job_message  j on r.JOB_MESSAGE_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
+		where 1=1
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
+		</if>
 	</select>
 	
 	<!-- 批量删除 -->
