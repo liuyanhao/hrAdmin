@@ -43,7 +43,7 @@ public class SubPaperMxController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("SUBPAPERMX_ID", this.get32UUID());	//主键
-		pd.put("CRATE_USER", Jurisdiction.getUsername());	//创建人
+		pd.put("CREATE_USER", Jurisdiction.getUsername());	//创建人
 		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
 		subpapermxService.save(pd);
 		mv.addObject("msg","success");
@@ -187,7 +187,7 @@ public class SubPaperMxController extends BaseController {
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
 			vpd.put("var1", varOList.get(i).getString("SUBJECTMANAGE_ID"));	    //1
-			vpd.put("var2", varOList.get(i).getString("CRATE_USER"));	    //2
+			vpd.put("var2", varOList.get(i).getString("CREATE_USER"));	    //2
 			vpd.put("var3", varOList.get(i).getString("CREATE_TIME"));	    //3
 			vpd.put("var4", varOList.get(i).get("STATUS").toString());	//4
 			varList.add(vpd);

@@ -114,7 +114,7 @@
 	  from  tb_subjecttypemx jt
 		left join  tb_subjecttype sj on  sj.SUBJECTTYPE_ID = jt.SUBJECTTYPE_ID
 		where 1=1
-	 group by jt.SUBJECTTYPE_ID
+	 group by jt.SUBJECTTYPEMX_ID
 	</select>
 
 	<!-- 列表(全部) -->

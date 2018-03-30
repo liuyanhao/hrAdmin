@@ -89,7 +89,7 @@
 											</td>
 											<td class='center' style="width: 30px;">${vs.index+1}</td>
 											<td class='center'>${var.SUBJECTMANAGE_ID}</td>
-											<td class='center'>${var.CRATE_USER}</td>
+											<td class='center'>${var.CREATE_USER}</td>
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>${var.STATUS}</td>
 											<td class="center">

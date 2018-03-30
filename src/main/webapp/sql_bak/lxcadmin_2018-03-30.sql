@@ -117,7 +117,7 @@ CREATE TABLE IF NOT EXISTS `sys_app_user` (
   PRIMARY KEY (`USER_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='app 用户表';
 
--- 正在导出表  lxcadmin.sys_app_user 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.sys_app_user 的数据：~4 rows (大约)
 DELETE FROM `sys_app_user`;
 /*!40000 ALTER TABLE `sys_app_user` DISABLE KEYS */;
 INSERT INTO `sys_app_user` (`USER_ID`, `USERNAME`, `PASSWORD`, `NAME`, `RIGHTS`, `ROLE_ID`, `LAST_LOGIN`, `IP`, `STATUS`, `BZ`, `PHONE`, `SFID`, `START_TIME`, `END_TIME`, `YEARS`, `NUMBER`, `EMAIL`) VALUES
@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS `sys_createcode` (
   PRIMARY KEY (`CREATECODE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='代码生成器记录表';
 
--- 正在导出表  lxcadmin.sys_createcode 的数据：~19 rows (大约)
+-- 正在导出表  lxcadmin.sys_createcode 的数据：~21 rows (大约)
 DELETE FROM `sys_createcode`;
 /*!40000 ALTER TABLE `sys_createcode` DISABLE KEYS */;
 INSERT INTO `sys_createcode` (`CREATECODE_ID`, `PACKAGENAME`, `OBJECTNAME`, `TABLENAME`, `FIELDLIST`, `CREATETIME`, `TITLE`, `LXCTYPE`) VALUES
@@ -156,12 +156,14 @@ INSERT INTO `sys_createcode` (`CREATECODE_ID`, `PACKAGENAME`, `OBJECTNAME`, `TAB
 	('8a8609ca7a914e84ad10c06f9019d22c', 'mobilize', 'Mobilize', 'TB_,lxc,MOBILIZE', 'EMP_ID,lxc,String,lxc,审核人编号,lxc,否,lxc,无,lxc,32,lxc,0Q1094921525EMP_NAME,lxc,String,lxc,审核人名称,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525JOB_ID,lxc,String,lxc,工作职位编码,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525CAUSE,lxc,String,lxc,调用原因,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525STATUS,lxc,String,lxc,审核状态,lxc,是,lxc,无,lxc,5,lxc,0Q1094921525', '2018-01-27 16:25:06', '调动管理', 'single'),
 	('95115d9955c449c2bfc86aec20cd0f59', 'subject', 'SubjectTypeMx', 'TB_,lxc,SUBJECTTYPEMX', 'SUBJECTTYPE_ID,lxc,String,lxc,试卷分类id,lxc,否,lxc,无,lxc,255,lxc,0Q1094921525SUBJECTMANAGE,lxc,String,lxc,试题类型,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,无,lxc,32,lxc,0Q1094921525CREATE_USER,lxc,String,lxc,创建人,lxc,否,lxc,无,lxc,255,lxc,0Q1094921525IS_REMOVE,lxc,Integer,lxc,是否删除 0 否 1 是,lxc,否,lxc,0,lxc,11,lxc,0Q1094921525STATUS,lxc,Integer,lxc,是否启用,lxc,是,lxc,无,lxc,5,lxc,0Q1094921525', '2018-03-19 18:05:27', '试卷分类表(明细)', 'sontable'),
 	('9eadb15bd32f419f90638c5339c2bbb3', 'compensation', 'StipendType', 'TB_,lxc,STIPENDTYPE', 'STIPENDNAME,lxc,String,lxc,薪资类型名称,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525CREATETIME,lxc,Date,lxc,创建时间,lxc,否,lxc,无,lxc,32,lxc,0Q1094921525ISREMOVE,lxc,Integer,lxc,是否删除,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525CREATEUSER,lxc,String,lxc,创建人,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525', '2018-03-19 09:06:38', '薪资类型表', 'single'),
+	('a43a2d0f386542da89c75ca1685e341c', 'want', 'SubPaper', 'TB_,lxc,SUBPAPER', 'JOB_MANAGER_ID,lxc,String,lxc,工作职位id,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525CREATE_USER,lxc,String,lxc,创建人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,50,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,DateUtil.getTime().toString(),lxc,32,lxc,0Q1094921525STATUS,lxc,Integer,lxc,是否启用,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525', '2018-03-30 07:09:41', '试卷', 'single'),
 	('a51c969572a04412899ba8dc74c2dc7f', 'want', 'SubPaper', 'TB_,lxc,SUBPAPER', 'JOB_MANAGER_ID,lxc,String,lxc,工作职位id,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525CREATE_USER,lxc,String,lxc,创建人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,50,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,DateUtil.getTime().toString(),lxc,32,lxc,0Q1094921525STATUS,lxc,Integer,lxc,是否启用,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525', '2018-03-22 00:40:42', '试卷', 'fathertable'),
 	('ac8f10ec5bf140b5ba56fbf62508cc19', 'employee', 'IssueJob', 'TB_,lxc,ISSUEJOB', 'JOB_MESSAGE_ID,lxc,Integer,lxc,工作职位,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525COUNT,lxc,Integer,lxc,招聘人数,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525PRINCIPAL,lxc,Integer,lxc,招聘人,lxc,否,lxc,无,lxc,11,lxc,0Q1094921525FOUNDTIME,lxc,Date,lxc,建档时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525', '2018-03-11 05:12:17', '职位发布管理', 'fathertable'),
 	('bd8d0943d9fe4b8b8018e6499c2658ca', 'compensation', 'StipenManager', 'TB_,lxc,STIPENMANAGER', 'STIPEND_NAME,lxc,String,lxc,薪酬名称,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525STIPEND_USER_NAME,lxc,String,lxc,登记人姓名,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525STIPEN_WEAL_JOURNEY,lxc,Integer,lxc,交通补贴,lxc,是,lxc,无,lxc,10,lxc,0Q1094921525STIPEN_WEAL_ LUNCH,lxc,Integer,lxc,午餐补贴,lxc,是,lxc,无,lxc,10,lxc,0Q1094921525GTIPEND_DATE,lxc,Date,lxc,登记时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525BASE_STIPEND_ID,lxc,String,lxc,基本薪资id,lxc,否,lxc,无,lxc,20,lxc,0Q1094921525STIPEND_TYPE,lxc,Integer,lxc,薪资类型,lxc,是,lxc,无,lxc,5,lxc,0Q1094921525STIPEND_WEAL,lxc,Integer,lxc,薪酬总额,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525STATUS,lxc,Integer,lxc,审批状态,lxc,是,lxc,无,lxc,5,lxc,0Q1094921525', '2018-01-27 16:13:05', '薪酬等级表', 'single'),
 	('c7e25d2a541c4546a705694e15d220d5', 'compensation', 'GrantIdManager', 'TB_,lxc,GRANTIDMANAGER', 'TEMLOYEE_ID,lxc,String,lxc,员工id,lxc,否,lxc,无,lxc,30,lxc,0Q1094921525GRANT_PRICE,lxc,String,lxc,薪酬总额,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525GRANT_TIME,lxc,Date,lxc,发放时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525GRANT_USER,lxc,String,lxc,发放人,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525GRANT_STATUS,lxc,Integer,lxc,审核状态,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525CREATE_USER,lxc,String,lxc,创建人,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,DateUtil.getTime().toString(),lxc,32,lxc,0Q1094921525UPDATE_USER,lxc,String,lxc,修改人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,255,lxc,0Q1094921525UPDATE_TIME,lxc,Date,lxc,修改时间,lxc,否,lxc,DateUtil.getTime().toString(),lxc,32,lxc,0Q1094921525', '2018-03-21 23:40:35', '薪酬发放', 'single'),
 	('d44777af89914c288a25c6bc5e286172', 'staff', 'StaffEmployee', 'TB_,lxc,STAFFEMPLOYEE', 'STAFF_ID,lxc,Integer,lxc,员工ID,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525SEX,lxc,Integer,lxc,性别,lxc,是,lxc,无,lxc,2,lxc,0Q1094921525ADDRESS,lxc,String,lxc,地址,lxc,是,lxc,无,lxc,50,lxc,0Q1094921525PHONE,lxc,String,lxc,电话,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525PIC,lxc,String,lxc,照片地址,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525CARD_ID,lxc,String,lxc,身份证号码,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525EMAIL,lxc,String,lxc,E-mail,lxc,是,lxc,无,lxc,30,lxc,0Q1094921525QQ,lxc,String,lxc,QQ,lxc,是,lxc,无,lxc,15,lxc,0Q1094921525WECHAT,lxc,String,lxc,微信,lxc,是,lxc,无,lxc,30,lxc,0Q1094921525POST_CODE,lxc,String,lxc,邮编号码,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525GOVEMMET,lxc,String,lxc,政治面貌,lxc,是,lxc,无,lxc,15,lxc,0Q1094921525NATION,lxc,String,lxc,民族,lxc,是,lxc,无,lxc,30,lxc,0Q1094921525LEARING,lxc,String,lxc,学历,lxc,是,lxc,无,lxc,10,lxc,0Q1094921525HOBBY,lxc,String,lxc,爱好,lxc,是,lxc,无,lxc,50,lxc,0Q1094921525SUIT,lxc,String,lxc,特长,lxc,是,lxc,无,lxc,50,lxc,0Q1094921525NATIONALITY,lxc,String,lxc,国籍,lxc,是,lxc,无,lxc,50,lxc,0Q1094921525BIRTH,lxc,String,lxc,出生年月,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525FAITH,lxc,String,lxc,宗教信仰,lxc,是,lxc,无,lxc,30,lxc,0Q1094921525SPEIALITY,lxc,String,lxc,专业,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525RESUME,lxc,String,lxc,个人简历,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525DESCRIBE,lxc,String,lxc,个人描述,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525REMARK,lxc,String,lxc,备注,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525ISROMVE,lxc,String,lxc,目前状况,lxc,是,lxc,无,lxc,30,lxc,0Q1094921525JOB_ID,lxc,Integer,lxc,工作编号,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525USER_ID,lxc,Integer,lxc,用户编号,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525AGE,lxc,Integer,lxc,年龄,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525ADD_TIME,lxc,Date,lxc,登记时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525STIPEND_ID,lxc,Integer,lxc,薪资ID,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525UPDATE_TIME,lxc,Date,lxc,修改时间,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525CREATE_USER,lxc,String,lxc,创建人,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525UPDATE_USER,lxc,String,lxc,修改人,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525STAFF_NAME,lxc,String,lxc,员工姓名,lxc,是,lxc,无,lxc,20,lxc,0Q1094921525', '2018-01-16 02:08:36', '员工档案信息表', 'single'),
 	('e562560a3f144edab5f5adec82265511', 'compensation', 'StipendType', 'TB_,lxc,STIPENDTYPE', 'STIPENDNAME,lxc,String,lxc,薪资类型名称,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525CREATETIME,lxc,Date,lxc,创建时间,lxc,否,lxc,Tools.date2Str(new Date()),lxc,32,lxc,0Q1094921525ISREMOVE,lxc,Integer,lxc,是否启用,lxc,否,lxc,0,lxc,5,lxc,0Q1094921525CREATEUSER,lxc,String,lxc,创建人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,32,lxc,0Q1094921525SALARY_PACKAGE,lxc,String,lxc,薪资待遇,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525SALARY_RANGE,lxc,String,lxc,薪资范围,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525', '2018-03-22 18:28:04', '薪资标准', 'fathertable'),
+	('eb222b4fa53e47fbb3ebbe6fec989cd8', 'want', 'SubPaperMx', 'TB_,lxc,SUBPAPERMX', 'SUBJECTMANAGE_ID,lxc,String,lxc,试题id,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525CRATE_USER,lxc,String,lxc,创建人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,255,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,Tools.date2Str(new Date()),lxc,32,lxc,0Q1094921525STATUS,lxc,Integer,lxc,是否启用,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525', '2018-03-30 07:12:25', '试卷(明细)', 'single'),
 	('eee7654085b84c35abc1ad2462ca02fa', 'employment', 'PaperTypeManage', 'TB_,lxc,PAPERTYPEMANAGE', 'PAPER_TYPE_ID,lxc,Integer,lxc,试卷分类id,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525PAPER_NAME,lxc,String,lxc,类型名称,lxc,是,lxc,无,lxc,255,lxc,0Q1094921525', '2018-01-27 17:09:11', '试卷分类表', 'single'),
 	('fdbde3908f3d4c11ab1407a3df2c99fe', 'want', 'SubPaperMx', 'TB_,lxc,SUBPAPERMX', 'SUBJECTMANAGE_ID,lxc,String,lxc,试题id,lxc,是,lxc,无,lxc,32,lxc,0Q1094921525CRATE_USER,lxc,String,lxc,创建人,lxc,否,lxc,Jurisdiction.getUsername(),lxc,255,lxc,0Q1094921525CREATE_TIME,lxc,Date,lxc,创建时间,lxc,否,lxc,Tools.date2Str(new Date()),lxc,32,lxc,0Q1094921525STATUS,lxc,Integer,lxc,是否启用,lxc,是,lxc,无,lxc,11,lxc,0Q1094921525', '2018-03-22 00:50:05', '试卷(明细)', 'sontable');
 /*!40000 ALTER TABLE `sys_createcode` ENABLE KEYS */;
@@ -601,7 +603,7 @@ CREATE TABLE IF NOT EXISTS `tb_grantidmanager` (
   KEY `Index 2` (`TEMLOYEE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='发放薪酬表';
 
--- 正在导出表  lxcadmin.tb_grantidmanager 的数据：~2 rows (大约)
+-- 正在导出表  lxcadmin.tb_grantidmanager 的数据：~3 rows (大约)
 DELETE FROM `tb_grantidmanager`;
 /*!40000 ALTER TABLE `tb_grantidmanager` DISABLE KEYS */;
 INSERT INTO `tb_grantidmanager` (`GRANTIDMANAGER_ID`, `TEMLOYEE_ID`, `GRANT_PRICE`, `GRANT_TIME`, `GRANT_USER`, `GRANT_STATUS`, `CREATE_USER`, `CREATE_TIME`, `UPDATE_USER`, `UPDATE_TIME`) VALUES
@@ -644,7 +646,7 @@ CREATE TABLE IF NOT EXISTS `tb_issuejob` (
   KEY `Index 3` (`JOB_MESSAGE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='职位发布表';
 
--- 正在导出表  lxcadmin.tb_issuejob 的数据：~4 rows (大约)
+-- 正在导出表  lxcadmin.tb_issuejob 的数据：~5 rows (大约)
 DELETE FROM `tb_issuejob`;
 /*!40000 ALTER TABLE `tb_issuejob` DISABLE KEYS */;
 INSERT INTO `tb_issuejob` (`ISSUEJOB_ID`, `JOB_TYPE_ID`, `JOB_MESSAGE_ID`, `COUNTS`, `PRINCIPAL`, `FOUNDTIME`) VALUES
@@ -667,7 +669,7 @@ CREATE TABLE IF NOT EXISTS `tb_job_message` (
   KEY `Index 3` (`STIPENDTYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='工作职位表';
 
--- 正在导出表  lxcadmin.tb_job_message 的数据：~7 rows (大约)
+-- 正在导出表  lxcadmin.tb_job_message 的数据：~10 rows (大约)
 DELETE FROM `tb_job_message`;
 /*!40000 ALTER TABLE `tb_job_message` DISABLE KEYS */;
 INSERT INTO `tb_job_message` (`JOB_MESSAGE_ID`, `JOB_TYPE_ID`, `JOB_NAME`, `STIPENDTYPE_ID`) VALUES
@@ -716,7 +718,7 @@ CREATE TABLE IF NOT EXISTS `tb_mobilize` (
   PRIMARY KEY (`MOBILIZE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='调动管理表';
 
--- 正在导出表  lxcadmin.tb_mobilize 的数据：~6 rows (大约)
+-- 正在导出表  lxcadmin.tb_mobilize 的数据：~10 rows (大约)
 DELETE FROM `tb_mobilize`;
 /*!40000 ALTER TABLE `tb_mobilize` DISABLE KEYS */;
 INSERT INTO `tb_mobilize` (`MOBILIZE_ID`, `EMP_ID`, `EMP_NAME`, `JOB_ID`, `JOB_TYPE_ID`, `CAUSE`, `STATUS`, `STAFFEMPLOYEE_ID`) VALUES
@@ -761,7 +763,7 @@ CREATE TABLE IF NOT EXISTS `tb_pictures` (
   PRIMARY KEY (`PICTURES_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='图片管理表';
 
--- 正在导出表  lxcadmin.tb_pictures 的数据：~14 rows (大约)
+-- 正在导出表  lxcadmin.tb_pictures 的数据：~0 rows (大约)
 DELETE FROM `tb_pictures`;
 /*!40000 ALTER TABLE `tb_pictures` DISABLE KEYS */;
 /*!40000 ALTER TABLE `tb_pictures` ENABLE KEYS */;
@@ -867,7 +869,7 @@ CREATE TABLE IF NOT EXISTS `tb_staffemployee` (
   UNIQUE KEY `STAFF_ID` (`STAFF_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='员工档案信息表';
 
--- 正在导出表  lxcadmin.tb_staffemployee 的数据：~7 rows (大约)
+-- 正在导出表  lxcadmin.tb_staffemployee 的数据：~8 rows (大约)
 DELETE FROM `tb_staffemployee`;
 /*!40000 ALTER TABLE `tb_staffemployee` DISABLE KEYS */;
 INSERT INTO `tb_staffemployee` (`STAFFEMPLOYEE_ID`, `STAFF_ID`, `STAFF_NAME`, `SEX`, `ADDRESS`, `PHONE`, `PIC`, `CARD_ID`, `EMAIL`, `QQ`, `WECHAT`, `POST_CODE`, `GOVEMMET`, `NATION`, `LEARING`, `HOBBY`, `SUIT`, `NATIONALITY`, `BIRTH`, `FAITH`, `SPEIALITY`, `RESUME`, `DESCRIBES`, `REMARK`, `ISROMVE`, `JOB_ID`, `USER_ID`, `JOB_TYPE_ID`, `AGE`, `ADD_TIME`, `STIPEND_ID`, `CREATE_TIME`, `UPDATE_TIME`, `CREATE_USER`, `UPDATE_USER`, `STATES`, `DEPARTMENT_ID`) VALUES
@@ -921,7 +923,7 @@ CREATE TABLE IF NOT EXISTS `tb_stipendtype` (
   PRIMARY KEY (`STIPENDTYPE_ID`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='薪资类型';
 
--- 正在导出表  lxcadmin.tb_stipendtype 的数据：~1 rows (大约)
+-- 正在导出表  lxcadmin.tb_stipendtype 的数据：~5 rows (大约)
 DELETE FROM `tb_stipendtype`;
 /*!40000 ALTER TABLE `tb_stipendtype` DISABLE KEYS */;
 INSERT INTO `tb_stipendtype` (`STIPENDTYPE_ID`, `STIPENDNAME`, `CREATETIME`, `ISREMOVE`, `CREATEUSER`, `SALARY_PACKAGE`, `SALARY_RANGE`) VALUES
@@ -1006,7 +1008,7 @@ INSERT INTO `tb_subjecttype` (`SUBJECTTYPE_ID`, `SUBJECT_TYPE_NAME`, `IS_REMOVE`
 	('33b4455104f04d23ab4a32a48984a64c', '行政管理类', 0, '2018-03-19 23:41:33', 'admin', 1),
 	('47d96715e81c41ad9dbd7c0673b0cb83', '产品类', 0, '2018-03-24 13:40:34', 'admin', 1),
 	('5b4a9a4a9c7a4ee3b1df315f784b093c', '法务类', 0, '2018-03-24 13:40:48', 'admin', 1),
-	('62f5535f8fe04d0e879f2488b9a23e2b', '公共类', 0, '2018-03-24 13:40:19', 'admin', 0),
+	('62f5535f8fe04d0e879f2488b9a23e2b', '公共类', 0, '2018-03-24 13:40:19', 'admin', 1),
 	('80428683a52c448b8ac3f4eae3dc5e2e', '综合题类', 0, '2018-03-24 13:39:45', 'admin', 1),
 	('89de505b39e343f59a48fbdb3aead826', '测试类', 0, '2018-03-24 13:40:28', 'admin', 1),
 	('8d57ba25ef984b418c20e94048e9907d', '客观题类', 0, '2018-03-24 13:39:54', 'admin', 0),
@@ -1027,19 +1029,21 @@ CREATE TABLE IF NOT EXISTS `tb_subjecttypemx` (
   PRIMARY KEY (`SUBJECTTYPEMX_ID`),
   KEY `FK_tb_subjecttypemx_tb_subjecttype` (`SUBJECTTYPE_ID`),
   CONSTRAINT `FK_tb_subjecttypemx_tb_subjecttype` FOREIGN KEY (`SUBJECTTYPE_ID`) REFERENCES `tb_subjecttype` (`SUBJECTTYPE_ID`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试题类型表';
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='题库试题类型表';
 
--- 正在导出表  lxcadmin.tb_subjecttypemx 的数据：~19 rows (大约)
+-- 正在导出表  lxcadmin.tb_subjecttypemx 的数据：~22 rows (大约)
 DELETE FROM `tb_subjecttypemx`;
 /*!40000 ALTER TABLE `tb_subjecttypemx` DISABLE KEYS */;
 INSERT INTO `tb_subjecttypemx` (`SUBJECTTYPEMX_ID`, `SUBJECTTYPE_ID`, `SUBJECTMANAGE`, `CREATE_TIME`, `CREATE_USER`, `IS_REMOVE`, `STATUS`) VALUES
 	('00291e715816454e8f9277b7bbf6f484', '5b4a9a4a9c7a4ee3b1df315f784b093c', '民法', '2018-03-25 15:17:33', 'admin', 0, 1),
+	('1356eb1fbbdd44928dffee7cac411463', '62f5535f8fe04d0e879f2488b9a23e2b', '基本礼仪类', '2018-03-30 06:38:19', 'admin', 0, 1),
 	('169f421444304353b90b49e954a207bb', '2cd497abe2a24de5a6d1265c4d3450d6', '框架类', '2018-03-24 13:37:48', 'admin', 0, 1),
 	('2e733d07a6244fbc9022b32c4433ca92', '2cd497abe2a24de5a6d1265c4d3450d6', '吹牛类', '2018-03-24 13:38:31', 'admin', 0, 0),
 	('37b2dfdf713745f4b15135e46c37dd05', '2214bda597544575b44c293d43829734', '主观题选择', '2018-03-25 14:49:20', 'admin', 0, 1),
 	('4a440f987e604b0685f44b123966554f', '2cd497abe2a24de5a6d1265c4d3450d6', '语言类', '2018-03-19 23:25:51', 'admin', 0, 1),
 	('647ab9f7fb0f44ada73eed0abea64781', '5b4a9a4a9c7a4ee3b1df315f784b093c', '环境法', '2018-03-25 15:18:49', 'admin', 0, 1),
 	('663bc51fe8db4ec6a0e78e92e6b7a30d', '3023dfc72e564701a771eb476736fb14', '销售渠道', '2018-03-25 15:15:38', 'admin', 0, 1),
+	('6cc307b51a7e47f1b69337c05dd790e5', '62f5535f8fe04d0e879f2488b9a23e2b', '公司规章制度类', '2018-03-30 06:38:00', 'admin', 0, 1),
 	('6d9e87377265431d9915d5d65607d341', '5b4a9a4a9c7a4ee3b1df315f784b093c', '合同法', '2018-03-25 15:19:54', 'admin', 0, 1),
 	('81050176c48d4895a17df99b7ea30945', '2214bda597544575b44c293d43829734', '回答题', '2018-03-25 14:49:46', 'admin', 0, 1),
 	('85d391a4940a4ad784d9dce2ca75efb0', '2cd497abe2a24de5a6d1265c4d3450d6', '数据库类', '2018-03-24 13:37:57', 'admin', 0, 1),
@@ -1049,10 +1053,43 @@ INSERT INTO `tb_subjecttypemx` (`SUBJECTTYPEMX_ID`, `SUBJECTTYPE_ID`, `SUBJECTMA
 	('c614b1f8f2a54ec19baee7df3693172b', '33b4455104f04d23ab4a32a48984a64c', '招聘类', '2018-03-21 00:50:45', 'admin', 0, 1),
 	('c917e6c280c14a0ebc07f661ad787442', '5b4a9a4a9c7a4ee3b1df315f784b093c', '刑法', '2018-03-25 15:17:44', 'admin', 0, 1),
 	('d3eeda32937247f4911f3493587ec9b3', '33b4455104f04d23ab4a32a48984a64c', '财产类', '2018-03-21 00:52:25', 'admin', 0, 1),
+	('def0ad5bc6944d7b9fb52227cc7499db', '62f5535f8fe04d0e879f2488b9a23e2b', '语言表达能类', '2018-03-30 06:36:49', 'admin', 0, 1),
 	('ebf626d0920e464a99c23732de0ed106', '2cd497abe2a24de5a6d1265c4d3450d6', '算法类', '2018-03-24 13:37:33', 'admin', 0, 1),
 	('f6fe2c6a02b54b158e6e2ca11a56cdbf', '33b4455104f04d23ab4a32a48984a64c', '公关业务', '2018-03-21 00:52:59', 'admin', 0, 1),
 	('fa89c2e2cb6c42c292f89eb7354eaf5b', '5b4a9a4a9c7a4ee3b1df315f784b093c', '专利法', '2018-03-25 15:17:25', 'admin', 0, 1);
 /*!40000 ALTER TABLE `tb_subjecttypemx` ENABLE KEYS */;
+
+-- 导出  表 lxcadmin.tb_subpaper 结构
+DROP TABLE IF EXISTS `tb_subpaper`;
+CREATE TABLE IF NOT EXISTS `tb_subpaper` (
+  `SUBPAPER_ID` varchar(100) NOT NULL,
+  `JOB_MANAGER_ID` varchar(32) DEFAULT NULL COMMENT '工作职位id',
+  `CREATE_USER` varchar(50) DEFAULT NULL COMMENT '创建人',
+  `CREATE_TIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
+  `STATUS` int(11) NOT NULL COMMENT '是否启用',
+  PRIMARY KEY (`SUBPAPER_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='考试试卷表';
+
+-- 正在导出表  lxcadmin.tb_subpaper 的数据：~0 rows (大约)
+DELETE FROM `tb_subpaper`;
+/*!40000 ALTER TABLE `tb_subpaper` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_subpaper` ENABLE KEYS */;
+
+-- 导出  表 lxcadmin.tb_subpapermx 结构
+DROP TABLE IF EXISTS `tb_subpapermx`;
+CREATE TABLE IF NOT EXISTS `tb_subpapermx` (
+  `SUBPAPERMX_ID` varchar(100) NOT NULL,
+  `SUBJECTMANAGE_ID` varchar(32) DEFAULT NULL COMMENT '试题id',
+  `CREATE_USER` varchar(255) DEFAULT NULL COMMENT '创建人',
+  `CREATE_TIME` varchar(32) DEFAULT NULL COMMENT '创建时间',
+  `STATUS` int(11) DEFAULT '0' COMMENT '是否启用',
+  PRIMARY KEY (`SUBPAPERMX_ID`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8 COMMENT='试卷题目明细表';
+
+-- 正在导出表  lxcadmin.tb_subpapermx 的数据：~0 rows (大约)
+DELETE FROM `tb_subpapermx`;
+/*!40000 ALTER TABLE `tb_subpapermx` DISABLE KEYS */;
+/*!40000 ALTER TABLE `tb_subpapermx` ENABLE KEYS */;
 
 -- 导出  表 lxcadmin.weixin_command 结构
 DROP TABLE IF EXISTS `weixin_command`;
