@@ -91,10 +91,46 @@
 	
 	<!-- 新增-->
 	<insert id="save" parameterType="pd">
-		insert into 
-	<include refid="tableName"></include>
+		insert into
+		TB_RESUME
 		(
-	<include refid="Field"></include>
+		SEX,
+		ADDRESS,
+		PHONE,
+		PIC,
+		CARD_ID,
+		EMAIL,
+		QQ,
+		WECHAT,
+		POST_CODE,
+		GOVEMMET,
+		NATION,
+		LEARING,
+		HOBBY,
+		SUIT,
+		NATIONALITY,
+		BIRTH,
+		FAITH,
+		SPEIALITY,
+		DESCRIBES,
+		REMARK,
+		USER_ID,
+		AGE,
+		TIME,
+		CREATE_TIME,
+		UPDATE_TIME,
+		CREATE_USER,
+		UPDATE_USER,
+		STAFF_NAME,
+		STATUS,
+		USER_NAME,
+		REASON,
+		RESULT,
+		SCORE,
+		JOB_MESSAGE_ID,
+		JOB_TYPE_ID,
+		DEGREE,
+		RESUME_ID
 		) values (
 	<include refid="FieldValue"></include>
 		)

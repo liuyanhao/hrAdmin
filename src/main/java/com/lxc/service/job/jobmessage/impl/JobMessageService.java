@@ -65,7 +65,7 @@ public class JobMessageService implements JobMessageManager{
 
 	/**
 	 * 根据职位类型查询
-	 * @param pd
+	 * @param pd_Type
 	 * @return
 	 * @throws Exception
 	 */
@@ -93,8 +93,8 @@ public class JobMessageService implements JobMessageManager{
 		return (PageData)dao.findForObject("JobMessageMapper.findCount", pd);
 	}
 
-    public List<PageData> listSelectAll(PageData pd) throws Exception {
-    	return  (List<PageData>)dao.findForList("JobMessageMapper.listSelectAll",pd);
+    public List<PageData> selectList(Page page) throws Exception {
+    	return  (List<PageData>)dao.findForList("JobMessageMapper.selectList",page);
 	}
 }
 

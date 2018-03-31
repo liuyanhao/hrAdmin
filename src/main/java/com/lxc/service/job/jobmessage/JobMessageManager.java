@@ -71,9 +71,9 @@ public interface JobMessageManager{
 
 	/**
 	 * 考试出题
-	 * @param pd
+	 * @param page
 	 * @return
 	 */
-	public List<PageData> listSelectAll(PageData pd)throws Exception;
+	public List<PageData> selectList(Page page)throws Exception;
 }
 

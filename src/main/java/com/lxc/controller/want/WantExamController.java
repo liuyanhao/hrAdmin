@@ -1,6 +1,7 @@
 package com.lxc.controller.want;
 
 import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
 import com.lxc.service.employee.issuejob.IssueJobManager;
 import com.lxc.service.employee.resume.ResumeManager;
 import com.lxc.service.job.job_type.Job_typeManager;
@@ -98,13 +99,14 @@ public class WantExamController  extends BaseController {
      * @throws Exception
      */
     @RequestMapping(value="/go_subject")
-    public ModelAndView goSubject()throws Exception{
+    public ModelAndView goSubject(Page page)throws Exception{
         logBefore(logger, Jurisdiction.getUsername()+"考试出题 goSubject");
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
+        page.setPd(pd);
         List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
-        List<PageData> varList = jobmessageService.listSelectAll(pd);
+        List<PageData> varList = jobmessageService.selectList(page);
         mv.addObject("jobTypeList", jobTypeList);
         mv.addObject("varList", varList );
         mv.addObject("setThemeUser",Jurisdiction.getUsername()); //出题人

@@ -4,47 +4,47 @@
 	
 	<!--表名 -->
 	<sql id="tableName">
-		TB_STAFFEMPLOYEE s
+		TB_STAFFEMPLOYEE as s
 	</sql>
 	
 	<!-- 字段 -->
 	<sql id="Field">
-		STAFF_ID,	
-		SEX,	
-		ADDRESS,	
-		PHONE,	
-		PIC,	
-		CARD_ID,	
-		EMAIL,	
-		QQ,	
-		WECHAT,	
-		POST_CODE,	
-		GOVEMMET,	
-		NATION,	
-		LEARING,	
-		HOBBY,	
-		SUIT,	
-		NATIONALITY,	
-		BIRTH,	
-		FAITH,	
-		SPEIALITY,	
-		RESUME,
-		DESCRIBES,
-		REMARK,	
-		ISROMVE,	
-		JOB_ID,
+		s.STAFF_ID,
+		s.SEX,
+		s.ADDRESS,
+		s.PHONE,
+		s.PIC,
+		s.CARD_ID,
+		s.EMAIL,
+		s.QQ,
+		s.WECHAT,
+		s.POST_CODE,
+		s.GOVEMMET,
+		s.NATION,
+		s.LEARING,
+		s.HOBBY,
+		s.SUIT,
+		s.NATIONALITY,
+		s.BIRTH,
+		s.FAITH,
+		s.SPEIALITY,
+		s.RESUME,
+		s.DESCRIBES,
+		s.REMARK,
+		s.ISROMVE,
+		s.JOB_ID,
 		s.JOB_TYPE_ID,
-		USER_ID,	
-		AGE,	
-		ADD_TIME,	
-		STIPEND_ID,	
-		CREATE_TIME,	
-		UPDATE_TIME,	
-		CREATE_USER,	
-		UPDATE_USER,	
-		STAFF_NAME,	
-		STAFFEMPLOYEE_ID,
-		STATES
+		s.USER_ID,
+		s.AGE,
+		s.ADD_TIME,
+		s.STIPEND_ID,
+		s.CREATE_TIME,
+		s.UPDATE_TIME,
+		s.CREATE_USER,
+		s.UPDATE_USER,
+		s.STAFF_NAME,
+		s.STAFFEMPLOYEE_ID,
+		s.STATES
 	</sql>
 	
 	<!-- 字段值 -->
@@ -89,10 +89,45 @@
 	
 	<!-- 新增-->
 	<insert id="save" parameterType="pd">
-		insert into 
-	<include refid="tableName"></include>
+		insert into
+		TB_STAFFEMPLOYEE
 		(
-	<include refid="Field"></include>
+		STAFF_ID,
+		SEX,
+		ADDRESS,
+		PHONE,
+		PIC,
+		CARD_ID,
+		EMAIL,
+		QQ,
+		WECHAT,
+		POST_CODE,
+		GOVEMMET,
+		NATION,
+		LEARING,
+		HOBBY,
+		SUIT,
+		NATIONALITY,
+		BIRTH,
+		FAITH,
+		SPEIALITY,
+		RESUME,
+		DESCRIBES,
+		REMARK,
+		ISROMVE,
+		JOB_ID,
+		JOB_TYPE_ID,
+		USER_ID,
+		AGE,
+		ADD_TIME,
+		STIPEND_ID,
+		CREATE_TIME,
+		UPDATE_TIME,
+		CREATE_USER,
+		UPDATE_USER,
+		STAFF_NAME,
+		STAFFEMPLOYEE_ID,
+		STATES
 		) values (
 	<include refid="FieldValue"></include>
 		)

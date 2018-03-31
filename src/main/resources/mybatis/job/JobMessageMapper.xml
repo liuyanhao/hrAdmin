@@ -104,7 +104,7 @@
 		</if>
 	</select>
 
-	<select id="listSelectAll" parameterType="pd" resultType="pd">
+	<select id="selectList" parameterType="pd" resultType="pd">
 	select
 		sj.SUBJECTTYPE_ID,
 		sj.SUBJECT_TYPE_NAME,
