@@ -48,15 +48,15 @@
 									<select  class="chosen-select form-control"  id="EMPLOYEE_STATE" name="EMPLOYEE_STATE" data-placeholder="请选择" style="vertical-align:top;width: 120px;" >
 										<option value=""></option>
 										<option value="">全部</option>
-										<option value="0" <c:if test="${pd.EMPLOYEE_STATE == 0}">selected</c:if> >未审核</option>
-										<option value="1" <c:if test="${pd.EMPLOYEE_STATE == 1}">selected</c:if>>待面试</option>
-										<option value="2" <c:if test="${pd.EMPLOYEE_STATE == 2}">selected</c:if>>待笔试</option>
-										<option value="3" <c:if test="${pd.EMPLOYEE_STATE == 3}">selected</c:if>>待录用</option>
-										<option value="4" <c:if test="${pd.EMPLOYEE_STATE == 4}">selected</c:if>>通过面试</option>
-										<option value="5" <c:if test="${pd.EMPLOYEE_STATE == 5}">selected</c:if>>笔试通过</option>
-										<option value="6" <c:if test="${pd.EMPLOYEE_STATE == 6}">selected</c:if>>笔试待审核</option>
-										<option value="7" <c:if test="${pd.EMPLOYEE_STATE == 7}">selected</c:if>>未通过录用</option>
-										<option value="8" <c:if test="${pd.EMPLOYEE_STATE == 8}">selected</c:if>>通过录用</option>
+										<option value="0" >未审核</option>
+										<option value="1" >待面试</option>
+										<option value="2" >待笔试</option>
+										<option value="3" >待录用</option>
+										<option value="4" >通过面试</option>
+										<option value="5" >笔试通过</option>
+										<option value="6" >笔试待审核</option>
+										<option value="7" >未通过录用</option>
+										<option value="8" >通过录用</option>
 									</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">

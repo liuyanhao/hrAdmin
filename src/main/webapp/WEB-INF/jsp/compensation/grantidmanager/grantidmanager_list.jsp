@@ -112,14 +112,14 @@
 												<div class="hidden-sm hidden-xs btn-group">
 													<c:if test="${QX.edit == 1 }">
 													<a class="btn btn-xs btn-success" title="编辑" onclick="edit('${var.GRANTIDMANAGER_ID}');">
-														<i class="ace-icon fa fa-pencil-square-o bigger-120" title="编辑"></i>
+														<i class="ace-icon fa fa fa-pencil-square-o bigger-120" title="审核">审核</i>
 													</a>
 													</c:if>
-													<c:if test="${QX.del == 1 }">
+													<%--<c:if test="${QX.del == 1 }">
 													<a class="btn btn-xs btn-danger" onclick="del('${var.GRANTIDMANAGER_ID}');">
 														<i class="ace-icon fa fa-trash-o bigger-120" title="删除"></i>
 													</a>
-													</c:if>
+													</c:if>--%>
 												</div>
 												<div class="hidden-md hidden-lg">
 													<div class="inline pos-rel">
@@ -130,14 +130,14 @@
 														<ul class="dropdown-menu dropdown-only-icon dropdown-yellow dropdown-menu-right dropdown-caret dropdown-close">
 															<c:if test="${QX.edit == 1 }">
 															<li>
-																<a style="cursor:pointer;" onclick="edit('${var.GRANTIDMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="修改">
+																<a style="cursor:pointer;" onclick="edit('${var.GRANTIDMANAGER_ID}');" class="tooltip-success" data-rel="tooltip" title="审核">
 																	<span class="green">
-																		<i class="ace-icon fa fa-pencil-square-o bigger-120"></i>
+																		<i class="ace-icon fa fa fa-pencil-square-o bigger-120"></i>
 																	</span>
 																</a>
 															</li>
 															</c:if>
-															<c:if test="${QX.del == 1 }">
+														<%--	<c:if test="${QX.del == 1 }">
 															<li>
 																<a style="cursor:pointer;" onclick="del('${var.GRANTIDMANAGER_ID}');" class="tooltip-error" data-rel="tooltip" title="删除">
 																	<span class="red">
@@ -145,7 +145,7 @@
 																	</span>
 																</a>
 															</li>
-															</c:if>
+															</c:if>--%>
 														</ul>
 													</div>
 												</div>
@@ -172,12 +172,12 @@
 						<table style="width:100%;">
 							<tr>
 								<td style="vertical-align:top;">
-									<c:if test="${QX.add == 1 }">
+									<%--<c:if test="${QX.add == 1 }">
 									<a class="btn btn-sm btn-success" onclick="add();">新增</a>
 									</c:if>
 									<c:if test="${QX.del == 1 }">
 									<a class="btn btn-sm btn-danger" onclick="makeAll('确定要删除选中的数据吗?');" title="批量删除" ><i class='ace-icon fa fa-trash-o bigger-120'></i></a>
-									</c:if>
+									</c:if>--%>
 								</td>
 								<td style="vertical-align:top;"><div class="pagination" style="float: right;padding-top: 0px;margin-top: 0px;">${page.pageStr}</div></td>
 							</tr>

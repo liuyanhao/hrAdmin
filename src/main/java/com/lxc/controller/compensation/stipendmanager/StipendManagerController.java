@@ -51,6 +51,7 @@ public class StipendManagerController extends BaseController {
 		pd.put("STIPEND_USER_NAME",Jurisdiction.getUsername()); //登记人
 		pd.put("GTIPEND_DATE", DateUtil.getTime()); //登记时间
 		stipendmanagerService.save(pd);
+        mv.addObject("pd", pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;

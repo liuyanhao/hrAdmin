@@ -37,6 +37,7 @@
 								<td>
 									<div class="nav-search">
 										<span class="input-icon">
+                                            <input type="hidden" name="STIPENDTYPE_ID"  value="${pd.STIPENDTYPE_ID}" />
 											<input type="text" placeholder="这里输入关键词" class="nav-search-input" id="nav-search-input" autocomplete="off" name="keywords" value="${pd.keywords }" placeholder="这里输入关键词"/>
 											<i class="ace-icon fa fa-search nav-search-icon"></i>
 										</span>
@@ -48,9 +49,9 @@
 								 	<select class="chosen-select form-control" name="STATUS" id="STATUS" data-placeholder="请选择" style="vertical-align:top;width: 120px;">
 									<option value=""></option>
 									<option value="">全部</option>
-										<option value="0" <c:if test="${pd.STATUS == 0 }">selected</c:if>>未审核</option>
-									<option value="1" <c:if test="${pd.STATUS == 1 }">selected</c:if> >通过</option>
-									<option value="2" <c:if test="${pd.STATUS == 2 }">selected</c:if> >未通过</option>
+										<option value="0" >未审核</option>
+									<option value="1" >通过</option>
+									<option value="2" >未通过</option>
 								  	</select>
 								</td>
 								<c:if test="${QX.cha == 1 }">
@@ -71,8 +72,6 @@
 									<th class="center">薪酬名称</th>
 									<th class="center">薪资类型</th>
 									<th class="center">基本薪资</th>
-									<th class="center">交通补贴</th>
-									<th class="center">午餐补贴</th>
 									<th class="center">薪酬总额</th>
 									<th class="center">登记人姓名</th>
 									<th class="center">登记时间</th>
@@ -95,8 +94,6 @@
 											<td class='center'>${var.STIPEND_NAME}</td>
 											<td class='center'>${var.STIPEND_TYPE_NAME}</td>
 											<td class='center'>${var.BASE_STIPEND}</td>
-											<td class='center'>${var.STIPEN_WEAL_JOURNEY}</td>
-											<td class='center'>${var.STIPEN_WEAL_LUNCH}</td>
 											<td class='center'>${var.STIPEND_WEAL}</td>
 											<td class='center'>${var.STIPEND_USER_NAME}</td>
 											<td class='center'>${var.GTIPEND_DATE}</td>
@@ -232,6 +229,7 @@
 	<script type="text/javascript" src="static/js/jquery.tips.js"></script>
 	<script type="text/javascript">
 		$(top.hangge());//关闭加载状态
+        var STIPENDTYPE_ID = '${pd.STIPENDTYPE_ID}';
 		//检索
 		function tosearch(){
 			top.jzts();
@@ -290,7 +288,7 @@
 			 var diag = new top.Dialog();
 			 diag.Drag=true;
 			 diag.Title ="新增";
-			 diag.URL = '<%=basePath%>stipendmanager/goAdd.do';
+			 diag.URL = '<%=basePath%>stipendmanager/goAdd.do?STIPENDTYPE_ID=' + STIPENDTYPE_ID;
 			 diag.Width = 650;
 			 diag.Height = 330;
 			 diag.CancelEvent = function(){ //关闭事件

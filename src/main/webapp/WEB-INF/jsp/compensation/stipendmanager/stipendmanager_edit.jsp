@@ -47,15 +47,35 @@
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">基本薪资:</td>
-								<td><input type="number" name="BASE_STIPEND" id="BASE_STIPEND" value="${pd.BASE_STIPEND}" maxlength="32" placeholder="这里输入基本薪资" title="薪资类型" style="width:98%;"/></td>
+								<td>
+                                    <div class="input-group">
+                                    <input type="number" name="BASE_STIPEND" id="BASE_STIPEND" value="${pd.BASE_STIPEND}" class="form-control" maxlength="32" placeholder="这里输入基本薪资" title="薪资类型" onkeyup="this.value=this.value.replace(/[^\d]/ig,'')" style="width:98%;"/>
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                </td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">午餐补贴:</td>
-								<td><input type="number" name="STIPEN_WEAL_LUNCH" id="STIPEN_WEAL_LUNCH" value="${pd.STIPEN_WEAL_LUNCH}" maxlength="32" placeholder="这里输入午餐补贴" title="午餐补贴" style="width:98%;"/></td>
+								<td>
+                                    <div class="input-group">
+                                        <input type="number" name="STIPEN_WEAL_LUNCH" id="STIPEN_WEAL_LUNCH" value="${pd.STIPEN_WEAL_LUNCH}" maxlength="32" placeholder="这里输入午餐补贴" title="午餐补贴"onkeyup="this.value=this.value.replace(/[^\d]/ig,'')" style="width:98%;"/>
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                </td>
 							</tr>
 							<tr>
 								<td style="width:75px;text-align: right;padding-top: 13px;">交通补贴:</td>
-								<td><input type="number" name="STIPEN_WEAL_JOURNEY" id="STIPEN_WEAL_JOURNEY" value="${pd.STIPEN_WEAL_JOURNEY}" maxlength="32" placeholder="这里输入交通补贴" title="交通补贴" style="width:98%;"/></td>
+								<td>
+                                    <div class="input-group">
+                                        <input type="number" name="STIPEN_WEAL_JOURNEY" id="STIPEN_WEAL_JOURNEY" value="${pd.STIPEN_WEAL_JOURNEY}" maxlength="32" placeholder="这里输入交通补贴" title="交通补贴" onkeyup="this.value=this.value.replace(/[^\d]/ig,'')" style="width:98%;"/>
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                </td>
 								<td style="width:75px;text-align: right;padding-top: 13px;">薪酬总额:</td>
-								<td><input type="number" name="STIPEND_WEAL" id="STIPEND_WEAL" value="${pd.STIPEND_WEAL}" maxlength="32" placeholder="这里输入薪酬总额" title="薪酬总额" style="width:98%;"/></td>
+								<td>
+                                    <div class="input-group">
+                                        <input type="number" name="STIPEND_WEAL" id="STIPEND_WEAL" value="${pd.STIPEND_WEAL}" maxlength="32" placeholder="这里输入薪酬总额" title="薪酬总额" onkeyup="this.value=this.value.replace(/[^\d]/ig,'')" style="width:98%;"/>
+                                        <span class="input-group-addon">.00</span>
+                                    </div>
+                                </td>
 							</tr>
 							<c:if test="${ msg == 'audit'}" >
 							<tr>

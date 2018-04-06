@@ -79,11 +79,9 @@
 									<th class="center">姓名</th>
 									<th class="center">性别</th>
 									<th class="center">身份证号码</th>
-									<th class="center">E-mail</th>
 									<th class="center">学历</th>
-									<th class="center">国籍</th>
+									<th class="center">专业</th>
 									<th class="center">面试成绩</th>
-									<th class="center">创建时间</th>
 									<th class="center">审核状态</th>
 									<th class="center">审核操作</th>
 								<%--	<th class="center">审核人</th>--%>
@@ -114,11 +112,9 @@
 												</c:if>
 											</td>
 											<td class='center'>${var.CARD_ID}</td>
-											<td class='center'>${var.EMAIL}</td>
 											<td class='center'>${var.LEARING}</td>
 											<td class='center'>${var.SPEIALITY}</td>
 											<td class='center'>${var.RESULT}</td>
-											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>
 												<c:if test="${var.STATUS == 0}">未审核</c:if>
 												<c:if test="${var.STATUS == 1}">待笔试</c:if>

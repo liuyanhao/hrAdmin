@@ -80,7 +80,7 @@ public class WantExamController  extends BaseController {
 
 
         if(values == null || values.length < 0) {
-            mv.addObject("message", "哈哈不允许为空");
+            mv.addObject("message", "选题的数量不允许为空");
             if (pd != null) {
                 mv.addObject("pd", pd);
             }
