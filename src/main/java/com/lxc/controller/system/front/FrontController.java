@@ -153,7 +153,7 @@ public class FrontController extends BaseController {
 				try {
                     if(Tools.checkEmail(toEMAIL)){		//邮箱格式不对就跳过
                         PageData pdpwd= appuserService.findByEmail(pd);
-                        String str = URLEncoder.encode("&", "ASCII") +Const.RESETPWD+"="+uuid;
+                        String str = "&" +Const.RESETPWD+"="+uuid;
                         System.out.println(str);
                         String CONTENT ="要重置密码,点击链接http://localhost:8080/front/goResetPwd.do?USER_ID="+pdpwd.get("USER_ID")+ str;//内容
                         session.setAttribute(Const.RESETPWD,uuid); //只能重置一次  标记
