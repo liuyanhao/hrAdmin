@@ -65,37 +65,6 @@ public class LoginController extends BaseController {
 		return mv;
 	}
 
-	/**
-	 * 前端登录页面
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/front_login")
-	public ModelAndView toFrontLogin()throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称
-		mv.setViewName("system/front/login");
-		mv.addObject("pd",pd);
-		return mv;
-	}
-
-	/**
-	 * 前端登录页面
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping(value="/front_register")
-	public ModelAndView toFrontRegister()throws Exception{
-		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称
-		mv.setViewName("system/front/register");
-		mv.addObject("pd",pd);
-		return mv;
-	}
 
 
 	/**请求登录，验证用户

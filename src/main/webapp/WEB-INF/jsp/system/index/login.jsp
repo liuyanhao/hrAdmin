@@ -62,8 +62,7 @@
 <body>
 	<div style="width:100%;text-align: center;margin: 0 auto;position: absolute;">
 		<div id="loginbox">
-			<form action="" method="post" name="loginForm"
-				id="loginForm">
+			<form action="" method="post" name="loginForm"	id="loginForm">
 				<div class="control-group normal_text">
 					<h3>
 						<img src="static/login/logo.png" alt="Logo" />
@@ -98,7 +97,6 @@
 				</div>
 				<div class="form-actions">
 					<div style="width:86%;padding-left:8%;">
-
 						<div style="float: left;padding-top:2px;">
 							<i><img src="static/login/yan.png" /></i>
 						</div>
@@ -137,7 +135,7 @@
 		//服务器校验
 		function severCheck(){
 			if(check()){
-				
+
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
 				var code = "qq1094921525lxc"+loginname+",lxc,"+password+"QQ1094921525lxc"+",lxc,"+$("#code").val();
