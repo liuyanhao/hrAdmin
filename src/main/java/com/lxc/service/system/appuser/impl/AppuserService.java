@@ -1,15 +1,13 @@
 package com.lxc.service.system.appuser.impl;
 
-import java.util.List;
-
-import javax.annotation.Resource;
-
-import org.springframework.stereotype.Service;
-
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
 import com.lxc.service.system.appuser.AppuserManager;
 import com.lxc.util.PageData;
+import org.springframework.stereotype.Service;
+
+import javax.annotation.Resource;
+import java.util.List;
 
 
 /**类名称：AppuserService
@@ -67,6 +65,16 @@ public class AppuserService implements AppuserManager{
 	 */
 	public PageData findByNumber(PageData pd)throws Exception{
 		return (PageData)dao.findForObject("AppuserMapper.findByNumber", pd);
+	}
+
+	/**
+	 * 查询最大编号
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData findByMaxNumber(PageData pd)throws Exception{
+		return (PageData) dao.findForObject("AppuserMapper.findByMaxNumber",pd);
 	}
 	
 	/**保存用户

@@ -1,19 +1,15 @@
 package com.lxc.util;
 
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.Map;
-import java.util.Set;
-
 import javax.servlet.http.HttpServletRequest;
+import java.io.Serializable;
+import java.util.*;
 /** 
  * 说明：参数封装Map
  * 创建人：lxc Q1094921525
  * 修改时间：2018年9月20日
  * @version
  */
-public class PageData extends HashMap implements Map{
+public class PageData extends HashMap implements Map,Serializable {
 	
 	private static final long serialVersionUID = 1L;
 	

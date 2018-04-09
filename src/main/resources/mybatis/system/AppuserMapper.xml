@@ -143,7 +143,13 @@
 			and USERNAME != #{USERNAME} 
 		</if>
 	</select>
-	
+
+	<select id="findByMaxNumber" parameterType="pd" resultType="pd">
+		select max( cast(s.NUMBER as SIGNED INTEGER)) as MAX_NUMBER
+		from
+		sys_app_user s
+	</select>
+
 	<!-- 新增会员 -->
 	<insert id="saveU" parameterType="pd">
 		insert into <include refid="tableName"></include> (

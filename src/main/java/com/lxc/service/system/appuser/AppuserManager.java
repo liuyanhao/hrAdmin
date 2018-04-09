@@ -1,9 +1,9 @@
 package com.lxc.service.system.appuser;
 
-import java.util.List;
-
 import com.lxc.entity.Page;
 import com.lxc.util.PageData;
+
+import java.util.List;
 
 
 /** 会员接口类
@@ -46,7 +46,15 @@ public interface AppuserManager {
 	 * @throws Exception
 	 */
 	public PageData findByNumber(PageData pd)throws Exception;
-	
+
+	/**
+	 * 查询最大的 编号
+	 * @param pd
+	 * @return
+	 * @throws Exception
+	 */
+	public PageData  findByMaxNumber(PageData pd) throws  Exception;
+
 	/**保存用户
 	 * @param pd
 	 * @throws Exception

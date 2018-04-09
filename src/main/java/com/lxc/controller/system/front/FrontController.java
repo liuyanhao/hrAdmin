@@ -77,22 +77,45 @@ public class FrontController extends BaseController {
         pd = this.getPageData();
         //验证标识是否符合
         Session session = Jurisdiction.getSession();
-        String resetPwd = (String)session.getAttribute(Const.RESETPWD);
-        String flag = pd.getString(Const.RESETPWD);
-        if(!resetPwd.equals(flag)){
-         String   errInfo = "请求链接已经无效"; 				//用户名或密码有误
-            logBefore(logger, "请求链接已经无效");
-            mv.setViewName("save_result");
-            mv.addObject("msg","failed");
-            mv.addObject("errInfo",errInfo);
-            mv.addObject("pd", pd);
-        }else {
-            pd = appuserService.findByUiId(pd);
-            mv.setViewName("system/front/resetPwd");
-            mv.addObject("msg", "resetPwd");
-            mv.addObject("pd", pd);
-        }
+		String  USER_ID = "";
+		String resetflage = "";
+		String errInfo="";
+		String flag = pd.getString("USER_ID");
+		if(null != flag && !"".equals(flag)) {
+			String strEM[] = flag.split(",lxc,");
+			if (strEM.length == 2) {
+				USER_ID = strEM[0];
+				pd.put("USER_ID",USER_ID);
+				resetflage = strEM[1];
+				String resetPwd = (String) session.getAttribute(Const.RESETPWD);
+				if(resetflage != null && resetPwd != null) {
+					if (!resetPwd.equals(resetflage)) {
+						 errInfo = "请求链接已经无效";                //用户名或密码有误
+						logBefore(logger, "请求链接已经无效");
+						mv.setViewName("save_result");
+						mv.addObject("errInfo", errInfo);
+						mv.addObject("pd", pd);
+					} else {
+						pd = appuserService.findByUiId(pd);
+						pd.put("UUID", resetflage);
+						mv.setViewName("system/front/resetPwd");
+						mv.addObject("msg", "resetPwd");
+						mv.addObject("pd", pd);
+					}
+				}else{
+					errInfo ="请求链接已经无效,参数不允许为空";
+					logBefore(logger, "请求链接已经无效,参数不允许为空");
+                    mv.setViewName("system/front/resetPwdMsg");
+                    mv.addObject("errInfo", errInfo);
+				}
+			}
+		}else{
+			errInfo = "请求链接已经无效";                //用户名或密码有误
+			logBefore(logger, "请求链接已经无效");
+            mv.setViewName("system/front/resetPwdMsg");
+            mv.addObject("errInfo", errInfo);
 
+		}
 		return mv;
 	}
 
@@ -102,30 +125,42 @@ public class FrontController extends BaseController {
      * @throws Exception
      */
 	@RequestMapping(value="/resetPwd")
-	public Object resetPwd() throws Exception {
-        logBefore(logger, Jurisdiction.getUsername()+"重置密码");
+	public ModelAndView resetPwd() throws Exception {
 		ModelAndView mv = this.getModelAndView();
-		PageData pd = new PageData();
-		pd = this.getPageData();
+        PageData pd = new PageData();
+        pd = this.getPageData();
+        logBefore(logger, pd.getString("EMAIL")+"重置密码");
         String errInfo = "";
 		Map<String,Object> map = new HashMap<String,Object>();
 		//验证标识是否符合
         Session session = Jurisdiction.getSession();
-        String resetPwd = (String)session.getAttribute(Const.RESETPWD);
-        String flag = pd.getString(Const.RESETPWD);
-        if(!resetPwd.equals(flag)){
-            errInfo = "请求链接已经无效"; 				//用户名或密码有误
-            logBefore(logger, "请求链接已经无效");
-        }else {
-            //重置密码
-            PageData pdpwd = appuserService.findByEmail(pd);
-            pdpwd.put("PASSWORD", new SimpleHash("SHA-1", pdpwd.getString("USERNAME"), "123456"));
-            appuserService.editU(pdpwd);
-            session.removeAttribute(Const.RESETPWD);
-            errInfo ="success";
-        }
-        map.put("result", errInfo);
-        return AppUtil.returnObject(new PageData(), map);
+		String flag = pd.getString("UUID");
+		String EMAIL = pd.getString("EMAIL");
+		if(null != flag && !"".equals(flag)) {
+				String resetPwd = (String)session.getAttribute(Const.RESETPWD);
+			if(resetPwd != null && (EMAIL != null|| EMAIL !="" || EMAIL != "undefined") ) {
+				if (!resetPwd.equals(flag)) {
+					errInfo = "请求链接已经无效,请在登录页面发送邮件重新申请。";                //用户名或密码有误
+					logBefore(logger, errInfo);
+				} else {
+					//重置密码
+					PageData pdpwd = appuserService.findByEmail(pd);
+					pdpwd.put("PASSWORD", MD5.md5(pd.getString("PASSWORD")));
+					appuserService.editU(pdpwd);
+					session.removeAttribute(Const.RESETPWD);  //删除 session  中的 标识
+					errInfo = "密码重置成功！";
+                    logBefore(logger, errInfo);
+				}
+			}else{
+				errInfo ="请求链接已经无效";
+				logBefore(logger, "请求链接已经无效");
+			}
+		}else{
+				errInfo = "请求链接已经无效,请在登录页面发送邮件重新申请。";
+			}
+        mv.setViewName("system/front/resetPwdMsg");
+        mv.addObject("errInfo", errInfo);
+        return mv;
 	}
 
 	/**
@@ -153,9 +188,9 @@ public class FrontController extends BaseController {
 				try {
                     if(Tools.checkEmail(toEMAIL)){		//邮箱格式不对就跳过
                         PageData pdpwd= appuserService.findByEmail(pd);
-                        String str = "&" +Const.RESETPWD+"="+uuid;
+                        String str = ",lxc,"+ uuid;
                         System.out.println(str);
-                        String CONTENT ="要重置密码,点击链接http://localhost:8080/front/goResetPwd.do?USER_ID="+pdpwd.get("USER_ID")+ str;//内容
+                        String CONTENT ="hi  您好，我是熙财人力资源系统。"+pdpwd.getString("USERNAME")+" 账号要重置密码,点击链接http://localhost:8080/front/goResetPwd.do?USER_ID="+pdpwd.get("USER_ID")+ str;//内容
                         session.setAttribute(Const.RESETPWD,uuid); //只能重置一次  标记
                         SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], toEMAIL, TITLE, CONTENT, TYPE);          //调用发送邮件函数
 					}
@@ -248,15 +283,33 @@ public class FrontController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/front_register")
-	public ModelAndView toFrontRegister()throws Exception{
-		ModelAndView mv = this.getModelAndView();
+	@RequestMapping(value="/register")
+	@ResponseBody
+	public Object toFrontRegister()throws Exception{
+		Map<String,Object> map = new HashMap<String,Object>();
 		PageData pd = new PageData();
+		String msg = "ok";		//注册状态
 		pd = this.getPageData();
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称
-		mv.setViewName("system/front/register");
-		mv.addObject("pd",pd);
-		return mv;
+		pd.put("ROLE_ID",Const.REGISTER_CODE); //角色id 应聘面试人员 角色id
+		pd.put("NUMBER",Integer.parseInt(appuserService.findByMaxNumber(pd).get("MAX_NUMBER").toString())+1); //查询最大值加1
+		pd.put("STATUS",1);  //状态
+		pd.put("START_TIME",Tools.date2Str(new Date()));         //开通时间
+		pd.put("END_TIME",DateUtil.getAfterDayDate("30")); //结束时间
+		pd.put("YEARS",DateUtil.getDiffYear(Tools.date2Str(new Date()),DateUtil.getAfterDayDate("30"))); //年限 1年
+		pd.put("USER_ID", this.get32UUID());	//ID
+		pd.put("RIGHTS", "");
+		pd.put("LAST_LOGIN", "");				//最后登录时间
+		pd.put("IP", "");						//IP
+		pd.put("BZ", "面试人员");						//备注
+		pd.put("PASSWORD", MD5.md5(pd.getString("PASSWORD")));
+		if(null == appuserService.findByUsername(pd)) {
+			appuserService.saveU(pd);            //判断新增权限
+		}else{
+			msg = "failed";
+		}
+		pd.put("msg", msg);
+		map.put("pd", pd);
+		return  AppUtil.returnObject(new PageData(), map);
 	}
 
 	@InitBinder

@@ -3,6 +3,9 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -203,18 +206,30 @@ String path = request.getContextPath();
 											</h4>
 											<div class="space-6"></div>
 											<p> 输入你的详细信息: </p>
-											<form action="user/front_regiester.do" method="post" id="regiester">
+											<form action="front/front_regiester.do" method="post" id="regiesterForm">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="email" name="EMAIL" id="r_email" class="form-control" placeholder="电子邮箱" />
+															<input type="email" name="EMAIL" id="r_email" onblur="hasE('${pd.USERNAME }')"  class="form-control" placeholder="电子邮箱" />
 															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" name="USERNAME" id="r_userName" class="form-control" placeholder="账号" />
+															<input type="text" name="USERNAME" id="r_userName" onblur="hasU()" class="form-control" placeholder="账号" />
 															<i class="ace-icon fa fa-user"></i>
+														</span>
+													</label>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" name="NAME" id="r_name"    class="form-control" placeholder="姓名" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+													</label>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="text" name="SFID" id="SFID"   class="form-control" placeholder="身份证号" />
+															<i class="ace-icon fa fa-envelope"></i>
 														</span>
 													</label>
 													<label class="block clearfix">
@@ -230,7 +245,7 @@ String path = request.getContextPath();
 														</span>
 													</label>
 													<label class="block">
-														<input type="checkbox" class="ace" />
+														<input type="checkbox" class="ace" id="iAgree" />
 														<span class="lbl">
 															我接受
 															<a href="#">用户协议</a>
@@ -242,7 +257,7 @@ String path = request.getContextPath();
 															<i class="ace-icon fa fa-refresh"></i>
 															<span class="bigger-110">重置</span>
 														</button>
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="button" class="width-65 pull-right btn btn-sm btn-success" onclick="save()">
 															<span class="bigger-110">注册</span>
 															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 														</button>
@@ -451,6 +466,7 @@ String path = request.getContextPath();
                 return true;
             }
 
+            //记住密码
             function saveCookie() {
                 if ($("#saveid").attr("checked")) {
                     $.cookie('userName', $("#userName").val(), {
@@ -474,6 +490,7 @@ String path = request.getContextPath();
                 }
             });
 
+            //发送邮件
             function sendPwdEmail() {
                 // 找回密码
                 var EMAIL = $("#findEMAIL").val();
@@ -508,6 +525,140 @@ String path = request.getContextPath();
                     }
                 });
             }
+
+            //保存
+            function save(){
+                if($("#iAgree").val() != true){
+                    $("#iAgree").tips({
+                        side:3,
+                        msg:'请勾选用户协议',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    return false;
+				}
+                if($("#r_userName").val()=="" || $("#r_userName").val()=="此用户名已存在!"){
+                    $("#r_userName").tips({
+                        side:3,
+                        msg:'输入账号',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    $("#r_userName").focus();
+                    $("#r_userName").val('');
+                    $("#r_userName").css("background-color","white");
+                    return false;
+                }else{
+                    $("#r_userName").val(jQuery.trim($('#r_userName').val()));
+                }
+              /*  if($("#NUMBER").val()==""){
+                    $("#NUMBER").tips({
+                        side:3,
+                        msg:'输入编号',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#NUMBER").focus();
+                    return false;
+                }else{
+                    $("#NUMBER").val($.trim($("#NUMBER").val()));
+                }*/
+                if($("#EMAIL").val()==""){
+
+                    $("#EMAIL").tips({
+                        side:3,
+                        msg:'输入邮箱',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#EMAIL").focus();
+                    return false;
+                }else if(!ismail($("#EMAIL").val())){
+                    $("#EMAIL").tips({
+                        side:3,
+                        msg:'邮箱格式不正确',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#EMAIL").focus();
+                    return false;
+                }
+                if($("#user_id").val()=="" && $("#password").val()==""){
+                    $("#password").tips({
+                        side:3,
+                        msg:'输入密码',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    $("#password").focus();
+                    return false;
+                }
+                if($("#password").val()!=$("#chkpwd").val()){
+                    $("#chkpwd").tips({
+                        side:3,
+                        msg:'两次密码不相同',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#chkpwd").focus();
+                    return false;
+                }
+                if($("#name").val()==""){
+                    $("#name").tips({
+                        side:3,
+                        msg:'输入姓名',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#name").focus();
+                    return false;
+                }
+                    $("#regiesterForm").submit();
+            }
+
+            //注册 判断用户名是否存在
+            function hasU(){
+                var USERNAME = $("#r_userName").val();
+                $.ajax({
+                    type: "POST",
+                    url: '<%=basePath%>happuser/hasU.do',
+                    data: {USERNAME:USERNAME,tm:new Date().getTime()},
+                    dataType:'json',
+                    cache: false,
+                    success: function(data){
+                        if("success" == data.result){
+                            $("#r_userName").css("background-color","#D16E6C");
+                        }else{
+                            $("#r_userName").css("background-color","#D16E6C");
+                            setTimeout("$('#r_userName').val('此用户名已存在!')",500);
+                        }
+                    }
+                });
+            }
+
+            // 注册 判断邮箱是否存在
+            function hasE(USERNAME){
+                var EMAIL = $("#r_email").val();
+                $.ajax({
+                    type: "POST",
+                    url: '<%=basePath%>happuser/hasE.do',
+                    data: {EMAIL:EMAIL,USERNAME:USERNAME,tm:new Date().getTime()},
+                    dataType:'json',
+                    cache: false,
+                    success: function(data){
+                        if("success" != data.result){
+                            $("#r_email").tips({
+                                side:3,
+                                msg:'邮箱'+EMAIL+'已存在',
+                                bg:'#AE81FF',
+                                time:3
+                            });
+                            $('#r_email').val('');
+                        }
+                    }
+                });
+            }
+
             //倒计时
             function timers(intDiff){
                 window.setInterval(function(){

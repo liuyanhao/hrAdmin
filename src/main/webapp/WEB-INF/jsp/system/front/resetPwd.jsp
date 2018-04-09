@@ -3,6 +3,9 @@ pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%
 String path = request.getContextPath();
+	String basePath = request.getScheme() + "://"
+			+ request.getServerName() + ":" + request.getServerPort()
+			+ path + "/";
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -77,7 +80,11 @@ String path = request.getContextPath();
 								</h1>
 								<h4 class="light-blue" id="id-company-text">&copy; 颜豪 刘熙财</h4>
 							</div>
-							<div class="space-6"></div>
+							<div class="space-6">
+								<br/><img src="static/images/jzx.gif" id='msgp' /><br/>
+								<h4 class="lighter block green" id='msg'></h4>
+								<strong id="second_shows" class="red">6秒</strong>后关闭
+							</div>
 							<div class="position-relative">
 								<div id="resetPwd-box" class="resetPwd-box visible widget-box no-border">
 									<div class="widget-body">
@@ -88,7 +95,8 @@ String path = request.getContextPath();
 											</h4>
 											<div class="space-6"></div>
 											<p> 设置您新的密码: </p>
-											<form action="front/resetPwd.do" method="post" id="resetPwd">
+											<form action="<%=basePath%>front/resetPwd.do" method="post" id="restPwdForm">
+												<input type="hidden" name="UUID" id="UUID" value="${pd.UUID}">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -98,13 +106,13 @@ String path = request.getContextPath();
 													</label>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="text" name="USERNAME" id="userName"  value="${pd.USERNAME}" readonly="readonly" class="form-control" placeholder="账号" />
+															<input type="text"  id="userName"  value="${pd.USERNAME}" readonly="readonly" class="form-control" placeholder="账号" />
 															<i class="ace-icon fa fa-user"></i>
 														</span>
 													</label>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
-															<input type="password" name="PASSWORD" id="password"  class="form-control" placeholder="请输入密码" />
+															<input type="password" name="PASSWORD" id="PASSWORD"  class="form-control" placeholder="请输入密码" />
 															<i class="ace-icon fa fa-lock"></i>
 														</span>
 													</label>
@@ -130,7 +138,7 @@ String path = request.getContextPath();
 															<i class="ace-icon fa fa-refresh"></i>
 															<span class="bigger-110">重置</span>
 														</button>
-														<button type="button" class="width-65 pull-right btn btn-sm btn-success">
+														<button type="button" class="width-65 pull-right btn btn-sm btn-success"  onclick="restPwd()">
 															<span class="bigger-110">确定</span>
 															<i class="ace-icon fa fa-arrow-right icon-on-right"></i>
 														</button>
@@ -139,13 +147,49 @@ String path = request.getContextPath();
 											</form>
 										</div>
 										<div class="toolbar center">
-											<a href="#" data-target="#login-box" class="back-to-login-link">
+											<a href="<%=basePath%>front/login.do" data-target="#login-box" class="back-to-login-link">
 												<i class="ace-icon fa fa-arrow-left"></i>
 												去登录
 											</a>
 										</div>
 									</div><!-- /.widget-body -->
 								</div><!-- /.signup-box -->
+								<div id="resetPwdAccess-box" class="forgot-box widget-box no-border">
+									<div class="widget-body">
+										<div class="widget-main">
+											<h4 class="header red lighter bigger">
+												<i class="ace-icon fa fa-key"></i>
+												找回密码
+											</h4>
+											<div class="space-6"></div>
+											<p>
+
+											</p>
+											<form action="front/find_pwd.do" method="post" id="findPassword">
+												<fieldset>
+													<label class="block clearfix">
+														<span class="block input-icon input-icon-right">
+															<input type="email" name="EMAIL" id="findEMAIL" class="form-control" placeholder="Email" />
+															<i class="ace-icon fa fa-envelope"></i>
+														</span>
+													</label>
+													<div class="clearfix">
+														<button type="button" class="width-35 pull-right btn btn-sm btn-danger" onclick="sendPwdEmail()">
+															<i class="ace-icon fa fa-lightbulb-o"></i>
+															<span class="bigger-110">发送给我!</span>
+														</button>
+													</div>
+												</fieldset>
+											</form>
+										</div><!-- /.widget-main -->
+										<div class="toolbar center">
+											<a href="<%=basePath%>front/login.do" data-target="#login-box" class="back-to-login-link">
+												返回登录
+												<i class="ace-icon fa fa-arrow-right"></i>
+											</a>
+										</div>
+									</div><!-- /.widget-body -->
+								</div><!-- /.resetPwdAccess-box -->
 							</div><!-- /.position-relative -->
 							<div class="navbar-fixed-top align-right">
 								<br />
@@ -214,7 +258,6 @@ String path = request.getContextPath();
 				
 				e.preventDefault();
 			 });
-			 
 			});
 
             $(document).ready(function() {
@@ -231,7 +274,6 @@ String path = request.getContextPath();
                 return time.getTime();
             }
 
-
             function saveCookie() {
                 if ($("#saveid").attr("checked")) {
                     $.cookie('userName', $("#userName").val(), {
@@ -242,6 +284,89 @@ String path = request.getContextPath();
                     });
                 }
             }
+
+            function restPwd(){ debugger;
+                if($("#PASSWORD").val()==""){
+                    $("#PASSWORD").tips({
+                        side:3,
+                        msg:'请输入密码',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    $("#PASSWORD").focus();
+                    return false;
+                }
+                if($("#chkpwd").val()==""){
+                    $("#chkpwd").tips({
+                        side:3,
+                        msg:'请输确认密码',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    $("#chkpwd").focus();
+                    return false;
+                }
+                if($("#PASSWORD").val()!=$("#chkpwd").val()){
+                    $("#chkpwd").tips({
+                        side:3,
+                        msg:'两次密码不相同',
+                        bg:'#AE81FF',
+                        time:3
+                    });
+                    $("#chkpwd").focus();
+                    return false;
+                }
+                if($("#code").val()==""){
+                    $("#code").tips({
+                        side:3,
+                        msg:'请输确认验证码',
+                        bg:'#AE81FF',
+                        time:2
+                    });
+                    $("#code").focus();
+                    return false;
+                }
+                $("#restPwdForm").submit();
+			}
+
+            /**
+
+             $.ajax({
+                    type: "post",
+                    url : '/front/resetPwd.do?tm='+new Date().getTime(),
+					data:{UUID:UUID,EMAIL:EMAIL,PASSWORD:PASSWORD,chkpwd:chkpwd,code:code},
+                    //beforeSend: validateData,
+                    dataType:'json',
+                    cache: false,
+                    success: function(data) { debugger;
+                        console.log(data);
+                        if (data != null && data.length > 0) {
+                            if (data.result == "success") {
+                                debugger;
+                                $("resetPwd-box").removeClass("visible");
+                                $("resetPwdAccess-box").addClass("visible");
+                                $("#msg").tips({
+                                    side: 3,
+                                    msg: '重置密码成功',
+                                    bg: '#68B500',
+                                    time: 4
+                                });
+                            } else {
+                                $("#msg").tips({
+                                    side: 3,
+                                    msg: '重置密码失败,请联系管理员（18101298728）!',
+                                    bg: '#FF0000',
+                                    time: 6
+                                });
+                            }
+                            setTimeout("close()", 6000);
+                            timers(5);
+                        }
+                    }
+                });
+
+			 *
+             */
 
 		</script>
 		<script src="../static/login/js/bootstrap.min.js"></script>

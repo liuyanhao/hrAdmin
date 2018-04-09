@@ -105,7 +105,7 @@ public class DateUtil {
 		}
 	}
 	
-	/**
+	/**计算时间范围内有几年
 	 * @param startTime
 	 * @param endTime
 	 * @return
