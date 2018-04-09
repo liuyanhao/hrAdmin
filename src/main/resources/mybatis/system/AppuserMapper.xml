@@ -2,7 +2,24 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
 	"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="AppuserMapper">
-	
+
+	<resultMap type="User" id="appUserAndRoleResultMap">
+		<id column="USER_ID" property="USER_ID"/>
+		<result column="USERNAME" property="USERNAME"/>
+		<result column="PASSWORD" property="PASSWORD"/>
+		<result column="NAME" property="NAME"/>
+		<result column="RIGHTS" property="RIGHTS"/>
+		<result column="LAST_LOGIN" property="LAST_LOGIN"/>
+		<result column="IP" property="IP"/>
+		<result column="STATUS" property="STATUS"/>
+		<result column="SKIN" property="SKIN"/>
+		<association property="role" column="ROLE_ID" javaType="Role">
+			<id column="ROLE_ID" property="ROLE_ID"/>
+			<result column="ROLE_NAME" property="ROLE_NAME"/>
+			<result column="ROLE_RIGHTS" property="RIGHTS"/>
+		</association>
+	</resultMap>
+
 	<!--表名 -->
 	<sql id="tableName">
 		SYS_APP_USER
@@ -259,6 +276,46 @@
 		from 
 		<include refid="tableName"></include>
 	</select>
-	
-	<!-- lxc  qq 1094921525 -->
+
+	<select id="getUserByNameAndPwd" parameterType="pd" resultType="pd">
+		select <include refid="Field"></include> from
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="USERNAME!=null and PASSWORD!=null">
+			and USERNAME = #{USERNAME} and PASSWORD=#{PASSWORD}
+		</if>
+		<if test="USER_ID!=null and USER_ID>0">
+			and USER_ID = #{USER_ID}
+		</if>
+	</select>
+
+
+	<update id="updateLastLogin" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		LAST_LOGIN = #{LAST_LOGIN}
+		where USER_ID = #{USER_ID}
+	</update>
+
+	<select id="getUserAndRoleById" parameterType="String" resultMap="appUserAndRoleResultMap">
+
+		select  u.USER_ID,
+		u.USERNAME,
+		u.NAME,
+		u.RIGHTS as USER_RIGHTS,
+		u.PASSWORD,
+		u.SKIN,
+		r.ROLE_ID,
+		r.ROLE_NAME,
+		r.RIGHTS as ROLE_RIGHTS
+		from
+		<include refid="tableName"></include> u
+		left join
+		<include refid="roleTableName"></include> r
+		on u.ROLE_ID=r.ROLE_ID
+		where u.STATUS=1
+		and u.USER_ID=#{USER_ID}
+	</select>
+ 	<!-- lxc  qq 1094921525 -->
 </mapper>

@@ -64,7 +64,7 @@ function getHeadMsg(){
 function getLxcsmsCount(){
 	$.ajax({
 		type: "POST",
-		url: locat+'/head/getLxcsmsCount.do?tm='+new Date().getTime(),
+		url: '/head/getLxcsmsCount.do?tm='+new Date().getTime(),
     	data: encodeURI(""),
 		dataType:'json',
 		cache: false,

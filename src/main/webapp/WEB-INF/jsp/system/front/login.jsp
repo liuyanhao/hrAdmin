@@ -12,7 +12,7 @@ String path = request.getContextPath();
 	<head>
 		<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 		<meta charset="utf-8" />
-		<title>Login Page - Ace Admin</title>
+		<title>登录页面 - 人力资源管理系统</title>
 		<meta name="description" content="User login page" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
 		<!-- bootstrap & fontawesome -->
@@ -359,7 +359,7 @@ String path = request.getContextPath();
                         success: function(data){
                             if("success" == data.result){
                                 saveCookie();
-                                window.location.href="/main/index";
+                                window.location.href="/front/main/index";
                             }else if("usererror" == data.result){
                                 $("#userName").tips({
                                     side : 1,
@@ -421,7 +421,7 @@ String path = request.getContextPath();
             }
 
             //客户端校验
-            function check() { debugger;
+            function check() {
                 if ($("#userName").val() == "") {
                     $("#userName").tips({
                         side : 2,
@@ -504,7 +504,6 @@ String path = request.getContextPath();
                         console.log(data);
                         if (data != null && data.length > 0) {
                             if (data.msg == 'ok') {
-                                debugger;
                                 $("#msg").tips({
                                     side: 3,
                                     msg: '发送成功',
@@ -551,18 +550,6 @@ String path = request.getContextPath();
                 }else{
                     $("#r_userName").val(jQuery.trim($('#r_userName').val()));
                 }
-              /*  if($("#NUMBER").val()==""){
-                    $("#NUMBER").tips({
-                        side:3,
-                        msg:'输入编号',
-                        bg:'#AE81FF',
-                        time:3
-                    });
-                    $("#NUMBER").focus();
-                    return false;
-                }else{
-                    $("#NUMBER").val($.trim($("#NUMBER").val()));
-                }*/
                 if($("#EMAIL").val()==""){
 
                     $("#EMAIL").tips({

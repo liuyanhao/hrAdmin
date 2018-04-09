@@ -2,6 +2,7 @@ package com.lxc.service.system.appuser.impl;
 
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
+import com.lxc.entity.system.User;
 import com.lxc.service.system.appuser.AppuserManager;
 import com.lxc.util.PageData;
 import org.springframework.stereotype.Service;
@@ -129,12 +130,24 @@ public class AppuserService implements AppuserManager{
 	}
 	
 	/**获取总数
-	 * @param pd
+	 * @param value
 	 * @throws Exception
 	 */
 	public PageData getAppUserCount(String value)throws Exception{
 		return (PageData)dao.findForObject("AppuserMapper.getAppUserCount", value);
 	}
-	
+
+	public PageData getUserByNameAndPwd(PageData pd) throws Exception {
+		return (PageData)dao.findForObject("AppuserMapper.getUserByNameAndPwd", pd);
+	}
+
+	public void updateLastLogin(PageData pd) throws Exception {
+		dao.update("AppuserMapper.updateLastLogin", pd);
+	}
+
+	public User getUserAndRoleById(String USER_ID) throws Exception {
+		return (User) dao.findForObject("AppuserMapper.getUserAndRoleById", USER_ID);
+	}
+
 }
 
