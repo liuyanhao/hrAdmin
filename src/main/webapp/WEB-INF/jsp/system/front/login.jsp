@@ -90,7 +90,7 @@ String path = request.getContextPath();
 												请输入您的登录信息
 											</h4>
 											<div class="space-6"></div>
-											<form action="front/${msg }.do" method="post">
+											<form action="<%=basePath%>front/${msg }.do" method="post">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -171,7 +171,7 @@ String path = request.getContextPath();
 											<p>
 												请输入你的E-mail并接收邮件验证链接
 											</p>
-											<form action="front/find_pwd.do" method="post" id="findPassword">
+											<form action="<%=basePath%>front/find_pwd.do" method="post" id="findPassword">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -206,7 +206,7 @@ String path = request.getContextPath();
 											</h4>
 											<div class="space-6"></div>
 											<p> 输入你的详细信息: </p>
-											<form action="front/front_regiester.do" method="post" id="regiesterForm">
+											<form action="<%=basePath%>front/front_regiester.do" method="post" id="regiesterForm">
 												<fieldset>
 													<label class="block clearfix">
 														<span class="block input-icon input-icon-right">
@@ -359,7 +359,7 @@ String path = request.getContextPath();
                         success: function(data){
                             if("success" == data.result){
                                 saveCookie();
-                                window.location.href="/front/main/index";
+                                window.location.href="<%=basePath%>front/main/index";
                             }else if("usererror" == data.result){
                                 $("#userName").tips({
                                     side : 1,
@@ -412,7 +412,7 @@ String path = request.getContextPath();
             });
 
             function changeCode() {
-                $("#codeImg").attr("src", "/code.do?t=" + genTimestamp());
+                $("#codeImg").attr("src", "<%=basePath%>code.do?t=" + genTimestamp());
             }
 
             function genTimestamp() {
@@ -497,7 +497,7 @@ String path = request.getContextPath();
                 // console.log(EMAIL);
                 $.ajax({
                     type: "get",
-                    url : '/front/find_pwd.do?EMAIL='+ EMAIL +'&tm='+new Date().getTime(),
+                    url : '<%=basePath%>front/find_pwd.do?EMAIL='+ EMAIL +'&tm='+new Date().getTime(),
                     //beforeSend: validateData,
                     cache: false,
                     success: function(data) {

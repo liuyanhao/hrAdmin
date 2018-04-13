@@ -285,7 +285,7 @@ String path = request.getContextPath();
                 }
             }
 
-            function restPwd(){ debugger;
+            function restPwd(){
                 if($("#PASSWORD").val()==""){
                     $("#PASSWORD").tips({
                         side:3,
