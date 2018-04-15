@@ -315,12 +315,12 @@ public class StaffEmployeeController extends BaseController {
 		titles.add("个人简历");	//21
 		titles.add("个人描述");	//22
 		titles.add("备注");	//23
-		titles.add("目前状况");	//24
-		titles.add("工作编号");	//25
-		titles.add("登记人");	//26
-		titles.add("年龄");	//27
-		titles.add("登记时间");	//28
-		titles.add("薪资");	//29
+		titles.add("是否删除");	//24
+		titles.add("职位类别");	//25
+		titles.add("职务类型");	//26
+		titles.add("登记人");	//27
+		titles.add("年龄");	//28
+		titles.add("登记时间");	//29
 		dataMap.put("titles", titles);
 		List<PageData> varOList = staffemployeeService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
@@ -350,12 +350,27 @@ public class StaffEmployeeController extends BaseController {
 			vpd.put("var21", varOList.get(i).getString("RESUME"));	    //21
 			vpd.put("var22", varOList.get(i).getString("DESCRIBES"));	    //22
 			vpd.put("var23", varOList.get(i).getString("REMARK"));	    //23
-			vpd.put("var24", varOList.get(i).get("ISROMVE").toString());	    //24
-			vpd.put("var25", varOList.get(i).get("JOB_ID").toString());	//25
-			vpd.put("var26", varOList.get(i).get("USER_ID").toString());	//26
-			vpd.put("var27", varOList.get(i).get("AGE").toString());	//27
-			vpd.put("var28", varOList.get(i).getString("ADD_TIME"));	    //28
-			vpd.put("var29", varOList.get(i).get("STIPEND_ID").toString());	//29
+			int isRomveCode = Integer.parseInt(varOList.get(i).get("ISROMVE").toString());
+			String isRomveName ="正常";
+			switch (isRomveCode) {
+				case 0:
+					break;
+				case  1:
+					isRomveName ="删除";
+					break;
+				case 2:
+					isRomveName ="停职";
+					break;
+				case 3:
+					isRomveName ="恢复";
+					break;
+			}
+			vpd.put("var24", isRomveName);	    //24
+			vpd.put("var25", varOList.get(i).getString("TYPE_NAME"));	//25
+			vpd.put("var26", varOList.get(i).getString("JOB_NAME"));	//26
+			vpd.put("var27", varOList.get(i).get("USER_ID").toString());	//27
+			vpd.put("var28", varOList.get(i).get("AGE").toString());	//28
+			vpd.put("var29", varOList.get(i).getString("ADD_TIME"));	    //29
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

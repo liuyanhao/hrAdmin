@@ -71,7 +71,7 @@
 									<th class="center">员工编号</th>
 									<th class="center">员工姓名</th>
 									<th class="center">专业</th>
-									<th class="center">职务分类</th>
+									<th class="center">职位类别</th>
 									<th class="center">职务类型</th>
                                     <th class="center">地址</th>
                                     <th class="center">电话</th>

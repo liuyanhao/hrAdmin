@@ -31,7 +31,7 @@
 						<div class="col-xs-12">
 							
 						<!-- 检索  -->
-						<form action="grantidmanager/list.do" method="post" name="Form" id="Form">
+						<form action="grantidmanager/${msg}.do" method="post" name="Form" id="Form">
 						<table style="margin-top:5px;">
 							<tr>
 								<td>
@@ -77,7 +77,9 @@
 									<th class="center">创建时间</th>
 									<th class="center">修改人</th>
 									<th class="center">修改时间</th>
-									<th class="center">操作</th>
+									<c:if test="${msg == 'list'}" >
+										<th class="center">操作</th>
+									</c:if>
 								</tr>
 							</thead>
 													
@@ -105,6 +107,7 @@
 											<td class='center'>${var.CREATE_TIME}</td>
 											<td class='center'>${var.UPDATE_USER}</td>
 											<td class='center'>${var.UPDATE_TIME}</td>
+											<c:if test="${msg == 'list'}" >
 											<td class="center">
 												<c:if test="${QX.edit != 1 && QX.del != 1 }">
 												<span class="label label-large label-grey arrowed-in-right arrowed-in"><i class="ace-icon fa fa-lock" title="无权限"></i></span>
@@ -150,6 +153,7 @@
 													</div>
 												</div>
 											</td>
+											</c:if>
 										</tr>
 									
 									</c:forEach>
