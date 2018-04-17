@@ -75,7 +75,7 @@ public class GrantIdManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改GrantIdManager");
+		logBefore(logger, Jurisdiction.getUsername()+"审核GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
