@@ -75,7 +75,7 @@ public class GrantIdManagerController extends BaseController {
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"修改GrantIdManager");
+		logBefore(logger, Jurisdiction.getUsername()+"审核GrantIdManager");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
@@ -107,11 +107,36 @@ public class GrantIdManagerController extends BaseController {
 		List<PageData>	varList = grantidmanagerService.list(page);	//列出GrantIdManager列表
 		mv.setViewName("compensation/grantidmanager/grantidmanager_list");
 		mv.addObject("varList", varList);
+		mv.addObject("msg", "list");
 		mv.addObject("pd", pd);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		return mv;
 	}
 
+	/**列表
+	 * @param page
+	 * @throws Exception
+	 */
+	@RequestMapping(value="/report")
+	public ModelAndView report(Page page) throws Exception{
+		logBefore(logger, Jurisdiction.getUsername()+"列表GrantIdManager");
+		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		ModelAndView mv = this.getModelAndView();
+		PageData pd = new PageData();
+		pd = this.getPageData();
+		String keywords = pd.getString("keywords");				//关键词检索条件
+		if(null != keywords && !"".equals(keywords)){
+			pd.put("keywords", keywords.trim());
+		}
+		page.setPd(pd);
+		List<PageData>	varList = grantidmanagerService.list(page);	//列出GrantIdManager列表
+		mv.setViewName("compensation/grantidmanager/grantidmanager_list");
+		mv.addObject("varList", varList);
+		mv.addObject("msg", "report");
+		mv.addObject("pd", pd);
+		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		return mv;
+	}
 
 	@RequestMapping(value="/stipend_list")
 	public ModelAndView stipendManagerlistPage(Page page) throws Exception{
@@ -232,7 +257,21 @@ public class GrantIdManagerController extends BaseController {
 			vpd.put("var2", varOList.get(i).getString("GRANT_PRICE"));	    //2
 			vpd.put("var3", varOList.get(i).getString("GRANT_TIME"));	    //3
 			vpd.put("var4", varOList.get(i).getString("GRANT_USER"));	    //4
-			vpd.put("var5", varOList.get(i).get("GRANT_STATUS").toString());	//5
+
+            int status = Integer.parseInt(varOList.get(i).get("GRANT_STATUS").toString());
+            String str = "未审核";
+            switch (status) {
+                case 0 :
+
+                    break;
+                case 1 :
+                    str = "通过";
+                    break;
+                case 2 :
+                    str = "未通过";
+                    break;
+            }
+			vpd.put("var5", str);	//5
 			vpd.put("var6", varOList.get(i).getString("CREATE_USER"));	    //6
 			vpd.put("var7", varOList.get(i).getString("CREATE_TIME"));	    //7
 			vpd.put("var8", varOList.get(i).getString("UPDATE_USER"));	    //8
