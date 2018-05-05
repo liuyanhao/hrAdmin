@@ -35,7 +35,7 @@ public class WantExamController  extends BaseController {
     private Job_typeManager job_typeService;
 
     /**
-     *
+     *考试登记
      * @return
      * @throws Exception
      */
