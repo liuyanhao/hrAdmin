@@ -55,8 +55,8 @@ public class StaffEmployeeController extends BaseController {
 		PageData pd = new PageData();
 		if(Jurisdiction.buttonJurisdiction(menuUrl, "add")){
 			if (null != file && !file.isEmpty()) {
-				String filePath = PathUtil.getClasspath() + Const.FILEPATHIMG + ffile;		//文件上传路径
-				fileName = FileUpload.fileUp(file, filePath, this.get32UUID());				//执行上传
+				String filePath = PathUtil.getClasspath() + Const.FILEPATHIMG + ffile;	//文件上传路径
+				fileName = FileUpload.fileUp(file, filePath, this.get32UUID());		    //执行上传
 			}else{
 				System.out.println("上传失败");
 			}

@@ -86,5 +86,16 @@ public class PathUtil {
 		strResult = strBuf.toString();// +"ss/";//加入项目的名称
 		return strResult;
 	}
-	
+
+
+	public static void main(String [] args){
+        String classpath = getClasspath();
+        System.out.println(classpath);
+        String classpath2 = getClassResources();
+        System.out.println(classpath2);
+        System.out.println("--------------------");
+
+        String projectPath = PublicUtil.getPorjectPath().replaceAll("\\\\","/");
+        System.out.println(projectPath);
+    }
 }

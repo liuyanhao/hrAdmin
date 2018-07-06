@@ -295,7 +295,7 @@ public class DbLXC{
 	
 	/**数据库备份命令字符串
 	 * @param dbtype 数据库类型
-	 * @param dbpaths 数据库的路径
+	 * @param dbpath 数据库的路径
 	 * @param address 数据库连接地址
 	 * @param username 用户名
 	 * @param password 密码

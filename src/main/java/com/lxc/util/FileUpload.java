@@ -42,7 +42,8 @@ public class FileUpload {
 	/**
 	 * 写文件到当前目录的upload目录中
 	 * @param in
-	 * @param fileName
+	 * @param dir
+	 * @param realName
 	 * @throws IOException
 	 */
 	private static String copyFile(InputStream in, String dir, String realName)
