@@ -1,16 +1,11 @@
 package com.lxc.util;
 
-import java.io.BufferedInputStream;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.MalformedURLException;
-import java.net.URL;
-
 import org.apache.commons.io.FileUtils;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.*;
+import java.net.MalformedURLException;
+import java.net.URL;
 
 /**
  * 上传文件
@@ -38,11 +33,12 @@ public class FileUpload {
 		}
 		return fileName+extName;
 	}
-	
+
 	/**
 	 * 写文件到当前目录的upload目录中
 	 * @param in
-	 * @param fileName
+	 * @param dir
+	 * @param realName
 	 * @throws IOException
 	 */
 	private static String copyFile(InputStream in, String dir, String realName)
@@ -51,12 +47,12 @@ public class FileUpload {
 		FileUtils.copyInputStreamToFile(in, file);
 		return realName;
 	}
-	
-	
+
+
 	/**判断路径是否存在，否：创建此路径
 	 * @param dir  文件路径
 	 * @param realName  文件名
-	 * @throws IOException 
+	 * @throws IOException
 	 */
 	public static File mkdirsmy(String dir, String realName) throws IOException{
 		File file = new File(dir, realName);
@@ -68,8 +64,8 @@ public class FileUpload {
 		}
 		return file;
 	}
-	
-	
+
+
 	/**下载网络图片上传到服务器上
 	 * @param httpUrl 图片网络地址
 	 * @param filePath	图片保存路径
@@ -77,7 +73,7 @@ public class FileUpload {
 	 * @return	返回图片名称
 	 */
 	public static String getHtmlPicture(String httpUrl, String filePath , String myFileName) {
-		
+
 		URL url;						//定义URL对象url
 		BufferedInputStream in;			//定义输入字节缓冲流对象in
 		FileOutputStream file;			//定义文件输出流对象file
@@ -102,6 +98,6 @@ public class FileUpload {
 			e.printStackTrace();
 		}
 		return null;
-		
+
 	}
 }
