@@ -1,3 +1,21 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 package com.lxc.util;
 
 import org.springframework.context.ApplicationContext;
@@ -16,10 +34,12 @@ public class Const {
 	public static final String SESSION_QX = "QX";
 	public static final String SESSION_userpds = "userpds";			
 	public static final String SESSION_USERROL = "USERROL";				//用户对象
+	public static final String SESSION_USERID = "USER_ID";			    //用户名ID
 	public static final String SESSION_USERNAME = "USERNAME";			//用户名
 	public static final String TRUE = "T";
 	public static final String FALSE = "F";
 	public static final String LOGIN = "/login_toLogin.do";				//登录地址
+	public static final String FRONT_LOGIN = "front/login.do";				//前端登录地址
 	public static final String SYSNAME = "admin/config/SYSNAME.txt";	//系统名称路径
 	public static final String PAGE	= "admin/config/PAGE.txt";			//分页条数配置路径
 	public static final String EMAIL = "admin/config/EMAIL.txt";		//邮箱服务器配置路径
@@ -32,8 +52,10 @@ public class Const {
 	public static final String FILEPATHIMG = "uploadFiles/uploadImgs/";	//图片上传路径
 	public static final String FILEPATHFILE = "uploadFiles/file/";		//文件上传路径
 	public static final String FILEPATHTWODIMENSIONCODE = "uploadFiles/twoDimensionCode/"; //二维码存放路径
-	public static final String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)).*";	//不对匹配该值的访问路径拦截（正则）
+	public static final String FILEPATHTOUXIANG = "uploadFiles/touXiang/"; //头像存放路径
+	public static final String NO_INTERCEPTOR_PATH = ".*/((login)|(logout)|(code)|(app)|(weixin)|(static)|(main)|(websocket)|(front)).*";	//不对匹配该值的访问路径拦截（正则）
 	public static ApplicationContext WEB_APP_CONTEXT = null; //该值会在web容器启动时由WebAppContextListener初始化
+	public static final String RESETPWD = "resetPwd";  //找回密码  标识
 	
 	/**
 	 * APP Constants
@@ -45,6 +67,7 @@ public class Const {
 	//app根据用户名获取会员信息接口_请求协议中的参数
 	public static final String[] APP_GETAPPUSER_PARAM_ARRAY = new String[]{"USERNAME"};
 	public static final String[] APP_GETAPPUSER_VALUE_ARRAY = new String[]{"用户名"};
-	
-	
+
+    public static final String REGISTER_CODE ="f924d00914c54810922c31b62612dc57"; //应聘角色
+
 }

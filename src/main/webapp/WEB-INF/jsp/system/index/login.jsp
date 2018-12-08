@@ -1,3 +1,67 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -62,8 +126,7 @@
 <body>
 	<div style="width:100%;text-align: center;margin: 0 auto;position: absolute;">
 		<div id="loginbox">
-			<form action="" method="post" name="loginForm"
-				id="loginForm">
+			<form action="" method="post" name="loginForm"	id="loginForm">
 				<div class="control-group normal_text">
 					<h3>
 						<img src="static/login/logo.png" alt="Logo" />
@@ -98,7 +161,6 @@
 				</div>
 				<div class="form-actions">
 					<div style="width:86%;padding-left:8%;">
-
 						<div style="float: left;padding-top:2px;">
 							<i><img src="static/login/yan.png" /></i>
 						</div>
@@ -107,7 +169,7 @@
 								style="height:16px; padding-top:4px;" />
 						</div>
 						<div style="float: left;">
-							<i><img style="height:22px;" id="codeImg" alt="点击更换"
+							<i><img style="height:25px;" id="codeImg" alt="点击更换"
 								title="点击更换" src="" /></i>
 						</div>
 						<span class="pull-right" style="padding-right:3%;"><a href="javascript:quxiao();" class="btn btn-success">取消</a></span>
@@ -117,16 +179,18 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © LXCqq1094921525 2100</span></font>
+					<font color="white"><span id="nameerr">Copyright © 2017-2018 刘熙财版权所有| 京ICP备13001xxx号-1   </span></font>
 				</div>
 			</div>
 		</div>
 	</div>
 	<div id="templatemo_banner_slide" class="container_wapper">
 		<div class="camera_wrap camera_emboss" id="camera_slide">
-			<div data-src="static/login/images/banner_slide_01.jpg"></div>
-			<div data-src="static/login/images/banner_slide_02.jpg"></div>
-			<div data-src="static/login/images/banner_slide_03.jpg"></div>
+			<div data-src="static/login/images/banner_slide_11.jpg"></div>
+			<div data-src="static/login/images/banner_slide_12.jpg"></div>
+			<div data-src="static/login/images/banner_slide_13.jpg"></div>
+			<div data-src="static/login/images/banner_slide_14.jpg"></div>
+			<div data-src="static/login/images/banner_slide_15.jpg"></div>
 		</div>
 		<!-- #camera_wrap_3 -->
 	</div>
@@ -135,7 +199,7 @@
 		//服务器校验
 		function severCheck(){
 			if(check()){
-				
+
 				var loginname = $("#loginname").val();
 				var password = $("#password").val();
 				var code = "qq1094921525lxc"+loginname+",lxc,"+password+"QQ1094921525lxc"+",lxc,"+$("#code").val();

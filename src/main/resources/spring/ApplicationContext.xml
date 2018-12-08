@@ -1,3 +1,129 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
@@ -124,9 +250,11 @@
 				/static/login/** 			= anon
 				/static/js/myjs/** 			= authc
 				/static/js/** 				= anon
+				/static/ace/** 				= anon
 				/uploadFiles/uploadImgs/** 	= anon
 	           	/code.do 					= anon
 	           	/login_login	 			= anon
+				/front/**		 			= anon
 	           	/app**/** 					= anon
 	           	/weixin/** 					= anon
 	           	/**							= authc
@@ -134,6 +262,8 @@
 			</property>
 		</bean>
 	<!-- ================ Shiro end ================ -->
-	
-   
+
+	<bean id="multipartResolver"
+		  class="org.springframework.web.multipart.support.StandardServletMultipartResolver">
+	</bean>
 </beans>

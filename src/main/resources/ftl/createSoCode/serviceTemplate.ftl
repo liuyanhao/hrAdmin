@@ -1,3 +1,10 @@
+
+
+
+
+
+
+
 package com.lxc.service.${packageName}.${objectNameLower}.impl;
 
 import java.util.List;
@@ -5,7 +12,7 @@ import javax.annotation.Resource;
 import org.springframework.stereotype.Service;
 import com.lxc.dao.DaoSupport;
 import com.lxc.entity.Page;
-import com.xc.util.PageData;
+import com.lxc.util.PageData;
 import com.lxc.service.${packageName}.${objectNameLower}.${objectName}Manager;
 
 /** 
@@ -87,4 +94,3 @@ public class ${objectName}Service implements ${objectName}Manager{
 	}
 	
 }
-

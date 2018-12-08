@@ -1,4 +1,67 @@
-﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
+﻿
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
@@ -61,7 +124,7 @@
 									<div class="ace-settings-item">
 										<div class="pull-left">
 											<select id="skin-colorpicker" class="hide">
-												<option data-skin="no-skin" value="#438EB9">#438EB9</option>
+												<option data-skin="no-skin" value="#1985e2">#1985e2</option>
 												<option data-skin="skin-1" value="#222A2D">#222A2D</option>
 												<option data-skin="skin-2" value="#C6487E">#C6487E</option>
 												<option data-skin="skin-3" value="#D0D0D0">#D0D0D0</option>

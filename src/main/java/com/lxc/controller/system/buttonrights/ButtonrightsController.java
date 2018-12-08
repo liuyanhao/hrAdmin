@@ -1,3 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 package com.lxc.controller.system.buttonrights;
 
 import com.lxc.controller.base.BaseController;
@@ -64,7 +130,7 @@ public class ButtonrightsController extends BaseController {
 		mv.addObject("roleList", roleList);
 		mv.addObject("roleList_z", roleList_z);
 		mv.addObject("buttonlist", buttonlist);
-		mv.addObject("roleLXcbuttonlist", roleLxcbuttonlist);
+		mv.addObject("roleLxcbuttonlist", roleLxcbuttonlist);
 		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
 		mv.setViewName("system/buttonrights/buttonrights_list");
 		return mv;

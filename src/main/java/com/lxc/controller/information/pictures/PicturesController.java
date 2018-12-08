@@ -1,17 +1,11 @@
+
+
 package com.lxc.controller.information.pictures;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.information.pictures.PicturesManager;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -22,20 +16,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.DateUtil;
-import com.lxc.util.DelAllFile;
-import com.lxc.util.FileUpload;
-import com.lxc.util.GetWeb;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.Const;
-import com.lxc.util.PageData;
-import com.lxc.util.PathUtil;
-import com.lxc.util.Tools;
-import com.lxc.util.Watermark;
-import com.lxc.service.information.pictures.PicturesManager;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 类名称：图片管理
@@ -279,7 +265,7 @@ public class PicturesController extends BaseController {
 		String errInfo = "success";
 		String serverUrl = pd.getString("serverUrl");	//网页地址
 		String msg = pd.getString("msg");				//msg:save 时保存到服务器
-		if (!serverUrl.startsWith("http://")){ 			//检验地址是否http://
+		if (!(serverUrl.startsWith("http://")||serverUrl.startsWith("https://"))){ 			//检验地址是否http:// || https://
 			 errInfo = "error";							//无效地址
 		 }else{
 			 try {
@@ -316,3 +302,18 @@ public class PicturesController extends BaseController {
 		binder.registerCustomEditor(Date.class, new CustomDateEditor(format,true));
 	}
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

@@ -1,3 +1,4 @@
+﻿
 ﻿<div id="sidebar" class="sidebar                  responsive">
 				<script type="text/javascript">
 					try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
@@ -10,7 +11,7 @@
 							<i class="ace-icon fa fa-pencil"></i>
 						</button>
 						
-						<button class="btn btn-success" title="UI实例" onclick="window.open('static/html_UI/html');">
+						<button class="btn btn-success" title="UI实例" onclick="window.open('static/html_UI/html/index.html');">
 							<i class="ace-icon fa fa-signal"></i>
 						</button>
 
@@ -41,7 +42,7 @@
 					<li class="">
 						<a href="main/index">
 							<i class="menu-icon fa fa-tachometer"></i>
-							<span class="menu-text">后台首页</span>
+							<span class="menu-text">系统首页</span>
 						</a>
 						<b class="arrow"></b>
 					</li>

@@ -1,3 +1,16 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD SQL Map Config 3.0//EN"  
 	"http://mybatis.org/dtd/mybatis-3-config.dtd">
@@ -11,6 +24,7 @@
 
 	<typeAliases>
 		<typeAlias type="com.lxc.entity.system.User" alias="User"/>
+		<typeAlias type="com.lxc.entity.system.AppUser" alias="AppUser"/>
 		<typeAlias type="com.lxc.entity.system.Role" alias="Role"/>
 		<typeAlias type="com.lxc.entity.system.Menu" alias="Menu"/>
 		<typeAlias type="com.lxc.entity.system.Dictionaries" alias="Dictionaries"/>

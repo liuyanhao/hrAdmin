@@ -1,3 +1,69 @@
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 var locat = (window.location+'').split('/'); 
 $(function(){if('main'== locat[3]){locat =  locat[0]+'//'+locat[2];}else{locat =  locat[0]+'//'+locat[2]+'/'+locat[3];};});
 
@@ -64,7 +130,7 @@ function getHeadMsg(){
 function getLxcsmsCount(){
 	$.ajax({
 		type: "POST",
-		url: locat+'/head/getLxcsmsCount.do?tm='+new Date().getTime(),
+		url: '/head/getLxcsmsCount.do?tm='+new Date().getTime(),
     	data: encodeURI(""),
 		dataType:'json',
 		cache: false,

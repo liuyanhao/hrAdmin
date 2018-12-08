@@ -1,3 +1,4 @@
+﻿
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -35,10 +36,10 @@
 									<i class="ace-icon fa fa-times"></i>
 								</button>
 								<i class="ace-icon fa fa-check green"></i>
-								欢迎使用 LXC template 管理系统&nbsp;&nbsp;
+								欢迎使用 人力资源管理系统&nbsp;&nbsp;
 								<strong class="green">
 									&nbsp;QQ:1094921525
-									<a href="http://www.hradmin.com" target="_blank"><small>(&nbsp;www.lxctemplate.com&nbsp;)</small></a>
+									<a href="http://www.hradmin.com" target="_blank"><small>(&nbsp;www.hrAdmin.com&nbsp;)</small></a>
 								</strong>
 							</div>
 							
@@ -51,11 +52,11 @@
 						        // 指定图表的配置项和数据
 								var option = {
 						            title: {
-						                text: 'LXC template用户统计'
+						                text: '人力资源管理系统 用户统计'
 						            },
 						            tooltip: {},
 						            xAxis: {
-						                data: ["系统用户","系统员员工"]
+						                data: ["系统用户","公司员工"]
 						            },
 						            yAxis: {},
 						            series: [

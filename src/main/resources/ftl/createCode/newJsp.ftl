@@ -1,3 +1,4 @@
+﻿
 ﻿<%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -31,12 +32,12 @@
 					<div class="row">
 						<div class="col-xs-12">
 
-<!-- 存放生成的hmlt开头  -->
-<form class="form-horizontal" role="form">
-${htmlCode}
-</form>
-<!-- 存放生成的hmlt结尾 -->
-							
+						<!-- 存放生成的html开头  -->
+						<form class="form-horizontal" role="form">
+						${htmlCode}
+						</form>
+						<!-- 存放生成的html结尾 -->
+
 						</div>
 						<!-- /.col -->
 					</div>
@@ -47,13 +48,11 @@ ${htmlCode}
 		</div>
 		<!-- /.main-content -->
 
-
 		<!-- 返回顶部 -->
 		<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
 			<i class="ace-icon fa fa-angle-double-up icon-only bigger-110"></i>
 		</a>
-
-	</div>
+s	</div>
 	<!-- /.main-container -->
 
 	<!-- basic scripts -->
@@ -77,7 +76,6 @@ ${htmlCode}
 		$(function() {
 			//日期框
 			$('.date-picker').datepicker({autoclose: true,todayHighlight: true});
-			
 			//下拉框
 			if(!ace.vars['touch']) {
 				$('.chosen-select').chosen({allow_single_deselect:true}); 
@@ -125,7 +123,9 @@ ${htmlCode}
 			UE.getEditor('editor');
 		}
 	</script>
-
-
 </body>
 </html>
+
+
+
+
