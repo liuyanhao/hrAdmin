@@ -1,1 +1,0 @@
-yes,lxc,watermark.png,lxc,1,lxc,1

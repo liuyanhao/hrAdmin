@@ -1,5 +1,0 @@
-<<<<<<< .mine
-username,lxc,password
-=======
-C86141000,lxc,298f9cf228e011b3579b5a4f24197bef
->>>>>>> .theirs
