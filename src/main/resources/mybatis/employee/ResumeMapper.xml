@@ -1,0 +1,335 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="ResumeMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		TB_RESUME as r
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		r.SEX,
+		r.ADDRESS,
+		r.PHONE,
+		r.PIC,
+		r.CARD_ID,
+		r.EMAIL,
+		r.QQ,
+		r.WECHAT,
+		r.POST_CODE,
+		r.GOVEMMET,
+		r.NATION,
+		r.LEARING,
+		r.HOBBY,
+		r.SUIT,
+		r.NATIONALITY,
+		r.BIRTH,
+		r.FAITH,
+		r.SPEIALITY,
+		r.DESCRIBES,
+		r.REMARK,
+		r.USER_ID,
+		r.AGE,
+		r.TIME,
+		r.CREATE_TIME,
+		r.UPDATE_TIME,
+		r.CREATE_USER,
+		r.UPDATE_USER,
+		r.STAFF_NAME,
+		r.STATUS,
+		r.USER_NAME,
+		r.REASON,
+		r.RESULT,
+		r.SCORE,
+		r.JOB_MESSAGE_ID,
+		r.JOB_TYPE_ID,
+		r.DEGREE,
+		r.RESUME_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{SEX},	
+		#{ADDRESS},	
+		#{PHONE},	
+		#{PIC},	
+		#{CARD_ID},	
+		#{EMAIL},	
+		#{QQ},	
+		#{WECHAT},	
+		#{POST_CODE},	
+		#{GOVEMMET},	
+		#{NATION},	
+		#{LEARING},	
+		#{HOBBY},	
+		#{SUIT},	
+		#{NATIONALITY},	
+		#{BIRTH},	
+		#{FAITH},	
+		#{SPEIALITY},	
+		#{DESCRIBES},
+		#{REMARK},	
+		#{USER_ID},
+		#{AGE},	
+		#{TIME},	
+		#{CREATE_TIME},	
+		#{UPDATE_TIME},	
+		#{CREATE_USER},	
+		#{UPDATE_USER},	
+		#{STAFF_NAME},	
+		#{STATUS},	
+		#{USER_NAME},	
+		#{REASON},	
+		#{RESULT},	
+		#{SCORE},	
+		#{JOB_MESSAGE_ID},
+		#{JOB_TYPE_ID},
+		#{DEGREE},	
+		#{RESUME_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="pd">
+		insert into
+		TB_RESUME
+		(
+		SEX,
+		ADDRESS,
+		PHONE,
+		PIC,
+		CARD_ID,
+		EMAIL,
+		QQ,
+		WECHAT,
+		POST_CODE,
+		GOVEMMET,
+		NATION,
+		LEARING,
+		HOBBY,
+		SUIT,
+		NATIONALITY,
+		BIRTH,
+		FAITH,
+		SPEIALITY,
+		DESCRIBES,
+		REMARK,
+		USER_ID,
+		AGE,
+		TIME,
+		CREATE_TIME,
+		UPDATE_TIME,
+		CREATE_USER,
+		UPDATE_USER,
+		STAFF_NAME,
+		STATUS,
+		USER_NAME,
+		REASON,
+		RESULT,
+		SCORE,
+		JOB_MESSAGE_ID,
+		JOB_TYPE_ID,
+		DEGREE,
+		RESUME_ID
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="delete" parameterType="pd">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			RESUME_ID = #{RESUME_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="edit" parameterType="pd">
+		update
+		<include refid="tableName"></include>
+		set
+		<if test="SEX != null and SEX !=''">
+			SEX = #{SEX},
+		</if>
+		<if test="ADDRESS != null and ADDRESS !=''">
+			ADDRESS = #{ADDRESS},
+		</if>
+		<if test="PHONE != null and PHONE !=''">
+			PHONE = #{PHONE},
+		</if>
+		<if test="PIC != null and PIC !=''">
+			PIC = #{PIC},
+		</if>
+		<if test="CARD_ID != null and CARD_ID !=''">
+			CARD_ID = #{CARD_ID},
+		</if>
+		<if test="EMAIL != null and EMAIL !=''">
+			EMAIL = #{EMAIL},
+		</if>
+		<if test="QQ != null and QQ !=''">
+			QQ = #{QQ},
+		</if>
+		<if test="WECHAT != null and WECHAT !=''">
+			WECHAT = #{WECHAT},
+		</if>
+		<if test="POST_CODE != null and POST_CODE !=''">
+			POST_CODE = #{POST_CODE},
+		</if>
+		<if test="GOVEMMET != null and GOVEMMET !=''">
+			GOVEMMET = #{GOVEMMET},
+		</if>
+		<if test="NATION != null and NATION !=''">
+			NATION = #{NATION},
+		</if>
+		<if test="LEARING != null and LEARING !=''">
+			LEARING = #{LEARING},
+		</if>
+		<if test="HOBBY != null and HOBBY !=''">
+			HOBBY = #{HOBBY},
+		</if>
+		<if test="SUIT != null and SUIT !=''">
+			SUIT = #{SUIT},
+		</if>
+		<if test="NATIONALITY != null and NATIONALITY !=''">
+			NATIONALITY = #{NATIONALITY},
+		</if>
+		<if test="BIRTH != null and BIRTH !=''">
+			BIRTH = #{BIRTH},
+		</if>
+		<if test="FAITH != null and FAITH !=''">
+			FAITH = #{FAITH},
+		</if>
+		<if test="SPEIALITY != null and SPEIALITY !=''">
+			SPEIALITY = #{SPEIALITY},
+		</if>
+		<if test="DESCRIBES != null and DESCRIBES !=''">
+			DESCRIBES = #{DESCRIBES},
+		</if>
+		<if test="REMARK != null and REMARK !=''">
+			REMARK = #{REMARK},
+		</if>
+		<if test="AGE != null and AGE !=''">
+			AGE = #{AGE},
+		</if>
+		<if test="UPDATE_TIME != null and UPDATE_TIME !=''">
+			UPDATE_TIME = #{UPDATE_TIME},
+		</if>
+		<if test="UPDATE_USER != null and UPDATE_USER !=''">
+			UPDATE_USER = #{UPDATE_USER},
+		</if>
+		<if test="STAFF_NAME != null and STAFF_NAME !=''">
+			STAFF_NAME = #{STAFF_NAME},
+		</if>
+		<if test="STATUS != null and STATUS !=''">
+			STATUS = #{STATUS},
+		</if>
+		<if test="USER_NAME != null and USER_NAME !=''">
+			USER_NAME = #{USER_NAME},
+		</if>
+		<if test="REASON != null and REASON !=''">
+			REASON = #{REASON},
+		</if>
+		<if test="RESULT != null and RESULT !=''">
+			RESULT = #{RESULT},
+		</if>
+		<if test="SCORE != null and SCORE !=''">
+			SCORE = #{SCORE},
+		</if>
+		<if test="JOB_MESSAGE_ID != null and JOB_MESSAGE_ID !=''">
+			JOB_MESSAGE_ID = #{JOB_MESSAGE_ID},
+		</if>
+		<if test="JOB_TYPE_ID != null and JOB_TYPE_ID !=''">
+		    JOB_TYPE_ID = #{JOB_TYPE_ID},
+		</if>
+		<if test="DEGREE != null and DEGREE !=''">
+			DEGREE = #{DEGREE},
+		</if>
+		RESUME_ID = RESUME_ID
+		where 
+		RESUME_ID = #{RESUME_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="pd" resultType="pd">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			RESUME_ID = #{RESUME_ID}
+	</select>
+	<!-- 通过身份证号码获取数据 -->
+	<select id="findByCardId" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include>
+		where 1=1
+		and CARD_ID = #{CARD_ID}
+	</select>
+
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="page" resultType="pd">
+		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include> left join tb_job_message  j on r.JOB_MESSAGE_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
+		where 1=1
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and r.STATUS = #{pd.STATUS}
+		</if>
+		<if test="pd.keywords!= null and pd.keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				<!--	根据需求自己加检索条件 -->
+			STAFF_NAME LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+					 or
+			PHONE LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+				OR
+			QQ LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			or
+			WECHAT LIKE CONCAT(CONCAT('%', #{pd.keywords}),'%')
+			)
+		</if>
+		<if test="pd.lastStart!=null and pd.lastStart!=''"><!-- 开始时间检索 -->
+			and UPDATE_USER &gt;= #{pd.lastStart}
+		</if>
+		<if test="pd.lastEnd!=null and pd.lastEnd!=''"><!-- 结束时间检索 -->
+			and UPDATE_USER &lt;= #{pd.lastEnd}
+		</if>
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" parameterType="pd" resultType="pd">
+		select
+		t.TYPE_NAME,
+		j.JOB_NAME,
+		<include refid="Field"></include>
+		from
+		<include refid="tableName"></include> left join tb_job_message  j on r.JOB_MESSAGE_ID = j.JOB_MESSAGE_ID,
+		tb_job_type t
+		where 1=1
+		and t.JOB_TYPE_ID = j.JOB_TYPE_ID
+		<if test="pd.STATUS != null and pd.STATUS != ''">
+			and STATUS = #{pd.STATUS}
+		</if>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			RESUME_ID in
+		<foreach item="item" index="index" collection="array" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+	<!-- lxc 1094921525qq -->
+</mapper>
