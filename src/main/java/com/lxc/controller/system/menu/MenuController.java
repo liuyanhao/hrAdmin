@@ -39,7 +39,6 @@ public class MenuController extends BaseController {
 	
 	/**
 	 * 显示菜单列表
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping
@@ -64,7 +63,6 @@ public class MenuController extends BaseController {
 	
 	/**
 	 * 请求新增菜单页面
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/toAdd")
@@ -88,7 +86,6 @@ public class MenuController extends BaseController {
 	/**
 	 * 保存菜单信息
 	 * @param menu
-	 * @param model
 	 * @return
 	 */
 	@RequestMapping(value="/add")
@@ -113,7 +110,6 @@ public class MenuController extends BaseController {
 	/**
 	 * 删除菜单
 	 * @param MENU_ID
-	 * @param out
 	 */
 	@RequestMapping(value="/delete")
 	@ResponseBody
@@ -178,7 +174,7 @@ public class MenuController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		mv.setViewName("redirect:?MSG='change'&MENU_ID="+menu.getPARENT_ID()); //保存成功跳转到列表页面
+		mv.setViewName("redirect:/menu.do?&MENU_ID="+menu.getPARENT_ID()); //保存成功跳转到列表页面
 		return mv;
 	}
 	
