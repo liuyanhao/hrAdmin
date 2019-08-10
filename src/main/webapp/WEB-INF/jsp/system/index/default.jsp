@@ -38,7 +38,7 @@
 								欢迎使用 人力资源管理系统&nbsp;&nbsp;
 								<strong class="green">
 									&nbsp;QQ:1094921525
-									<a href="http://www.hradmin.com" target="_blank"><small>(&nbsp;www.hrAdmin.com&nbsp;)</small></a>
+									<a href="http://hr.liuxicai.club" target="_blank"><small>(&nbsp;hr.liuxicai.club&nbsp;)</small></a>
 								</strong>
 							</div>
 							
@@ -55,7 +55,7 @@
 						            },
 						            tooltip: {},
 						            xAxis: {
-						                data: ["系统用户","公司员工"]
+						                data: ["系统用户","会员用户"]
 						            },
 						            yAxis: {},
 						            series: [
