@@ -57,13 +57,17 @@ public class HeadController extends BaseController {
 			pdList.add(pds);
 			map.put("list", pdList);
 			map.put("lxcsmsCount", lxcsmsService.findLxcsmsCount(Jurisdiction.getUsername()).get("lxcsmsCount").toString());//站内信未读总数
-			String strWEBSOCKET = Tools.readTxtFile(Const.WEBSOCKET);//读取WEBSOCKET配置
+			//读取WEBSOCKET配置
+			String strWEBSOCKET = Tools.readTxtFile(Const.WEBSOCKET);
 			if(null != strWEBSOCKET && !"".equals(strWEBSOCKET)){
 				String strIW[] = strWEBSOCKET.split(",lxc,");
 				if(strIW.length == 5){
-					map.put("wimadress", strIW[0]+":"+strIW[1]);	//即时聊天服务器IP和端口
-					map.put("oladress", strIW[2]+":"+strIW[3]);		//在线管理和站内信服务器IP和端口
-					map.put("lxcsmsSound", strIW[4]);				//站内信提示音效配置
+					//即时聊天服务器IP和端口
+					map.put("wimadress", strIW[0]+":"+strIW[1]);
+					//在线管理和站内信服务器IP和端口
+					map.put("oladress", strIW[2]+":"+strIW[3]);
+					//站内信提示音效配置
+					map.put("lxcsmsSound", strIW[4]);
 				}
 			}
 		} catch (Exception e) {
@@ -130,15 +134,23 @@ public class HeadController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> map = new HashMap<String,Object>();
-		String msg = "ok";		//发送状态
-		int count = 0;			//统计发送成功条数
-		int zcount = 0;			//理论条数
+		//发送状态
+		String msg = "ok";
+		//统计发送成功条数
+		int count = 0;
+		//理论条数
+		int zcount = 0;
 		List<PageData> pdList = new ArrayList<PageData>();
-		String PHONEs = pd.getString("PHONE");					//对方邮箱
-		String CONTENT = pd.getString("CONTENT");				//内容
-		String isAll = pd.getString("isAll");					//是否发送给全体成员 yes or no
-		String TYPE = pd.getString("TYPE");						//类型 1：短信接口1   2：短信接口2
-		String fmsg = pd.getString("fmsg");						//判断是系统用户还是会员 "appuser"为会员用户
+		//对方邮箱
+		String PHONEs = pd.getString("PHONE");
+		//内容
+		String CONTENT = pd.getString("CONTENT");
+		//是否发送给全体成员 yes or no
+		String isAll = pd.getString("isAll");
+		//类型 1：短信接口1   2：短信接口2
+		String TYPE = pd.getString("TYPE");
+		//判断是系统用户还是会员 "appuser"为会员用户
+		String fmsg = pd.getString("fmsg");
 		if("yes".endsWith(isAll)){
 			try {
 				List<PageData> userList = new ArrayList<PageData>();
@@ -146,11 +158,14 @@ public class HeadController extends BaseController {
 				zcount = userList.size();
 				try {
 					for(int i=0;i<userList.size();i++){
-						if(Tools.checkMobileNumber(userList.get(i).getString("PHONE"))){			//手机号格式不对就跳过
+						//手机号格式不对就跳过
+						if(Tools.checkMobileNumber(userList.get(i).getString("PHONE"))){
 							if("1".equals(TYPE)){
-								SmsUtil.sendSms1(userList.get(i).getString("PHONE"), CONTENT);		//调用发短信函数1
+								//调用发短信函数1
+								SmsUtil.sendSms1(userList.get(i).getString("PHONE"), CONTENT);
 							}else{
-								SmsUtil.sendSms2(userList.get(i).getString("PHONE"), CONTENT);		//调用发短信函数2
+								//调用发短信函数2s
+								SmsUtil.sendSms2(userList.get(i).getString("PHONE"), CONTENT);
 							}
 							count++;
 						}else{
@@ -171,11 +186,14 @@ public class HeadController extends BaseController {
 			zcount = arrTITLE.length;
 			try {
 				for(int i=0;i<arrTITLE.length;i++){
-					if(Tools.checkMobileNumber(arrTITLE[i])){			//手机号式不对就跳过
+					//手机号式不对就跳过
+					if(Tools.checkMobileNumber(arrTITLE[i])){
 						if("1".equals(TYPE)){
-							SmsUtil.sendSms1(arrTITLE[i], CONTENT);		//调用发短信函数1
+							//调用发短信函数1
+							SmsUtil.sendSms1(arrTITLE[i], CONTENT);
 						}else{
-							SmsUtil.sendSms2(arrTITLE[i], CONTENT);		//调用发短信函数2
+							//调用发短信函数2
+							SmsUtil.sendSms2(arrTITLE[i], CONTENT);
 						}
 						count++;
 					}else{
@@ -188,8 +206,10 @@ public class HeadController extends BaseController {
 			} 
 		}	
 		pd.put("msg", msg);
-		pd.put("count", count);						//成功数
-		pd.put("ecount", zcount-count);				//失败数
+		//成功数
+		pd.put("count", count);
+		//失败数
+		pd.put("ecount", zcount-count);
 		pdList.add(pd);
 		map.put("list", pdList);
 		return AppUtil.returnObject(pd, map);
@@ -218,17 +238,27 @@ public class HeadController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> map = new HashMap<String,Object>();
-		String msg = "ok";		//发送状态
-		int count = 0;			//统计发送成功条数
-		int zcount = 0;			//理论条数
-		String strEMAIL = Tools.readTxtFile(Const.EMAIL);		//读取邮件配置
+		//发送状态
+		String msg = "ok";
+		//统计发送成功条数
+		int count = 0;
+		//理论条数
+		int zcount = 0;
+		//读取邮件配置
+		String strEMAIL = Tools.readTxtFile(Const.EMAIL);
 		List<PageData> pdList = new ArrayList<PageData>();
-		String toEMAIL = pd.getString("EMAIL");					//对方邮箱
-		String TITLE = pd.getString("TITLE");					//标题
-		String CONTENT = pd.getString("CONTENT");				//内容
-		String TYPE = pd.getString("TYPE");						//类型
-		String isAll = pd.getString("isAll");					//是否发送给全体成员 yes or no
-		String fmsg = pd.getString("fmsg");						//判断是系统用户还是会员 "appuser"为会员用户
+		//对方邮箱
+		String toEMAIL = pd.getString("EMAIL");
+		//标题
+		String TITLE = pd.getString("TITLE");
+		//内容
+		String CONTENT = pd.getString("CONTENT");
+		//类型
+		String TYPE = pd.getString("TYPE");
+		//是否发送给全体成员 yes or no
+		String isAll = pd.getString("isAll");
+		//判断是系统用户还是会员 "appuser"为会员用户
+		String fmsg = pd.getString("fmsg");
 		if(null != strEMAIL && !"".equals(strEMAIL)){
 			String strEM[] = strEMAIL.split(",lxc,");
 			if(strEM.length == 4){
@@ -239,8 +269,10 @@ public class HeadController extends BaseController {
 						zcount = userList.size();
 						try {
 							for(int i=0;i<userList.size();i++){
-								if(Tools.checkEmail(userList.get(i).getString("EMAIL"))){		//邮箱格式不对就跳过
-									SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], userList.get(i).getString("EMAIL"), TITLE, CONTENT, TYPE);//调用发送邮件函数
+								//邮箱格式不对就跳过
+								if(Tools.checkEmail(userList.get(i).getString("EMAIL"))){
+									//调用发送邮件函数
+									SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], userList.get(i).getString("EMAIL"), TITLE, CONTENT, TYPE);
 									count++;
 								}else{
 									continue;
@@ -260,8 +292,10 @@ public class HeadController extends BaseController {
 					zcount = arrTITLE.length;
 					try {
 						for(int i=0;i<arrTITLE.length;i++){
-							if(Tools.checkEmail(arrTITLE[i])){		//邮箱格式不对就跳过
-								SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], arrTITLE[i], TITLE, CONTENT, TYPE);//调用发送邮件函数
+							//邮箱格式不对就跳过
+							if(Tools.checkEmail(arrTITLE[i])){
+								//调用发送邮件函数
+								SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], arrTITLE[i], TITLE, CONTENT, TYPE);
 								count++;
 							}else{
 								continue;

@@ -1,16 +1,11 @@
 package com.lxc.controller.weixin.textmsg;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.weixin.command.CommandService;
+import com.lxc.service.weixin.imgmsg.ImgmsgService;
+import com.lxc.service.weixin.textmsg.TextmsgService;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Tools;
-import com.lxc.service.weixin.command.CommandService;
-import com.lxc.service.weixin.imgmsg.ImgmsgService;
-import com.lxc.service.weixin.textmsg.TextmsgService;
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 类名称：TextmsgController
@@ -38,8 +28,9 @@ import com.lxc.service.weixin.textmsg.TextmsgService;
 @Controller
 @RequestMapping(value="/textmsg")
 public class TextmsgController extends BaseController {
-	
-	String menuUrl = "textmsg/list.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "textmsg/list.do";
 	@Resource(name="textmsgService")
 	private TextmsgService textmsgService;
 	@Resource(name="commandService")
@@ -58,8 +49,10 @@ public class TextmsgController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("TEXTMSG_ID", this.get32UUID());	//主键
-		pd.put("CREATETIME", Tools.date2Str(new Date())); //创建时间
+		//主键
+		pd.put("TEXTMSG_ID", this.get32UUID());
+		//创建时间
+		pd.put("CREATETIME", Tools.date2Str(new Date()));
 		textmsgService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -118,11 +111,13 @@ public class TextmsgController extends BaseController {
 				pd.put("KEYWORD", KEYWORD.trim());
 			}
 			page.setPd(pd);
-			List<PageData>	varList = textmsgService.list(page);	//列出Textmsg列表
+			//列出Textmsg列表
+			List<PageData>	varList = textmsgService.list(page);
 			mv.setViewName("weixin/textmsg/textmsg_list");
 			mv.addObject("varList", varList);
 			mv.addObject("pd", pd);
-			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+			//按钮权限
+			mv.addObject("QX",Jurisdiction.getHC());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
@@ -149,7 +144,7 @@ public class TextmsgController extends BaseController {
 	}	
 	
 	/**去关注回复页面
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/goSubscribe")
 	public ModelAndView goSubscribe(){
@@ -187,7 +182,7 @@ public class TextmsgController extends BaseController {
 	}
 	
 	/**去修改页面
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/goEdit")
 	public ModelAndView goEdit(){
@@ -196,7 +191,8 @@ public class TextmsgController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try {
-			pd = textmsgService.findById(pd);	//根据ID读取
+			//根据ID读取
+			pd = textmsgService.findById(pd);
 			mv.setViewName("weixin/textmsg/textmsg_edit");
 			mv.addObject("msg", "edit");
 			mv.addObject("pd", pd);
@@ -207,7 +203,7 @@ public class TextmsgController extends BaseController {
 	}	
 	
 	/**批量删除
-	 * @return
+	 * @return Object
 	 */
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
@@ -238,7 +234,7 @@ public class TextmsgController extends BaseController {
 	}
 	
 	/**判断关键词是否存在
-	 * @return
+	 * @return Object
 	 */
 	@RequestMapping(value="/hasK")
 	@ResponseBody
@@ -255,13 +251,14 @@ public class TextmsgController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//返回结果
+		//返回结果
+		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);
 	}
 	
 	/**
 	 * 导出到excel
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel(){
@@ -273,21 +270,31 @@ public class TextmsgController extends BaseController {
 		try{
 			Map<String,Object> dataMap = new HashMap<String,Object>();
 			List<String> titles = new ArrayList<String>();
-			titles.add("关键词");//1
-			titles.add("内容");	//2
-			titles.add("创建时间");//3
-			titles.add("状态");	//4
-			titles.add("备注");	//5
+			//1
+			titles.add("关键词");
+			//2
+			titles.add("内容");
+			//3
+			titles.add("创建时间");
+			//4
+			titles.add("状态");
+			//5
+			titles.add("备注");
 			dataMap.put("titles", titles);
 			List<PageData> varOList = textmsgService.listAll(pd);
 			List<PageData> varList = new ArrayList<PageData>();
 			for(int i=0;i<varOList.size();i++){
 				PageData vpd = new PageData();
-				vpd.put("var1", varOList.get(i).getString("KEYWORD"));	//1
-				vpd.put("var2", varOList.get(i).getString("CONTENT"));	//2
-				vpd.put("var3", varOList.get(i).getString("CREATETIME"));	//3
-				vpd.put("var4", varOList.get(i).get("STATUS").toString());	//4
-				vpd.put("var5", varOList.get(i).getString("BZ"));	//5
+				//1
+				vpd.put("var1", varOList.get(i).getString("KEYWORD"));
+				//2
+				vpd.put("var2", varOList.get(i).getString("CONTENT"));
+				//3
+				vpd.put("var3", varOList.get(i).getString("CREATETIME"));
+				//4
+				vpd.put("var4", varOList.get(i).get("STATUS").toString());
+				//5
+				vpd.put("var5", varOList.get(i).getString("BZ"));
 				varList.add(vpd);
 			}
 			dataMap.put("varList", varList);

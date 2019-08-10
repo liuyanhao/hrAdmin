@@ -1,16 +1,9 @@
 package com.lxc.controller.weixin.command;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.weixin.command.CommandService;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Tools;
-import com.lxc.util.Jurisdiction;
-import com.lxc.service.weixin.command.CommandService;
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 类名称：CommandController
@@ -48,12 +38,15 @@ public class CommandController extends BaseController {
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
 		logBefore(logger, "新增Command");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("COMMAND_ID", this.get32UUID());	//主键
-		pd.put("CREATETIME", Tools.date2Str(new Date()));//创建时间
+		//主键
+		pd.put("COMMAND_ID", this.get32UUID());
+		//创建时间
+		pd.put("CREATETIME", Tools.date2Str(new Date()));
 		commandService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -66,7 +59,8 @@ public class CommandController extends BaseController {
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out){
 		logBefore(logger, "删除Command");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;}
 		PageData pd = new PageData();
 		try{
 			pd = this.getPageData();
@@ -85,7 +79,8 @@ public class CommandController extends BaseController {
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
 		logBefore(logger, "修改Command");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -111,11 +106,13 @@ public class CommandController extends BaseController {
 				pd.put("KEYWORD", KEYWORD.trim());
 			}
 			page.setPd(pd);
-			List<PageData>	varList = commandService.list(page);	//列出Command列表
+			//列出Command列表
+			List<PageData>	varList = commandService.list(page);
 			mv.setViewName("weixin/command/command_list");
 			mv.addObject("varList", varList);
 			mv.addObject("pd", pd);
-			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+			//按钮权限
+			mv.addObject("QX",Jurisdiction.getHC());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
@@ -168,7 +165,8 @@ public class CommandController extends BaseController {
 	@ResponseBody
 	public Object deleteAll() {
 		logBefore(logger, "批量删除Command");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "dell")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "dell")){return null;}
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
 		try {

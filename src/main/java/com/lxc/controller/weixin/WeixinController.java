@@ -199,8 +199,9 @@ public class WeixinController extends BaseController{
  							 Msg4Text rmsg = new Msg4Text(); 
  		                     rmsg.setFromUserName(toUserName); 
  		                     rmsg.setToUserName(fromUserName); 
- 		                     //rmsg.setFuncFlag("0"); 
- 		                     rmsg.setContent(msgpd.getString("CONTENT")); //回复文字消息
+ 		                     //rmsg.setFuncFlag("0");
+							//回复文字消息
+ 		                     rmsg.setContent(msgpd.getString("CONTENT"));
  		                     session.callback(rmsg); 
  						}else{
  							msgpd = imgmsgService.findByKw(pd);
@@ -312,9 +313,11 @@ public class WeixinController extends BaseController{
 		try {
 			String encoding = "utf-8";
 			File file = new File(filePath);
-			if (file.isFile() && file.exists()) { // 判断文件是否存在
+			// 判断文件是否存在
+			if (file.isFile() && file.exists()) {
+				// 考虑到编码格式
 				InputStreamReader read = new InputStreamReader(
-				new FileInputStream(file), encoding);// 考虑到编码格式
+				new FileInputStream(file), encoding);
 				BufferedReader bufferedReader = new BufferedReader(read);
 				String lineTxt = null;
 				while ((lineTxt = bufferedReader.readLine()) != null) {

@@ -366,13 +366,13 @@
 			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/json-lib-2.4-jdk15.jar</systemPath>
 		</dependency>
 		<!-- jackjson-all-1.7.6 -->
-		<dependency>
-			<groupId>jackson</groupId>
-			<artifactId>jackson</artifactId>
-			<version>1.0</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/src/main/webapp/WEB-INF/lib/jackson-all-1.7.6.jar</systemPath>
-		</dependency>
+		<!--<dependency>-->
+			<!--<groupId>jackson</groupId>-->
+			<!--<artifactId>jackson</artifactId>-->
+			<!--<version>1.0</version>-->
+			<!--<scope>system</scope>-->
+			<!--<systemPath>src/main/webapp/WEB-INF/lib/jackson-all-1.7.6.jar.back</systemPath>-->
+		<!--</dependency>-->
 		<!-- jpush-java-libraryV2 -->
 		<dependency>
 			<groupId>jpush</groupId>

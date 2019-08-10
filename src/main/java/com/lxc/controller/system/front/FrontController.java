@@ -41,8 +41,14 @@ import java.util.*;
 @Controller
 @RequestMapping(value="/front")
 public class FrontController extends BaseController {
-	
-	String menuUrl = "front/listUsers.do"; //菜单地址(权限用)
+
+	private static final String NULL_CODE = "nullcode";
+	private static final String CODE_ERROR = "codeerror";
+	private static final String CODE_SUCCESS = "success";
+
+	//菜单地址(权限用)
+	String menuUrl = "front/listUsers.do";
+
 	@Resource(name="userService")
 	private UserManager userService;
 	@Resource(name="roleService")
@@ -66,7 +72,8 @@ public class FrontController extends BaseController {
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称
+		//读取系统名称
+		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME));
 		mv.setViewName("system/front/login");
 		mv.addObject("msg","login");
 		mv.addObject("pd",pd);
@@ -99,7 +106,8 @@ public class FrontController extends BaseController {
 				String resetPwd = (String) session.getAttribute(Const.RESETPWD);
 				if(resetflage != null && resetPwd != null) {
 					if (!resetPwd.equals(resetflage)) {
-						 errInfo = "请求链接已经无效";                //用户名或密码有误
+						//用户名或密码有误
+						 errInfo = "请求链接已经无效";
 						logBefore(logger, "请求链接已经无效");
 						mv.setViewName("save_result");
 						mv.addObject("errInfo", errInfo);
@@ -119,7 +127,8 @@ public class FrontController extends BaseController {
 				}
 			}
 		}else{
-			errInfo = "请求链接已经无效";                //用户名或密码有误
+			//用户名或密码有误
+			errInfo = "请求链接已经无效";
 			logBefore(logger, "请求链接已经无效");
             mv.setViewName("system/front/resetPwdMsg");
             mv.addObject("errInfo", errInfo);
@@ -149,14 +158,16 @@ public class FrontController extends BaseController {
 				String resetPwd = (String)session.getAttribute(Const.RESETPWD);
 			if(resetPwd != null && (EMAIL != null|| EMAIL !="" || EMAIL != "undefined") ) {
 				if (!resetPwd.equals(flag)) {
-					errInfo = "请求链接已经无效,请在登录页面发送邮件重新申请。";                //用户名或密码有误
+					//用户名或密码有误
+					errInfo = "请求链接已经无效,请在登录页面发送邮件重新申请。";
 					logBefore(logger, errInfo);
 				} else {
 					//重置密码
 					PageData pdpwd = appuserService.findByEmail(pd);
 					pdpwd.put("PASSWORD", MD5.md5(pd.getString("PASSWORD")));
 					appuserService.editU(pdpwd);
-					session.removeAttribute(Const.RESETPWD);  //删除 session  中的 标识
+					//删除 session  中的 标识
+					session.removeAttribute(Const.RESETPWD);
 					errInfo = "密码重置成功！";
                     logBefore(logger, errInfo);
 				}
@@ -183,25 +194,34 @@ public class FrontController extends BaseController {
 		pd = this.getPageData();
 		Map<String,Object> map = new HashMap<String,Object>();
 		String msg = "ok";		//发送状态
-		String strEMAIL = Tools.readTxtFile(Const.EMAIL);		//读取邮件配置
+		String strEMAIL = Tools.readTxtFile(Const.EMAIL);
+		//读取邮件配置
 		List<PageData> pdList = new ArrayList<PageData>();
-		String toEMAIL = pd.getString("EMAIL");			//对方邮箱
-		String TITLE = toEMAIL + "找回密码";				    //标题
-		String TYPE = "1";			                            //类型  1 纯文本  2 带标签
-		String fmsg = "appuser";						        // 会员 "appuser"为会员用户
+		//对方邮箱
+		String toEMAIL = pd.getString("EMAIL");
+		//标题
+		String TITLE = toEMAIL + "找回密码";
+		//类型  1 纯文本  2 带标签
+		String TYPE = "1";
+		// 会员 "appuser"为会员用户
+		String fmsg = "appuser";
         Session session = Jurisdiction.getSession();
         String uuid = UuidUtil.get32UUID();
         if(null != strEMAIL && !"".equals(strEMAIL)){
 			String strEM[] = strEMAIL.split(",lxc,");
 			if(strEM.length == 4){
 				try {
-                    if(Tools.checkEmail(toEMAIL)){		//邮箱格式不对就跳过
+					//邮箱格式不对就跳过
+                    if(Tools.checkEmail(toEMAIL)){
                         PageData pdpwd= appuserService.findByEmail(pd);
                         String str = ",lxc,"+ uuid;
                         System.out.println(str);
-                        String CONTENT ="hi  您好，我是熙财人力资源系统。"+pdpwd.getString("USERNAME")+" 账号要重置密码,点击链接http://localhost:8080/front/goResetPwd.do?USER_ID="+pdpwd.get("USER_ID")+ str;//内容
-                        session.setAttribute(Const.RESETPWD,uuid); //只能重置一次  标记
-                        SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], toEMAIL, TITLE, CONTENT, TYPE);          //调用发送邮件函数
+						//内容
+                        String CONTENT ="hi  您好，我是熙财人力资源系统。"+pdpwd.getString("USERNAME")+" 账号要重置密码,点击链接http://hr.liuxicai.club/front/goResetPwd.do?USER_ID="+pdpwd.get("USER_ID")+ str;
+						//只能重置一次  标记
+                        session.setAttribute(Const.RESETPWD,uuid);
+						//调用发送邮件函数
+                        SimpleMailSender.sendEmail(strEM[0], strEM[1], strEM[2], strEM[3], toEMAIL, TITLE, CONTENT, TYPE);
 					}
 					msg = "ok";
 				} catch (Exception e) {
@@ -220,7 +240,7 @@ public class FrontController extends BaseController {
 
 	/**访问系统首页
 	 * @param changeMenu：切换菜单参数
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/main/{changeMenu}")
 	@SuppressWarnings("unchecked")
@@ -230,29 +250,41 @@ public class FrontController extends BaseController {
 		pd = this.getPageData();
 		try{
 			Session session = Jurisdiction.getSession();
-			User user = (User)session.getAttribute(Const.SESSION_USER);				//读取session中的用户信息(单独用户信息)
+			//读取session中的用户信息(单独用户信息)
+			User user = (User)session.getAttribute(Const.SESSION_USER);
 			if (user != null) {
-				User userr = (User)session.getAttribute(Const.SESSION_USERROL);		//读取session中的用户信息(含角色信息)
+				//读取session中的用户信息(含角色信息)
+				User userr = (User)session.getAttribute(Const.SESSION_USERROL);
 				if(null == userr){
-					user = appuserService.getUserAndRoleById(user.getUSER_ID());		//通过用户ID读取用户信息和角色信息
-					session.setAttribute(Const.SESSION_USERROL, user);				//存入session
+					//通过用户ID读取用户信息和角色信息
+					user = appuserService.getUserAndRoleById(user.getUSER_ID());
+					//存入session
+					session.setAttribute(Const.SESSION_USERROL, user);
 				}else{
 					user = userr;
 				}
 				String USERNAME = user.getUSERNAME();
 				String USER_ID = user.getUSER_ID();
-				Role role = user.getRole();											//获取用户角色
-				String roleRights = role!=null ? role.getRIGHTS() : "";				//角色权限(菜单权限)
-				session.setAttribute(USERNAME + Const.SESSION_ROLE_RIGHTS, roleRights); //将角色权限存入session
-				session.setAttribute(Const.SESSION_USERNAME, USERNAME);				//放入用户名到session
-				session.setAttribute(Const.SESSION_USERID, USER_ID);				//放入用户名ID到session
+				//获取用户角色
+				Role role = user.getRole();
+				//角色权限(菜单权限)
+				String roleRights = role!=null ? role.getRIGHTS() : "";
+				//将角色权限存入session
+				session.setAttribute(USERNAME + Const.SESSION_ROLE_RIGHTS, roleRights);
+				//放入用户名到session
+				session.setAttribute(Const.SESSION_USERNAME, USERNAME);
+				//放入用户名ID到session
+				session.setAttribute(Const.SESSION_USERID, USER_ID);
 				List<Menu> allmenuList = new ArrayList<Menu>();
 				if(null == session.getAttribute(USERNAME + Const.SESSION_allmenuList)){
-					allmenuList = menuService.listAllMenuQx("0");					//获取所有菜单
+					//获取所有菜单
+					allmenuList = menuService.listAllMenuQx("0");
 					if(Tools.notEmpty(roleRights)){
-						allmenuList = this.readMenu(allmenuList, roleRights);		//根据角色权限获取本权限的菜单列表
+						//根据角色权限获取本权限的菜单列表
+						allmenuList = this.readMenu(allmenuList, roleRights);
 					}
-					session.setAttribute(USERNAME + Const.SESSION_allmenuList, allmenuList);//菜单权限放入session中
+					//菜单权限放入session中
+					session.setAttribute(USERNAME + Const.SESSION_allmenuList, allmenuList);
 				}else{
 					allmenuList = (List<Menu>)session.getAttribute(USERNAME + Const.SESSION_allmenuList);
 				}
@@ -287,20 +319,24 @@ public class FrontController extends BaseController {
 				}
 				//切换菜单处理=====end
 				if(null == session.getAttribute(USERNAME + Const.SESSION_QX)){
-					session.setAttribute(USERNAME + Const.SESSION_QX, this.getUQX(USERNAME));	//按钮权限放到session中
+					//按钮权限放到session中
+					session.setAttribute(USERNAME + Const.SESSION_QX, this.getUQX(USERNAME));
 				}
-				this.getRemortIP(USERNAME);	//更新登录IP
+				//更新登录IP
+				this.getRemortIP(USERNAME);
 				mv.setViewName("system/index/main");
 				mv.addObject("user", user);
 				mv.addObject("menuList", menuList);
 			}else {
-				mv.setViewName("system/front/login");//session失效后跳转登录页面
+				//session失效后跳转登录页面
+				mv.setViewName("system/front/login");
 			}
 		} catch(Exception e){
 			mv.setViewName("system/front/login");
 			logger.error(e.getMessage(), e);
 		}
-		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME)); //读取系统名称
+		//读取系统名称
+		pd.put("SYSNAME", Tools.readTxtFile(Const.SYSNAME));
 		mv.addObject("pd",pd);
 		return mv;
 	}
@@ -313,20 +349,29 @@ public class FrontController extends BaseController {
 		Map<String, String> map = new HashMap<String, String>();
 		try {
 			pd.put(Const.SESSION_USERNAME, USERNAME);
-			pd.put("ROLE_ID", appuserService.findByUsername(pd).get("ROLE_ID").toString());//获取角色ID
-			pd = roleService.findObjectById(pd);										//获取角色信息
-			map.put("adds", pd.getString("ADD_QX"));	//增
-			map.put("dels", pd.getString("DEL_QX"));	//删
-			map.put("edits", pd.getString("EDIT_QX"));	//改
-			map.put("chas", pd.getString("CHA_QX"));	//查
+			//获取角色ID
+			pd.put("ROLE_ID", appuserService.findByUsername(pd).get("ROLE_ID").toString());
+			//获取角色信息
+			pd = roleService.findObjectById(pd);
+			//增
+			map.put("adds", pd.getString("ADD_QX"));
+			//删
+			map.put("dels", pd.getString("DEL_QX"));
+			//改
+			map.put("edits", pd.getString("EDIT_QX"));
+			//查
+			map.put("chas", pd.getString("CHA_QX"));
 			List<PageData> buttonQXnamelist = new ArrayList<PageData>();
 			if("admin".equals(USERNAME)){
-				buttonQXnamelist = lxcbuttonService.listAll(pd);					//admin用户拥有所有按钮权限
+				//admin用户拥有所有按钮权限
+				buttonQXnamelist = lxcbuttonService.listAll(pd);
 			}else{
-				buttonQXnamelist = buttonrightsService.listAllBrAndQxname(pd);	//此角色拥有的按钮权限标识列表
+				//此角色拥有的按钮权限标识列表
+				buttonQXnamelist = buttonrightsService.listAllBrAndQxname(pd);
 			}
 			for(int i=0;i<buttonQXnamelist.size();i++){
-				map.put(buttonQXnamelist.get(i).getString("QX_NAME"),"1");		//按钮权限
+				//按钮权限
+				map.put(buttonQXnamelist.get(i).getString("QX_NAME"),"1");
 			}
 		} catch (Exception e) {
 			logger.error(e.toString(), e);
@@ -343,8 +388,10 @@ public class FrontController extends BaseController {
 	public List<Menu> readMenu(List<Menu> menuList,String roleRights){
 		for(int i=0;i<menuList.size();i++){
 			menuList.get(i).setHasMenu(RightsHelper.testRights(roleRights, menuList.get(i).getMENU_ID()));
-			if(menuList.get(i).isHasMenu()){		//判断是否有此菜单权限
-				this.readMenu(menuList.get(i).getSubMenu(), roleRights);//是：继续排查其子菜单
+			//判断是否有此菜单权限
+			if(menuList.get(i).isHasMenu()){
+				//是：继续排查其子菜单
+				this.readMenu(menuList.get(i).getSubMenu(), roleRights);
 			}
 		}
 		return menuList;
@@ -364,18 +411,26 @@ public class FrontController extends BaseController {
 		String KEYDATA[] = pd.getString("KEYDATA").replaceAll("qq1094921525lxc", "").replaceAll("QQ1094921525lxc", "").split(",lxc,");
 		if(null != KEYDATA && KEYDATA.length == 3){
 			Session session = Jurisdiction.getSession();
-			String sessionCode = (String)session.getAttribute(Const.SESSION_SECURITY_CODE);		//获取session中的验证码
+			//获取session中的验证码
+			String sessionCode = (String)session.getAttribute(Const.SESSION_SECURITY_CODE);
 			String code = KEYDATA[2];
-			if(null == code || "".equals(code)){//判断效验码
-				errInfo = "nullcode"; 			//效验码为空
+			//判断效验码
+			if(null == code || "".equals(code)){
+				//效验码为空
+				errInfo = NULL_CODE;
 			}else{
-				String USERNAME = KEYDATA[0];	//登录过来的用户名
-				String PASSWORD  = KEYDATA[1];	//登录过来的密码
+				//登录过来的用户名
+				String USERNAME = KEYDATA[0];
+				//登录过来的密码
+				String PASSWORD  = KEYDATA[1];
 				pd.put("USERNAME", USERNAME);
-				if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)){		//判断登录验证码
-					String passwd = MD5.md5(PASSWORD);	//密码加密
+				//判断登录验证码
+				if(Tools.notEmpty(sessionCode) && sessionCode.equalsIgnoreCase(code)){
+					//密码加密
+					String passwd = MD5.md5(PASSWORD);
 					pd.put("PASSWORD", passwd);
-					pd = appuserService.getUserByNameAndPwd(pd);	//根据用户名和密码去读取用户信息
+					//根据用户名和密码去读取用户信息
+					pd = appuserService.getUserByNameAndPwd(pd);
 					if(pd != null){
 						pd.put("LAST_LOGIN",DateUtil.getTime().toString());
 						appuserService.updateLastLogin(pd);
@@ -389,8 +444,10 @@ public class FrontController extends BaseController {
 						user.setLAST_LOGIN(pd.getString("LAST_LOGIN"));
 						user.setIP(pd.getString("IP"));
 						user.setSTATUS(pd.getString("STATUS"));
-						session.setAttribute(Const.SESSION_USER, user);			//把用户信息放session中
-						session.removeAttribute(Const.SESSION_SECURITY_CODE);	//清除登录验证码的session
+						//把用户信息放session中
+						session.setAttribute(Const.SESSION_USER, user);
+						//清除登录验证码的session
+						session.removeAttribute(Const.SESSION_SECURITY_CODE);
 						//shiro加入身份验证
 						Subject subject = SecurityUtils.getSubject();
 						UsernamePasswordToken token = new UsernamePasswordToken(USERNAME, PASSWORD);
@@ -400,14 +457,17 @@ public class FrontController extends BaseController {
 							errInfo = "身份验证失败！";
 						}
 					}else{
-						errInfo = "usererror"; 				//用户名或密码有误
+						//用户名或密码有误
+						errInfo = "usererror";
 						logBefore(logger, USERNAME+"登录系统密码或用户名错误");
 					}
 				}else{
-					errInfo = "codeerror";				 	//验证码输入有误
+					//验证码输入有误
+					errInfo = CODE_ERROR;
 				}
 				if(Tools.isEmpty(errInfo)){
-					errInfo = "success";					//验证成功
+					//验证成功
+					errInfo = CODE_SUCCESS;
 					logBefore(logger, USERNAME+"登录系统");
 				}
 			}
@@ -429,22 +489,34 @@ public class FrontController extends BaseController {
 	public Object toFrontRegister()throws Exception{
 		Map<String,Object> map = new HashMap<String,Object>();
 		PageData pd = new PageData();
-		String msg = "ok";		//注册状态
+		//注册状态
+		String msg = "ok";
 		pd = this.getPageData();
-		pd.put("ROLE_ID",Const.REGISTER_CODE); //角色id 应聘面试人员 角色id
-		pd.put("NUMBER",Integer.parseInt(appuserService.findByMaxNumber(pd).get("MAX_NUMBER").toString())+1); //查询最大值加1
-		pd.put("STATUS",1);  //状态
-		pd.put("START_TIME",Tools.date2Str(new Date()));         //开通时间
-		pd.put("END_TIME",DateUtil.getAfterDayDate("30")); //结束时间
-		pd.put("YEARS",DateUtil.getDiffYear(Tools.date2Str(new Date()),DateUtil.getAfterDayDate("30"))); //年限 1年
-		pd.put("USER_ID", this.get32UUID());	//ID
+		//角色id 应聘面试人员 角色id
+		pd.put("ROLE_ID",Const.REGISTER_CODE);
+		//查询最大值加1
+		pd.put("NUMBER",Integer.parseInt(appuserService.findByMaxNumber(pd).get("MAX_NUMBER").toString())+1);
+		//状态
+		pd.put("STATUS",1);
+		//开通时间
+		pd.put("START_TIME",Tools.date2Str(new Date()));
+		//结束时间
+		pd.put("END_TIME",DateUtil.getAfterDayDate("30"));
+		//年限 1年
+		pd.put("YEARS",DateUtil.getDiffYear(Tools.date2Str(new Date()),DateUtil.getAfterDayDate("30")));
+		//ID
+		pd.put("USER_ID", this.get32UUID());
 		pd.put("RIGHTS", "");
-		pd.put("LAST_LOGIN", "");				//最后登录时间
-		pd.put("IP", "");						//IP
-		pd.put("BZ", "面试人员");						//备注
+		//最后登录时间
+		pd.put("LAST_LOGIN", "");
+		//IP
+		pd.put("IP", "");
+		//备注
+		pd.put("BZ", "面试人员");
 		pd.put("PASSWORD", MD5.md5(pd.getString("PASSWORD")));
 		if(null == appuserService.findByUsername(pd)) {
-			appuserService.saveU(pd);            //判断新增权限
+			//判断新增权限
+			appuserService.saveU(pd);
 		}else{
 			msg = "failed";
 		}

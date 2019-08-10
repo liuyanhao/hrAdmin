@@ -1,13 +1,10 @@
 package com.lxc.controller.system.menu;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.system.Menu;
+import com.lxc.service.system.menu.MenuManager;
+import com.lxc.util.*;
 import net.sf.json.JSONArray;
-
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -15,14 +12,10 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.system.Menu;
-import com.lxc.service.system.menu.MenuManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Const;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.PageData;
-import com.lxc.util.RightsHelper;
+import javax.annotation.Resource;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 /** 
  * 类名称：MenuController 菜单处理
  * 创建人：LXC
@@ -114,12 +107,14 @@ public class MenuController extends BaseController {
 	@RequestMapping(value="/delete")
 	@ResponseBody
 	public Object delete(@RequestParam String MENU_ID)throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null;}
 		logBefore(logger, Jurisdiction.getUsername()+"删除菜单");
 		Map<String,String> map = new HashMap<String,String>();
 		String errInfo = "";
 		try{
-			if(menuService.listSubMenuByParentId(MENU_ID).size() > 0){//判断是否有子菜单，是：不允许删除
+			//判断是否有子菜单，是：不允许删除
+			if(menuService.listSubMenuByParentId(MENU_ID).size() > 0){
 				errInfo = "false";
 			}else{
 				menuService.deleteMenuById(MENU_ID);
@@ -143,11 +138,16 @@ public class MenuController extends BaseController {
 		PageData pd = new PageData();
 		try{
 			pd = this.getPageData();
-			pd.put("MENU_ID",id);				//接收过来的要修改的ID
-			pd = menuService.getMenuById(pd);	//读取此ID的菜单数据
-			mv.addObject("pd", pd);				//放入视图容器
-			pd.put("MENU_ID",pd.get("PARENT_ID").toString());			//用作读取父菜单信息
-			mv.addObject("pds", menuService.getMenuById(pd));			//传入父菜单所有信息
+			//接收过来的要修改的ID
+			pd.put("MENU_ID",id);
+			//读取此ID的菜单数据
+			pd = menuService.getMenuById(pd);
+			//放入视图容器
+			mv.addObject("pd", pd);
+			//用作读取父菜单信息
+			pd.put("MENU_ID",pd.get("PARENT_ID").toString());
+			//传入父菜单所有信息
+			mv.addObject("pds", menuService.getMenuById(pd));
 			mv.addObject("MENU_ID", pd.get("PARENT_ID").toString());	//传入父菜单ID，作为子菜单的父菜单ID用
 			mv.addObject("MSG", "edit");
 			pd.put("MENU_ID",id);			//复原本菜单ID
@@ -257,14 +257,21 @@ public class MenuController extends BaseController {
 			if("#".equals(MENU_URL.trim()) || "".equals(MENU_URL.trim()) || null == MENU_URL){
 				MENU_URL = "login_default.do";
 			}
-			String roleRights = Jurisdiction.getSession().getAttribute(Jurisdiction.getUsername() + Const.SESSION_ROLE_RIGHTS).toString();	//获取本角色菜单权限
-			List<Menu> athmenuList = menuService.listAllMenuQx(MENU_ID);					//获取某菜单下所有子菜单
-			athmenuList = this.readMenu(athmenuList, roleRights);							//根据权限分配菜单
+			//获取本角色菜单权限
+			String roleRights = Jurisdiction.getSession().getAttribute(Jurisdiction.getUsername() + Const.SESSION_ROLE_RIGHTS).toString();
+			//获取某菜单下所有子菜单
+			List<Menu> athmenuList = menuService.listAllMenuQx(MENU_ID);
+			//根据权限分配菜单
+			athmenuList = this.readMenu(athmenuList, roleRights);
 			JSONArray arr = JSONArray.fromObject(athmenuList);
 			String json = arr.toString();
-			json = json.replaceAll("MENU_ID", "id").replaceAll("PARENT_ID", "pId").replaceAll("MENU_NAME", "name").replaceAll("subMenu", "nodes").replaceAll("hasMenu", "checked").replaceAll("MENU_URL", "url").replaceAll("#", "");
+			json = json.replaceAll("MENU_ID", "id").replaceAll("PARENT_ID", "pId")
+					.replaceAll("MENU_NAME", "name").replaceAll("subMenu", "nodes")
+					.replaceAll("hasMenu", "checked").replaceAll("MENU_URL", "url")
+					.replaceAll("#", "");
 			model.addAttribute("zTreeNodes", json);
-			mv.addObject("MENU_URL",MENU_URL);		//本ID菜单链接
+			//本ID菜单链接
+			mv.addObject("MENU_URL",MENU_URL);
 			mv.setViewName("system/menu/menu_ztree_other");
 		} catch(Exception e){
 			logger.error(e.toString(), e);
@@ -280,8 +287,10 @@ public class MenuController extends BaseController {
 	public List<Menu> readMenu(List<Menu> menuList,String roleRights){
 		for(int i=0;i<menuList.size();i++){
 			menuList.get(i).setHasMenu(RightsHelper.testRights(roleRights, menuList.get(i).getMENU_ID()));
-			if(menuList.get(i).isHasMenu() && "1".equals(menuList.get(i).getMENU_STATE())){	//判断是否有此菜单权限并且是否隐藏
-				this.readMenu(menuList.get(i).getSubMenu(), roleRights);					//是：继续排查其子菜单
+			//判断是否有此菜单权限并且是否隐藏
+			if(menuList.get(i).isHasMenu() && "1".equals(menuList.get(i).getMENU_STATE())){
+				//是：继续排查其子菜单
+				this.readMenu(menuList.get(i).getSubMenu(), roleRights);
 			}else{
 				menuList.remove(i);
 				i--;
