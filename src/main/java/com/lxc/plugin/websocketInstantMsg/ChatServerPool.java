@@ -1,13 +1,8 @@
 package com.lxc.plugin.websocketInstantMsg;
 
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-
 import org.java_websocket.WebSocket;
+
+import java.util.*;
 
 /**
  * 即时通讯
@@ -21,7 +16,7 @@ public class ChatServerPool {
 	
 	/**
 	 * 获取用户名
-	 * @param session
+	 * @param conn
 	 */
 	public static String getUserByKey(WebSocket conn){
 		return userconnections.get(conn);
@@ -29,7 +24,7 @@ public class ChatServerPool {
 	
 	/**
 	 * 获取WebSocket
-	 * @param user
+	 * @param user 用户名
 	 */
 	public static WebSocket getWebSocketByUser(String user){
 		Set<WebSocket> keySet = userconnections.keySet();
@@ -43,35 +38,39 @@ public class ChatServerPool {
 		}
 		return null;
 	}
-	
+
 	/**
 	 * 向连接池中添加连接
-	 * @param inbound
+	 * @param user 用户信息
+	 * @param conn WebSocket
 	 */
 	public static void addUser(String user, WebSocket conn){
-		userconnections.put(conn,user);	//添加连接
+		//添加连接
+		userconnections.put(conn,user);
 	}
 	
 	/**
 	 * 获取所有的在线用户
-	 * @return
+	 * @return Collection
 	 */
 	public static Collection<String> getOnlineUser(){
 		List<String> setUsers = new ArrayList<String>();
 		Collection<String> setUser = userconnections.values();
 		for(String u:setUser){
-			setUsers.add("<a onclick=\"toUserMsg('"+u+"');\">"+u+"</a>");
+			setUsers.add("<a onclick=\"toUserMsg('" + u + "');\">" + u + "</a>");
 		}
 		return setUsers;
 	}
-	
+
 	/**
 	 * 移除连接池中的连接
-	 * @param inbound
+	 * @param conn WebSocket
+	 * @return boolean
 	 */
 	public static boolean removeUser(WebSocket conn){
 		if(userconnections.containsKey(conn)){
-			userconnections.remove(conn);	//移除连接
+			//移除连接
+			userconnections.remove(conn);
 			return true;
 		}else{
 			return false;
@@ -80,8 +79,8 @@ public class ChatServerPool {
 	
 	/**
 	 * 向特定的用户发送数据
-	 * @param user
-	 * @param message
+	 * @param conn WebSocket
+	 * @param message 消息内容
 	 */
 	public static void sendMessageToUser(WebSocket conn,String message){
 		if(null != conn && null != userconnections.get(conn)){
@@ -91,7 +90,7 @@ public class ChatServerPool {
 	
 	/**
 	 * 向所有的用户发送消息
-	 * @param message
+	 * @param message 消息内容
 	 */
 	public static void sendMessage(String message){
 		Set<WebSocket> keySet = userconnections.keySet();

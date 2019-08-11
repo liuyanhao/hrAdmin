@@ -72,7 +72,7 @@ function toUserMsg(toU){
 					websocket.onopen = function() {
 						//连接成功
 						win.setTitle(title + '&nbsp;&nbsp;(已连接)   【现在全局对话】');
-						websocket.send('LXCadminqq1094921525'+user);
+						websocket.send('LXChrAdminqq1094921525' + user);
 					}
 					websocket.onerror = function() {
 						//连接失败
@@ -165,14 +165,14 @@ function toUserMsg(toU){
 			win.show();
 			
 			win.on("close",function(){
-				websocket.send('LeaveLxcadminqq1094921525');
+				websocket.send('LeaveLXChrAdminqq1094921525');
 				isCreatw = false;
 			 });
 
 			//发送消息
 			function send() {
 				var content = input.getValue();
-				if(toUser != ""){content = "lxcadmin886"+toUser+"lxchradmin888" + content;}
+				if(toUser != ""){content = "lxchradmin886"+toUser+"lxclxchradmin888" + content;}
 				var message = {};
 				if (websocket != null) {
 					if (input.getValue()) {
