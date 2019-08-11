@@ -205,7 +205,8 @@ public class CreateCodeController extends BaseController {
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"删除CreateCode");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;}
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		createcodeService.delete(pd);
