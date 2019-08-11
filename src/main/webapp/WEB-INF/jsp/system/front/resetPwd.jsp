@@ -78,7 +78,7 @@ String path = request.getContextPath();
 									<span class="red">人力</span>
 									<span class="white" id="id-text2">资源管理系统</span>
 								</h1>
-								<h4 class="light-blue" id="id-company-text">&copy; 颜豪 刘熙财</h4>
+								<h4 class="light-blue" id="id-company-text">&copy; 颜豪科技</h4>
 							</div>
 							<div class="space-6">
 								<br/><img src="static/images/jzx.gif" id='msgp' /><br/>

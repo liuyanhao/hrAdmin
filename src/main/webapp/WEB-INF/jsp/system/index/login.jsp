@@ -115,7 +115,7 @@
 			</form>
 			<div class="controls">
 				<div class="main_input_box">
-					<font color="white"><span id="nameerr">Copyright © 2017-2018 刘熙财版权所有| 京ICP备13001xxx号-1   </span></font>
+					<font color="white"><span id="nameerr">Copyright © 2017-2019 北京颜豪科技有限公司版权所有| ICP备案号：京ICP备19012174号   </span></font>
 				</div>
 			</div>
 		</div>
