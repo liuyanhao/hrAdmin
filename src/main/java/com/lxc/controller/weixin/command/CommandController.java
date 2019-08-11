@@ -24,18 +24,19 @@ import java.util.*;
  * 创建时间：2018-01-09
  */
 @Controller
-@RequestMapping(value="/command")
+@RequestMapping(value = "/command")
 public class CommandController extends BaseController {
-	
-	String menuUrl = "command/list.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "command/list.do";
 	@Resource(name="commandService")
 	private CommandService commandService;
 	
 	/**新增
-	 * @return
+	 * @return ModelAndView
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/save")
+	@RequestMapping(value = "/save")
 	public ModelAndView save() throws Exception{
 		logBefore(logger, "新增Command");
 		//校验权限
@@ -56,7 +57,7 @@ public class CommandController extends BaseController {
 	/**删除
 	 * @param out
 	 */
-	@RequestMapping(value="/delete")
+	@RequestMapping(value = "/delete")
 	public void delete(PrintWriter out){
 		logBefore(logger, "删除Command");
 		//校验权限
@@ -76,7 +77,7 @@ public class CommandController extends BaseController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping(value="/edit")
+	@RequestMapping(value = "/edit")
 	public ModelAndView edit() throws Exception{
 		logBefore(logger, "修改Command");
 		//校验权限
@@ -94,7 +95,7 @@ public class CommandController extends BaseController {
 	 * @param page
 	 * @return
 	 */
-	@RequestMapping(value="/list")
+	@RequestMapping(value = "/list")
 	public ModelAndView list(Page page){
 		logBefore(logger, "列表Command");
 		ModelAndView mv = this.getModelAndView();
@@ -122,7 +123,7 @@ public class CommandController extends BaseController {
 	/**去新增页面
 	 * @return
 	 */
-	@RequestMapping(value="/goAdd")
+	@RequestMapping(value = "/goAdd")
 	public ModelAndView goAdd(){
 		logBefore(logger, "去新增Command页面");
 		ModelAndView mv = this.getModelAndView();
@@ -141,14 +142,15 @@ public class CommandController extends BaseController {
 	/**去修改页面
 	 * @return
 	 */
-	@RequestMapping(value="/goEdit")
+	@RequestMapping(value = "/goEdit")
 	public ModelAndView goEdit(){
 		logBefore(logger, "去修改Command页面");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try {
-			pd = commandService.findById(pd);	//根据ID读取
+			//根据ID读取
+			pd = commandService.findById(pd);
 			mv.setViewName("weixin/command/command_edit");
 			mv.addObject("msg", "edit");
 			mv.addObject("pd", pd);
@@ -204,21 +206,31 @@ public class CommandController extends BaseController {
 		try{
 			Map<String,Object> dataMap = new HashMap<String,Object>();
 			List<String> titles = new ArrayList<String>();
-			titles.add("关键词");	//1
-			titles.add("应用路径");	//2
-			titles.add("创建时间");	//3
-			titles.add("状态");	//4
-			titles.add("备注");	//5
+			//1
+			titles.add("关键词");
+			//2
+			titles.add("应用路径");
+			//3
+			titles.add("创建时间");
+			//4
+			titles.add("状态");
+			//5
+			titles.add("备注");
 			dataMap.put("titles", titles);
 			List<PageData> varOList = commandService.listAll(pd);
 			List<PageData> varList = new ArrayList<PageData>();
 			for(int i=0;i<varOList.size();i++){
 				PageData vpd = new PageData();
-				vpd.put("var1", varOList.get(i).getString("KEYWORD"));	//1
-				vpd.put("var2", varOList.get(i).getString("COMMANDCODE"));	//2
-				vpd.put("var3", varOList.get(i).getString("CREATETIME"));	//3
-				vpd.put("var4", varOList.get(i).get("STATUS").toString());	//4
-				vpd.put("var5", varOList.get(i).getString("BZ"));	//5
+				//1
+				vpd.put("var1", varOList.get(i).getString("KEYWORD"));
+				//2
+				vpd.put("var2", varOList.get(i).getString("COMMANDCODE"));
+				//3
+				vpd.put("var3", varOList.get(i).getString("CREATETIME"));
+				//4
+				vpd.put("var4", varOList.get(i).get("STATUS").toString());
+				//5
+				vpd.put("var5", varOList.get(i).getString("BZ"));
 				varList.add(vpd);
 			}
 			dataMap.put("varList", varList);

@@ -26,13 +26,13 @@ import java.util.*;
 @Controller
 @RequestMapping(value="/imgmsg")
 public class ImgmsgController extends BaseController {
-	
-	String menuUrl = "imgmsg/list.do"; //菜单地址(权限用)
+	//菜单地址(权限用)
+	String menuUrl = "imgmsg/list.do";
 	@Resource(name="imgmsgService")
 	private ImgmsgService imgmsgService;
 	
 	/**新增
-	 * @return
+	 * @return ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/save")
@@ -54,7 +54,7 @@ public class ImgmsgController extends BaseController {
 	}
 	
 	/**删除
-	 * @param out
+	 * @param out PrintWriter
 	 */
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out){
@@ -74,7 +74,7 @@ public class ImgmsgController extends BaseController {
 	}
 	
 	/**修改
-	 * @return
+	 * @return ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/edit")
@@ -92,8 +92,8 @@ public class ImgmsgController extends BaseController {
 	}
 	
 	/**列表
-	 * @param page
-	 * @return
+	 * @param page 输入分页等参数
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page){
@@ -121,7 +121,7 @@ public class ImgmsgController extends BaseController {
 	}
 	
 	/**去新增页面
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/goAdd")
 	public ModelAndView goAdd(){
@@ -194,7 +194,7 @@ public class ImgmsgController extends BaseController {
 	
 	/**
 	 * 导出到excel
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel(){

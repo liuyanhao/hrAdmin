@@ -37,7 +37,7 @@ public class WantExamController  extends BaseController {
 
     /**
      *考试登记
-     * @return
+     * @return ModelAndView
      * @throws Exception
      */
     @RequestMapping(value="/toExam")
@@ -46,7 +46,8 @@ public class WantExamController  extends BaseController {
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
-        List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+        //职位类别
+        List<PageData> jobTypeList = job_typeService.listStartAll(pd);
         mv.addObject("jobTypeList", jobTypeList);
         pd = jobmessageService.findById(pd);
         if(pd != null) {
@@ -56,7 +57,6 @@ public class WantExamController  extends BaseController {
         mv.addObject("msg","success");
         return mv;
     }
-
 
     /**
      * 保存考试出题
@@ -78,14 +78,13 @@ public class WantExamController  extends BaseController {
         //获取 获取所抽选的题目类型的 题目数量 数组
         String[] values = getRequest().getParameterValues("values");
 
-
-
         if(values == null || values.length < 0) {
             mv.addObject("message", "选题的数量不允许为空");
             if (pd != null) {
                 mv.addObject("pd", pd);
             }
-            List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+            //职位类别
+            List<PageData> jobTypeList = job_typeService.listStartAll(pd);
             mv.addObject("jobTypeList", jobTypeList);
             mv.setViewName("want/goExam");
         }
@@ -106,18 +105,20 @@ public class WantExamController  extends BaseController {
         PageData pd = new PageData();
         pd = this.getPageData();
         page.setPd(pd);
-        List<PageData> jobTypeList = job_typeService.listStartAll(pd); //职位类别
+        //职位类别
+        List<PageData> jobTypeList = job_typeService.listStartAll(pd);
         List<PageData> varList = jobmessageService.selectList(page);
         mv.addObject("jobTypeList", jobTypeList);
         mv.addObject("varList", varList );
-        mv.addObject("setThemeUser",Jurisdiction.getUsername()); //出题人
+        //出题人
+        mv.addObject("setThemeUser",Jurisdiction.getUsername());
         mv.setViewName("want/go_subject");
         return mv;
     }
 
     /**
      * 考试登记
-     * @return
+     * @return ModelAndView
      * @throws Exception
      */
     @RequestMapping(value="/toExamList")
@@ -126,7 +127,7 @@ public class WantExamController  extends BaseController {
         ModelAndView mv = this.getModelAndView();
         PageData pd = new PageData();
         pd = this.getPageData();
-        String JOB_MESSAGE_ID = pd.get("JOB_MESSAGE_ID") != null ?  pd.get("JOB_MESSAGE_ID").toString() : "" ;
+        String job_message_id = pd.get("JOB_MESSAGE_ID") != null ?  pd.get("JOB_MESSAGE_ID").toString() : "" ;
         if(pd.get("CARD_ID") == null ){
             mv.addObject("message","身份证号码不允许为空");
             mv.setViewName("want/goExam");
@@ -141,11 +142,13 @@ public class WantExamController  extends BaseController {
             mv.setViewName("want/goExam");
         }else{
             String jobMessageId = CardPd.getString("JOB_MESSAGE_ID").toString();
-            if(!jobMessageId.equals(JOB_MESSAGE_ID)){ //判断职位是否符合
+            //判断职位是否符合
+            if(!jobMessageId.equals(job_message_id)){
                 mv.addObject("message","您没有参加该职务考试的权限");
                 mv.addObject("pd", pd);
                 mv.setViewName("want/goExam");
-            }else{ //开始考试
+            }else{
+                //开始考试
                 //查询符合条件的试卷
 
                 //考试页面

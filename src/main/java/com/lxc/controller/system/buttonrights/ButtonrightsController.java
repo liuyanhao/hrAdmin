@@ -32,8 +32,9 @@ import java.util.Map;
 @Controller
 @RequestMapping(value="/buttonrights")
 public class ButtonrightsController extends BaseController {
-	
-	String menuUrl = "buttonrights/list.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "buttonrights/list.do";
 	@Resource(name="buttonrightsService")
 	private ButtonrightsManager buttonrightsService;
 	@Resource(name="roleService")
@@ -51,21 +52,28 @@ public class ButtonrightsController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		if(pd.getString("ROLE_ID") == null || "".equals(pd.getString("ROLE_ID").trim())){
-			pd.put("ROLE_ID", "1");										//默认列出第一组角色(初始设计系统用户和会员组不能删除)
+			//默认列出第一组角色(初始设计系统用户和会员组不能删除)
+			pd.put("ROLE_ID", "1");
 		}
 		PageData fpd = new PageData();
 		fpd.put("ROLE_ID", "0");
-		List<Role> roleList = roleService.listAllRolesByPId(fpd);			//列出组(页面横向排列的一级组)
-		List<Role> roleList_z = roleService.listAllRolesByPId(pd);			//列出此组下架角色
-		List<PageData> buttonlist = lxcbuttonService.listAll(pd);			//列出所有按钮
-		List<PageData> roleLxcbuttonlist = buttonrightsService.listAll(pd);	//列出所有角色按钮关联数据
-		pd = roleService.findObjectById(pd);								//取得点击的角色组(横排的)
+		//列出组(页面横向排列的一级组)
+		List<Role> roleList = roleService.listAllRolesByPId(fpd);
+		//列出此组下架角色
+		List<Role> roleList_z = roleService.listAllRolesByPId(pd);
+		//列出所有按钮
+		List<PageData> buttonlist = lxcbuttonService.listAll(pd);
+		//列出所有角色按钮关联数据
+		List<PageData> roleLxcbuttonlist = buttonrightsService.listAll(pd);
+		//取得点击的角色组(横排的)
+		pd = roleService.findObjectById(pd);
 		mv.addObject("pd", pd);
 		mv.addObject("roleList", roleList);
 		mv.addObject("roleList_z", roleList_z);
 		mv.addObject("buttonlist", buttonlist);
 		mv.addObject("roleLxcbuttonlist", roleLxcbuttonlist);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		//按钮权限
+		mv.addObject("QX",Jurisdiction.getHC());
 		mv.setViewName("system/buttonrights/buttonrights_list");
 		return mv;
 	}
@@ -77,17 +85,22 @@ public class ButtonrightsController extends BaseController {
 	@RequestMapping(value="/upRb")
 	@ResponseBody
 	public Object updateRolebuttonrightd()throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;}
 		logBefore(logger, Jurisdiction.getUsername()+"分配按钮权限");
 		Map<String,String> map = new HashMap<String,String>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		String errInfo = "success";
-		if(null != buttonrightsService.findById(pd)){	//判断关联表是否有数据 是:删除/否:新增
-			buttonrightsService.delete(pd);		//删除
+		//判断关联表是否有数据 是:删除/否:新增
+		if(null != buttonrightsService.findById(pd)){
+			//删除
+			buttonrightsService.delete(pd);
 		}else{
-			pd.put("RB_ID", this.get32UUID());	//主键
-			buttonrightsService.save(pd);		//新增
+			//主键
+			pd.put("RB_ID", this.get32UUID());
+			//新增
+			buttonrightsService.save(pd);
 		}
 		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);

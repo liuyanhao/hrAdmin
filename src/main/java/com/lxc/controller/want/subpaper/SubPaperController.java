@@ -26,8 +26,9 @@ import java.util.*;
 @Controller
 @RequestMapping(value="/subpaper")
 public class SubPaperController extends BaseController {
-	
-	String menuUrl = "subpaper/list.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "subpaper/list.do";
 	@Resource(name="subpaperService")
 	private SubPaperManager subpaperService;
 	
@@ -35,33 +36,40 @@ public class SubPaperController extends BaseController {
 	private SubPaperMxManager subpapermxService;
 	
 	/**保存
-	 * @param
+	 * @return  ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"新增SubPaper");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("SUBPAPER_ID", this.get32UUID());	//主键
-		pd.put("CREATE_USER", Jurisdiction.getUsername());	//创建人
-		pd.put("CREATE_TIME", Tools.date2Str(new Date()));	//创建时间
+		//主键
+		pd.put("SUBPAPER_ID", this.get32UUID());
+		//创建人
+		pd.put("CREATE_USER", Jurisdiction.getUsername());
+		//创建时间
+		pd.put("CREATE_TIME", Tools.date2Str(new Date()));
 		subpaperService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
 		return mv;
 	}
 	
-	/**删除
+	/**
+	 * 删除
+	 * @return  Object
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/delete")
 	@ResponseBody
 	public Object delete() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"删除SubPaper");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null ;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return null ;}
 		Map<String,String> map = new HashMap<String,String>();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -76,13 +84,14 @@ public class SubPaperController extends BaseController {
 	}
 	
 	/**修改
-	 * @param
+	 * @return  ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"修改SubPaper");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -92,32 +101,37 @@ public class SubPaperController extends BaseController {
 		return mv;
 	}
 	
-	/**列表
-	 * @param page
+	/**
+	 * 列表
+	 * @return  ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
 		logBefore(logger, Jurisdiction.getUsername()+"列表SubPaper");
-		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		//校验权限(无权查看时页面会有提示,如果不注释掉这句代码就无法进入列表页面,所以根据情况是否加入本句代码)
+		//if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		String keywords = pd.getString("keywords");				//关键词检索条件
+		//关键词检索条件
+		String keywords = pd.getString("keywords");
 		if(null != keywords && !"".equals(keywords)){
 			pd.put("keywords", keywords.trim());
 		}
 		page.setPd(pd);
-		List<PageData>	varList = subpaperService.list(page);	//列出SubPaper列表
+		//列出SubPaper列表
+		List<PageData>	varList = subpaperService.list(page);
 		mv.setViewName("want/subpaper/subpaper_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		//按钮权限
+		mv.addObject("QX",Jurisdiction.getHC());
 		return mv;
 	}
 	
 	/**去新增页面
-	 * @param
+	 * @return ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/goAdd")
@@ -131,16 +145,18 @@ public class SubPaperController extends BaseController {
 		return mv;
 	}	
 	
-	 /**去修改页面
-	 * @param
-	 * @throws Exception
+	 /**
+	  * 去修改页面
+	  * @return  ModelAndView
+	  * @throws Exception
 	 */
 	@RequestMapping(value="/goEdit")
 	public ModelAndView goEdit()throws Exception{
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd = subpaperService.findById(pd);	//根据ID读取
+		//根据ID读取
+		pd = subpaperService.findById(pd);
 		mv.setViewName("want/subpaper/subpaper_edit");
 		mv.addObject("msg", "edit");
 		mv.addObject("pd", pd);
@@ -148,31 +164,39 @@ public class SubPaperController extends BaseController {
 	}	
 	
 	 /**导出到excel
-	 * @param
+	  * @return  ModelAndView
 	 * @throws Exception
 	 */
 	@RequestMapping(value="/excel")
 	public ModelAndView exportExcel() throws Exception{
-		logBefore(logger, Jurisdiction.getUsername()+"导出SubPaper到excel");
+		logBefore(logger, Jurisdiction.getUsername() + "导出SubPaper到excel");
 		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = new ModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		Map<String,Object> dataMap = new HashMap<String,Object>();
 		List<String> titles = new ArrayList<String>();
-		titles.add("工作职位id");	//1
-		titles.add("创建人");	//2
-		titles.add("创建时间");	//3
-		titles.add("是否启用");	//4
+		//1
+		titles.add("工作职位id");
+		//2
+		titles.add("创建人");
+		//3
+		titles.add("创建时间");
+		//4
+		titles.add("是否启用");
 		dataMap.put("titles", titles);
 		List<PageData> varOList = subpaperService.listAll(pd);
 		List<PageData> varList = new ArrayList<PageData>();
 		for(int i=0;i<varOList.size();i++){
 			PageData vpd = new PageData();
-			vpd.put("var1", varOList.get(i).getString("JOB_MANAGER_ID"));	    //1
-			vpd.put("var2", varOList.get(i).getString("CREATE_USER"));	    //2
-			vpd.put("var3", varOList.get(i).getString("CREATE_TIME"));	    //3
-			vpd.put("var4", varOList.get(i).get("STATUS").toString());	//4
+			//1
+			vpd.put("var1", varOList.get(i).getString("JOB_MANAGER_ID"));
+			//2
+			vpd.put("var2", varOList.get(i).getString("CREATE_USER"));
+			//3
+			vpd.put("var3", varOList.get(i).getString("CREATE_TIME"));
+			//4
+			vpd.put("var4", varOList.get(i).get("STATUS").toString());
 			varList.add(vpd);
 		}
 		dataMap.put("varList", varList);

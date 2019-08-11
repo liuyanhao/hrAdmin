@@ -1,16 +1,11 @@
 package com.lxc.controller.system.appuser;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.entity.system.Role;
+import com.lxc.service.system.appuser.AppuserManager;
+import com.lxc.service.system.role.RoleManager;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,16 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.entity.system.Role;
-import com.lxc.service.system.appuser.AppuserManager;
-import com.lxc.service.system.role.RoleManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.MD5;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 类名称：会员管理
@@ -39,8 +29,9 @@ import com.lxc.util.PageData;
 @Controller
 @RequestMapping(value="/happuser")
 public class AppuserController extends BaseController {
-	
-	String menuUrl = "happuser/listUsers.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "happuser/listUsers.do";
 	@Resource(name="appuserService")
 	private AppuserManager appuserService;
 	@Resource(name="roleService")
@@ -56,19 +47,23 @@ public class AppuserController extends BaseController {
 		PageData pd = new PageData();
 		try{
 			pd = this.getPageData();
-			String keywords = pd.getString("keywords");							//检索条件 关键词
+			//检索条件 关键词
+			String keywords = pd.getString("keywords");
 			if(null != keywords && !"".equals(keywords)){
 				pd.put("keywords", keywords.trim());
 			}
 			page.setPd(pd);
-			List<PageData>	userList = appuserService.listPdPageUser(page);		//列出会员列表
+			//列出会员列表
+			List<PageData>	userList = appuserService.listPdPageUser(page);
 			pd.put("ROLE_ID", "2");
-			List<Role> roleList = roleService.listAllRolesByPId(pd);			//列出会员组角色
+			//列出会员组角色
+			List<Role> roleList = roleService.listAllRolesByPId(pd);
 			mv.setViewName("system/appuser/appuser_list");
 			mv.addObject("userList", userList);
 			mv.addObject("roleList", roleList);
 			mv.addObject("pd", pd);
-			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+			//按钮权限
+			mv.addObject("QX",Jurisdiction.getHC());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
@@ -81,12 +76,14 @@ public class AppuserController extends BaseController {
 	 */
 	@RequestMapping(value="/goAddU")
 	public ModelAndView goAddU() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		pd.put("ROLE_ID", "2");
-		List<Role> roleList = roleService.listAllRolesByPId(pd);			//列出会员组角色
+		//列出会员组角色
+		List<Role> roleList = roleService.listAllRolesByPId(pd);
 		mv.setViewName("system/appuser/appuser_edit");
 		mv.addObject("msg", "saveU");
 		mv.addObject("pd", pd);
@@ -100,18 +97,23 @@ public class AppuserController extends BaseController {
 	 */
 	@RequestMapping(value="/saveU")
 	public ModelAndView saveU() throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		logBefore(logger, Jurisdiction.getUsername()+"新增会员");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("USER_ID", this.get32UUID());	//ID
-		pd.put("RIGHTS", "");					
-		pd.put("LAST_LOGIN", "");				//最后登录时间
-		pd.put("IP", "");						//IP
+		//ID
+		pd.put("USER_ID", this.get32UUID());
+		pd.put("RIGHTS", "");
+		//最后登录时间
+		pd.put("LAST_LOGIN", "");
+		//IP
+		pd.put("IP", "");
 		pd.put("PASSWORD", MD5.md5(pd.getString("PASSWORD")));
 		if(null == appuserService.findByUsername(pd)){
-			appuserService.saveU(pd);			//判断新增权限
+			//判断新增权限
+			appuserService.saveU(pd);
 			mv.addObject("msg","success");
 		}else{
 			mv.addObject("msg","failed");
@@ -137,7 +139,8 @@ public class AppuserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//返回结果
+		//返回结果
+		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);
 	}
 	
@@ -158,7 +161,8 @@ public class AppuserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//返回结果
+		//返回结果
+		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);
 	}
 	
@@ -179,7 +183,8 @@ public class AppuserController extends BaseController {
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
-		map.put("result", errInfo);				//返回结果
+		//返回结果
+		map.put("result", errInfo);
 		return AppUtil.returnObject(new PageData(), map);
 	}
 	
@@ -189,7 +194,8 @@ public class AppuserController extends BaseController {
 	 */
 	@RequestMapping(value="/deleteU")
 	public void deleteU(PrintWriter out) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;}
 		logBefore(logger, Jurisdiction.getUsername()+"删除会员");
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -205,8 +211,9 @@ public class AppuserController extends BaseController {
 	 */
 	@RequestMapping(value="/editU")
 	public ModelAndView editU(PrintWriter out) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
-		logBefore(logger, Jurisdiction.getUsername()+"修改会员");
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;}
+		logBefore(logger, Jurisdiction.getUsername() + "修改会员");
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -224,14 +231,17 @@ public class AppuserController extends BaseController {
 	 */
 	@RequestMapping(value="/goEditU")
 	public ModelAndView goEditU(){
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try {
 			pd.put("ROLE_ID", "2");
-			List<Role> roleList = roleService.listAllRolesByPId(pd);//列出会员组角色
-			pd = appuserService.findByUiId(pd);						//根据ID读取
+			//列出会员组角色
+			List<Role> roleList = roleService.listAllRolesByPId(pd);
+			//根据ID读取
+			pd = appuserService.findByUiId(pd);
 			mv.setViewName("system/appuser/appuser_edit");
 			mv.addObject("msg", "editU");
 			mv.addObject("pd", pd);
@@ -248,7 +258,8 @@ public class AppuserController extends BaseController {
 	@RequestMapping(value="/deleteAllU")
 	@ResponseBody
 	public Object deleteAllU() {
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){}
 		logBefore(logger, Jurisdiction.getUsername()+"批量删除会员");
 		PageData pd = new PageData();
 		Map<String,Object> map = new HashMap<String,Object>();

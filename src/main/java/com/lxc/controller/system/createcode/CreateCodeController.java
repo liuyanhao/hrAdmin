@@ -1,32 +1,18 @@
 package com.lxc.controller.system.createcode;
 
-import java.io.PrintWriter;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.system.createcode.CreateCodeManager;
+import com.lxc.util.*;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.service.system.createcode.CreateCodeManager;
-import com.lxc.util.AppUtil;
-import com.lxc.util.DateUtil;
-import com.lxc.util.DelAllFile;
-import com.lxc.util.FileDownload;
-import com.lxc.util.FileZip;
-import com.lxc.util.Freemarker;
-import com.lxc.util.Jurisdiction;
-import com.lxc.util.PageData;
-import com.lxc.util.PathUtil;
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
+import java.io.PrintWriter;
+import java.util.*;
 
 /** 
  * 类名称： 代码生成器
@@ -37,8 +23,9 @@ import com.lxc.util.PathUtil;
 @Controller
 @RequestMapping(value="/createCode")
 public class CreateCodeController extends BaseController {
-	
-	String menuUrl = "createcode/list.do"; //菜单地址(权限用)
+
+	//菜单地址(权限用)
+	String menuUrl = "createcode/list.do";
 	@Resource(name="createcodeService")
 	private CreateCodeManager createcodeService;
 	
@@ -48,21 +35,25 @@ public class CreateCodeController extends BaseController {
 	 */
 	@RequestMapping(value="/list")
 	public ModelAndView list(Page page) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){} 		//校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "cha")){}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		String keywords = pd.getString("keywords");	//检索条件
+		//检索条件
+		String keywords = pd.getString("keywords");
 		if(null != keywords && !"".equals(keywords)){
 			keywords = keywords.trim();
 			pd.put("keywords", keywords);
 		}
 		page.setPd(pd);
-		List<PageData>	varList = createcodeService.list(page);	//列出CreateCode列表
+		//列出CreateCode列表
+		List<PageData>	varList = createcodeService.list(page);
 		mv.setViewName("system/createcode/createcode_list");
 		mv.addObject("varList", varList);
 		mv.addObject("pd", pd);
-		mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+		//按钮权限
+		mv.addObject("QX",Jurisdiction.getHC());
 		return mv;
 	}
 	
@@ -84,7 +75,8 @@ public class CreateCodeController extends BaseController {
 		}else{
 			mv.addObject("msg", "add");
 		}
-		List<PageData> varList = createcodeService.listFa(); //列出所有主表结构的
+		//列出所有主表结构的
+		List<PageData> varList = createcodeService.listFa();
 		mv.addObject("varList", varList);
 		mv.setViewName("system/createcode/productCode");
 		return mv;
@@ -96,7 +88,8 @@ public class CreateCodeController extends BaseController {
 	 */
 	@RequestMapping(value="/proCode")
 	public void proCode(HttpServletResponse response) throws Exception{
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){} 		//校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){}
 		logBefore(logger, Jurisdiction.getUsername()+"执行代码生成器");
 		PageData pd = new PageData();
 		pd = this.getPageData();
