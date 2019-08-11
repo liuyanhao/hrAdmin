@@ -1,16 +1,9 @@
 package com.lxc.controller.weixin.imgmsg;
 
-import java.io.PrintWriter;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-
-import javax.annotation.Resource;
-
+import com.lxc.controller.base.BaseController;
+import com.lxc.entity.Page;
+import com.lxc.service.weixin.imgmsg.ImgmsgService;
+import com.lxc.util.*;
 import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -19,14 +12,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.lxc.controller.base.BaseController;
-import com.lxc.entity.Page;
-import com.lxc.util.AppUtil;
-import com.lxc.util.ObjectExcelView;
-import com.lxc.util.PageData;
-import com.lxc.util.Tools;
-import com.lxc.util.Jurisdiction;
-import com.lxc.service.weixin.imgmsg.ImgmsgService;
+import javax.annotation.Resource;
+import java.io.PrintWriter;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 /** 
  * 类名称：ImgmsgController
@@ -48,12 +38,15 @@ public class ImgmsgController extends BaseController {
 	@RequestMapping(value="/save")
 	public ModelAndView save() throws Exception{
 		logBefore(logger, "新增Imgmsg");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "add")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
-		pd.put("IMGMSG_ID", this.get32UUID());	//主键
-		pd.put("CREATETIME", Tools.date2Str(new Date()));	//创建时间
+		//主键
+		pd.put("IMGMSG_ID", this.get32UUID());
+		//创建时间
+		pd.put("CREATETIME", Tools.date2Str(new Date()));
 		imgmsgService.save(pd);
 		mv.addObject("msg","success");
 		mv.setViewName("save_result");
@@ -66,7 +59,8 @@ public class ImgmsgController extends BaseController {
 	@RequestMapping(value="/delete")
 	public void delete(PrintWriter out){
 		logBefore(logger, "删除Imgmsg");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "del")){return;}
 		PageData pd = new PageData();
 		try{
 			pd = this.getPageData();
@@ -86,7 +80,8 @@ public class ImgmsgController extends BaseController {
 	@RequestMapping(value="/edit")
 	public ModelAndView edit() throws Exception{
 		logBefore(logger, "修改Imgmsg");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "edit")){return null;}
 		ModelAndView mv = this.getModelAndView();
 		PageData pd = new PageData();
 		pd = this.getPageData();
@@ -112,11 +107,13 @@ public class ImgmsgController extends BaseController {
 				pd.put("KEYWORD", KEYWORD.trim());
 			}
 			page.setPd(pd);
-			List<PageData>	varList = imgmsgService.list(page);	//列出Imgmsg列表
+			//列出Imgmsg列表
+			List<PageData>	varList = imgmsgService.list(page);
 			mv.setViewName("weixin/imgmsg/imgmsg_list");
 			mv.addObject("varList", varList);
 			mv.addObject("pd", pd);
-			mv.addObject("QX",Jurisdiction.getHC());	//按钮权限
+			//按钮权限
+			mv.addObject("QX",Jurisdiction.getHC());
 		} catch(Exception e){
 			logger.error(e.toString(), e);
 		}
@@ -143,7 +140,7 @@ public class ImgmsgController extends BaseController {
 	}	
 	
 	/**去修改页面
-	 * @return
+	 * @return ModelAndView
 	 */
 	@RequestMapping(value="/goEdit")
 	public ModelAndView goEdit(){
@@ -152,7 +149,8 @@ public class ImgmsgController extends BaseController {
 		PageData pd = new PageData();
 		pd = this.getPageData();
 		try {
-			pd = imgmsgService.findById(pd);	//根据ID读取
+			//根据ID读取
+			pd = imgmsgService.findById(pd);
 			mv.setViewName("weixin/imgmsg/imgmsg_edit");
 			mv.addObject("msg", "edit");
 			mv.addObject("pd", pd);
@@ -163,13 +161,14 @@ public class ImgmsgController extends BaseController {
 	}	
 	
 	/**批量删除
-	 * @return
+	 * @return Object
 	 */
 	@RequestMapping(value="/deleteAll")
 	@ResponseBody
 	public Object deleteAll() {
 		logBefore(logger, "批量删除Imgmsg");
-		if(!Jurisdiction.buttonJurisdiction(menuUrl, "dell")){return null;} //校验权限
+		//校验权限
+		if(!Jurisdiction.buttonJurisdiction(menuUrl, "dell")){return null;}
 		PageData pd = new PageData();		
 		Map<String,Object> map = new HashMap<String,Object>();
 		try {

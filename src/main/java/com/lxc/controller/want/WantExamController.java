@@ -21,7 +21,8 @@ import java.util.List;
 @Controller
 @RequestMapping(value="/wantexam")
 public class WantExamController  extends BaseController {
-    String menuUrl = "wantexam/list.do"; //菜单地址(权限用)
+    //菜单地址(权限用)
+    String menuUrl = "wantexam/list.do";
     @Resource(name="issuejobService")
     private IssueJobManager issuejobService;
 

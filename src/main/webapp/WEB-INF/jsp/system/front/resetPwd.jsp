@@ -354,7 +354,7 @@ String path = request.getContextPath();
                             } else {
                                 $("#msg").tips({
                                     side: 3,
-                                    msg: '重置密码失败,请联系管理员（18101298728）!',
+                                    msg: '重置密码失败,请联系管理员（18911780490）!',
                                     bg: '#FF0000',
                                     time: 6
                                 });
